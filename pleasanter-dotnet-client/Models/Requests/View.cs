@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using pleasanter_dotnet_client.Models.Requests.Types;
+using pleasanter_dotnet_client.Resources;
 using pleasanter_dotnet_client.Validation;
 using System;
 using System.Collections.Generic;
@@ -62,28 +63,28 @@ public class View
     /// 取得する列名のフィルタ設定
     /// </summary>
     [JsonProperty("ColumnFilterHash")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnFilterHash のキーはプリザンターの有効な列名である必要があります。")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterHashKeyError))]
     public Dictionary<string, string>? ColumnFilterHash { get; set; }
 
     /// <summary>
     /// 列フィルタ検索タイプ
     /// </summary>
     [JsonProperty("ColumnFilterSearchTypes")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnFilterSearchTypes のキーはプリザンターの有効な列名である必要があります。")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterSearchTypesKeyError))]
     public Dictionary<string, ColumnFilterSearchType>? ColumnFilterSearchTypes { get; set; }
 
     /// <summary>
     /// 否定フィルタ対象の列名
     /// </summary>
     [JsonProperty("ColumnFilterNegatives")]
-    [RegexList(ColumnNamePattern, ErrorMessage = "ColumnFilterNegatives の値はプリザンターの有効な列名である必要があります。")]
+    [RegexList(ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterNegativesValueError))]
     public List<string>? ColumnFilterNegatives { get; set; }
 
     /// <summary>
     /// ソートする列名（キー: 列名、値: "asc" または "desc"）
     /// </summary>
     [JsonProperty("ColumnSorterHash")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnSorterHash のキーはプリザンターの有効な列名である必要があります。")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnSorterHashKeyError))]
     public Dictionary<string, SortOrderType>? ColumnSorterHash { get; set; }
 
     /// <summary>
@@ -108,14 +109,14 @@ public class View
     /// 項目単位のKey、Value表示形式設定（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
     [JsonProperty("ApiColumnHash")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ApiColumnHash のキーはプリザンターの有効な列名である必要があります。")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ApiColumnHashKeyError))]
     public Dictionary<string, ApiColumnSetting>? ApiColumnHash { get; set; }
 
     /// <summary>
     /// 返却される項目を制御する配列（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
     [JsonProperty("GridColumns")]
-    [RegexList(GridColumnNamePattern, ErrorMessage = "GridColumns の値はプリザンターの有効な列名である必要があります。")]
+    [RegexList(GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.GridColumnsValueError))]
     public List<string>? GridColumns { get; set; }
 
     /// <summary>

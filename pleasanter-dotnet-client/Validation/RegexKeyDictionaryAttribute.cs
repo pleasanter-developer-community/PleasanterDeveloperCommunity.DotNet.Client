@@ -72,7 +72,34 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
         }
         else
         {
-            return new ValidationResult($"Property {validationContext.DisplayName} is not a supported dictionary type.");
+            // Handle generic dictionary types via reflection
+            var valueType = value.GetType();
+            if (valueType.IsGenericType)
+            {
+                var genericTypeDef = valueType.GetGenericTypeDefinition();
+                if (genericTypeDef == typeof(Dictionary<,>) || genericTypeDef == typeof(IDictionary<,>))
+                {
+                    var keysProperty = valueType.GetProperty("Keys");
+                    if (keysProperty?.GetValue(value) is IEnumerable<string> keys)
+                    {
+                        foreach (var key in keys)
+                        {
+                            if (!_regex.IsMatch(key))
+                            {
+                                invalidKeys.Add(key);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return new ValidationResult($"Property {validationContext.DisplayName} is not a supported dictionary type.");
+                }
+            }
+            else
+            {
+                return new ValidationResult($"Property {validationContext.DisplayName} is not a supported dictionary type.");
+            }
         }
 
         if (invalidKeys.Count > 0)
@@ -81,11 +108,31 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
                 ? new[] { validationContext.MemberName }
                 : null;
 
-            return new ValidationResult(
-                ErrorMessage ?? $"The following keys do not match the pattern '{Pattern}': {string.Join(", ", invalidKeys)}",
-                memberNames);
+            var errorMessage = GetFormattedErrorMessage(validationContext.DisplayName, invalidKeys);
+
+            return new ValidationResult(errorMessage, memberNames);
         }
 
         return ValidationResult.Success;
+    }
+
+    /// <summary>
+    /// Gets the formatted error message, using resource if specified.
+    /// </summary>
+    private string GetFormattedErrorMessage(string displayName, List<string> invalidKeys)
+    {
+        // Try to use ErrorMessageResourceType and ErrorMessageResourceName if specified
+        if (ErrorMessageResourceType is not null && !string.IsNullOrEmpty(ErrorMessageResourceName))
+        {
+            var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName, 
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+            if (property?.GetValue(null) is string resourceMessage)
+            {
+                return resourceMessage;
+            }
+        }
+
+        // Fallback to ErrorMessage or default
+        return ErrorMessage ?? $"The following keys do not match the pattern '{Pattern}': {string.Join(", ", invalidKeys)}";
     }
 }

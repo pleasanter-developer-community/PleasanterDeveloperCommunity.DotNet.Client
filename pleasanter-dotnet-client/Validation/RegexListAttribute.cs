@@ -69,11 +69,31 @@ public class RegexListAttribute : ValidationAttribute
                 ? new[] { validationContext.MemberName }
                 : null;
 
-            return new ValidationResult(
-                ErrorMessage ?? $"The following items do not match the pattern '{Pattern}': {string.Join(", ", invalidItems)}",
-                memberNames);
+            var errorMessage = GetFormattedErrorMessage(validationContext.DisplayName, invalidItems);
+
+            return new ValidationResult(errorMessage, memberNames);
         }
 
         return ValidationResult.Success;
+    }
+
+    /// <summary>
+    /// 指定されたリソースを使用して、フォーマットされたエラーメッセージを取得します。
+    /// </summary>
+    private string GetFormattedErrorMessage(string displayName, List<string> invalidItems)
+    {
+        // ErrorMessageResourceType と ErrorMessageResourceName が指定されている場合は、それを使用しようとします
+        if (ErrorMessageResourceType is not null && !string.IsNullOrEmpty(ErrorMessageResourceName))
+        {
+            var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName,
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+            if (property?.GetValue(null) is string resourceMessage)
+            {
+                return resourceMessage;
+            }
+        }
+
+        // フォールバックとして ErrorMessage またはデフォルトに戻る
+        return ErrorMessage ?? $"The following items do not match the pattern '{Pattern}': {string.Join(", ", invalidItems)}";
     }
 }
