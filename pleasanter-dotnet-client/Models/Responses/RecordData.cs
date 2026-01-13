@@ -1,110 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Net;
 
-namespace pleasanter_dotnet_client.Models;
-
-/// <summary>
-/// APIレスポンスの基底クラス
-/// </summary>
-/// <typeparam name="T">レスポンスデータの型</typeparam>
-public class ApiResponse<T> where T : class
-{
-    /// <summary>
-    /// ステータスコード（200: 成功）
-    /// </summary>
-    [JsonProperty("StatusCode")]
-    public HttpStatusCode StatusCode { get; set; }
-
-    /// <summary>
-    /// レスポンスデータ
-    /// </summary>
-    [JsonProperty("Response")]
-    public T? Response { get; set; }
-
-    /// <summary>
-    /// メッセージ
-    /// </summary>
-    [JsonProperty("Message")]
-    public string? Message { get; set; }
-
-    /// <summary>
-    /// 成功かどうかを判定します
-    /// </summary>
-    public bool IsSuccess => StatusCode == HttpStatusCode.OK;
-}
-
-/// <summary>
-/// 単一レコード取得レスポンス
-/// </summary>
-public class GetRecordResponse
-{
-    /// <summary>
-    /// レコードデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public List<RecordData>? Data { get; set; }
-}
-
-/// <summary>
-/// 複数レコード取得レスポンス
-/// </summary>
-public class GetRecordsResponse
-{
-    /// <summary>
-    /// オフセット
-    /// </summary>
-    [JsonProperty("Offset")]
-    public int? Offset { get; set; }
-
-    /// <summary>
-    /// ページサイズ
-    /// </summary>
-    [JsonProperty("PageSize")]
-    public int? PageSize { get; set; }
-
-    /// <summary>
-    /// 合計レコード数
-    /// </summary>
-    [JsonProperty("TotalCount")]
-    public int? TotalCount { get; set; }
-
-    /// <summary>
-    /// レコードデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public List<RecordData>? Data { get; set; }
-
-    /// <summary>
-    /// 次のページが存在するかを判定します
-    /// </summary>
-    public bool HasNextPage => Offset.HasValue && PageSize.HasValue && TotalCount.HasValue
-        && (Offset.Value + PageSize.Value) < TotalCount.Value;
-}
-
-/// <summary>
-/// レコード作成・更新（Upsert）レスポンス
-/// </summary>
-public class UpsertRecordResponse
-{
-    /// <summary>
-    /// レコードID
-    /// </summary>
-    [JsonProperty("Id")]
-    public long Id { get; set; }
-
-    /// <summary>
-    /// 1日あたりのAPI呼び出し上限
-    /// </summary>
-    [JsonProperty("LimitPerDate")]
-    public int? LimitPerDate { get; set; }
-
-    /// <summary>
-    /// 残りのAPI呼び出し回数
-    /// </summary>
-    [JsonProperty("LimitRemaining")]
-    public int? LimitRemaining { get; set; }
-}
+namespace pleasanter_dotnet_client.Models.Responses;
 
 /// <summary>
 /// レコードデータ（API 1.1対応）
@@ -201,31 +98,31 @@ public class RecordData
     public string? CreatedTime { get; set; }
 
     /// <summary>
-    /// 分類項目（API 1.1: ClassA?ClassZ, Class001?Class999）
+    /// 分類項目（API 1.1: ClassA〜ClassZ, Class001〜Class999）
     /// </summary>
     [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
-    /// 数値項目（API 1.1: NumA?NumZ, Num001?Num999）
+    /// 数値項目（API 1.1: NumA〜NumZ, Num001〜Num999）
     /// </summary>
     [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
-    /// 日付項目（API 1.1: DateA?DateZ, Date001?Date999）
+    /// 日付項目（API 1.1: DateA〜DateZ, Date001〜Date999）
     /// </summary>
     [JsonProperty("DateHash")]
     public Dictionary<string, string>? DateHash { get; set; }
 
     /// <summary>
-    /// 説明項目（API 1.1: DescriptionA?DescriptionZ, Description001?Description999）
+    /// 説明項目（API 1.1: DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
     [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
-    /// チェック項目（API 1.1: CheckA?CheckZ, Check001?Check999）
+    /// チェック項目（API 1.1: CheckA〜CheckZ, Check001〜Check999）
     /// </summary>
     [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }

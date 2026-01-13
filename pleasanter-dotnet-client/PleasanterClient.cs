@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using pleasanter_dotnet_client.Models;
+using pleasanter_dotnet_client.Models.Requests;
+using pleasanter_dotnet_client.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net;
