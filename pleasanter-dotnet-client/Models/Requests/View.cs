@@ -18,6 +18,11 @@ public class View
     public const string ColumnNamePattern = @"^(Class|Num|Date|Description|Check)([A-Z]|[0-9]{3})$|^(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments)$";
 
     /// <summary>
+    /// GridColumns用の列名パターン（通常の列名パターン、またはClass系列名に親テーブル参照形式「Class列名~サイトID,列名」も許可。Class列名~サイトID,は連続指定可能）
+    /// </summary>
+    public const string GridColumnNamePattern = @"^((Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments))$|^Class([A-Z]|[0-9]{3})(~[0-9]+,Class([A-Z]|[0-9]{3}))*(~[0-9]+,((Class|Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments)))?$";
+
+    /// <summary>
     /// 未完了
     /// </summary>
     [JsonProperty("Incomplete")]
@@ -110,7 +115,7 @@ public class View
     /// 返却される項目を制御する配列（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
     [JsonProperty("GridColumns")]
-    [RegexList(ColumnNamePattern, ErrorMessage = "GridColumns の値はプリザンターの有効な列名である必要があります。")]
+    [RegexList(GridColumnNamePattern, ErrorMessage = "GridColumns の値はプリザンターの有効な列名である必要があります。")]
     public List<string>? GridColumns { get; set; }
 
     /// <summary>
