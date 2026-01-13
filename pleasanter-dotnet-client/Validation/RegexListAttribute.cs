@@ -9,34 +9,14 @@ namespace pleasanter_dotnet_client.Validation;
 /// リストの各要素に正規表現の制約をかける検証属性
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-public class RegexListAttribute : ValidationAttribute
+public class RegexListAttribute(string pattern, RegexOptions options = RegexOptions.None) : ValidationAttribute
 {
-    private readonly Regex _regex;
+    private readonly Regex _regex = new(pattern, options);
 
     /// <summary>
     /// 要素の検証に使用する正規表現パターン
     /// </summary>
-    public string Pattern { get; }
-
-    /// <summary>
-    /// コンストラクタ
-    /// </summary>
-    /// <param name="pattern">正規表現パターン</param>
-    public RegexListAttribute(string pattern)
-        : this(pattern, RegexOptions.None)
-    {
-    }
-
-    /// <summary>
-    /// コンストラクタ
-    /// </summary>
-    /// <param name="pattern">正規表現パターン</param>
-    /// <param name="options">正規表現オプション</param>
-    public RegexListAttribute(string pattern, RegexOptions options)
-    {
-        Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
-        _regex = new Regex(pattern, options);
-    }
+    public string Pattern { get; } = pattern ?? throw new ArgumentNullException(nameof(pattern));
 
     /// <summary>
     /// 検証を行います
@@ -69,7 +49,7 @@ public class RegexListAttribute : ValidationAttribute
                 ? new[] { validationContext.MemberName }
                 : null;
 
-            var errorMessage = GetFormattedErrorMessage(validationContext.DisplayName, invalidItems);
+            var errorMessage = GetFormattedErrorMessage(invalidItems);
 
             return new ValidationResult(errorMessage, memberNames);
         }
@@ -80,7 +60,7 @@ public class RegexListAttribute : ValidationAttribute
     /// <summary>
     /// 指定されたリソースを使用して、フォーマットされたエラーメッセージを取得します。
     /// </summary>
-    private string GetFormattedErrorMessage(string displayName, List<string> invalidItems)
+    private string GetFormattedErrorMessage(List<string> invalidItems)
     {
         // ErrorMessageResourceType と ErrorMessageResourceName が指定されている場合は、それを使用しようとします
         if (ErrorMessageResourceType is not null && !string.IsNullOrEmpty(ErrorMessageResourceName))

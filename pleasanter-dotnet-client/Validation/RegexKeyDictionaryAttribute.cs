@@ -8,15 +8,20 @@ namespace pleasanter_dotnet_client.Validation;
 /// <summary>
 /// Dictionary のキーに正規表現の制約を加える検証属性
 /// </summary>
+/// <remarks>
+/// コンストラクタ
+/// </remarks>
+/// <param name="pattern">正規表現パターン</param>
+/// <param name="options">正規表現オプション</param>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-public class RegexKeyDictionaryAttribute : ValidationAttribute
+public class RegexKeyDictionaryAttribute(string pattern, RegexOptions options) : ValidationAttribute
 {
-    private readonly Regex _regex;
+    private readonly Regex _regex = new(pattern, options);
 
     /// <summary>
     /// キーの検証に使用する正規表現パターン
     /// </summary>
-    public string Pattern { get; }
+    public string Pattern { get; } = pattern ?? throw new ArgumentNullException(nameof(pattern));
 
     /// <summary>
     /// コンストラクタ
@@ -25,17 +30,6 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
     public RegexKeyDictionaryAttribute(string pattern)
         : this(pattern, RegexOptions.None)
     {
-    }
-
-    /// <summary>
-    /// コンストラクタ
-    /// </summary>
-    /// <param name="pattern">正規表現パターン</param>
-    /// <param name="options">正規表現オプション</param>
-    public RegexKeyDictionaryAttribute(string pattern, RegexOptions options)
-    {
-        Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
-        _regex = new Regex(pattern, options);
     }
 
     /// <summary>
@@ -108,7 +102,7 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
                 ? new[] { validationContext.MemberName }
                 : null;
 
-            var errorMessage = GetFormattedErrorMessage(validationContext.DisplayName, invalidKeys);
+            var errorMessage = GetFormattedErrorMessage(invalidKeys);
 
             return new ValidationResult(errorMessage, memberNames);
         }
@@ -119,12 +113,12 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
     /// <summary>
     /// Gets the formatted error message, using resource if specified.
     /// </summary>
-    private string GetFormattedErrorMessage(string displayName, List<string> invalidKeys)
+    private string GetFormattedErrorMessage(List<string> invalidKeys)
     {
         // Try to use ErrorMessageResourceType and ErrorMessageResourceName if specified
         if (ErrorMessageResourceType is not null && !string.IsNullOrEmpty(ErrorMessageResourceName))
         {
-            var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName, 
+            var property = ErrorMessageResourceType.GetProperty(ErrorMessageResourceName,
                 System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
             if (property?.GetValue(null) is string resourceMessage)
             {
