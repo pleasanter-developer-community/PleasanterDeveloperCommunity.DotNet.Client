@@ -11,23 +11,31 @@ namespace pleasanter_dotnet_client.Validation;
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
 public class RegexListAttribute : ValidationAttribute
 {
+    private readonly Regex _regex;
+
     /// <summary>
     /// 要素の検証に使用する正規表現パターン
     /// </summary>
     public string Pattern { get; }
 
     /// <summary>
-    /// 正規表現オプション
+    /// コンストラクタ
     /// </summary>
-    public RegexOptions RegexOptions { get; set; } = RegexOptions.None;
+    /// <param name="pattern">正規表現パターン</param>
+    public RegexListAttribute(string pattern)
+        : this(pattern, RegexOptions.None)
+    {
+    }
 
     /// <summary>
     /// コンストラクタ
     /// </summary>
     /// <param name="pattern">正規表現パターン</param>
-    public RegexListAttribute(string pattern)
+    /// <param name="options">正規表現オプション</param>
+    public RegexListAttribute(string pattern, RegexOptions options)
     {
         Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
+        _regex = new Regex(pattern, options);
     }
 
     /// <summary>
@@ -45,12 +53,11 @@ public class RegexListAttribute : ValidationAttribute
             return new ValidationResult($"Property {validationContext.DisplayName} is not a supported list type.");
         }
 
-        var regex = new Regex(Pattern, RegexOptions);
         var invalidItems = new List<string>();
 
         foreach (var item in list)
         {
-            if (item is not null && !regex.IsMatch(item))
+            if (item is not null && !_regex.IsMatch(item))
             {
                 invalidItems.Add(item);
             }
