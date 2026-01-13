@@ -78,7 +78,7 @@ public class View
     /// </summary>
     [JsonProperty("ColumnSorterHash")]
     [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnSorterHash のキーはプリザンターの有効な列名である必要があります。")]
-    public Dictionary<string, string>? ColumnSorterHash { get; set; }
+    public Dictionary<string, SortOrder>? ColumnSorterHash { get; set; }
 
     /// <summary>
     /// APIデータタイプ
@@ -133,7 +133,7 @@ public class View
     /// <returns>検証済みのViewインスタンス</returns>
     public static View CreateWithValidation(
         Dictionary<string, string>? columnFilterHash = null,
-        Dictionary<string, string>? columnSorterHash = null,
+        Dictionary<string, SortOrder>? columnSorterHash = null,
         string? customPattern = null)
     {
         var view = new View
