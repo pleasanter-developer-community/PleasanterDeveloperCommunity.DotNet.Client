@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net;
 
 namespace pleasanter_dotnet_client.Models;
 
@@ -13,7 +14,7 @@ public class ApiResponse<T> where T : class
     /// ステータスコード（200: 成功）
     /// </summary>
     [JsonProperty("StatusCode")]
-    public int StatusCode { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
 
     /// <summary>
     /// レスポンスデータ
@@ -30,7 +31,7 @@ public class ApiResponse<T> where T : class
     /// <summary>
     /// 成功かどうかを判定します
     /// </summary>
-    public bool IsSuccess => StatusCode == 200;
+    public bool IsSuccess => StatusCode == HttpStatusCode.OK;
 }
 
 /// <summary>

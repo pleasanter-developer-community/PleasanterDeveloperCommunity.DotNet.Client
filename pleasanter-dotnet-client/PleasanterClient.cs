@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Serialization;
 using pleasanter_dotnet_client.Models;
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -88,6 +90,50 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// ページングを自動的に処理し、全レコードを取得します
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="view">ビュー設定（フィルタや並び替えなど）</param>
+    /// <returns>全レコードを含むAPIレスポンス</returns>
+    public async Task<ApiResponse<GetRecordsResponse>> GetAllRecordsAsync(long siteId, View? view = null)
+    {
+        var allRecords = new List<RecordData>();
+        int offset = 0;
+        int? totalCount = null;
+
+        while (true)
+        {
+            var response = await GetRecordsAsync(siteId, offset, view);
+
+            if (response.StatusCode != HttpStatusCode.OK || response.Response?.Data == null)
+            {
+                return response;
+            }
+
+            allRecords.AddRange(response.Response.Data);
+            totalCount = response.Response.TotalCount;
+
+            if (!response.Response.HasNextPage)
+            {
+                return new ApiResponse<GetRecordsResponse>
+                {
+                    StatusCode = response.StatusCode,
+                    Message = response.Message,
+                    Response = new GetRecordsResponse
+                    {
+                        Offset = 0,
+                        PageSize = allRecords.Count,
+                        TotalCount = totalCount,
+                        Data = allRecords
+                    }
+                };
+            }
+
+            offset = (response.Response.Offset ?? 0) + (response.Response.PageSize ?? 0);
+        }
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     private async Task<ApiResponse<T>> PostAsync<T>(string url, object request) where T : class
@@ -100,7 +146,7 @@ public class PleasanterClient : IDisposable
         using var response = await _httpClient.PostAsJsonAsync(url, request);
         var result = await response.Content.ReadAsAsync<ApiResponse<T>>(formatters: new[] { formatter });
 
-        return result ?? new ApiResponse<T> { StatusCode = (int)response.StatusCode };
+        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
     }
 
     /// <summary>
