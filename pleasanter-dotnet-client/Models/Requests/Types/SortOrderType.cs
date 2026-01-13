@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace pleasanter_dotnet_client.Models.Requests.Types;
 
 /// <summary>
-/// ソート順
+/// ソート順タイプ
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter))]
-public enum SortOrder
+public enum SortOrderType
 {
     /// <summary>
     /// 昇順

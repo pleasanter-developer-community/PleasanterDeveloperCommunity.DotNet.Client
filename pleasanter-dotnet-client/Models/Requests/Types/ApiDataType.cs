@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace pleasanter_dotnet_client.Models.Requests.Types;
 
 /// <summary>
 /// APIデータタイプ

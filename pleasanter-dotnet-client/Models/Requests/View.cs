@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using pleasanter_dotnet_client.Models.Requests.Types;
 using pleasanter_dotnet_client.Validation;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ public class View
     /// </summary>
     [JsonProperty("ColumnSorterHash")]
     [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnSorterHash のキーはプリザンターの有効な列名である必要があります。")]
-    public Dictionary<string, SortOrder>? ColumnSorterHash { get; set; }
+    public Dictionary<string, SortOrderType>? ColumnSorterHash { get; set; }
 
     /// <summary>
     /// APIデータタイプ
@@ -133,7 +134,7 @@ public class View
     /// <returns>検証済みのViewインスタンス</returns>
     public static View CreateWithValidation(
         Dictionary<string, string>? columnFilterHash = null,
-        Dictionary<string, SortOrder>? columnSorterHash = null,
+        Dictionary<string, SortOrderType>? columnSorterHash = null,
         string? customPattern = null)
     {
         var view = new View
