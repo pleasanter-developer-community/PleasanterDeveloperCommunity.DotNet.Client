@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using pleasanter_dotnet_client.Models;
 using System;
 using System.Collections.Generic;
@@ -131,6 +130,86 @@ public class PleasanterClient : IDisposable
 
             offset = (response.Response.Offset ?? 0) + (response.Response.PageSize ?? 0);
         }
+    }
+
+    /// <summary>
+    /// レコードを作成または更新します（Upsert）
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="keys">キーとなる項目名の配列</param>
+    /// <param name="title">タイトル</param>
+    /// <param name="body">内容</param>
+    /// <param name="status">状況</param>
+    /// <param name="manager">管理者</param>
+    /// <param name="owner">担当者</param>
+    /// <param name="completionTime">完了日時</param>
+    /// <param name="classHash">分類項目</param>
+    /// <param name="numHash">数値項目</param>
+    /// <param name="dateHash">日付項目</param>
+    /// <param name="descriptionHash">説明項目</param>
+    /// <param name="checkHash">チェック項目</param>
+    /// <param name="processId">プロセスID</param>
+    /// <param name="processIds">複数のプロセスID</param>
+    /// <param name="imageHash">画像挿入設定</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(
+        long siteId,
+        List<string> keys,
+        string? title = null,
+        string? body = null,
+        int? status = null,
+        int? manager = null,
+        int? owner = null,
+        string? completionTime = null,
+        Dictionary<string, string>? classHash = null,
+        Dictionary<string, decimal>? numHash = null,
+        Dictionary<string, string>? dateHash = null,
+        Dictionary<string, string>? descriptionHash = null,
+        Dictionary<string, bool>? checkHash = null,
+        int? processId = null,
+        List<int>? processIds = null,
+        Dictionary<string, ImageSettings>? imageHash = null)
+    {
+        var request = new UpsertRecordRequest
+        {
+            ApiKey = _apiKey,
+            Keys = keys,
+            Title = title,
+            Body = body,
+            Status = status,
+            Manager = manager,
+            Owner = owner,
+            CompletionTime = completionTime,
+            ClassHash = classHash,
+            NumHash = numHash,
+            DateHash = dateHash,
+            DescriptionHash = descriptionHash,
+            CheckHash = checkHash,
+            ProcessId = processId,
+            ProcessIds = processIds,
+            ImageHash = imageHash
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/upsert";
+        return await PostAsync<UpsertRecordResponse>(url, request);
+    }
+
+    /// <summary>
+    /// レコードを作成または更新します（Upsert）- リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">Upsertリクエスト</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(long siteId, UpsertRecordRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/upsert";
+        return await PostAsync<UpsertRecordResponse>(url, request);
     }
 
     /// <summary>
