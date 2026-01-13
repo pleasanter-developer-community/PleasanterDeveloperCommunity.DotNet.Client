@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/ソリューション項目/">
+    <File Path=".gitignore" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="pleasanter-dotnet-client/pleasanter-dotnet-client.csproj" />
+</Solution>
