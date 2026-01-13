@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+ï»¿using Newtonsoft.Json;
 using pleasanter_dotnet_client.Validation;
 using System;
 using System.Collections.Generic;
@@ -7,223 +7,223 @@ using System.ComponentModel.DataAnnotations;
 namespace pleasanter_dotnet_client.Models;
 
 /// <summary>
-/// APIƒŠƒNƒGƒXƒg‚ÌŠî’êƒNƒ‰ƒX
+/// APIãƒªã‚¯ã‚¨ã‚¹ãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class ApiRequest
 {
     /// <summary>
-    /// APIƒo[ƒWƒ‡ƒ“i1.1ŒÅ’èj
+    /// APIãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼ˆ1.1å›ºå®šï¼‰
     /// </summary>
     [JsonProperty("ApiVersion")]
     public string ApiVersion { get; } = "1.1";
 
     /// <summary>
-    /// APIƒL[
+    /// APIã‚­ãƒ¼
     /// </summary>
     [JsonProperty("ApiKey")]
     public string? ApiKey { get; set; }
 }
 
 /// <summary>
-/// ƒŒƒR[ƒhæ“¾ƒŠƒNƒGƒXƒg
+/// ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 /// </summary>
 public class GetRecordRequest : ApiRequest
 {
     /// <summary>
-    /// ƒrƒ…[İ’èiƒtƒBƒ‹ƒ^‚â•À‚Ñ‘Ö‚¦‚È‚Çj
+    /// ãƒ“ãƒ¥ãƒ¼è¨­å®šï¼ˆãƒ•ã‚£ãƒ«ã‚¿ã‚„ä¸¦ã³æ›¿ãˆãªã©ï¼‰
     /// </summary>
     [JsonProperty("View")]
     public View? View { get; set; }
 }
 
 /// <summary>
-/// •¡”ƒŒƒR[ƒhæ“¾ƒŠƒNƒGƒXƒg
+/// è¤‡æ•°ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 /// </summary>
 public class GetRecordsRequest : ApiRequest
 {
     /// <summary>
-    /// ƒIƒtƒZƒbƒgiæ“¾ŠJnˆÊ’uj
+    /// ã‚ªãƒ•ã‚»ãƒƒãƒˆï¼ˆå–å¾—é–‹å§‹ä½ç½®ï¼‰
     /// </summary>
     [JsonProperty("Offset")]
     public int? Offset { get; set; }
 
     /// <summary>
-    /// ƒrƒ…[İ’èiƒtƒBƒ‹ƒ^‚â•À‚Ñ‘Ö‚¦‚È‚Çj
+    /// ãƒ“ãƒ¥ãƒ¼è¨­å®šï¼ˆãƒ•ã‚£ãƒ«ã‚¿ã‚„ä¸¦ã³æ›¿ãˆãªã©ï¼‰
     /// </summary>
     [JsonProperty("View")]
     public View? View { get; set; }
 }
 
 /// <summary>
-/// ƒŒƒR[ƒhì¬EXViUpsertjƒŠƒNƒGƒXƒg
+/// ãƒ¬ã‚³ãƒ¼ãƒ‰ä½œæˆãƒ»æ›´æ–°ï¼ˆUpsertï¼‰ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 /// </summary>
 public class UpsertRecordRequest : ApiRequest
 {
     /// <summary>
-    /// ƒL[‚Æ‚È‚é€–Ú–¼‚Ì”z—ñ
+    /// ã‚­ãƒ¼ã¨ãªã‚‹é …ç›®åã®é…åˆ—
     /// </summary>
     [JsonProperty("Keys")]
-    [RegexList(View.ColumnNamePattern, ErrorMessage = "Keys ‚Ì—v‘f‚ÍƒvƒŠƒUƒ“ƒ^[‚Ì—LŒø‚È—ñ–¼‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B")]
+    [RegexList(View.ColumnNamePattern, ErrorMessage = "Keys ã®è¦ç´ ã¯ãƒ—ãƒªã‚¶ãƒ³ã‚¿ãƒ¼ã®æœ‰åŠ¹ãªåˆ—åã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚")]
     public List<string>? Keys { get; set; }
 
     /// <summary>
-    /// ƒ^ƒCƒgƒ‹
+    /// ã‚¿ã‚¤ãƒˆãƒ«
     /// </summary>
     [JsonProperty("Title")]
     public string? Title { get; set; }
 
     /// <summary>
-    /// “à—e
+    /// å†…å®¹
     /// </summary>
     [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
-    /// ó‹µ
+    /// çŠ¶æ³
     /// </summary>
     [JsonProperty("Status")]
     public int? Status { get; set; }
 
     /// <summary>
-    /// ŠÇ—Ò
+    /// ç®¡ç†è€…
     /// </summary>
     [JsonProperty("Manager")]
     public int? Manager { get; set; }
 
     /// <summary>
-    /// ’S“–Ò
+    /// æ‹…å½“è€…
     /// </summary>
     [JsonProperty("Owner")]
     public int? Owner { get; set; }
 
     /// <summary>
-    /// Š®—¹“ú
+    /// å®Œäº†æ—¥æ™‚
     /// </summary>
     [JsonProperty("CompletionTime")]
     public string? CompletionTime { get; set; }
 
     /// <summary>
-    /// ƒvƒƒZƒXID
+    /// ãƒ—ãƒ­ã‚»ã‚¹ID
     /// </summary>
     [JsonProperty("ProcessId")]
     public int? ProcessId { get; set; }
 
     /// <summary>
-    /// •¡”‚ÌƒvƒƒZƒXID
+    /// è¤‡æ•°ã®ãƒ—ãƒ­ã‚»ã‚¹ID
     /// </summary>
     [JsonProperty("ProcessIds")]
     public List<int>? ProcessIds { get; set; }
 
     /// <summary>
-    /// •ª—Ş€–ÚiClassA?ClassZ, Class001?Class999j
+    /// åˆ†é¡é …ç›®ï¼ˆClassA?ClassZ, Class001?Class999ï¼‰
     /// </summary>
     [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
-    /// ”’l€–ÚiNumA?NumZ, Num001?Num999j
+    /// æ•°å€¤é …ç›®ï¼ˆNumA?NumZ, Num001?Num999ï¼‰
     /// </summary>
     [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
-    /// “ú•t€–ÚiDateA?DateZ, Date001?Date999j
+    /// æ—¥ä»˜é …ç›®ï¼ˆDateA?DateZ, Date001?Date999ï¼‰
     /// </summary>
     [JsonProperty("DateHash")]
     public Dictionary<string, string>? DateHash { get; set; }
 
     /// <summary>
-    /// à–¾€–ÚiDescriptionA?DescriptionZ, Description001?Description999j
+    /// èª¬æ˜é …ç›®ï¼ˆDescriptionA?DescriptionZ, Description001?Description999ï¼‰
     /// </summary>
     [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
-    /// ƒ`ƒFƒbƒN€–ÚiCheckA?CheckZ, Check001?Check999j
+    /// ãƒã‚§ãƒƒã‚¯é …ç›®ï¼ˆCheckA?CheckZ, Check001?Check999ï¼‰
     /// </summary>
     [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>
-    /// ‰æ‘œ‘}“üİ’è
+    /// ç”»åƒæŒ¿å…¥è¨­å®š
     /// </summary>
     [JsonProperty("ImageHash")]
     public Dictionary<string, ImageSettings>? ImageHash { get; set; }
 }
 
 /// <summary>
-/// ‰æ‘œ‘}“üİ’è
+/// ç”»åƒæŒ¿å…¥è¨­å®š
 /// </summary>
 public class ImageSettings
 {
     /// <summary>
-    /// æ“ª‚É‰üs‚ğ‘}“ü‚·‚é‚©
+    /// å…ˆé ­ã«æ”¹è¡Œã‚’æŒ¿å…¥ã™ã‚‹ã‹
     /// </summary>
     [JsonProperty("HeadNewLine")]
     public bool? HeadNewLine { get; set; }
 
     /// <summary>
-    /// ––”ö‚É‰üs‚ğ‘}“ü‚·‚é‚©
+    /// æœ«å°¾ã«æ”¹è¡Œã‚’æŒ¿å…¥ã™ã‚‹ã‹
     /// </summary>
     [JsonProperty("EndNewLine")]
     public bool? EndNewLine { get; set; }
 
     /// <summary>
-    /// ‰æ‘œ‚ğ‘}“ü‚·‚éˆÊ’ui-1‚Ü‚½‚ÍÈ—ª‚Å––”öj
+    /// ç”»åƒã‚’æŒ¿å…¥ã™ã‚‹ä½ç½®ï¼ˆ-1ã¾ãŸã¯çœç•¥ã§æœ«å°¾ï¼‰
     /// </summary>
     [JsonProperty("Position")]
     public int? Position { get; set; }
 
     /// <summary>
-    /// alt‘®«‚Éİ’è‚·‚é•¶š—ñ
+    /// altå±æ€§ã«è¨­å®šã™ã‚‹æ–‡å­—åˆ—
     /// </summary>
     [JsonProperty("Alt")]
     public string? Alt { get; set; }
 
     /// <summary>
-    /// ƒtƒ@ƒCƒ‹Šg’£qi—á: .png, .jpegj
+    /// ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ï¼ˆä¾‹: .png, .jpegï¼‰
     /// </summary>
     [JsonProperty("Extension")]
     public string? Extension { get; set; }
 
     /// <summary>
-    /// Base64ƒGƒ“ƒR[ƒh‚µ‚½‰æ‘œƒf[ƒ^
+    /// Base64ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã—ãŸç”»åƒãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 }
 
 /// <summary>
-/// ƒrƒ…[İ’è
+/// ãƒ“ãƒ¥ãƒ¼è¨­å®š
 /// </summary>
 public class View
 {
     /// <summary>
-    /// ƒvƒŠƒUƒ“ƒ^[‚Ì—ñ–¼ƒpƒ^[ƒ“iClass[A-Z], Class[001-999], Num[A-Z], Num[001-999], Date[A-Z], Date[001-999], Description[A-Z], Description[001-999], Check[A-Z], Check[001-999], Title, Body, Status ‚È‚Çj
+    /// ãƒ—ãƒªã‚¶ãƒ³ã‚¿ãƒ¼ã®åˆ—åãƒ‘ã‚¿ãƒ¼ãƒ³ï¼ˆClass[A-Z], Class[001-999], Num[A-Z], Num[001-999], Date[A-Z], Date[001-999], Description[A-Z], Description[001-999], Check[A-Z], Check[001-999], Title, Body, Status ãªã©ï¼‰
     /// </summary>
     public const string ColumnNamePattern = @"^(Class|Num|Date|Description|Check)([A-Z]|[0-9]{3})$|^(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments)$";
 
     /// <summary>
-    /// æ“¾‚·‚é—ñ–¼‚ÌƒtƒBƒ‹ƒ^İ’è
+    /// å–å¾—ã™ã‚‹åˆ—åã®ãƒ•ã‚£ãƒ«ã‚¿è¨­å®š
     /// </summary>
     [JsonProperty("ColumnFilterHash")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnFilterHash ‚ÌƒL[‚ÍƒvƒŠƒUƒ“ƒ^[‚Ì—LŒø‚È—ñ–¼‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnFilterHash ã®ã‚­ãƒ¼ã¯ãƒ—ãƒªã‚¶ãƒ³ã‚¿ãƒ¼ã®æœ‰åŠ¹ãªåˆ—åã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚")]
     public Dictionary<string, string>? ColumnFilterHash { get; set; }
 
     /// <summary>
-    /// ƒ\[ƒg‚·‚é—ñ–¼iƒL[: —ñ–¼A’l: "asc" ‚Ü‚½‚Í "desc"j
+    /// ã‚½ãƒ¼ãƒˆã™ã‚‹åˆ—åï¼ˆã‚­ãƒ¼: åˆ—åã€å€¤: "asc" ã¾ãŸã¯ "desc"ï¼‰
     /// </summary>
     [JsonProperty("ColumnSorterHash")]
-    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnSorterHash ‚ÌƒL[‚ÍƒvƒŠƒUƒ“ƒ^[‚Ì—LŒø‚È—ñ–¼‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·B")]
+    [RegexKeyDictionary(ColumnNamePattern, ErrorMessage = "ColumnSorterHash ã®ã‚­ãƒ¼ã¯ãƒ—ãƒªã‚¶ãƒ³ã‚¿ãƒ¼ã®æœ‰åŠ¹ãªåˆ—åã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚")]
     public Dictionary<string, string>? ColumnSorterHash { get; set; }
 
     /// <summary>
-    /// ƒJƒXƒ^ƒ€—ñ–¼ƒpƒ^[ƒ“‚ÅView‚ğì¬‚µ‚Ü‚·
+    /// ã‚«ã‚¹ã‚¿ãƒ åˆ—åãƒ‘ã‚¿ãƒ¼ãƒ³ã§Viewã‚’ä½œæˆã—ã¾ã™
     /// </summary>
-    /// <param name="columnFilterHash">ƒtƒBƒ‹ƒ^İ’è</param>
-    /// <param name="columnSorterHash">ƒ\[ƒgİ’è</param>
-    /// <param name="customPattern">ƒJƒXƒ^ƒ€³‹K•\Œ»ƒpƒ^[ƒ“inull‚Ìê‡‚ÍŒŸØ‚È‚µj</param>
-    /// <returns>ŒŸØÏ‚İ‚ÌViewƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+    /// <param name="columnFilterHash">ãƒ•ã‚£ãƒ«ã‚¿è¨­å®š</param>
+    /// <param name="columnSorterHash">ã‚½ãƒ¼ãƒˆè¨­å®š</param>
+    /// <param name="customPattern">ã‚«ã‚¹ã‚¿ãƒ æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³ï¼ˆnullã®å ´åˆã¯æ¤œè¨¼ãªã—ï¼‰</param>
+    /// <returns>æ¤œè¨¼æ¸ˆã¿ã®Viewã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
     public static View CreateWithValidation(
         Dictionary<string, string>? columnFilterHash = null,
         Dictionary<string, string>? columnSorterHash = null,

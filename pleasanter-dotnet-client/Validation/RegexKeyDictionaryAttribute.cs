@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace pleasanter_dotnet_client.Validation;
 
 /// <summary>
-/// Dictionary ‚ÌƒL[‚É³‹K•\Œ»‚Ì§–ñ‚ğ‰Á‚¦‚éŒŸØ‘®«
+/// Dictionary ã®ã‚­ãƒ¼ã«æ­£è¦è¡¨ç¾ã®åˆ¶ç´„ã‚’åŠ ãˆã‚‹æ¤œè¨¼å±æ€§
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
 public class RegexKeyDictionaryAttribute : ValidationAttribute
@@ -14,24 +14,24 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
     private readonly Regex _regex;
 
     /// <summary>
-    /// ƒL[‚ÌŒŸØ‚Ég—p‚·‚é³‹K•\Œ»ƒpƒ^[ƒ“
+    /// ã‚­ãƒ¼ã®æ¤œè¨¼ã«ä½¿ç”¨ã™ã‚‹æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³
     /// </summary>
     public string Pattern { get; }
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="pattern">³‹K•\Œ»ƒpƒ^[ƒ“</param>
+    /// <param name="pattern">æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³</param>
     public RegexKeyDictionaryAttribute(string pattern)
         : this(pattern, RegexOptions.None)
     {
     }
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="pattern">³‹K•\Œ»ƒpƒ^[ƒ“</param>
-    /// <param name="options">³‹K•\Œ»ƒIƒvƒVƒ‡ƒ“</param>
+    /// <param name="pattern">æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³</param>
+    /// <param name="options">æ­£è¦è¡¨ç¾ã‚ªãƒ—ã‚·ãƒ§ãƒ³</param>
     public RegexKeyDictionaryAttribute(string pattern, RegexOptions options)
     {
         Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
@@ -39,7 +39,7 @@ public class RegexKeyDictionaryAttribute : ValidationAttribute
     }
 
     /// <summary>
-    /// ŒŸØ‚ğÀs‚µ‚Ü‚·
+    /// æ¤œè¨¼ã‚’å®Ÿè¡Œã—ã¾ã™
     /// </summary>
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {

@@ -1,240 +1,240 @@
-using Newtonsoft.Json;
+ï»¿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 
 namespace pleasanter_dotnet_client.Models;
 
 /// <summary>
-/// APIƒŒƒXƒ|ƒ“ƒX‚ÌŠî’êƒNƒ‰ƒX
+/// APIãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 /// </summary>
-/// <typeparam name="T">ƒŒƒXƒ|ƒ“ƒXƒf[ƒ^‚ÌŒ^</typeparam>
+/// <typeparam name="T">ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿ã®å‹</typeparam>
 public class ApiResponse<T> where T : class
 {
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒR[ƒhi200: ¬Œ÷j
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ¼ãƒ‰ï¼ˆ200: æˆåŠŸï¼‰
     /// </summary>
     [JsonProperty("StatusCode")]
     public HttpStatusCode StatusCode { get; set; }
 
     /// <summary>
-    /// ƒŒƒXƒ|ƒ“ƒXƒf[ƒ^
+    /// ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [JsonProperty("Response")]
     public T? Response { get; set; }
 
     /// <summary>
-    /// ƒƒbƒZ[ƒW
+    /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
     /// </summary>
     [JsonProperty("Message")]
     public string? Message { get; set; }
 
     /// <summary>
-    /// ¬Œ÷‚©‚Ç‚¤‚©‚ğ”»’è‚µ‚Ü‚·
+    /// æˆåŠŸã‹ã©ã†ã‹ã‚’åˆ¤å®šã—ã¾ã™
     /// </summary>
     public bool IsSuccess => StatusCode == HttpStatusCode.OK;
 }
 
 /// <summary>
-/// ’PˆêƒŒƒR[ƒhæ“¾ƒŒƒXƒ|ƒ“ƒX
+/// å˜ä¸€ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—ãƒ¬ã‚¹ãƒãƒ³ã‚¹
 /// </summary>
 public class GetRecordResponse
 {
     /// <summary>
-    /// ƒŒƒR[ƒhƒf[ƒ^
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [JsonProperty("Data")]
     public List<RecordData>? Data { get; set; }
 }
 
 /// <summary>
-/// •¡”ƒŒƒR[ƒhæ“¾ƒŒƒXƒ|ƒ“ƒX
+/// è¤‡æ•°ãƒ¬ã‚³ãƒ¼ãƒ‰å–å¾—ãƒ¬ã‚¹ãƒãƒ³ã‚¹
 /// </summary>
 public class GetRecordsResponse
 {
     /// <summary>
-    /// ƒIƒtƒZƒbƒg
+    /// ã‚ªãƒ•ã‚»ãƒƒãƒˆ
     /// </summary>
     [JsonProperty("Offset")]
     public int? Offset { get; set; }
 
     /// <summary>
-    /// ƒy[ƒWƒTƒCƒY
+    /// ãƒšãƒ¼ã‚¸ã‚µã‚¤ã‚º
     /// </summary>
     [JsonProperty("PageSize")]
     public int? PageSize { get; set; }
 
     /// <summary>
-    /// ‡ŒvƒŒƒR[ƒh”
+    /// åˆè¨ˆãƒ¬ã‚³ãƒ¼ãƒ‰æ•°
     /// </summary>
     [JsonProperty("TotalCount")]
     public int? TotalCount { get; set; }
 
     /// <summary>
-    /// ƒŒƒR[ƒhƒf[ƒ^
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿
     /// </summary>
     [JsonProperty("Data")]
     public List<RecordData>? Data { get; set; }
 
     /// <summary>
-    /// Ÿ‚Ìƒy[ƒW‚ª‘¶İ‚·‚é‚©‚ğ”»’è‚µ‚Ü‚·
+    /// æ¬¡ã®ãƒšãƒ¼ã‚¸ãŒå­˜åœ¨ã™ã‚‹ã‹ã‚’åˆ¤å®šã—ã¾ã™
     /// </summary>
     public bool HasNextPage => Offset.HasValue && PageSize.HasValue && TotalCount.HasValue
         && (Offset.Value + PageSize.Value) < TotalCount.Value;
 }
 
 /// <summary>
-/// ƒŒƒR[ƒhì¬EXViUpsertjƒŒƒXƒ|ƒ“ƒX
+/// ãƒ¬ã‚³ãƒ¼ãƒ‰ä½œæˆãƒ»æ›´æ–°ï¼ˆUpsertï¼‰ãƒ¬ã‚¹ãƒãƒ³ã‚¹
 /// </summary>
 public class UpsertRecordResponse
 {
     /// <summary>
-    /// ƒŒƒR[ƒhID
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰ID
     /// </summary>
     [JsonProperty("Id")]
     public long Id { get; set; }
 
     /// <summary>
-    /// 1“ú‚ ‚½‚è‚ÌAPIŒÄ‚Ño‚µãŒÀ
+    /// 1æ—¥ã‚ãŸã‚Šã®APIå‘¼ã³å‡ºã—ä¸Šé™
     /// </summary>
     [JsonProperty("LimitPerDate")]
     public int? LimitPerDate { get; set; }
 
     /// <summary>
-    /// c‚è‚ÌAPIŒÄ‚Ño‚µ‰ñ”
+    /// æ®‹ã‚Šã®APIå‘¼ã³å‡ºã—å›æ•°
     /// </summary>
     [JsonProperty("LimitRemaining")]
     public int? LimitRemaining { get; set; }
 }
 
 /// <summary>
-/// ƒŒƒR[ƒhƒf[ƒ^iAPI 1.1‘Î‰j
+/// ãƒ¬ã‚³ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ï¼ˆAPI 1.1å¯¾å¿œï¼‰
 /// </summary>
 public class RecordData
 {
     /// <summary>
-    /// ƒTƒCƒgID
+    /// ã‚µã‚¤ãƒˆID
     /// </summary>
     [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
     /// <summary>
-    /// ƒŒƒR[ƒhIDiIssuesj
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰IDï¼ˆIssuesï¼‰
     /// </summary>
     [JsonProperty("IssueId")]
     public long? IssueId { get; set; }
 
     /// <summary>
-    /// ƒŒƒR[ƒhIDiResultsj
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰IDï¼ˆResultsï¼‰
     /// </summary>
     [JsonProperty("ResultId")]
     public long? ResultId { get; set; }
 
     /// <summary>
-    /// ƒŒƒR[ƒhID‚ğæ“¾‚µ‚Ü‚·iIssueId‚Ü‚½‚ÍResultIdj
+    /// ãƒ¬ã‚³ãƒ¼ãƒ‰IDã‚’å–å¾—ã—ã¾ã™ï¼ˆIssueIdã¾ãŸã¯ResultIdï¼‰
     /// </summary>
     public long? RecordId => IssueId ?? ResultId;
 
     /// <summary>
-    /// XV“ú
+    /// æ›´æ–°æ—¥æ™‚
     /// </summary>
     [JsonProperty("UpdatedTime")]
     public string? UpdatedTime { get; set; }
 
     /// <summary>
-    /// ƒo[ƒWƒ‡ƒ“
+    /// ãƒãƒ¼ã‚¸ãƒ§ãƒ³
     /// </summary>
     [JsonProperty("Ver")]
     public int? Ver { get; set; }
 
     /// <summary>
-    /// ƒ^ƒCƒgƒ‹
+    /// ã‚¿ã‚¤ãƒˆãƒ«
     /// </summary>
     [JsonProperty("Title")]
     public string? Title { get; set; }
 
     /// <summary>
-    /// “à—e
+    /// å†…å®¹
     /// </summary>
     [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
-    /// ó‹µ
+    /// çŠ¶æ³
     /// </summary>
     [JsonProperty("Status")]
     public int? Status { get; set; }
 
     /// <summary>
-    /// ŠÇ—Ò
+    /// ç®¡ç†è€…
     /// </summary>
     [JsonProperty("Manager")]
     public int? Manager { get; set; }
 
     /// <summary>
-    /// ’S“–Ò
+    /// æ‹…å½“è€…
     /// </summary>
     [JsonProperty("Owner")]
     public int? Owner { get; set; }
 
     /// <summary>
-    /// ƒRƒƒ“ƒg
+    /// ã‚³ãƒ¡ãƒ³ãƒˆ
     /// </summary>
     [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
     /// <summary>
-    /// ì¬Ò
+    /// ä½œæˆè€…
     /// </summary>
     [JsonProperty("Creator")]
     public int? Creator { get; set; }
 
     /// <summary>
-    /// XVÒ
+    /// æ›´æ–°è€…
     /// </summary>
     [JsonProperty("Updator")]
     public int? Updator { get; set; }
 
     /// <summary>
-    /// ì¬“ú
+    /// ä½œæˆæ—¥æ™‚
     /// </summary>
     [JsonProperty("CreatedTime")]
     public string? CreatedTime { get; set; }
 
     /// <summary>
-    /// •ª—Ş€–ÚiAPI 1.1: ClassA?ClassZ, Class001?Class999j
+    /// åˆ†é¡é …ç›®ï¼ˆAPI 1.1: ClassA?ClassZ, Class001?Class999ï¼‰
     /// </summary>
     [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
-    /// ”’l€–ÚiAPI 1.1: NumA?NumZ, Num001?Num999j
+    /// æ•°å€¤é …ç›®ï¼ˆAPI 1.1: NumA?NumZ, Num001?Num999ï¼‰
     /// </summary>
     [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
-    /// “ú•t€–ÚiAPI 1.1: DateA?DateZ, Date001?Date999j
+    /// æ—¥ä»˜é …ç›®ï¼ˆAPI 1.1: DateA?DateZ, Date001?Date999ï¼‰
     /// </summary>
     [JsonProperty("DateHash")]
     public Dictionary<string, string>? DateHash { get; set; }
 
     /// <summary>
-    /// à–¾€–ÚiAPI 1.1: DescriptionA?DescriptionZ, Description001?Description999j
+    /// èª¬æ˜é …ç›®ï¼ˆAPI 1.1: DescriptionA?DescriptionZ, Description001?Description999ï¼‰
     /// </summary>
     [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
-    /// ƒ`ƒFƒbƒN€–ÚiAPI 1.1: CheckA?CheckZ, Check001?Check999j
+    /// ãƒã‚§ãƒƒã‚¯é …ç›®ï¼ˆAPI 1.1: CheckA?CheckZ, Check001?Check999ï¼‰
     /// </summary>
     [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>
-    /// •ª—Ş€–Ú‚Ì’l‚ğæ“¾‚µ‚Ü‚·
+    /// åˆ†é¡é …ç›®ã®å€¤ã‚’å–å¾—ã—ã¾ã™
     /// </summary>
-    /// <param name="columnName">—ñ–¼i—á: ClassA, Class001j</param>
-    /// <returns>’li‘¶İ‚µ‚È‚¢ê‡‚Ínullj</returns>
+    /// <param name="columnName">åˆ—åï¼ˆä¾‹: ClassA, Class001ï¼‰</param>
+    /// <returns>å€¤ï¼ˆå­˜åœ¨ã—ãªã„å ´åˆã¯nullï¼‰</returns>
     public string? GetClass(string columnName)
     {
         if (ClassHash is null)
@@ -246,10 +246,10 @@ public class RecordData
     }
 
     /// <summary>
-    /// ”’l€–Ú‚Ì’l‚ğæ“¾‚µ‚Ü‚·
+    /// æ•°å€¤é …ç›®ã®å€¤ã‚’å–å¾—ã—ã¾ã™
     /// </summary>
-    /// <param name="columnName">—ñ–¼i—á: NumA, Num001j</param>
-    /// <returns>’li‘¶İ‚µ‚È‚¢ê‡‚Ínullj</returns>
+    /// <param name="columnName">åˆ—åï¼ˆä¾‹: NumA, Num001ï¼‰</param>
+    /// <returns>å€¤ï¼ˆå­˜åœ¨ã—ãªã„å ´åˆã¯nullï¼‰</returns>
     public decimal? GetNum(string columnName)
     {
         if (NumHash is null)
@@ -261,10 +261,10 @@ public class RecordData
     }
 
     /// <summary>
-    /// “ú•t€–Ú‚Ì’l‚ğæ“¾‚µ‚Ü‚·
+    /// æ—¥ä»˜é …ç›®ã®å€¤ã‚’å–å¾—ã—ã¾ã™
     /// </summary>
-    /// <param name="columnName">—ñ–¼i—á: DateA, Date001j</param>
-    /// <returns>’li‘¶İ‚µ‚È‚¢ê‡‚Ínullj</returns>
+    /// <param name="columnName">åˆ—åï¼ˆä¾‹: DateA, Date001ï¼‰</param>
+    /// <returns>å€¤ï¼ˆå­˜åœ¨ã—ãªã„å ´åˆã¯nullï¼‰</returns>
     public string? GetDate(string columnName)
     {
         if (DateHash is null)
@@ -276,10 +276,10 @@ public class RecordData
     }
 
     /// <summary>
-    /// à–¾€–Ú‚Ì’l‚ğæ“¾‚µ‚Ü‚·
+    /// èª¬æ˜é …ç›®ã®å€¤ã‚’å–å¾—ã—ã¾ã™
     /// </summary>
-    /// <param name="columnName">—ñ–¼i—á: DescriptionA, Description001j</param>
-    /// <returns>’li‘¶İ‚µ‚È‚¢ê‡‚Ínullj</returns>
+    /// <param name="columnName">åˆ—åï¼ˆä¾‹: DescriptionA, Description001ï¼‰</param>
+    /// <returns>å€¤ï¼ˆå­˜åœ¨ã—ãªã„å ´åˆã¯nullï¼‰</returns>
     public string? GetDescription(string columnName)
     {
         if (DescriptionHash is null)
@@ -291,10 +291,10 @@ public class RecordData
     }
 
     /// <summary>
-    /// ƒ`ƒFƒbƒN€–Ú‚Ì’l‚ğæ“¾‚µ‚Ü‚·
+    /// ãƒã‚§ãƒƒã‚¯é …ç›®ã®å€¤ã‚’å–å¾—ã—ã¾ã™
     /// </summary>
-    /// <param name="columnName">—ñ–¼i—á: CheckA, Check001j</param>
-    /// <returns>’li‘¶İ‚µ‚È‚¢ê‡‚Ínullj</returns>
+    /// <param name="columnName">åˆ—åï¼ˆä¾‹: CheckA, Check001ï¼‰</param>
+    /// <returns>å€¤ï¼ˆå­˜åœ¨ã—ãªã„å ´åˆã¯nullï¼‰</returns>
     public bool? GetCheck(string columnName)
     {
         if (CheckHash is null)

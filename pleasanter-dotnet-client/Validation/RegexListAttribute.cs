@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace pleasanter_dotnet_client.Validation;
 
 /// <summary>
-/// ƒŠƒXƒg‚ÌŠe—v‘f‚É³‹K•\Œ»‚Ì§–ñ‚ğ‚©‚¯‚éŒŸØ‘®«
+/// ãƒªã‚¹ãƒˆã®å„è¦ç´ ã«æ­£è¦è¡¨ç¾ã®åˆ¶ç´„ã‚’ã‹ã‘ã‚‹æ¤œè¨¼å±æ€§
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
 public class RegexListAttribute : ValidationAttribute
@@ -14,24 +14,24 @@ public class RegexListAttribute : ValidationAttribute
     private readonly Regex _regex;
 
     /// <summary>
-    /// —v‘f‚ÌŒŸØ‚Ég—p‚·‚é³‹K•\Œ»ƒpƒ^[ƒ“
+    /// è¦ç´ ã®æ¤œè¨¼ã«ä½¿ç”¨ã™ã‚‹æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³
     /// </summary>
     public string Pattern { get; }
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="pattern">³‹K•\Œ»ƒpƒ^[ƒ“</param>
+    /// <param name="pattern">æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³</param>
     public RegexListAttribute(string pattern)
         : this(pattern, RegexOptions.None)
     {
     }
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="pattern">³‹K•\Œ»ƒpƒ^[ƒ“</param>
-    /// <param name="options">³‹K•\Œ»ƒIƒvƒVƒ‡ƒ“</param>
+    /// <param name="pattern">æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³</param>
+    /// <param name="options">æ­£è¦è¡¨ç¾ã‚ªãƒ—ã‚·ãƒ§ãƒ³</param>
     public RegexListAttribute(string pattern, RegexOptions options)
     {
         Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
@@ -39,7 +39,7 @@ public class RegexListAttribute : ValidationAttribute
     }
 
     /// <summary>
-    /// ŒŸØ‚ğs‚¢‚Ü‚·
+    /// æ¤œè¨¼ã‚’è¡Œã„ã¾ã™
     /// </summary>
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
