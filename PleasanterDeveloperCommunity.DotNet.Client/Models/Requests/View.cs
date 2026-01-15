@@ -24,6 +24,11 @@ public class View
     public const string GridColumnNamePattern = @"^((Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments))$|^Class([A-Z]|[0-9]{3})(~[0-9]+,Class([A-Z]|[0-9]{3}))*(~[0-9]+,((Class|Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments)))?$";
 
     /// <summary>
+    /// ImageHash用のキー名パターン（Body, Comments, DescriptionA〜DescriptionZ, Description001〜Description999）
+    /// </summary>
+    public const string ImageHashKeyPattern = @"^(Body|Comments|Description([A-Z]|[0-9]{3}))$";
+
+    /// <summary>
     /// 未完了
     /// </summary>
     [JsonProperty("Incomplete")]
