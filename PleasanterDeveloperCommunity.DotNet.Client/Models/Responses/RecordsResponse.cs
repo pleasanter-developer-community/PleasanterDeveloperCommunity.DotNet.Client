@@ -6,7 +6,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 /// <summary>
 /// 複数レコード取得レスポンス
 /// </summary>
-public class GetRecordsResponse
+public class RecordsResponse
 {
     /// <summary>
     /// オフセット

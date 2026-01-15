@@ -57,16 +57,16 @@ public class PleasanterClient : IDisposable
     /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
     /// <param name="view">ビュー設定（取得する列の指定など）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<GetRecordResponse>> GetRecordAsync(long recordId, View? view = null)
+    public async Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, View? view = null)
     {
-        var request = new GetRecordRequest
+        var request = new RecordRequest
         {
             ApiKey = _apiKey,
             View = view
         };
 
         var url = $"{_baseUrl}/api/items/{recordId}/get";
-        return await PostAsync<GetRecordResponse>(url, request);
+        return await PostAsync<RecordResponse>(url, request);
     }
 
     /// <summary>
@@ -76,9 +76,9 @@ public class PleasanterClient : IDisposable
     /// <param name="offset">取得開始位置（ページネーション用）</param>
     /// <param name="view">ビュー設定（フィルタや並び替えなど）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<GetRecordsResponse>> GetRecordsAsync(long siteId, int? offset = null, View? view = null)
+    public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(long siteId, int? offset = null, View? view = null)
     {
-        var request = new GetRecordsRequest
+        var request = new RecordsRequest
         {
             ApiKey = _apiKey,
             Offset = offset,
@@ -86,7 +86,7 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{siteId}/get";
-        return await PostAsync<GetRecordsResponse>(url, request);
+        return await PostAsync<RecordsResponse>(url, request);
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ public class PleasanterClient : IDisposable
     /// <param name="siteId">サイトID</param>
     /// <param name="view">ビュー設定（フィルタや並び替えなど）</param>
     /// <returns>全レコードを含むAPIレスポンス</returns>
-    public async Task<ApiResponse<GetRecordsResponse>> GetAllRecordsAsync(long siteId, View? view = null)
+    public async Task<ApiResponse<RecordsResponse>> GetAllRecordsAsync(long siteId, View? view = null)
     {
         var allRecords = new List<RecordData>();
         int offset = 0;
@@ -115,11 +115,11 @@ public class PleasanterClient : IDisposable
 
             if (!response.Response.HasNextPage)
             {
-                return new ApiResponse<GetRecordsResponse>
+                return new ApiResponse<RecordsResponse>
                 {
                     StatusCode = response.StatusCode,
                     Message = response.Message,
-                    Response = new GetRecordsResponse
+                    Response = new RecordsResponse
                     {
                         Offset = 0,
                         PageSize = allRecords.Count,

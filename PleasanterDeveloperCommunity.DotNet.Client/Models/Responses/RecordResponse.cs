@@ -6,7 +6,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 /// <summary>
 /// 単一レコード取得レスポンス
 /// </summary>
-public class GetRecordResponse
+public class RecordResponse
 {
     /// <summary>
     /// レコードデータ

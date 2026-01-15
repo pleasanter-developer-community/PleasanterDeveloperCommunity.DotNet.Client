@@ -5,7 +5,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 /// <summary>
 /// 複数レコード取得リクエスト
 /// </summary>
-public class GetRecordsRequest : ApiRequest
+public class RecordsRequest : ApiRequest
 {
     /// <summary>
     /// オフセット（取得開始位置）
