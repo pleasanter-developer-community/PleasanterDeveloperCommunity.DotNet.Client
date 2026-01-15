@@ -214,6 +214,49 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// 拡張SQLを実行します
+    /// </summary>
+    /// <param name="name">拡張SQLの名前（JSONファイルで定義したName）</param>
+    /// <param name="parameters">SQLに渡すパラメータ</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
+        string name,
+        Dictionary<string, object>? parameters = null)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        var request = new ExtendedSqlRequest
+        {
+            ApiKey = _apiKey,
+            Name = name,
+            Params = parameters
+        };
+
+        var url = $"{_baseUrl}/api/extended/sql";
+        return await PostAsync<ExtendedSqlResponse>(url, request);
+    }
+
+    /// <summary>
+    /// 拡張SQLを実行します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="request">拡張SQLリクエスト</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/extended/sql";
+        return await PostAsync<ExtendedSqlResponse>(url, request);
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     private async Task<ApiResponse<T>> PostAsync<T>(string url, object request) where T : class
