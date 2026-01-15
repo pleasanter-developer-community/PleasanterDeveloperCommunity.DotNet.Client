@@ -14,7 +14,7 @@ public class UpsertRecordRequest : ApiRequest
     /// キーとなる項目名の配列
     /// </summary>
     [JsonProperty("Keys")]
-    [RegexList(View.ColumnNamePattern, ErrorMessage = "Keys の要素はプリザンターの有効な列名である必要があります。")]
+    [RegexList(ColumnPatterns.ColumnNamePattern, ErrorMessage = "Keys の要素はプリザンターの有効な列名である必要があります。")]
     public List<string>? Keys { get; set; }
 
     /// <summary>
@@ -69,41 +69,41 @@ public class UpsertRecordRequest : ApiRequest
     /// 分類項目（ClassA〜ClassZ, Class001〜Class999）
     /// </summary>
     [JsonProperty("ClassHash")]
-    [RegexKeyDictionary(View.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ClassHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ClassHashKeyError))]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目（NumA〜NumZ, Num001〜Num999）
     /// </summary>
     [JsonProperty("NumHash")]
-    [RegexKeyDictionary(View.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.NumHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.NumHashKeyError))]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目（DateA〜DateZ, Date001〜Date999）
     /// </summary>
     [JsonProperty("DateHash")]
-    [RegexKeyDictionary(View.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DateHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DateHashKeyError))]
     public Dictionary<string, string>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目（DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
     [JsonProperty("DescriptionHash")]
-    [RegexKeyDictionary(View.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DescriptionHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DescriptionHashKeyError))]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目（CheckA〜CheckZ, Check001〜Check999）
     /// </summary>
     [JsonProperty("CheckHash")]
-    [RegexKeyDictionary(View.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.CheckHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.CheckHashKeyError))]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>
     /// 画像挿入設定（Body, Comments, DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
     [JsonProperty("ImageHash")]
-    [RegexKeyDictionary(View.ImageHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ImageHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ImageHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ImageHashKeyError))]
     public Dictionary<string, ImageSettings>? ImageHash { get; set; }
 }
