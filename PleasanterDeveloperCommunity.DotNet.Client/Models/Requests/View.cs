@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using pleasanter_dotnet_client.Models.Requests.Types;
-using pleasanter_dotnet_client.Resources;
-using pleasanter_dotnet_client.Validation;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
+using PleasanterDeveloperCommunity.DotNet.Client.Resources;
+using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
 /// <summary>
 /// ビュー設定

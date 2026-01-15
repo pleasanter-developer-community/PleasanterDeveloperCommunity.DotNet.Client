@@ -1,4 +1,4 @@
-﻿namespace pleasanter_dotnet_client.Resources;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Resources;
 
 using System.Collections.Generic;
 using System.Globalization;

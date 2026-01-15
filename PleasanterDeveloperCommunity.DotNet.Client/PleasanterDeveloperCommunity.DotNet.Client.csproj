@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>pleasanter_dotnet_client</RootNamespace>
+    <RootNamespace>PleasanterDeveloperCommunity.DotNet.Client</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>14</LangVersion>
   </PropertyGroup>

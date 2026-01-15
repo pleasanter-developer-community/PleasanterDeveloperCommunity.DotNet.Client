@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace pleasanter_dotnet_client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
 /// <summary>
 /// 複数レコード取得レスポンス

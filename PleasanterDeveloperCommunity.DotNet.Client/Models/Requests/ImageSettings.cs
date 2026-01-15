@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
 /// <summary>
 /// 画像挿入設定

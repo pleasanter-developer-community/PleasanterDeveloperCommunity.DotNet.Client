@@ -1,2 +1,2 @@
-# pleasanter-dotnet-client
+# PleasanterDeveloperCommunity.DotNet.Client
 .NET client for Pleasanter

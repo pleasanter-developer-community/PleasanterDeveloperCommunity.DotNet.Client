@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace pleasanter_dotnet_client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
 /// <summary>
 /// レコード作成・更新（Upsert）レスポンス

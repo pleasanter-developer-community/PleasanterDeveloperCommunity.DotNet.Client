@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 
-namespace pleasanter_dotnet_client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
 /// <summary>
 /// APIレスポンスの基底クラス

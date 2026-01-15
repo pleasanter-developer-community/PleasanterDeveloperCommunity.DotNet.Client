@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using pleasanter_dotnet_client.Models.Requests;
-using pleasanter_dotnet_client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace pleasanter_dotnet_client;
+namespace PleasanterDeveloperCommunity.DotNet.Client;
 
 /// <summary>
 /// プリザンターAPIクライアント

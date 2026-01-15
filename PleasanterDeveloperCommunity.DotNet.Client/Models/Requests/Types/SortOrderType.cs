@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace pleasanter_dotnet_client.Models.Requests.Types;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
 /// <summary>
 /// ソート順タイプ

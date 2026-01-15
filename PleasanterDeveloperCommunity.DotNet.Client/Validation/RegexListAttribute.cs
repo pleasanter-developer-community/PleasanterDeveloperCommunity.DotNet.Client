@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace pleasanter_dotnet_client.Validation;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Validation;
 
 /// <summary>
 /// リストの各要素に正規表現の制約をかける検証属性

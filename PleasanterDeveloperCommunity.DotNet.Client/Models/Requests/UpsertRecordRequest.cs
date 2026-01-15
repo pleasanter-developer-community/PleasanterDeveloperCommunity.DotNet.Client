@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using pleasanter_dotnet_client.Validation;
+using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System.Collections.Generic;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
 /// <summary>
 /// レコード作成・更新（Upsert）リクエスト

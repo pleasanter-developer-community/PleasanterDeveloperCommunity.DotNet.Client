@@ -4,5 +4,5 @@
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="pleasanter-dotnet-client/pleasanter-dotnet-client.csproj" />
+  <Project Path="PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj" />
 </Solution>

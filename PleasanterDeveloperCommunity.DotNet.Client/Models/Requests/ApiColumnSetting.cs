@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using pleasanter_dotnet_client.Models.Requests.Types;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
-namespace pleasanter_dotnet_client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
 /// <summary>
 /// APIカラム設定（ApiColumnHashの値として使用）
