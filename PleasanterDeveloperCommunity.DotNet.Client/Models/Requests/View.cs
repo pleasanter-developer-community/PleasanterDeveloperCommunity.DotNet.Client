@@ -53,28 +53,28 @@ public class View
     /// 取得する列名のフィルタ設定
     /// </summary>
     [JsonProperty("ColumnFilterHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterHashKeyError))]
     public Dictionary<string, string>? ColumnFilterHash { get; set; }
 
     /// <summary>
     /// 列フィルタ検索タイプ
     /// </summary>
     [JsonProperty("ColumnFilterSearchTypes")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterSearchTypesKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterSearchTypesKeyError))]
     public Dictionary<string, ColumnFilterSearchType>? ColumnFilterSearchTypes { get; set; }
 
     /// <summary>
     /// 否定フィルタ対象の列名
     /// </summary>
     [JsonProperty("ColumnFilterNegatives")]
-    [RegexList(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterNegativesValueError))]
+    [RegexList(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterNegativesValueError))]
     public List<string>? ColumnFilterNegatives { get; set; }
 
     /// <summary>
     /// ソートする列名（キー: 列名、値: "asc" または "desc"）
     /// </summary>
     [JsonProperty("ColumnSorterHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnSorterHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnSorterHashKeyError))]
     public Dictionary<string, SortOrderType>? ColumnSorterHash { get; set; }
 
     /// <summary>
