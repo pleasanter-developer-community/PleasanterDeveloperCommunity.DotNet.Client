@@ -69,35 +69,35 @@ public class UpsertRecordRequest : ApiRequest
     /// 分類項目（ClassA〜ClassZ, Class001〜Class999）
     /// </summary>
     [JsonProperty("ClassHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ClassHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.ClassHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ClassHashKeyError))]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目（NumA〜NumZ, Num001〜Num999）
     /// </summary>
     [JsonProperty("NumHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.NumHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.NumHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.NumHashKeyError))]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目（DateA〜DateZ, Date001〜Date999）
     /// </summary>
     [JsonProperty("DateHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DateHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.DateHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DateHashKeyError))]
     public Dictionary<string, string>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目（DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
     [JsonProperty("DescriptionHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DescriptionHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.DescriptionHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DescriptionHashKeyError))]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目（CheckA〜CheckZ, Check001〜Check999）
     /// </summary>
     [JsonProperty("CheckHash")]
-    [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.CheckHashKeyError))]
+    [RegexKeyDictionary(ColumnPatterns.CheckHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.CheckHashKeyError))]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>

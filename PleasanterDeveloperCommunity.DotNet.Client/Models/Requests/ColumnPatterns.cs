@@ -16,6 +16,36 @@ public static class ColumnPatterns
     public const string GridColumnNamePattern = @"^((Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments))$|^Class([A-Z]|[0-9]{3})(~[0-9]+,Class([A-Z]|[0-9]{3}))*(~[0-9]+,((Class|Num|Date|Description|Check)([A-Z]|[0-9]{3})|(Title|Body|Status|Manager|Owner|SiteId|IssueId|ResultId|Ver|Creator|Updator|CreatedTime|UpdatedTime|Comments)))?$";
 
     /// <summary>
+    /// ClassHash用のキー名パターン（ClassA〜ClassZ, Class001〜Class999）
+    /// </summary>
+    public const string ClassHashKeyPattern = @"^Class([A-Z]|[0-9]{3})$";
+
+    /// <summary>
+    /// NumHash用のキー名パターン（NumA〜NumZ, Num001〜Num999）
+    /// </summary>
+    public const string NumHashKeyPattern = @"^Num([A-Z]|[0-9]{3})$";
+
+    /// <summary>
+    /// DateHash用のキー名パターン（DateA〜DateZ, Date001〜Date999）
+    /// </summary>
+    public const string DateHashKeyPattern = @"^Date([A-Z]|[0-9]{3})$";
+
+    /// <summary>
+    /// DescriptionHash用のキー名パターン（DescriptionA〜DescriptionZ, Description001〜Description999）
+    /// </summary>
+    public const string DescriptionHashKeyPattern = @"^Description([A-Z]|[0-9]{3})$";
+
+    /// <summary>
+    /// CheckHash用のキー名パターン（CheckA〜CheckZ, Check001〜Check999）
+    /// </summary>
+    public const string CheckHashKeyPattern = @"^Check([A-Z]|[0-9]{3})$";
+
+    /// <summary>
+    /// AttachmentsHash用のキー名パターン（AttachmentsA〜AttachmentsZ, Attachments001〜Attachments999）
+    /// </summary>
+    public const string AttachmentsHashKeyPattern = @"^Attachments([A-Z]|[0-9]{3})$";
+
+    /// <summary>
     /// ImageHash用のキー名パターン（Body, Comments, DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
     public const string ImageHashKeyPattern = @"^(Body|Comments|Description([A-Z]|[0-9]{3}))$";

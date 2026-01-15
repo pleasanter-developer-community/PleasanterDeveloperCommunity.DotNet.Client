@@ -20,11 +20,12 @@ internal static class Messages
             ["ColumnSorterHashKeyError"] = "The key of ColumnSorterHash must be a valid Pleasanter column name.",
             ["ApiColumnHashKeyError"] = "The key of ApiColumnHash must be a valid Pleasanter column name.",
             ["GridColumnsValueError"] = "The value of GridColumns must be a valid Pleasanter column name.",
-            ["ClassHashKeyError"] = "The key of ClassHash must be a valid Pleasanter column name.",
-            ["NumHashKeyError"] = "The key of NumHash must be a valid Pleasanter column name.",
-            ["DateHashKeyError"] = "The key of DateHash must be a valid Pleasanter column name.",
-            ["DescriptionHashKeyError"] = "The key of DescriptionHash must be a valid Pleasanter column name.",
-            ["CheckHashKeyError"] = "The key of CheckHash must be a valid Pleasanter column name.",
+            ["ClassHashKeyError"] = "The key of ClassHash must be ClassA-Z or Class001-999.",
+            ["NumHashKeyError"] = "The key of NumHash must be NumA-Z or Num001-999.",
+            ["DateHashKeyError"] = "The key of DateHash must be DateA-Z or Date001-999.",
+            ["DescriptionHashKeyError"] = "The key of DescriptionHash must be DescriptionA-Z or Description001-999.",
+            ["CheckHashKeyError"] = "The key of CheckHash must be CheckA-Z or Check001-999.",
+            ["AttachmentsHashKeyError"] = "The key of AttachmentsHash must be AttachmentsA-Z or Attachments001-999.",
             ["ImageHashKeyError"] = "The key of ImageHash must be Body, Comments, or DescriptionA-Z/Description001-999.",
         },
         ["ja"] = new Dictionary<string, string>
@@ -35,11 +36,12 @@ internal static class Messages
             ["ColumnSorterHashKeyError"] = "ColumnSorterHash のキーはプリザンターの有効な列名である必要があります。",
             ["ApiColumnHashKeyError"] = "ApiColumnHash のキーはプリザンターの有効な列名である必要があります。",
             ["GridColumnsValueError"] = "GridColumns の値はプリザンターの有効な列名である必要があります。",
-            ["ClassHashKeyError"] = "ClassHash のキーはプリザンターの有効な列名である必要があります。",
-            ["NumHashKeyError"] = "NumHash のキーはプリザンターの有効な列名である必要があります。",
-            ["DateHashKeyError"] = "DateHash のキーはプリザンターの有効な列名である必要があります。",
-            ["DescriptionHashKeyError"] = "DescriptionHash のキーはプリザンターの有効な列名である必要があります。",
-            ["CheckHashKeyError"] = "CheckHash のキーはプリザンターの有効な列名である必要があります。",
+            ["ClassHashKeyError"] = "ClassHash のキーは ClassA〜Z または Class001〜999 である必要があります。",
+            ["NumHashKeyError"] = "NumHash のキーは NumA〜Z または Num001〜999 である必要があります。",
+            ["DateHashKeyError"] = "DateHash のキーは DateA〜Z または Date001〜999 である必要があります。",
+            ["DescriptionHashKeyError"] = "DescriptionHash のキーは DescriptionA〜Z または Description001〜999 である必要があります。",
+            ["CheckHashKeyError"] = "CheckHash のキーは CheckA〜Z または Check001〜999 である必要があります。",
+            ["AttachmentsHashKeyError"] = "AttachmentsHash のキーは AttachmentsA〜Z または Attachments001〜999 である必要があります。",
             ["ImageHashKeyError"] = "ImageHash のキーは Body, Comments, または DescriptionA〜Z/Description001〜999 である必要があります。",
         }
     };
@@ -110,29 +112,34 @@ internal static class Messages
     internal static string GridColumnsValueError => GetMessage(nameof(GridColumnsValueError));
 
     /// <summary>
-    /// The key of ClassHash must be a valid Pleasanter column name.
+    /// The key of ClassHash must be ClassA-Z or Class001-999.
     /// </summary>
     internal static string ClassHashKeyError => GetMessage(nameof(ClassHashKeyError));
 
     /// <summary>
-    /// The key of NumHash must be a valid Pleasanter column name.
+    /// The key of NumHash must be NumA-Z or Num001-999.
     /// </summary>
     internal static string NumHashKeyError => GetMessage(nameof(NumHashKeyError));
 
     /// <summary>
-    /// The key of DateHash must be a valid Pleasanter column name.
+    /// The key of DateHash must be DateA-Z or Date001-999.
     /// </summary>
     internal static string DateHashKeyError => GetMessage(nameof(DateHashKeyError));
 
     /// <summary>
-    /// The key of DescriptionHash must be a valid Pleasanter column name.
+    /// The key of DescriptionHash must be DescriptionA-Z or Description001-999.
     /// </summary>
     internal static string DescriptionHashKeyError => GetMessage(nameof(DescriptionHashKeyError));
 
     /// <summary>
-    /// The key of CheckHash must be a valid Pleasanter column name.
+    /// The key of CheckHash must be CheckA-Z or Check001-999.
     /// </summary>
     internal static string CheckHashKeyError => GetMessage(nameof(CheckHashKeyError));
+
+    /// <summary>
+    /// The key of AttachmentsHash must be AttachmentsA-Z or Attachments001-999.
+    /// </summary>
+    internal static string AttachmentsHashKeyError => GetMessage(nameof(AttachmentsHashKeyError));
 
     /// <summary>
     /// The key of ImageHash must be Body, Comments, or DescriptionA-Z/Description001-999.
