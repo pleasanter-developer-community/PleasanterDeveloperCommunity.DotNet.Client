@@ -2,7 +2,7 @@
 using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System.Collections.Generic;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
 /// <summary>
 /// レコード作成・更新（Upsert）リクエスト

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 
 /// <summary>
 /// 拡張SQL APIリクエスト

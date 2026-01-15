@@ -2,7 +2,7 @@
 using PleasanterDeveloperCommunity.DotNet.Client.Converters;
 using System.Collections.Generic;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 
 /// <summary>
 /// 拡張SQLレスポンスのデータ部分

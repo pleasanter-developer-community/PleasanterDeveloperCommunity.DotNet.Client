@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 /// <summary>
 /// レコードデータ（API 1.1対応）

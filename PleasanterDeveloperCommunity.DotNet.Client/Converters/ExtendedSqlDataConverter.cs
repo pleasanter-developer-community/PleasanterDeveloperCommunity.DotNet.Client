@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using System;
 using System.Collections.Generic;
 

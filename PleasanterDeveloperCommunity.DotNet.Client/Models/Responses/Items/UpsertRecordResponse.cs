@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 /// <summary>
-/// レコード一括作成・更新（BulkUpsert）レスポンス
+/// レコード作成・更新（Upsert）レスポンス
 /// </summary>
-public class BulkUpsertRecordResponse
+public class UpsertRecordResponse
 {
     /// <summary>
-    /// サイトID
+    /// レコードID
     /// </summary>
     [JsonProperty("Id")]
     public long Id { get; set; }

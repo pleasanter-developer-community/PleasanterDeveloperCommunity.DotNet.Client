@@ -3,7 +3,7 @@ using PleasanterDeveloperCommunity.DotNet.Client.Resources;
 using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System.Collections.Generic;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
 /// <summary>
 /// 一括作成・更新（BulkUpsert）用の個別レコードデータ

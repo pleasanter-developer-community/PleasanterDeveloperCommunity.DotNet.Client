@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
 /// <summary>
 /// 複数レコード取得リクエスト

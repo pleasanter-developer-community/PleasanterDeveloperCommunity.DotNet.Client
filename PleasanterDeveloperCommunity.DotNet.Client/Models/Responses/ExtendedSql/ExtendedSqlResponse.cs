@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 
 /// <summary>
 /// 拡張SQL APIレスポンス

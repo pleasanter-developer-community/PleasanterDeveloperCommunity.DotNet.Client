@@ -1,6 +1,10 @@
 ﻿using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 using System;
 using System.Collections.Generic;
 using System.Net;
