@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -11,6 +12,7 @@ public class AttachmentData
     /// コンテンツタイプ（例: "text/plain", "image/png"）
     /// </summary>
     [JsonProperty("ContentType")]
+    [ContentType(ErrorMessage = "ContentType must be a valid MIME type (e.g., 'text/plain', 'image/png').")]
     public string? ContentType { get; set; }
 
     /// <summary>
