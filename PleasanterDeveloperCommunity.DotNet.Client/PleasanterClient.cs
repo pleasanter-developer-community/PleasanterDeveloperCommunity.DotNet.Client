@@ -214,6 +214,55 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// 複数レコードを一括作成または更新します（BulkUpsert）
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="data">レコードデータの配列</param>
+    /// <param name="keys">キーとなる項目名の配列（省略時：全てのレコードを新規作成）</param>
+    /// <param name="keyNotFoundCreate">キーと一致するレコードが無い場合に新規作成するかどうか（省略時：true）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(
+        long siteId,
+        List<BulkUpsertRecordData> data,
+        List<string>? keys = null,
+        bool? keyNotFoundCreate = null)
+    {
+        if (data == null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+
+        var request = new BulkUpsertRecordRequest
+        {
+            ApiKey = _apiKey,
+            Keys = keys,
+            KeyNotFoundCreate = keyNotFoundCreate,
+            Data = data
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
+        return await PostAsync<BulkUpsertRecordResponse>(url, request);
+    }
+
+    /// <summary>
+    /// 複数レコードを一括作成または更新します（BulkUpsert）- リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">BulkUpsertリクエスト</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(long siteId, BulkUpsertRecordRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
+        return await PostAsync<BulkUpsertRecordResponse>(url, request);
+    }
+
+    /// <summary>
     /// 拡張SQLを実行します
     /// </summary>
     /// <param name="name">拡張SQLの名前（JSONファイルで定義したName）</param>
