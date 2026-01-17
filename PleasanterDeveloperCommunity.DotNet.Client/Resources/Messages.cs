@@ -27,6 +27,11 @@ internal static class Messages
             ["CheckHashKeyError"] = "The key of CheckHash must be CheckA-Z or Check001-999.",
             ["AttachmentsHashKeyError"] = "The key of AttachmentsHash must be AttachmentsA-Z or Attachments001-999.",
             ["ImageHashKeyError"] = "The key of ImageHash must be Body, Comments, or DescriptionA-Z/Description001-999.",
+            ["InvalidDirectoryPath"] = "Invalid directory path: {0}",
+            ["NoPermissionToCreateDirectory"] = "No permission to create directory: {0}",
+            ["FailedToCreateDirectory"] = "Failed to create directory: {0}",
+            ["NoWritePermissionForDirectory"] = "No write permission for directory: {0}",
+            ["WriteTestFailedForDirectory"] = "Write test failed for directory: {0}",
         },
         ["ja"] = new Dictionary<string, string>
         {
@@ -43,6 +48,11 @@ internal static class Messages
             ["CheckHashKeyError"] = "CheckHash のキーは CheckA〜Z または Check001〜999 である必要があります。",
             ["AttachmentsHashKeyError"] = "AttachmentsHash のキーは AttachmentsA〜Z または Attachments001〜999 である必要があります。",
             ["ImageHashKeyError"] = "ImageHash のキーは Body, Comments, または DescriptionA〜Z/Description001〜999 である必要があります。",
+            ["InvalidDirectoryPath"] = "無効なディレクトリパスです: {0}",
+            ["NoPermissionToCreateDirectory"] = "ディレクトリの作成権限がありません: {0}",
+            ["FailedToCreateDirectory"] = "ディレクトリの作成に失敗しました: {0}",
+            ["NoWritePermissionForDirectory"] = "ディレクトリへの書き込み権限がありません: {0}",
+            ["WriteTestFailedForDirectory"] = "ディレクトリへの書き込みテストに失敗しました: {0}",
         }
     };
 
@@ -145,4 +155,29 @@ internal static class Messages
     /// The key of ImageHash must be Body, Comments, or DescriptionA-Z/Description001-999.
     /// </summary>
     internal static string ImageHashKeyError => GetMessage(nameof(ImageHashKeyError));
+
+    /// <summary>
+    /// Invalid directory path: {0}
+    /// </summary>
+    internal static string InvalidDirectoryPath(string path) => string.Format(GetMessage(nameof(InvalidDirectoryPath)), path);
+
+    /// <summary>
+    /// No permission to create directory: {0}
+    /// </summary>
+    internal static string NoPermissionToCreateDirectory(string path) => string.Format(GetMessage(nameof(NoPermissionToCreateDirectory)), path);
+
+    /// <summary>
+    /// Failed to create directory: {0}
+    /// </summary>
+    internal static string FailedToCreateDirectory(string path) => string.Format(GetMessage(nameof(FailedToCreateDirectory)), path);
+
+    /// <summary>
+    /// No write permission for directory: {0}
+    /// </summary>
+    internal static string NoWritePermissionForDirectory(string path) => string.Format(GetMessage(nameof(NoWritePermissionForDirectory)), path);
+
+    /// <summary>
+    /// Write test failed for directory: {0}
+    /// </summary>
+    internal static string WriteTestFailedForDirectory(string path) => string.Format(GetMessage(nameof(WriteTestFailedForDirectory)), path);
 }

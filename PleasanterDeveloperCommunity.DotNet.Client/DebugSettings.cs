@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Resources;
+using System;
 using System.IO;
 using System.Text;
 
@@ -17,12 +18,12 @@ public class DebugSettings
     /// <summary>
     /// CSVファイルのエンコーディング（省略時：システム規定）
     /// </summary>
-    public Encoding? Encoding { get; }
+    public Encoding? Encoding { get; } = Encoding.Default;
 
     /// <summary>
     /// APIキーをマスクするかどうか（省略時：true）
     /// </summary>
-    public bool MaskApiKey { get; }
+    public bool MaskApiKey { get; } = true;
 
     /// <summary>
     /// DebugSettingsのコンストラクタ
@@ -62,7 +63,7 @@ public class DebugSettings
         }
         catch (Exception ex) when (ex is ArgumentException || ex is PathTooLongException || ex is NotSupportedException)
         {
-            throw new ArgumentException($"無効なディレクトリパスです: {logDirectory}", nameof(logDirectory), ex);
+            throw new ArgumentException(Messages.InvalidDirectoryPath(logDirectory), nameof(logDirectory), ex);
         }
 
         // ディレクトリが存在しない場合は作成を試みる
@@ -74,11 +75,11 @@ public class DebugSettings
             }
             catch (UnauthorizedAccessException ex)
             {
-                throw new UnauthorizedAccessException($"ディレクトリの作成権限がありません: {fullPath}", ex);
+                throw new UnauthorizedAccessException(Messages.NoPermissionToCreateDirectory(fullPath), ex);
             }
             catch (IOException ex)
             {
-                throw new IOException($"ディレクトリの作成に失敗しました: {fullPath}", ex);
+                throw new IOException(Messages.FailedToCreateDirectory(fullPath), ex);
             }
         }
 
@@ -91,11 +92,11 @@ public class DebugSettings
         }
         catch (UnauthorizedAccessException ex)
         {
-            throw new UnauthorizedAccessException($"ディレクトリへの書き込み権限がありません: {fullPath}", ex);
+            throw new UnauthorizedAccessException(Messages.NoWritePermissionForDirectory(fullPath), ex);
         }
         catch (IOException ex)
         {
-            throw new IOException($"ディレクトリへの書き込みテストに失敗しました: {fullPath}", ex);
+            throw new IOException(Messages.WriteTestFailedForDirectory(fullPath), ex);
         }
     }
 
