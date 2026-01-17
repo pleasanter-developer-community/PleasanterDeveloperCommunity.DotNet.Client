@@ -19,7 +19,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 /// </summary>
 public class PleasanterClient : IDisposable
 {
-    private static readonly HttpClient HttpClient = new();
+    private static readonly Lazy<HttpClient> DefaultHttpClient = new(() => CreateHttpClient(ProxySettings.UseSystemDefault));
     private static readonly JsonSerializerSettings JsonSettings = new()
     {
         NullValueHandling = NullValueHandling.Ignore
@@ -29,6 +29,7 @@ public class PleasanterClient : IDisposable
     private readonly string _apiKey;
     private readonly string _baseUrl;
     private readonly TimeSpan? _defaultTimeout;
+    private readonly bool _ownsHttpClient;
     private bool _disposed;
 
     /// <summary>
@@ -37,9 +38,28 @@ public class PleasanterClient : IDisposable
     /// <param name="baseUrl">プリザンターのベースURL（例: https://example.com/pleasanter）</param>
     /// <param name="apiKey">APIキー</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
-    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null)
-        : this(baseUrl, apiKey, HttpClient, defaultTimeout)
+    /// <param name="proxySettings">プロキシ設定（省略時：OS設定に従う）</param>
+    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null)
     {
+        _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
+            ? baseUrl.TrimEnd('/')
+            : throw new ArgumentNullException(nameof(baseUrl));
+        _apiKey = !string.IsNullOrWhiteSpace(apiKey)
+            ? apiKey
+            : throw new ArgumentNullException(nameof(apiKey));
+        _defaultTimeout = defaultTimeout;
+
+        var effectiveProxySettings = proxySettings ?? ProxySettings.UseSystemDefault;
+        if (effectiveProxySettings.Mode == ProxyMode.UseSystemDefault)
+        {
+            _httpClient = DefaultHttpClient.Value;
+            _ownsHttpClient = false;
+        }
+        else
+        {
+            _httpClient = CreateHttpClient(effectiveProxySettings);
+            _ownsHttpClient = true;
+        }
     }
 
     /// <summary>
@@ -59,6 +79,34 @@ public class PleasanterClient : IDisposable
             : throw new ArgumentNullException(nameof(apiKey));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _defaultTimeout = defaultTimeout;
+        _ownsHttpClient = false;
+    }
+
+    /// <summary>
+    /// プロキシ設定に応じたHttpClientを作成します
+    /// </summary>
+    private static HttpClient CreateHttpClient(ProxySettings proxySettings)
+    {
+        var handler = new HttpClientHandler();
+
+        switch (proxySettings.Mode)
+        {
+            case ProxyMode.UseSystemDefault:
+                handler.UseProxy = true;
+                handler.Proxy = WebRequest.GetSystemWebProxy();
+                break;
+
+            case ProxyMode.NoProxy:
+                handler.UseProxy = false;
+                break;
+
+            case ProxyMode.Custom:
+                handler.UseProxy = true;
+                handler.Proxy = proxySettings.Proxy;
+                break;
+        }
+
+        return new HttpClient(handler);
     }
 
     /// <summary>
@@ -457,7 +505,11 @@ public class PleasanterClient : IDisposable
     {
         if (_disposed) return;
 
-        // HttpClient は Dispose しない
+        if (disposing && _ownsHttpClient)
+        {
+            _httpClient.Dispose();
+        }
+
         _disposed = true;
     }
 }
