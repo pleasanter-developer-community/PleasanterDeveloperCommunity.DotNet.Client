@@ -170,3 +170,6 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# 配布用フォルダはGitに含める
+!dist/
