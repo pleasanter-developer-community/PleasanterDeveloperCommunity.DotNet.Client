@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using UUIDNext;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client;
 
@@ -502,7 +503,7 @@ public class PleasanterClient : IDisposable
             "application/json");
 
         // デバッグモード時：リクエストをログに記録
-        var requestId = Guid.NewGuid().ToString("N");
+        var requestId = Uuid.NewSequential().ToString("N");
         _debugLogger?.LogRequest(requestId, url, requestJson);
 
         using var response = await _httpClient.PostAsync(url, content, cts.Token);
