@@ -19,7 +19,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 /// </summary>
 public class PleasanterClient : IDisposable
 {
-    private static readonly Lazy<HttpClient> DefaultHttpClient = new(() => CreateHttpClient(ProxySettings.UseSystemDefault));
+    private static readonly Lazy<HttpClient> DefaultHttpClient = new(() => CreateHttpClient(ProxySettings.UseSystemDefault, false));
     private static readonly JsonSerializerSettings JsonSettings = new()
     {
         NullValueHandling = NullValueHandling.Ignore
@@ -39,7 +39,8 @@ public class PleasanterClient : IDisposable
     /// <param name="apiKey">APIキー</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="proxySettings">プロキシ設定（省略時：OS設定に従う）</param>
-    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null)
+    /// <param name="ignoreSslCertificateValidation">SSL証明書の検証を無効にするかどうか（省略時：false）。開発・テスト環境でのみ使用してください。</param>
+    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -50,14 +51,14 @@ public class PleasanterClient : IDisposable
         _defaultTimeout = defaultTimeout;
 
         var effectiveProxySettings = proxySettings ?? ProxySettings.UseSystemDefault;
-        if (effectiveProxySettings.Mode == ProxyMode.UseSystemDefault)
+        if (effectiveProxySettings.Mode == ProxyMode.UseSystemDefault && !ignoreSslCertificateValidation)
         {
             _httpClient = DefaultHttpClient.Value;
             _ownsHttpClient = false;
         }
         else
         {
-            _httpClient = CreateHttpClient(effectiveProxySettings);
+            _httpClient = CreateHttpClient(effectiveProxySettings, ignoreSslCertificateValidation);
             _ownsHttpClient = true;
         }
     }
@@ -85,7 +86,9 @@ public class PleasanterClient : IDisposable
     /// <summary>
     /// プロキシ設定に応じたHttpClientを作成します
     /// </summary>
-    private static HttpClient CreateHttpClient(ProxySettings proxySettings)
+    /// <param name="proxySettings">プロキシ設定</param>
+    /// <param name="ignoreSslCertificateValidation">SSL証明書の検証を無効にするかどうか</param>
+    private static HttpClient CreateHttpClient(ProxySettings proxySettings, bool ignoreSslCertificateValidation)
     {
         var handler = new HttpClientHandler();
 
@@ -104,6 +107,11 @@ public class PleasanterClient : IDisposable
                 handler.UseProxy = true;
                 handler.Proxy = proxySettings.Proxy;
                 break;
+        }
+
+        if (ignoreSslCertificateValidation)
+        {
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
         }
 
         return new HttpClient(handler);
