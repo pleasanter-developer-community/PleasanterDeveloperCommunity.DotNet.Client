@@ -20,15 +20,21 @@ public class DebugSettings
     public Encoding? Encoding { get; }
 
     /// <summary>
+    /// APIキーをマスクするかどうか（省略時：true）
+    /// </summary>
+    public bool MaskApiKey { get; }
+
+    /// <summary>
     /// DebugSettingsのコンストラクタ
     /// </summary>
     /// <param name="logDirectory">ログ出力先ディレクトリパス</param>
     /// <param name="encoding">CSVファイルのエンコーディング（省略時：システム規定）</param>
+    /// <param name="maskApiKey">APIキーをマスクするかどうか（省略時：true）</param>
     /// <exception cref="ArgumentNullException">logDirectoryがnullまたは空白の場合</exception>
     /// <exception cref="ArgumentException">logDirectoryが無効なパスの場合</exception>
     /// <exception cref="UnauthorizedAccessException">ディレクトリへの書き込み権限がない場合</exception>
     /// <exception cref="IOException">ディレクトリの作成または書き込みテストに失敗した場合</exception>
-    public DebugSettings(string logDirectory, Encoding? encoding = null)
+    public DebugSettings(string logDirectory, Encoding? encoding = null, bool maskApiKey = true)
     {
         if (string.IsNullOrWhiteSpace(logDirectory))
         {
@@ -39,6 +45,7 @@ public class DebugSettings
 
         LogDirectory = logDirectory;
         Encoding = encoding;
+        MaskApiKey = maskApiKey;
     }
 
     /// <summary>
@@ -96,20 +103,22 @@ public class DebugSettings
     /// システム規定のエンコーディングでデバッグ設定を作成します
     /// </summary>
     /// <param name="logDirectory">ログ出力先ディレクトリパス</param>
+    /// <param name="maskApiKey">APIキーをマスクするかどうか（省略時：true）</param>
     /// <returns>デバッグ設定</returns>
-    public static DebugSettings WithSystemDefaultEncoding(string logDirectory)
+    public static DebugSettings WithSystemDefaultEncoding(string logDirectory, bool maskApiKey = true)
     {
-        return new DebugSettings(logDirectory, null);
+        return new DebugSettings(logDirectory, null, maskApiKey);
     }
 
     /// <summary>
     /// UTF-8エンコーディングでデバッグ設定を作成します
     /// </summary>
     /// <param name="logDirectory">ログ出力先ディレクトリパス</param>
+    /// <param name="maskApiKey">APIキーをマスクするかどうか（省略時：true）</param>
     /// <returns>デバッグ設定</returns>
-    public static DebugSettings WithUtf8Encoding(string logDirectory)
+    public static DebugSettings WithUtf8Encoding(string logDirectory, bool maskApiKey = true)
     {
-        return new DebugSettings(logDirectory, Encoding.UTF8);
+        return new DebugSettings(logDirectory, Encoding.UTF8, maskApiKey);
     }
 
     /// <summary>
@@ -117,9 +126,10 @@ public class DebugSettings
     /// </summary>
     /// <param name="logDirectory">ログ出力先ディレクトリパス</param>
     /// <param name="encoding">エンコーディング</param>
+    /// <param name="maskApiKey">APIキーをマスクするかどうか（省略時：true）</param>
     /// <returns>デバッグ設定</returns>
-    public static DebugSettings WithEncoding(string logDirectory, Encoding encoding)
+    public static DebugSettings WithEncoding(string logDirectory, Encoding encoding, bool maskApiKey = true)
     {
-        return new DebugSettings(logDirectory, encoding);
+        return new DebugSettings(logDirectory, encoding, maskApiKey);
     }
 }

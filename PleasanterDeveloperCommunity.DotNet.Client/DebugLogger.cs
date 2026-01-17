@@ -18,8 +18,11 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 /// </summary>
 internal class DebugLogger : IDisposable
 {
+    private const string MaskedValue = "********";
+
     private readonly string _logDirectory;
     private readonly Encoding _encoding;
+    private readonly bool _maskApiKey;
     private readonly CsvConfiguration _csvConfig;
     private readonly Channel<DebugLogRecord> _channel;
     private readonly Task _writeTask;
@@ -39,6 +42,7 @@ internal class DebugLogger : IDisposable
 
         _logDirectory = settings.LogDirectory;
         _encoding = settings.Encoding ?? Encoding.Default;
+        _maskApiKey = settings.MaskApiKey;
         _csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = false
@@ -65,6 +69,8 @@ internal class DebugLogger : IDisposable
     /// <param name="requestBody">リクエストボディ</param>
     public void LogRequest(string requestId, string url, string requestBody)
     {
+        var maskedContent = _maskApiKey ? MaskApiKeyInJson(requestBody) : requestBody;
+
         var record = new DebugLogRecord
         {
             Timestamp = DateTime.Now,
@@ -73,7 +79,7 @@ internal class DebugLogger : IDisposable
             Url = url,
             StatusCode = null,
             IsJson = null,
-            Content = requestBody
+            Content = maskedContent
         };
 
         EnqueueRecord(record);
@@ -161,6 +167,62 @@ internal class DebugLogger : IDisposable
         catch (JsonReaderException)
         {
             return (false, content);
+        }
+    }
+
+    /// <summary>
+    /// JSON内のApiKeyをマスクします
+    /// </summary>
+    /// <param name="json">JSON文字列</param>
+    /// <returns>ApiKeyがマスクされたJSON文字列</returns>
+    private static string MaskApiKeyInJson(string json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            return json;
+        }
+
+        try
+        {
+            var token = JToken.Parse(json);
+            MaskApiKeyRecursive(token);
+            return token.ToString(Formatting.None);
+        }
+        catch (JsonReaderException)
+        {
+            // JSONでない場合はそのまま返す
+            return json;
+        }
+    }
+
+    /// <summary>
+    /// JToken内のApiKeyを再帰的にマスクします
+    /// </summary>
+    /// <param name="token">JToken</param>
+    private static void MaskApiKeyRecursive(JToken token)
+    {
+        switch (token)
+        {
+            case JObject obj:
+                foreach (var property in obj.Properties())
+                {
+                    if (property.Name.Equals("ApiKey", StringComparison.OrdinalIgnoreCase))
+                    {
+                        property.Value = MaskedValue;
+                    }
+                    else
+                    {
+                        MaskApiKeyRecursive(property.Value);
+                    }
+                }
+                break;
+
+            case JArray array:
+                foreach (var item in array)
+                {
+                    MaskApiKeyRecursive(item);
+                }
+                break;
         }
     }
 
