@@ -29,7 +29,7 @@ public class PleasanterClient : IDisposable
     private readonly string _apiKey;
     private readonly string _baseUrl;
     private readonly TimeSpan? _defaultTimeout;
-    private readonly bool _ownsHttpClient;
+    private readonly DebugLogger? _debugLogger;
     private bool _disposed;
 
     /// <summary>
@@ -40,7 +40,8 @@ public class PleasanterClient : IDisposable
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="proxySettings">プロキシ設定（省略時：OS設定に従う）</param>
     /// <param name="ignoreSslCertificateValidation">SSL証明書の検証を無効にするかどうか（省略時：false）。開発・テスト環境でのみ使用してください。</param>
-    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false)
+    /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
+    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -54,12 +55,15 @@ public class PleasanterClient : IDisposable
         if (effectiveProxySettings.Mode == ProxyMode.UseSystemDefault && !ignoreSslCertificateValidation)
         {
             _httpClient = DefaultHttpClient.Value;
-            _ownsHttpClient = false;
         }
         else
         {
             _httpClient = CreateHttpClient(effectiveProxySettings, ignoreSslCertificateValidation);
-            _ownsHttpClient = true;
+        }
+
+        if (debugSettings != null)
+        {
+            _debugLogger = new DebugLogger(debugSettings);
         }
     }
 
@@ -70,7 +74,8 @@ public class PleasanterClient : IDisposable
     /// <param name="apiKey">APIキー</param>
     /// <param name="httpClient">HttpClientインスタンス</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
-    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null)
+    /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
+    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -80,7 +85,11 @@ public class PleasanterClient : IDisposable
             : throw new ArgumentNullException(nameof(apiKey));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _defaultTimeout = defaultTimeout;
-        _ownsHttpClient = false;
+
+        if (debugSettings != null)
+        {
+            _debugLogger = new DebugLogger(debugSettings);
+        }
     }
 
     /// <summary>
@@ -486,13 +495,23 @@ public class PleasanterClient : IDisposable
             ? new CancellationTokenSource(effectiveTimeout.Value)
             : new CancellationTokenSource();
 
+        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
         var content = new StringContent(
-            JsonConvert.SerializeObject(request, JsonSettings),
+            requestJson,
             System.Text.Encoding.UTF8,
             "application/json");
 
+        // デバッグモード時：リクエストをログに記録
+        var requestId = Guid.NewGuid().ToString("N");
+        _debugLogger?.LogRequest(requestId, url, requestJson);
+
         using var response = await _httpClient.PostAsync(url, content, cts.Token);
-        var result = await response.Content.ReadAsAsync<ApiResponse<T>>(formatters: new[] { formatter });
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        // デバッグモード時：レスポンスをログに記録
+        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+
+        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
 
         return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
     }
@@ -513,9 +532,9 @@ public class PleasanterClient : IDisposable
     {
         if (_disposed) return;
 
-        if (disposing && _ownsHttpClient)
+        if (disposing)
         {
-            _httpClient.Dispose();
+            _debugLogger?.Dispose();
         }
 
         _disposed = true;
