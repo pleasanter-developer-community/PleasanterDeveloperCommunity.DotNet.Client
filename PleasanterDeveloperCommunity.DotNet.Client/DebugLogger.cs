@@ -7,18 +7,23 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client;
 
 /// <summary>
-/// デバッグログを記録するロガー
+/// デバッグログを記録するロガー（非同期バックグラウンド処理）
 /// </summary>
 internal class DebugLogger : IDisposable
 {
     private readonly string _logDirectory;
     private readonly Encoding _encoding;
-    private readonly object _lockObject = new object();
     private readonly CsvConfiguration _csvConfig;
+    private readonly Channel<DebugLogRecord> _channel;
+    private readonly Task _writeTask;
+    private readonly CancellationTokenSource _cts;
     private bool _disposed;
 
     /// <summary>
@@ -38,6 +43,18 @@ internal class DebugLogger : IDisposable
         {
             HasHeaderRecord = false
         };
+
+        // アンバウンドチャンネルを作成（バックプレッシャーなし）
+        _channel = Channel.CreateUnbounded<DebugLogRecord>(new UnboundedChannelOptions
+        {
+            SingleReader = true,
+            SingleWriter = false
+        });
+
+        _cts = new CancellationTokenSource();
+
+        // バックグラウンドタスクを開始
+        _writeTask = Task.Run(() => ProcessQueueAsync(_cts.Token));
     }
 
     /// <summary>
@@ -59,7 +76,7 @@ internal class DebugLogger : IDisposable
             Content = requestBody
         };
 
-        WriteRecord(record);
+        EnqueueRecord(record);
     }
 
     /// <summary>
@@ -84,7 +101,43 @@ internal class DebugLogger : IDisposable
             Content = formattedContent
         };
 
-        WriteRecord(record);
+        EnqueueRecord(record);
+    }
+
+    /// <summary>
+    /// レコードをキューに追加します
+    /// </summary>
+    /// <param name="record">ログレコード</param>
+    private void EnqueueRecord(DebugLogRecord record)
+    {
+        // TryWriteは同期的に実行され、アンバウンドチャンネルでは常に成功する
+        _channel.Writer.TryWrite(record);
+    }
+
+    /// <summary>
+    /// キューからレコードを取り出して処理します
+    /// </summary>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    private async Task ProcessQueueAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await foreach (var record in _channel.Reader.ReadAllAsync(cancellationToken))
+            {
+                try
+                {
+                    WriteRecordToFile(record);
+                }
+                catch
+                {
+                    // ファイル書き込みエラーは無視（ロギングの失敗でアプリケーションを停止させない）
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // キャンセルされた場合は正常終了
+        }
     }
 
     /// <summary>
@@ -115,29 +168,26 @@ internal class DebugLogger : IDisposable
     /// レコードをCSVファイルに書き込みます
     /// </summary>
     /// <param name="record">ログレコード</param>
-    private void WriteRecord(DebugLogRecord record)
+    private void WriteRecordToFile(DebugLogRecord record)
     {
-        var fileName = $"{DateTime.Today:yyyy-MM-dd}.csv";
+        var fileName = $"{record.Timestamp:yyyy-MM-dd}.csv";
         var filePath = Path.Combine(_logDirectory, fileName);
 
-        lock (_lockObject)
+        var fileExists = File.Exists(filePath);
+
+        using var stream = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.Read);
+        using var writer = new StreamWriter(stream, _encoding);
+        using var csv = new CsvWriter(writer, _csvConfig);
+
+        // 新規ファイルの場合はヘッダーを書き込む
+        if (!fileExists)
         {
-            var fileExists = File.Exists(filePath);
-
-            using var stream = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.Read);
-            using var writer = new StreamWriter(stream, _encoding);
-            using var csv = new CsvWriter(writer, _csvConfig);
-
-            // 新規ファイルの場合はヘッダーを書き込む
-            if (!fileExists)
-            {
-                csv.WriteHeader<DebugLogRecord>();
-                csv.NextRecord();
-            }
-
-            csv.WriteRecord(record);
+            csv.WriteHeader<DebugLogRecord>();
             csv.NextRecord();
         }
+
+        csv.WriteRecord(record);
+        csv.NextRecord();
     }
 
     /// <summary>
@@ -155,6 +205,26 @@ internal class DebugLogger : IDisposable
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed) return;
+
+        if (disposing)
+        {
+            // チャンネルを完了としてマーク
+            _channel.Writer.Complete();
+
+            // バックグラウンドタスクの完了を待機（タイムアウト付き）
+            try
+            {
+                _writeTask.Wait(TimeSpan.FromSeconds(5));
+            }
+            catch (AggregateException)
+            {
+                // タスクの例外は無視
+            }
+
+            _cts.Cancel();
+            _cts.Dispose();
+        }
+
         _disposed = true;
     }
 
