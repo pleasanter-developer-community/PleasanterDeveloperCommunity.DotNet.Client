@@ -1,5 +1,6 @@
 # PleasanterDeveloperCommunity.DotNet.Client
-Pleasanter用 .NETクライアントライブラリ
+
+PleasanterDeveloperCommunity.DotNet.Clientは、オープンソースのWebデータベース「プリザンター」のAPIを.NETアプリケーションから簡単に利用するためのクライアントライブラリです。レコードの取得・作成・更新・一括処理や拡張SQLの実行など、プリザンターAPIの主要な機能を型安全かつ直感的に操作できます。非同期処理に対応し、プロキシ設定やデバッグログ出力などの柔軟なオプションも備えています。.NET Standard 2.1に対応しているため、.NET Core、.NET 5以降、Xamarinなど幅広いプラットフォームで利用可能です。
 
 ## ライセンス
 
@@ -40,6 +41,17 @@ using var client = new PleasanterClient(
 
 ### レコードの取得
 
+```csharp
+// 単一レコードの取得
+var record = await client.GetRecordAsync(recordId: 123);
+
+// 複数レコードの取得
+var records = await client.GetRecordsAsync(siteId: 456);
+
+// ページングを自動処理して全レコードを取得
+var allRecords = await client.GetAllRecordsAsync(siteId: 456);
+```
+
 #### GetRecordAsync - 単一レコードの取得
 
 | 引数 | 型 | 必須 | 説明 |
@@ -65,17 +77,6 @@ using var client = new PleasanterClient(
 | `view` | View | | ビュー設定（フィルタや並び替えなど） |
 | `timeout` | TimeSpan? | | リクエストタイムアウト |
 
-```csharp
-// 単一レコードの取得
-var record = await client.GetRecordAsync(recordId: 123);
-
-// 複数レコードの取得
-var records = await client.GetRecordsAsync(siteId: 456);
-
-// ページングを自動処理して全レコードを取得
-var allRecords = await client.GetAllRecordsAsync(siteId: 456);
-```
-
 ### ビュー設定を使用した取得
 
 ```csharp
@@ -95,6 +96,70 @@ var view = new View
 
 var records = await client.GetRecordsAsync(siteId: 456, view: view);
 ```
+
+#### Viewクラスのプロパティ
+
+| プロパティ | 型 | 説明 |
+|-----------|------|------|
+| `Incomplete` | bool? | 未完了のレコードのみ取得 |
+| `Own` | bool? | 自分が担当のレコードのみ取得 |
+| `NearCompletionTime` | bool? | 期限が近いレコードのみ取得 |
+| `Delay` | bool? | 遅延しているレコードのみ取得 |
+| `Overdue` | bool? | 期限超過のレコードのみ取得 |
+| `Search` | string | 全文検索キーワード |
+| `ColumnFilterHash` | Dictionary\<string, string\> | 列フィルタ設定（キー: 列名、値: フィルタ値） |
+| `ColumnFilterSearchTypes` | Dictionary\<string, ColumnFilterSearchType\> | 列フィルタ検索タイプ |
+| `ColumnFilterNegatives` | List\<string\> | 否定フィルタ対象の列名 |
+| `ColumnSorterHash` | Dictionary\<string, SortOrderType\> | ソート設定（キー: 列名、値: Asc/Desc） |
+| `ApiDataType` | ApiDataType? | APIデータタイプ |
+| `ApiColumnKeyDisplayType` | ApiColumnKeyDisplayType? | APIカラムキー表示タイプ（KeyValues時のみ） |
+| `ApiColumnValueDisplayType` | ApiColumnValueDisplayType? | APIカラム値表示タイプ（KeyValues時のみ） |
+| `ApiColumnHash` | Dictionary\<string, ApiColumnSetting\> | 項目単位のKey/Value表示形式設定 |
+| `GridColumns` | List\<string\> | 返却される項目を制御する配列 |
+| `MergeSessionViewFilters` | bool? | セッションのフィルタ条件とマージするか |
+| `MergeSessionViewSorters` | bool? | セッションのソート条件とマージするか |
+
+#### 列挙体
+
+##### SortOrderType - ソート順タイプ
+
+| 値 | 説明 |
+|------|------|
+| `Asc` | 昇順 |
+| `Desc` | 降順 |
+
+##### ColumnFilterSearchType - 列フィルタ検索タイプ
+
+| 値 | 説明 |
+|------|------|
+| `PartialMatch` | 部分一致 |
+| `ExactMatch` | 完全一致 |
+| `ForwardMatch` | 前方一致 |
+| `PartialMatchMultiple` | 部分一致（複数） |
+| `ExactMatchMultiple` | 完全一致（複数） |
+| `ForwardMatchMultiple` | 前方一致（複数） |
+
+##### ApiDataType - APIデータタイプ
+
+| 値 | 説明 |
+|------|------|
+| `Default` | デフォルト（Keyはカラム名、Valueは値） |
+| `KeyValues` | KeyValues形式（Keyは表示名、Valueは表示値） |
+
+##### ApiColumnKeyDisplayType - APIカラムキー表示タイプ
+
+| 値 | 説明 |
+|------|------|
+| `LabelText` | 表示名 |
+| `ColumnName` | カラム名 |
+
+##### ApiColumnValueDisplayType - APIカラム値表示タイプ
+
+| 値 | 説明 |
+|------|------|
+| `DisplayValue` | 表示名 |
+| `Value` | 値（データベース上に登録されている値） |
+| `Text` | 書式や単位等も含めた値 |
 
 ### レコードの作成
 
@@ -177,16 +242,6 @@ var result = await client.UpsertRecordAsync(
 
 ### 一括作成・更新（BulkUpsert）
 
-#### BulkUpsertRecordAsync
-
-| 引数 | 型 | 必須 | 説明 |
-|------|------|:----:|------|
-| `siteId` | long | ✓ | サイトID |
-| `data` | List\<BulkUpsertRecordData\> | ✓ | レコードデータの配列 |
-| `keys` | List\<string\> | | キーとなる項目名の配列（省略時：全てのレコードを新規作成） |
-| `keyNotFoundCreate` | bool? | | キーと一致するレコードが無い場合に新規作成するかどうか（省略時：true） |
-| `timeout` | TimeSpan? | | リクエストタイムアウト |
-
 ```csharp
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -211,15 +266,17 @@ var result = await client.BulkUpsertRecordAsync(
 );
 ```
 
-### 拡張SQLの実行
-
-#### ExecuteExtendedSqlAsync
+#### BulkUpsertRecordAsync
 
 | 引数 | 型 | 必須 | 説明 |
 |------|------|:----:|------|
-| `name` | string | ✓ | 拡張SQLの名前（JSONファイルで定義したName） |
-| `parameters` | Dictionary\<string, object\> | | SQLに渡すパラメータ |
+| `siteId` | long | ✓ | サイトID |
+| `data` | List\<BulkUpsertRecordData\> | ✓ | レコードデータの配列 |
+| `keys` | List\<string\> | | キーとなる項目名の配列（省略時：全てのレコードを新規作成） |
+| `keyNotFoundCreate` | bool? | | キーと一致するレコードが無い場合に新規作成するかどうか（省略時：true） |
 | `timeout` | TimeSpan? | | リクエストタイムアウト |
+
+### 拡張SQLの実行
 
 ```csharp
 var result = await client.ExecuteExtendedSqlAsync(
@@ -231,6 +288,16 @@ var result = await client.ExecuteExtendedSqlAsync(
     }
 );
 ```
+
+#### ExecuteExtendedSqlAsync
+
+| 引数 | 型 | 必須 | 説明 |
+|------|------|:----:|------|
+| `name` | string | ✓ | 拡張SQLの名前（JSONファイルで定義したName） |
+| `parameters` | Dictionary\<string, object\> | | SQLに渡すパラメータ |
+| `timeout` | TimeSpan? | | リクエストタイムアウト |
+
+
 
 ### オプション設定
 
