@@ -21,8 +21,28 @@ PleasanterDeveloperCommunity.DotNet.Clientは、オープンソースのWebデ�
 
 ## インストール
 
+1. `dist`フォルダから以下のファイルをプロジェクトにコピーします：
+   - `PleasanterDeveloperCommunity.DotNet.Client.dll`
+
+2. プロジェクトファイル（.csproj）に参照を追加します：
+
+```xml
+<ItemGroup>
+  <Reference Include="PleasanterDeveloperCommunity.DotNet.Client">
+    <HintPath>path\to\PleasanterDeveloperCommunity.DotNet.Client.dll</HintPath>
+  </Reference>
+</ItemGroup>
+```
+
+3. 依存パッケージをプロジェクトに追加します：
+
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+dotnet add package CsvHelper
+dotnet add package Microsoft.AspNet.WebApi.Client
+dotnet add package Newtonsoft.Json
+dotnet add package System.ComponentModel.Annotations
+dotnet add package System.Threading.Channels
+dotnet add package UUIDNext
 ```
 
 ## 使用方法
