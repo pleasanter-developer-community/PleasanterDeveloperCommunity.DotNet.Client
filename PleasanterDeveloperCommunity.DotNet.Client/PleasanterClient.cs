@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client;
@@ -18,6 +19,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 /// </summary>
 public class PleasanterClient : IDisposable
 {
+    private static readonly HttpClient HttpClient = new();
     private static readonly JsonSerializerSettings JsonSettings = new()
     {
         NullValueHandling = NullValueHandling.Ignore
@@ -26,6 +28,7 @@ public class PleasanterClient : IDisposable
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly string _baseUrl;
+    private readonly TimeSpan? _defaultTimeout;
     private bool _disposed;
 
     /// <summary>
@@ -33,8 +36,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="baseUrl">プリザンターのベースURL（例: https://example.com/pleasanter）</param>
     /// <param name="apiKey">APIキー</param>
-    public PleasanterClient(string baseUrl, string apiKey)
-        : this(baseUrl, apiKey, new HttpClient())
+    /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
+    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null)
+        : this(baseUrl, apiKey, HttpClient, defaultTimeout)
     {
     }
 
@@ -44,7 +48,8 @@ public class PleasanterClient : IDisposable
     /// <param name="baseUrl">プリザンターのベースURL</param>
     /// <param name="apiKey">APIキー</param>
     /// <param name="httpClient">HttpClientインスタンス</param>
-    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient)
+    /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
+    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -53,6 +58,7 @@ public class PleasanterClient : IDisposable
             ? apiKey
             : throw new ArgumentNullException(nameof(apiKey));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        _defaultTimeout = defaultTimeout;
     }
 
     /// <summary>
@@ -60,8 +66,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
     /// <param name="view">ビュー設定（取得する列の指定など）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, View? view = null)
+    public async Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, View? view = null, TimeSpan? timeout = null)
     {
         var request = new RecordRequest
         {
@@ -70,7 +77,7 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{recordId}/get";
-        return await PostAsync<RecordResponse>(url, request);
+        return await PostAsync<RecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -79,8 +86,9 @@ public class PleasanterClient : IDisposable
     /// <param name="siteId">サイトID</param>
     /// <param name="offset">取得開始位置（ページネーション用）</param>
     /// <param name="view">ビュー設定（フィルタや並び替えなど）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(long siteId, int? offset = null, View? view = null)
+    public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(long siteId, int? offset = null, View? view = null, TimeSpan? timeout = null)
     {
         var request = new RecordsRequest
         {
@@ -90,16 +98,18 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{siteId}/get";
-        return await PostAsync<RecordsResponse>(url, request);
+        return await PostAsync<RecordsResponse>(url, request, timeout);
     }
+
 
     /// <summary>
     /// ページングを自動的に処理し、全レコードを取得します
     /// </summary>
     /// <param name="siteId">サイトID</param>
     /// <param name="view">ビュー設定（フィルタや並び替えなど）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>全レコードを含むAPIレスポンス</returns>
-    public async Task<ApiResponse<RecordsResponse>> GetAllRecordsAsync(long siteId, View? view = null)
+    public async Task<ApiResponse<RecordsResponse>> GetAllRecordsAsync(long siteId, View? view = null, TimeSpan? timeout = null)
     {
         var allRecords = new List<RecordData>();
         int offset = 0;
@@ -107,7 +117,7 @@ public class PleasanterClient : IDisposable
 
         while (true)
         {
-            var response = await GetRecordsAsync(siteId, offset, view);
+            var response = await GetRecordsAsync(siteId, offset, view, timeout);
 
             if (response.StatusCode != HttpStatusCode.OK || response.Response?.Data == null)
             {
@@ -156,6 +166,7 @@ public class PleasanterClient : IDisposable
     /// <param name="processId">プロセスID</param>
     /// <param name="processIds">複数のプロセスID</param>
     /// <param name="imageHash">画像挿入設定</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
     public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(
         long siteId,
@@ -173,7 +184,8 @@ public class PleasanterClient : IDisposable
         Dictionary<string, List<AttachmentData>>? attachmentsHash = null,
         int? processId = null,
         List<int>? processIds = null,
-        Dictionary<string, ImageSettings>? imageHash = null)
+        Dictionary<string, ImageSettings>? imageHash = null,
+        TimeSpan? timeout = null)
     {
         var request = new CreateRecordRequest
         {
@@ -196,7 +208,7 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{siteId}/create";
-        return await PostAsync<CreateRecordResponse>(url, request);
+        return await PostAsync<CreateRecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -204,8 +216,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">作成リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(long siteId, CreateRecordRequest request)
+    public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(long siteId, CreateRecordRequest request, TimeSpan? timeout = null)
     {
         if (request == null)
         {
@@ -214,8 +227,9 @@ public class PleasanterClient : IDisposable
 
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/create";
-        return await PostAsync<CreateRecordResponse>(url, request);
+        return await PostAsync<CreateRecordResponse>(url, request, timeout);
     }
+
 
     /// <summary>
     /// レコードを作成または更新します（Upsert）
@@ -236,6 +250,7 @@ public class PleasanterClient : IDisposable
     /// <param name="processId">プロセスID</param>
     /// <param name="processIds">複数のプロセスID</param>
     /// <param name="imageHash">画像挿入設定</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
     public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(
         long siteId,
@@ -253,7 +268,8 @@ public class PleasanterClient : IDisposable
         Dictionary<string, bool>? checkHash = null,
         int? processId = null,
         List<int>? processIds = null,
-        Dictionary<string, ImageSettings>? imageHash = null)
+        Dictionary<string, ImageSettings>? imageHash = null,
+        TimeSpan? timeout = null)
     {
         var request = new UpsertRecordRequest
         {
@@ -276,7 +292,7 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{siteId}/upsert";
-        return await PostAsync<UpsertRecordResponse>(url, request);
+        return await PostAsync<UpsertRecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -284,8 +300,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">Upsertリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(long siteId, UpsertRecordRequest request)
+    public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(long siteId, UpsertRecordRequest request, TimeSpan? timeout = null)
     {
         if (request == null)
         {
@@ -294,7 +311,7 @@ public class PleasanterClient : IDisposable
 
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/upsert";
-        return await PostAsync<UpsertRecordResponse>(url, request);
+        return await PostAsync<UpsertRecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -304,12 +321,14 @@ public class PleasanterClient : IDisposable
     /// <param name="data">レコードデータの配列</param>
     /// <param name="keys">キーとなる項目名の配列（省略時：全てのレコードを新規作成）</param>
     /// <param name="keyNotFoundCreate">キーと一致するレコードが無い場合に新規作成するかどうか（省略時：true）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
     public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(
         long siteId,
         List<BulkUpsertRecordData> data,
         List<string>? keys = null,
-        bool? keyNotFoundCreate = null)
+        bool? keyNotFoundCreate = null,
+        TimeSpan? timeout = null)
     {
         if (data == null)
         {
@@ -325,7 +344,7 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
-        return await PostAsync<BulkUpsertRecordResponse>(url, request);
+        return await PostAsync<BulkUpsertRecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -333,8 +352,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">BulkUpsertリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(long siteId, BulkUpsertRecordRequest request)
+    public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(long siteId, BulkUpsertRecordRequest request, TimeSpan? timeout = null)
     {
         if (request == null)
         {
@@ -343,7 +363,7 @@ public class PleasanterClient : IDisposable
 
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
-        return await PostAsync<BulkUpsertRecordResponse>(url, request);
+        return await PostAsync<BulkUpsertRecordResponse>(url, request, timeout);
     }
 
     /// <summary>
@@ -351,10 +371,12 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="name">拡張SQLの名前（JSONファイルで定義したName）</param>
     /// <param name="parameters">SQLに渡すパラメータ</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
     public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
         string name,
-        Dictionary<string, object>? parameters = null)
+        Dictionary<string, object>? parameters = null,
+        TimeSpan? timeout = null)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -369,15 +391,16 @@ public class PleasanterClient : IDisposable
         };
 
         var url = $"{_baseUrl}/api/extended/sql";
-        return await PostAsync<ExtendedSqlResponse>(url, request);
+        return await PostAsync<ExtendedSqlResponse>(url, request, timeout);
     }
 
     /// <summary>
     /// 拡張SQLを実行します - リクエストオブジェクト使用版
     /// </summary>
     /// <param name="request">拡張SQLリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request)
+    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request, TimeSpan? timeout = null)
     {
         if (request == null)
         {
@@ -386,20 +409,33 @@ public class PleasanterClient : IDisposable
 
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/extended/sql";
-        return await PostAsync<ExtendedSqlResponse>(url, request);
+        return await PostAsync<ExtendedSqlResponse>(url, request, timeout);
     }
 
     /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
-    private async Task<ApiResponse<T>> PostAsync<T>(string url, object request) where T : class
+    /// <param name="url">リクエストURL</param>
+    /// <param name="request">リクエストオブジェクト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    private async Task<ApiResponse<T>> PostAsync<T>(string url, object request, TimeSpan? timeout = null) where T : class
     {
         var formatter = new System.Net.Http.Formatting.JsonMediaTypeFormatter
         {
             SerializerSettings = JsonSettings
         };
 
-        using var response = await _httpClient.PostAsJsonAsync(url, request);
+        var effectiveTimeout = timeout ?? _defaultTimeout;
+        using var cts = effectiveTimeout.HasValue
+            ? new CancellationTokenSource(effectiveTimeout.Value)
+            : new CancellationTokenSource();
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(request, JsonSettings),
+            System.Text.Encoding.UTF8,
+            "application/json");
+
+        using var response = await _httpClient.PostAsync(url, content, cts.Token);
         var result = await response.Content.ReadAsAsync<ApiResponse<T>>(formatters: new[] { formatter });
 
         return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
@@ -419,15 +455,9 @@ public class PleasanterClient : IDisposable
     /// </summary>
     protected virtual void Dispose(bool disposing)
     {
-        if (_disposed)
-        {
-            return;
-        }
+        if (_disposed) return;
 
-        if (disposing)
-        {
-            _httpClient?.Dispose();
-        }
+        // HttpClient は Dispose しない
         _disposed = true;
     }
 }
