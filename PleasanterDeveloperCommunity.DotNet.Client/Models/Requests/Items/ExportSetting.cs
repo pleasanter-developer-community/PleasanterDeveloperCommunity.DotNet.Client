@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -27,8 +28,8 @@ public class ExportSetting
     public bool? Header { get; set; }
 
     /// <summary>
-    /// 出力するファイルの種類（csv または json）
+    /// 出力するファイルの種類（Csv または Json）
     /// </summary>
     [JsonProperty("Type")]
-    public string? Type { get; set; }
+    public ExportType? Type { get; set; }
 }
