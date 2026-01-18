@@ -1010,6 +1010,75 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// サイトを作成します
+    /// </summary>
+    /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
+    /// <param name="title">サイトのタイトル</param>
+    /// <param name="referenceType">参照タイプ（Sites, Issues, Results, Wikis のいずれか）</param>
+    /// <param name="tenantId">テナントID</param>
+    /// <param name="inheritPermission">アクセス権の継承元サイトID</param>
+    /// <param name="siteSettings">サイト設定（サイトパッケージのSiteパラメータと同等の形式）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// </remarks>
+    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
+        long parentSiteId,
+        string title,
+        string referenceType,
+        int? tenantId = null,
+        long? inheritPermission = null,
+        object? siteSettings = null,
+        TimeSpan? timeout = null)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentNullException(nameof(title));
+        }
+
+        if (string.IsNullOrWhiteSpace(referenceType))
+        {
+            throw new ArgumentNullException(nameof(referenceType));
+        }
+
+        var request = new CreateSiteRequest
+        {
+            ApiKey = _apiKey,
+            TenantId = tenantId,
+            Title = title,
+            ReferenceType = referenceType,
+            InheritPermission = inheritPermission,
+            SiteSettings = siteSettings
+        };
+
+        var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
+        return await PostAsync<CreateSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトを作成します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
+    /// <param name="request">サイト作成リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// </remarks>
+    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(long parentSiteId, CreateSiteRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
+        return await PostAsync<CreateSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     /// <param name="url">リクエストURL</param>

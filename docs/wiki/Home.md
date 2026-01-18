@@ -54,7 +54,7 @@ using var client = new PleasanterClient(
 | 実装済み | API名 | エンドポイント |
 |:--------:|------|---------------|
 | ✓ | サイトコピー | sites/{siteId}/copy |
-| | サイト作成 | sites/{parentId}/create |
+| ✓ | サイト作成 | sites/{parentId}/create |
 | | サイト削除 | sites/{siteId}/delete |
 | | サイト取得 | sites/{siteId}/get |
 | | サイト名検索で該当サイトに最も近いサイトID取得 | sites/get |
