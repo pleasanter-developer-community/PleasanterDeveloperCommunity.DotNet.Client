@@ -1,0 +1,32 @@
+# 拡張SQL実行 - extended/sql
+
+## 概要
+
+事前に定義した拡張SQLを実行します。
+
+## メソッド
+
+```csharp
+Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request, TimeSpan? timeout = null)
+```
+
+## パラメータ
+
+| 引数 | 型 | 必須 | 説明 |
+|------|------|:----:|------|
+| `name` | string | ✓ | 拡張SQLの名前（JSONファイルで定義したName） |
+| `parameters` | Dictionary\<string, object\> | | SQLに渡すパラメータ |
+| `timeout` | TimeSpan? | | リクエストタイムアウト |
+
+## 使用例
+
+```csharp
+var result = await client.ExecuteExtendedSqlAsync(
+    name: "MyExtendedSql",
+    parameters: new Dictionary<string, object>
+    {
+        { "Param1", "値" },
+        { "Param2", 123 }
+    }
+);
+```

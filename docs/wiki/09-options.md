@@ -1,0 +1,58 @@
+# オプション設定
+
+PleasanterClientでは、さまざまなオプション設定が可能です。
+
+## タイムアウト設定
+
+```csharp
+using var client = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    defaultTimeout: TimeSpan.FromSeconds(30)
+);
+```
+
+## プロキシ設定
+
+```csharp
+// プロキシ設定
+using var clientWithProxy = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    proxySettings: ProxySettings.WithCustomProxy(new WebProxy("http://proxy:8080"))
+);
+
+// プロキシなし
+using var clientNoProxy = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    proxySettings: ProxySettings.NoProxy
+);
+```
+
+## SSL証明書検証の無効化
+
+開発・テスト環境でのみ使用してください。
+
+```csharp
+using var clientDevMode = new PleasanterClient(
+    baseUrl: "https://localhost/pleasanter",
+    apiKey: "your-api-key",
+    ignoreSslCertificateValidation: true
+);
+```
+
+## デバッグ設定
+
+リクエスト・レスポンスをログ出力します。
+
+```csharp
+using var clientDebug = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    debugSettings: new DebugSettings(
+        logDirectory: @"C:\Logs",
+        maskApiKey: true
+    )
+);
+```

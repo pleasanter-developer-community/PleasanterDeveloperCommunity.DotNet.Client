@@ -151,8 +151,8 @@ function isProtectedPage(title) {
   return PROTECTED_WIKI_PAGES.some(protectedPage => {
     // 完全一致または、スラッシュ/ハイフンの違いを考慮
     return title === protectedPage ||
-           title === protectedPage.replace(/\//g, '-') ||
-           title === protectedPage.replace(/-/g, '/');
+      title === protectedPage.replace(/\//g, '-') ||
+      title === protectedPage.replace(/-/g, '/');
   });
 }
 
@@ -267,9 +267,9 @@ function main() {
     const sidebarContent = `# 目次
 
 ${files
-  .filter(f => !f.relativePath?.includes('wiki-backup'))
-  .map(f => `- [[${f.wikiTitle}|${f.wikiTitle}]]`)
-  .join('\n')}
+        .filter(f => !f.relativePath?.includes('wiki-backup'))
+        .map(f => `- [[${f.wikiTitle}|${f.wikiTitle}]]`)
+        .join('\n')}
 
 ${protectedPages.length > 0 ? `## Wiki 専用ページ\n\n${protectedPages.map(p => `- [[${p.wikiTitle}|${p.wikiTitle}]]`).join('\n')}\n` : ''}
 `;

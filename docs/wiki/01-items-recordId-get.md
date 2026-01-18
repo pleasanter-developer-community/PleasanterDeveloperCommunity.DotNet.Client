@@ -1,0 +1,26 @@
+# 単一レコード取得 - items/{recordId}/get
+
+## 概要
+
+指定したレコードIDのレコードを1件取得します。
+
+## メソッド
+
+```csharp
+Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, View? view = null, TimeSpan? timeout = null)
+```
+
+## パラメータ
+
+| 引数 | 型 | 必須 | 説明 |
+|------|------|:----:|------|
+| `recordId` | long | ✓ | レコードID（IssueIdまたはResultId） |
+| `view` | View | | ビュー設定（取得する列の指定など） |
+| `timeout` | TimeSpan? | | リクエストタイムアウト |
+
+## 使用例
+
+```csharp
+// 単一レコードの取得
+var record = await client.GetRecordAsync(recordId: 123);
+```

@@ -1,0 +1,47 @@
+# レコード一括作成・更新 - items/{siteId}/bulkupsert
+
+## 概要
+
+複数のレコードを一括で作成または更新します。キーに基づいて既存レコードの更新または新規レコードの作成を行います。
+
+## メソッド
+
+```csharp
+Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(long siteId, BulkUpsertRecordRequest request, TimeSpan? timeout = null)
+```
+
+## パラメータ
+
+| 引数 | 型 | 必須 | 説明 |
+|------|------|:----:|------|
+| `siteId` | long | ✓ | サイトID |
+| `data` | List\<BulkUpsertRecordData\> | ✓ | レコードデータの配列 |
+| `keys` | List\<string\> | | キーとなる項目名の配列（省略時：全てのレコードを新規作成） |
+| `keyNotFoundCreate` | bool? | | キーと一致するレコードが無い場合に新規作成するかどうか（省略時：true） |
+| `timeout` | TimeSpan? | | リクエストタイムアウト |
+
+## 使用例
+
+```csharp
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+
+var data = new List<BulkUpsertRecordData>
+{
+    new BulkUpsertRecordData
+    {
+        Title = "レコード1",
+        ClassHash = new Dictionary<string, string> { { "ClassA", "値1" } }
+    },
+    new BulkUpsertRecordData
+    {
+        Title = "レコード2",
+        ClassHash = new Dictionary<string, string> { { "ClassA", "値2" } }
+    }
+};
+
+var result = await client.BulkUpsertRecordAsync(
+    siteId: 456,
+    data: data,
+    keys: new List<string> { "ClassA" }
+);
+```
