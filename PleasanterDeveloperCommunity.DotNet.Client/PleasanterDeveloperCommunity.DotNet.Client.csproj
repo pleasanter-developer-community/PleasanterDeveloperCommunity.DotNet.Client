@@ -12,7 +12,7 @@
     <Authors>Pleasanter Developer Community</Authors>
     <Copyright>Copyright © $([System.DateTime]::Now.Year) Pleasanter Developer Community and contributors</Copyright>
     <Description>Pleasanter API Client for .NET</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>pleasanter;api;client</PackageTags>
