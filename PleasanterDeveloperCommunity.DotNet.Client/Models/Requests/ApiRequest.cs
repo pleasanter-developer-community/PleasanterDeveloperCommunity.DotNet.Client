@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Converters;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
@@ -8,10 +10,33 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 public class ApiRequest
 {
     /// <summary>
-    /// APIバージョン（1.1固定）
+    /// 最小APIバージョン
     /// </summary>
+    public const float MinApiVersion = 1.1f;
+
+    private float _apiVersion = MinApiVersion;
+
+    /// <summary>
+    /// APIバージョン（既定値: 1.1、1.1未満は設定不可）
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">1.1未満の値を設定した場合</exception>
     [JsonProperty("ApiVersion")]
-    public string ApiVersion { get; } = "1.1";
+    [JsonConverter(typeof(ApiVersionConverter))]
+    public float ApiVersion
+    {
+        get => _apiVersion;
+        set
+        {
+            if (value < MinApiVersion)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    value,
+                    $"ApiVersion must be {MinApiVersion} or greater.");
+            }
+            _apiVersion = value;
+        }
+    }
 
     /// <summary>
     /// APIキー
