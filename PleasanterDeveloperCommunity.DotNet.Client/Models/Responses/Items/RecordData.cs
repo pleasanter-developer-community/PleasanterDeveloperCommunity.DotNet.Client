@@ -9,6 +9,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class RecordData
 {
+    private string? _comments;
+    private List<Comment>? _commentList;
     /// <summary>
     /// サイトID
     /// </summary>
@@ -75,10 +77,49 @@ public class RecordData
     public int? Owner { get; set; }
 
     /// <summary>
-    /// コメント
+    /// コメント（JSON文字列）
     /// </summary>
     [JsonProperty("Comments")]
-    public string? Comments { get; set; }
+    public string? Comments
+    {
+        get => _comments;
+        set
+        {
+            _comments = value;
+            _commentList = null; // キャッシュをクリア
+        }
+    }
+
+    /// <summary>
+    /// コメントのリスト（Comments プロパティをデシリアライズしたもの）
+    /// </summary>
+    [JsonIgnore]
+    public List<Comment>? CommentList
+    {
+        get
+        {
+            if (_commentList != null)
+            {
+                return _commentList;
+            }
+
+            if (string.IsNullOrWhiteSpace(_comments))
+            {
+                return null;
+            }
+
+            try
+            {
+                _commentList = JsonConvert.DeserializeObject<List<Comment>>(_comments);
+            }
+            catch
+            {
+                _commentList = null;
+            }
+
+            return _commentList;
+        }
+    }
 
     /// <summary>
     /// 作成者
