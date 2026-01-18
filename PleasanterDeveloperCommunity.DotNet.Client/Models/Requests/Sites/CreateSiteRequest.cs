@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using System.ComponentModel.DataAnnotations;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
@@ -26,8 +27,7 @@ public class CreateSiteRequest : ApiRequest
     /// </summary>
     [JsonProperty("ReferenceType")]
     [Required(ErrorMessage = "ReferenceType は必須です。")]
-    [RegularExpression("^(Sites|Issues|Results|Wikis)$", ErrorMessage = "ReferenceType は Sites, Issues, Results, Wikis のいずれかである必要があります。")]
-    public string ReferenceType { get; set; } = string.Empty;
+    public SiteReferenceType ReferenceType { get; set; }
 
     /// <summary>
     /// 親サイトID（省略時はAPIリクエストURLで指定した親サイトID配下に作成されます）

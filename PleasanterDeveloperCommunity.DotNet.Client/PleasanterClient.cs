@@ -4,6 +4,7 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
@@ -1014,7 +1015,7 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
     /// <param name="title">サイトのタイトル</param>
-    /// <param name="referenceType">参照タイプ（Sites, Issues, Results, Wikis のいずれか）</param>
+    /// <param name="referenceType">参照タイプ</param>
     /// <param name="tenantId">テナントID</param>
     /// <param name="inheritPermission">アクセス権の継承元サイトID</param>
     /// <param name="siteSettings">サイト設定（サイトパッケージのSiteパラメータと同等の形式）</param>
@@ -1026,7 +1027,7 @@ public class PleasanterClient : IDisposable
     public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
         long parentSiteId,
         string title,
-        string referenceType,
+        SiteReferenceType referenceType,
         int? tenantId = null,
         long? inheritPermission = null,
         object? siteSettings = null,
@@ -1035,11 +1036,6 @@ public class PleasanterClient : IDisposable
         if (string.IsNullOrWhiteSpace(title))
         {
             throw new ArgumentNullException(nameof(title));
-        }
-
-        if (string.IsNullOrWhiteSpace(referenceType))
-        {
-            throw new ArgumentNullException(nameof(referenceType));
         }
 
         var request = new CreateSiteRequest
