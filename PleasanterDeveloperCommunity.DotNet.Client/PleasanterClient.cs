@@ -735,6 +735,7 @@ public class PleasanterClient : IDisposable
     /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
     /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
     /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="autoConvertToUtf8">UTF-8/Shift-JIS以外のエンコーディングが指定された場合、自動的にUTF-8に変換するかどうか（デフォルト: false）</param>
     /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
     /// <remarks>
@@ -744,8 +745,10 @@ public class PleasanterClient : IDisposable
     /// <item><description>UTF-8として無効なバイトシーケンスがある場合：Shift-JIS</description></item>
     /// <item><description>上記以外：UTF-8（デフォルト）</description></item>
     /// </list>
+    /// <para>autoConvertToUtf8=trueを指定すると、UTF-8/Shift-JIS以外のエンコーディングが指定された場合、</para>
+    /// <para>そのエンコーディングでデコードしてからUTF-8に変換してインポートします。</para>
     /// </remarks>
-    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    /// <exception cref="ArgumentException">autoConvertToUtf8=falseでUTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
     /// <exception cref="FileNotFoundException">指定されたファイルが存在しない場合</exception>
     public async Task<ApiResponse<ImportResponse>> ImportFromFileAsync(
         long siteId,
@@ -753,6 +756,7 @@ public class PleasanterClient : IDisposable
         Encoding? encoding = null,
         string? key = null,
         bool? migrationMode = null,
+        bool autoConvertToUtf8 = false,
         TimeSpan? timeout = null)
     {
         if (string.IsNullOrWhiteSpace(filePath))
@@ -770,6 +774,18 @@ public class PleasanterClient : IDisposable
 
         // エンコーディングが指定されていない場合、ファイル内容から自動判定
         var detectedEncoding = encoding ?? DetectEncoding(csvData);
+
+        // UTF-8/Shift-JIS以外のエンコーディングが指定された場合の処理
+        if (detectedEncoding.CodePage != 65001 && detectedEncoding.CodePage != 932)
+        {
+            if (autoConvertToUtf8)
+            {
+                // 指定されたエンコーディングでデコードしてUTF-8に変換
+                csvData = ConvertToUtf8(csvData, detectedEncoding);
+                detectedEncoding = Encoding.UTF8;
+            }
+            // autoConvertToUtf8=falseの場合は、ImportAsync内でArgumentExceptionがスローされる
+        }
 
         return await ImportAsync(siteId, csvData, fileName, detectedEncoding, key, migrationMode, timeout);
     }
@@ -1225,5 +1241,20 @@ public class PleasanterClient : IDisposable
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// 指定されたエンコーディングからUTF-8に変換します
+    /// </summary>
+    /// <param name="data">変換するバイト配列</param>
+    /// <param name="sourceEncoding">元のエンコーディング</param>
+    /// <returns>UTF-8に変換されたバイト配列</returns>
+    private static byte[] ConvertToUtf8(byte[] data, Encoding sourceEncoding)
+    {
+        // 元のエンコーディングで文字列にデコード
+        var text = sourceEncoding.GetString(data);
+
+        // UTF-8でエンコード
+        return Encoding.UTF8.GetBytes(text);
     }
 }
