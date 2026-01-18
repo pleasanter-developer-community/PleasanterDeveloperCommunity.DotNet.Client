@@ -329,7 +329,7 @@ public class PleasanterClient : IDisposable
         string? completionTime = null,
         Dictionary<string, string>? classHash = null,
         Dictionary<string, decimal>? numHash = null,
-        Dictionary<string, string>? dateHash = null,
+        Dictionary<string, DateTime>? dateHash = null,
         Dictionary<string, string>? descriptionHash = null,
         Dictionary<string, bool>? checkHash = null,
         int? processId = null,
@@ -516,6 +516,25 @@ public class PleasanterClient : IDisposable
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
         return await PostAsync<BulkUpsertRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// レコードを削除します
+    /// </summary>
+    /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<DeleteRecordResponse>> DeleteRecordAsync(
+        long recordId,
+        TimeSpan? timeout = null)
+    {
+        var request = new ApiRequest
+        {
+            ApiKey = _apiKey
+        };
+
+        var url = $"{_baseUrl}/api/items/{recordId}/delete";
+        return await PostAsync<DeleteRecordResponse>(url, request, timeout);
     }
 
     /// <summary>

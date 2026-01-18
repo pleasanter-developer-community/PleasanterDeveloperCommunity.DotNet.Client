@@ -113,7 +113,7 @@ public class RecordData
     /// 日付項目（API 1.1: DateA〜DateZ, Date001〜Date999）
     /// </summary>
     [JsonProperty("DateHash")]
-    public Dictionary<string, string>? DateHash { get; set; }
+    public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目（API 1.1: DescriptionA〜DescriptionZ, Description001〜Description999）
@@ -162,7 +162,7 @@ public class RecordData
     /// </summary>
     /// <param name="columnName">列名（例: DateA, Date001）</param>
     /// <returns>値（存在しない場合はnull）</returns>
-    public string? GetDate(string columnName)
+    public DateTime? GetDate(string columnName)
     {
         if (DateHash is null)
         {

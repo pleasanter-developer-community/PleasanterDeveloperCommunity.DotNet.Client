@@ -84,7 +84,7 @@ public class UpsertRecordRequest : ApiRequest
     /// </summary>
     [JsonProperty("DateHash")]
     [RegexKeyDictionary(ColumnPatterns.DateHashKeyPattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.DateHashKeyError))]
-    public Dictionary<string, string>? DateHash { get; set; }
+    public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目（DescriptionA〜DescriptionZ, Description001〜Description999）

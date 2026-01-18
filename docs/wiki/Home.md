@@ -34,7 +34,7 @@ using var client = new PleasanterClient(
 | ✓ | レコード一括作成・更新 | items/{siteId}/bulkupsert |
 | ✓ | レコード作成・更新 | items/{siteId}/upsert |
 | ✓ | レコード更新 | items/{recordId}/update |
-| | レコード削除 | items/{recordId}/delete |
+| ✓ | レコード削除 | items/{recordId}/delete |
 | | レコード一括削除 | items/{siteId}/bulkdelete |
 | | 添付ファイル取得 | items/{recordId}/binaries/{guid}/get |
 | | テーブルのエクスポート | items/{siteId}/export |
