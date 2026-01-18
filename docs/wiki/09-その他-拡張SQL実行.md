@@ -30,3 +30,7 @@ var result = await client.ExecuteExtendedSqlAsync(
     }
 );
 ```
+
+## 関連ドキュメント
+
+- [レスポンスの処理](00-レスポンスの処理) - APIレスポンスの処理方法
