@@ -728,6 +728,42 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - ファイルパス版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="filePath">CSVファイルのパス</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    /// <exception cref="FileNotFoundException">指定されたファイルが存在しない場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportFromFileAsync(
+        long siteId,
+        string filePath,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        TimeSpan? timeout = null)
+    {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath));
+        }
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException(Resources.Messages.FileNotFound(filePath), filePath);
+        }
+
+        var csvData = File.ReadAllBytes(filePath);
+        var fileName = Path.GetFileName(filePath);
+
+        return await ImportAsync(siteId, csvData, fileName, encoding, key, migrationMode, timeout);
+    }
+
+    /// <summary>
     /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト使用版
     /// </summary>
     /// <param name="siteId">サイトID</param>

@@ -33,6 +33,7 @@ internal static class Messages
             ["NoWritePermissionForDirectory"] = "No write permission for directory: {0}",
             ["WriteTestFailedForDirectory"] = "Write test failed for directory: {0}",
             ["UnsupportedImportEncoding"] = "The encoding must be UTF-8 or Shift-JIS. Other encodings are not supported.",
+            ["FileNotFound"] = "File not found: {0}",
         },
         ["ja"] = new Dictionary<string, string>
         {
@@ -55,6 +56,7 @@ internal static class Messages
             ["NoWritePermissionForDirectory"] = "ディレクトリへの書き込み権限がありません: {0}",
             ["WriteTestFailedForDirectory"] = "ディレクトリへの書き込みテストに失敗しました: {0}",
             ["UnsupportedImportEncoding"] = "エンコーディングは UTF-8 または Shift-JIS である必要があります。その他のエンコーディングはサポートされていません。",
+            ["FileNotFound"] = "ファイルが見つかりません: {0}",
         }
     };
 
@@ -187,4 +189,9 @@ internal static class Messages
     /// The encoding must be UTF-8 or Shift-JIS. Other encodings are not supported.
     /// </summary>
     internal static string UnsupportedImportEncoding => GetMessage(nameof(UnsupportedImportEncoding));
+
+    /// <summary>
+    /// File not found: {0}
+    /// </summary>
+    internal static string FileNotFound(string path) => string.Format(GetMessage(nameof(FileNotFound)), path);
 }
