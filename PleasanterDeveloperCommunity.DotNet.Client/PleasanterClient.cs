@@ -538,6 +538,56 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// レコードを一括削除します
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="selected">削除するレコードのIDリスト</param>
+    /// <param name="view">ビュー設定（削除対象のフィルタ条件）</param>
+    /// <param name="all">テーブルのすべてのレコードを一括削除する場合true</param>
+    /// <param name="physicalDelete">レコード削除と同時に変更履歴およびごみ箱から削除する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(
+        long siteId,
+        List<long>? selected = null,
+        View? view = null,
+        bool? all = null,
+        bool? physicalDelete = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new BulkDeleteRecordRequest
+        {
+            ApiKey = _apiKey,
+            Selected = selected,
+            View = view,
+            All = all,
+            PhysicalDelete = physicalDelete
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/bulkdelete";
+        return await PostAsync<BulkDeleteRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// レコードを一括削除します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">一括削除リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(long siteId, BulkDeleteRecordRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/bulkdelete";
+        return await PostAsync<BulkDeleteRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// 拡張SQLを実行します
     /// </summary>
     /// <param name="name">拡張SQLの名前（JSONファイルで定義したName）</param>
