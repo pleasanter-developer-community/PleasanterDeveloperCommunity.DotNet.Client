@@ -1,8 +1,11 @@
 # PleasanterDeveloperCommunity.DotNet.Client
 
-[![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet)](https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard)
-[![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/)
-[![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
+<p>
+  <a href="https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard"><img src="https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet" alt=".NET Standard"></a>
+  <a href="https://pleasanter.org/"><img src="https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9" alt="Pleasanter"></a>
+  <a href="https://pleasanter.org/ja/manual/api"><img src="https://img.shields.io/badge/Pleasanter%20ApiVersion-1.1-00A0E9" alt="Pleasanter ApiVersion"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-LGPL--2.1-blue.svg" alt="License"></a>
+</p>
 
 [プリザンター](https://pleasanter.org/)のAPIを.NETから簡単に利用するためのクライアントライブラリです。レコードのCRUD操作、一括処理、拡張SQL実行などを型安全に扱えます。
 
@@ -40,9 +43,11 @@ dotnet add package UUIDNext
 
 このプロジェクトは以下のサードパーティライブラリを使用しています：
 
-[![CsvHelper](https://img.shields.io/badge/CsvHelper-MS--PL%20%2F%20Apache--2.0-green)](https://www.nuget.org/packages/CsvHelper)
-[![Microsoft.AspNet.WebApi.Client](https://img.shields.io/badge/Microsoft.AspNet.WebApi.Client-MIT-green)](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client)
-[![Newtonsoft.Json](https://img.shields.io/badge/Newtonsoft.Json-MIT-green)](https://www.nuget.org/packages/Newtonsoft.Json)
-[![System.ComponentModel.Annotations](https://img.shields.io/badge/System.ComponentModel.Annotations-MIT-green)](https://www.nuget.org/packages/System.ComponentModel.Annotations)
-[![System.Threading.Channels](https://img.shields.io/badge/System.Threading.Channels-MIT-green)](https://www.nuget.org/packages/System.Threading.Channels)
-[![UUIDNext](https://img.shields.io/badge/UUIDNext-MIT-green)](https://www.nuget.org/packages/UUIDNext)
+<p>
+  <a href="https://www.nuget.org/packages/CsvHelper"><img src="https://img.shields.io/badge/CsvHelper-MS--PL%20%2F%20Apache--2.0-green" alt="CsvHelper"></a>
+  <a href="https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client"><img src="https://img.shields.io/badge/Microsoft.AspNet.WebApi.Client-MIT-green" alt="Microsoft.AspNet.WebApi.Client"></a>
+  <a href="https://www.nuget.org/packages/Newtonsoft.Json"><img src="https://img.shields.io/badge/Newtonsoft.Json-MIT-green" alt="Newtonsoft.Json"></a>
+  <a href="https://www.nuget.org/packages/System.ComponentModel.Annotations"><img src="https://img.shields.io/badge/System.ComponentModel.Annotations-MIT-green" alt="System.ComponentModel.Annotations"></a>
+  <a href="https://www.nuget.org/packages/System.Threading.Channels"><img src="https://img.shields.io/badge/System.Threading.Channels-MIT-green" alt="System.Threading.Channels"></a>
+  <a href="https://www.nuget.org/packages/UUIDNext"><img src="https://img.shields.io/badge/UUIDNext-MIT-green" alt="UUIDNext"></a>
+</p>
