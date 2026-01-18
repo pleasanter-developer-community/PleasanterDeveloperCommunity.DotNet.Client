@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Resources;
@@ -56,6 +57,7 @@ public class ImportRequest : ApiRequest
     /// このプロパティを設定すると、自動的にUpdatableImportがtrueになります。
     /// </summary>
     [JsonProperty("Key")]
+    [RegularExpression(ColumnPatterns.ColumnNamePattern, ErrorMessage = "Key はプリザンターの有効な列名である必要があります。")]
     public string? Key
     {
         get => _key;
