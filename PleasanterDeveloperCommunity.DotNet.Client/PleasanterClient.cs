@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 using System;
@@ -585,6 +587,32 @@ public class PleasanterClient : IDisposable
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/bulkdelete";
         return await PostAsync<BulkDeleteRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// 添付ファイルを取得します
+    /// </summary>
+    /// <param name="guid">添付ファイルのGUID</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス（Base64エンコードされたファイルデータを含む）</returns>
+    /// <remarks>
+    /// 取得したBase64データを実際のファイルとして使用するには、デコードが必要です。
+    /// AttachmentData.GetBytes()メソッドを使用してバイト配列に変換できます。
+    /// </remarks>
+    public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(string guid, TimeSpan? timeout = null)
+    {
+        if (string.IsNullOrWhiteSpace(guid))
+        {
+            throw new ArgumentNullException(nameof(guid));
+        }
+
+        var request = new GetAttachmentRequest
+        {
+            ApiKey = _apiKey
+        };
+
+        var url = $"{_baseUrl}/api/binaries/{guid}/get";
+        return await PostAsync<AttachmentResponse>(url, request, timeout);
     }
 
     /// <summary>
