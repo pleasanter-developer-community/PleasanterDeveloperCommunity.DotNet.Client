@@ -22,9 +22,7 @@ Install-Package PleasanterDeveloperCommunity.DotNet.Client
 
 ### 方法2: オフライン環境でのNuGetパッケージ
 
-[![GitHub Release](https://img.shields.io/github/v/release/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)
-
-Releasesページから`.nupkg`ファイルをダウンロードし、ローカルフィードとして追加します：
+1. [![GitHub Release](https://img.shields.io/github/v/release/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードし、ローカルフィードとして追加します：
 
 ```bash
 dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
