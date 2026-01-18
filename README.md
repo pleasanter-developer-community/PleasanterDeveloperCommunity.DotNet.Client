@@ -22,18 +22,38 @@ Install-Package PleasanterDeveloperCommunity.DotNet.Client
 
 ### 方法2: オフライン環境でのNuGetパッケージ
 
-1. [![GitHub Release](https://img.shields.io/github/v/release/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードし、ローカルフィードとして追加します：
+#### 1. パッケージのダウンロード
+
+[最新リリース](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードします。
+
+#### 2. ローカルフィードの追加
+
+ダウンロードした`.nupkg`ファイルを配置したフォルダをローカルフィードとして追加します：
 
 ```bash
 dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
+```
+
+> **Note**: `/path/to/nupkg/folder`は実際の`.nupkg`ファイルの配置場所に合わせて変更してください。
+
+#### 3. パッケージのインストール
+
+```bash
 dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
 ### 方法3: DLLを直接参照
 
-1. [![GitHub Release](https://img.shields.io/github/v/release/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest) からzipファイルをダウンロードして展開するか、ソースからビルドします。
+#### 1. DLLの取得
 
-2. プロジェクトファイル（.csproj）に参照を追加します：
+以下のいずれかの方法でDLLを取得します：
+
+- **リリースからダウンロード**: [最新リリース](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.zip`ファイルをダウンロードして展開
+- **ソースからビルド**: リポジトリをクローンしてビルド
+
+#### 2. プロジェクトへの参照追加
+
+プロジェクトファイル（`.csproj`）に以下を追加します：
 
 ```xml
 <ItemGroup>
@@ -43,7 +63,11 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 </ItemGroup>
 ```
 
-3. 依存パッケージをプロジェクトに追加します：
+> **Note**: `HintPath`は実際のDLLの配置場所に合わせて変更してください。
+
+#### 3. 依存パッケージのインストール
+
+以下のコマンドで必要な依存パッケージをインストールします：
 
 ```bash
 dotnet add package CsvHelper
