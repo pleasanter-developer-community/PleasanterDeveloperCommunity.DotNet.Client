@@ -5,6 +5,16 @@
     <RootNamespace>PleasanterDeveloperCommunity.DotNet.Client</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>14</LangVersion>
+
+    <!-- Package Information -->
+    <Version>1.0.0</Version>
+    <PackageId>PleasanterDeveloperCommunity.DotNet.Client</PackageId>
+    <Authors>Pleasanter Developer Community</Authors>
+    <Copyright>Copyright © 2026 Pleasanter Developer Community and contributors</Copyright>
+    <Description>Pleasanter API Client for .NET</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
