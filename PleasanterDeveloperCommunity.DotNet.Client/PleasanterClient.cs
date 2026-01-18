@@ -590,6 +590,53 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// テーブルをエクスポートします
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="exportId">エクスポート設定ID（プリザンターで作成済みのエクスポート設定を使用する場合）</param>
+    /// <param name="export">エクスポート設定（設定を直接記述する場合）</param>
+    /// <param name="view">ビュー設定（取得するレコードの絞り込みや並び順を指定）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExportResponse>> ExportAsync(
+        long siteId,
+        int? exportId = null,
+        ExportSetting? export = null,
+        View? view = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new ExportRequest
+        {
+            ApiKey = _apiKey,
+            ExportId = exportId,
+            Export = export,
+            View = view
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/export";
+        return await PostAsync<ExportResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// テーブルをエクスポートします - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">エクスポートリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExportResponse>> ExportAsync(long siteId, ExportRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/export";
+        return await PostAsync<ExportResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
     /// <param name="guid">添付ファイルのGUID</param>
