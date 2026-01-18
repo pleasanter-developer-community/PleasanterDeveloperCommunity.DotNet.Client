@@ -16,6 +16,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
 
@@ -66,11 +67,6 @@ jobs:
       - name: Update version in csproj
         run: |
           sed -i 's|<Version>${{ steps.get_version.outputs.current_version }}</Version>|<Version>${{ steps.new_version.outputs.new_version }}</Version>|' PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj
-
-      - name: Update copyright year
-        run: |
-          CURRENT_YEAR=$(date +%Y)
-          sed -i "s|Copyright © [0-9]\{4\}|Copyright © $CURRENT_YEAR|" PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj
 
       - name: Build project
         run: dotnet build PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj --configuration Release

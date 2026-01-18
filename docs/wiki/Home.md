@@ -108,4 +108,4 @@ using var client = new PleasanterClient(
 | | ヘルスチェック | healthz |
 
 ## Thanks
-このWikiは[sync-docs-to-wiki](https://github.com/ShoWaka/sync-docs-to-wiki)をベースに、単体レポジトリのdocsがWikiに自動同期される仕組みを構築しています。
+このWikiは[sync-docs-to-wiki](https://github.com/ShoWaka/sync-docs-to-wiki)をベースに、本体レポジトリのdocsがWikiに自動同期される仕組みを構築しています。
