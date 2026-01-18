@@ -737,6 +737,14 @@ public class PleasanterClient : IDisposable
     /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
     /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// <para>encodingを省略した場合、ファイル内容からエンコーディングを自動判定します：</para>
+    /// <list type="bullet">
+    /// <item><description>UTF-8 BOMがある場合：UTF-8</description></item>
+    /// <item><description>UTF-8として無効なバイトシーケンスがある場合：Shift-JIS</description></item>
+    /// <item><description>上記以外：UTF-8（デフォルト）</description></item>
+    /// </list>
+    /// </remarks>
     /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
     /// <exception cref="FileNotFoundException">指定されたファイルが存在しない場合</exception>
     public async Task<ApiResponse<ImportResponse>> ImportFromFileAsync(
@@ -760,7 +768,10 @@ public class PleasanterClient : IDisposable
         var csvData = File.ReadAllBytes(filePath);
         var fileName = Path.GetFileName(filePath);
 
-        return await ImportAsync(siteId, csvData, fileName, encoding, key, migrationMode, timeout);
+        // エンコーディングが指定されていない場合、ファイル内容から自動判定
+        var detectedEncoding = encoding ?? DetectEncoding(csvData);
+
+        return await ImportAsync(siteId, csvData, fileName, detectedEncoding, key, migrationMode, timeout);
     }
 
     /// <summary>
@@ -1121,5 +1132,98 @@ public class PleasanterClient : IDisposable
         }
 
         _disposed = true;
+    }
+
+    /// <summary>
+    /// ファイル内容からエンコーディングを自動判定します
+    /// </summary>
+    /// <param name="data">ファイルのバイナリデータ</param>
+    /// <returns>判定されたエンコーディング（UTF-8 または Shift-JIS）</returns>
+    private static Encoding DetectEncoding(byte[] data)
+    {
+        // UTF-8 BOMのチェック
+        if (data.Length >= 3 && data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF)
+        {
+            return Encoding.UTF8;
+        }
+
+        // UTF-8として有効かどうかをチェック
+        if (IsValidUtf8(data))
+        {
+            return Encoding.UTF8;
+        }
+
+        // UTF-8として無効な場合はShift-JISと判定
+        return Encoding.GetEncoding(932);
+    }
+
+    /// <summary>
+    /// バイト配列がUTF-8として有効かどうかを判定します
+    /// </summary>
+    /// <param name="data">検証するバイト配列</param>
+    /// <returns>UTF-8として有効な場合はtrue</returns>
+    private static bool IsValidUtf8(byte[] data)
+    {
+        var i = 0;
+        while (i < data.Length)
+        {
+            // UTF-8 BOMをスキップ
+            if (i == 0 && data.Length >= 3 && data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF)
+            {
+                i += 3;
+                continue;
+            }
+
+            var b = data[i];
+
+            // ASCII (0x00-0x7F)
+            if (b <= 0x7F)
+            {
+                i++;
+                continue;
+            }
+
+            int expectedBytes;
+
+            // 2バイト文字 (110xxxxx 10xxxxxx)
+            if ((b & 0xE0) == 0xC0)
+            {
+                expectedBytes = 2;
+            }
+            // 3バイト文字 (1110xxxx 10xxxxxx 10xxxxxx)
+            else if ((b & 0xF0) == 0xE0)
+            {
+                expectedBytes = 3;
+            }
+            // 4バイト文字 (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+            else if ((b & 0xF8) == 0xF0)
+            {
+                expectedBytes = 4;
+            }
+            else
+            {
+                // 無効なUTF-8の開始バイト
+                return false;
+            }
+
+            // 残りのバイト数が足りない
+            if (i + expectedBytes > data.Length)
+            {
+                return false;
+            }
+
+            // 続きのバイトが10xxxxxxの形式かチェック
+            for (var j = 1; j < expectedBytes; j++)
+            {
+                if ((data[i + j] & 0xC0) != 0x80)
+                {
+                    return false;
+                }
+            }
+
+            i += expectedBytes;
+        }
+
+        return true;
     }
 }
