@@ -381,6 +381,92 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// レコードを更新します
+    /// </summary>
+    /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
+    /// <param name="title">タイトル</param>
+    /// <param name="body">内容</param>
+    /// <param name="status">状況</param>
+    /// <param name="manager">管理者</param>
+    /// <param name="owner">担当者</param>
+    /// <param name="completionTime">完了日時</param>
+    /// <param name="classHash">分類項目</param>
+    /// <param name="numHash">数値項目</param>
+    /// <param name="dateHash">日付項目</param>
+    /// <param name="descriptionHash">説明項目</param>
+    /// <param name="checkHash">チェック項目</param>
+    /// <param name="attachmentsHash">添付ファイル項目</param>
+    /// <param name="processId">プロセスID</param>
+    /// <param name="processIds">複数のプロセスID</param>
+    /// <param name="imageHash">画像挿入設定</param>
+    /// <param name="recordPermissions">レコードのアクセス制御</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(
+        long recordId,
+        string? title = null,
+        string? body = null,
+        int? status = null,
+        int? manager = null,
+        int? owner = null,
+        string? completionTime = null,
+        Dictionary<string, string>? classHash = null,
+        Dictionary<string, decimal>? numHash = null,
+        Dictionary<string, string>? dateHash = null,
+        Dictionary<string, string>? descriptionHash = null,
+        Dictionary<string, bool>? checkHash = null,
+        Dictionary<string, List<AttachmentData>>? attachmentsHash = null,
+        int? processId = null,
+        List<int>? processIds = null,
+        Dictionary<string, ImageSettings>? imageHash = null,
+        List<string>? recordPermissions = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new UpdateRecordRequest
+        {
+            ApiKey = _apiKey,
+            Title = title,
+            Body = body,
+            Status = status,
+            Manager = manager,
+            Owner = owner,
+            CompletionTime = completionTime,
+            ClassHash = classHash,
+            NumHash = numHash,
+            DateHash = dateHash,
+            DescriptionHash = descriptionHash,
+            CheckHash = checkHash,
+            AttachmentsHash = attachmentsHash,
+            ProcessId = processId,
+            ProcessIds = processIds,
+            ImageHash = imageHash,
+            RecordPermissions = recordPermissions
+        };
+
+        var url = $"{_baseUrl}/api/items/{recordId}/update";
+        return await PostAsync<UpdateRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// レコードを更新します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
+    /// <param name="request">更新リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(long recordId, UpdateRecordRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{recordId}/update";
+        return await PostAsync<UpdateRecordResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// 複数レコードを一括作成または更新します（BulkUpsert）
     /// </summary>
     /// <param name="siteId">サイトID</param>
