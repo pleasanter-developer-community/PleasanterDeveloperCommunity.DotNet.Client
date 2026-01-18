@@ -3,10 +3,12 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -706,6 +708,81 @@ public class PleasanterClient : IDisposable
         request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/extended/sql";
         return await PostAsync<ExtendedSqlResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトパッケージをコピーします
+    /// </summary>
+    /// <param name="siteId">コピーするサイトのうちタイトル更新対象のサイトID</param>
+    /// <param name="selectedSites">コピーするサイトの一覧</param>
+    /// <param name="targetSiteId">コピー先のフォルダのサイトID。省略する場合、トップ画面にコピーします。</param>
+    /// <param name="siteTitle">サイトのタイトル。サイトのタイトルを変更する場合に使用してください。</param>
+    /// <param name="includeSitePermission">サイトのアクセス権を含めるかどうか</param>
+    /// <param name="includeRecordPermission">レコードのアクセス権を含めるかどうか</param>
+    /// <param name="includeColumnPermission">項目のアクセス権を含めるかどうか</param>
+    /// <param name="includeNotifications">通知設定を含めるかどうか</param>
+    /// <param name="includeReminders">リマインダー設定を含めるかどうか</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 期限付きテーブルおよび記録テーブルのみ使用可能です。
+    /// </remarks>
+    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
+        long siteId,
+        List<SelectedSite> selectedSites,
+        long? targetSiteId = null,
+        string? siteTitle = null,
+        bool? includeSitePermission = null,
+        bool? includeRecordPermission = null,
+        bool? includeColumnPermission = null,
+        bool? includeNotifications = null,
+        bool? includeReminders = null,
+        TimeSpan? timeout = null)
+    {
+        if (selectedSites == null || selectedSites.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(selectedSites));
+        }
+
+        var request = new CopySitePackageRequest
+        {
+            ApiKey = _apiKey,
+            TargetSiteId = targetSiteId,
+            SiteTitle = siteTitle,
+            SelectedSites = selectedSites,
+            IncludeSitePermission = includeSitePermission,
+            IncludeRecordPermission = includeRecordPermission,
+            IncludeColumnPermission = includeColumnPermission,
+            IncludeNotifications = includeNotifications,
+            IncludeReminders = includeReminders
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
+        return await PostAsync<CopySitePackageResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトパッケージをコピーします - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">コピーするサイトのうちタイトル更新対象のサイトID</param>
+    /// <param name="request">サイトコピーリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 期限付きテーブルおよび記録テーブルのみ使用可能です。
+    /// </remarks>
+    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(long siteId, CopySitePackageRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
+        return await PostAsync<CopySitePackageResponse>(url, request, timeout);
     }
 
     /// <summary>
