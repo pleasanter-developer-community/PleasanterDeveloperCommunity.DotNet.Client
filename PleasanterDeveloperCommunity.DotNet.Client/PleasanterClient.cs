@@ -3,14 +3,20 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UUIDNext;
@@ -590,6 +596,274 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// テーブルをエクスポートします
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="exportId">エクスポート設定ID（プリザンターで作成済みのエクスポート設定を使用する場合）</param>
+    /// <param name="export">エクスポート設定（設定を直接記述する場合）</param>
+    /// <param name="view">ビュー設定（取得するレコードの絞り込みや並び順を指定）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExportResponse>> ExportAsync(
+        long siteId,
+        int? exportId = null,
+        ExportSetting? export = null,
+        View? view = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new ExportRequest
+        {
+            ApiKey = _apiKey,
+            ExportId = exportId,
+            Export = export,
+            View = view
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/export";
+        return await PostAsync<ExportResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// テーブルをエクスポートします - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">エクスポートリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ExportResponse>> ExportAsync(long siteId, ExportRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/export";
+        return await PostAsync<ExportResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="csvData">CSVファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        byte[] csvData,
+        string fileName,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        TimeSpan? timeout = null)
+    {
+        if (csvData == null || csvData.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(csvData));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        var request = new ImportRequest
+        {
+            ApiKey = _apiKey,
+            Encoding = encoding ?? Encoding.UTF8,
+            Key = key,
+            MigrationMode = migrationMode
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvData, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - Stream版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="csvStream">CSVファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        Stream csvStream,
+        string fileName,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        TimeSpan? timeout = null)
+    {
+        if (csvStream == null)
+        {
+            throw new ArgumentNullException(nameof(csvStream));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        var request = new ImportRequest
+        {
+            ApiKey = _apiKey,
+            Encoding = encoding ?? Encoding.UTF8,
+            Key = key,
+            MigrationMode = migrationMode
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvStream, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - ファイルパス版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="filePath">CSVファイルのパス</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="autoConvertToUtf8">UTF-8/Shift-JIS以外のエンコーディングが指定された場合、自動的にUTF-8に変換するかどうか（デフォルト: false）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// <para>encodingを省略した場合、ファイル内容からエンコーディングを自動判定します：</para>
+    /// <list type="bullet">
+    /// <item><description>UTF-8 BOMがある場合：UTF-8</description></item>
+    /// <item><description>UTF-8として無効なバイトシーケンスがある場合：Shift-JIS</description></item>
+    /// <item><description>上記以外：UTF-8（デフォルト）</description></item>
+    /// </list>
+    /// <para>autoConvertToUtf8=trueを指定すると、UTF-8/Shift-JIS以外のエンコーディングが指定された場合、</para>
+    /// <para>そのエンコーディングでデコードしてからUTF-8に変換してインポートします。</para>
+    /// </remarks>
+    /// <exception cref="ArgumentException">autoConvertToUtf8=falseでUTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    /// <exception cref="FileNotFoundException">指定されたファイルが存在しない場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportFromFileAsync(
+        long siteId,
+        string filePath,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        bool autoConvertToUtf8 = false,
+        TimeSpan? timeout = null)
+    {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath));
+        }
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException(Resources.Messages.FileNotFound(filePath), filePath);
+        }
+
+        var csvData = File.ReadAllBytes(filePath);
+        var fileName = Path.GetFileName(filePath);
+
+        // エンコーディングが指定されていない場合、ファイル内容から自動判定
+        var detectedEncoding = encoding ?? DetectEncoding(csvData);
+
+        // UTF-8/Shift-JIS以外のエンコーディングが指定された場合の処理
+        if (detectedEncoding.CodePage != 65001 && detectedEncoding.CodePage != 932)
+        {
+            if (autoConvertToUtf8)
+            {
+                // 指定されたエンコーディングでデコードしてUTF-8に変換
+                csvData = ConvertToUtf8(csvData, detectedEncoding);
+                detectedEncoding = Encoding.UTF8;
+            }
+            // autoConvertToUtf8=falseの場合は、ImportAsync内でArgumentExceptionがスローされる
+        }
+
+        return await ImportAsync(siteId, csvData, fileName, detectedEncoding, key, migrationMode, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">インポートリクエスト</param>
+    /// <param name="csvData">CSVファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        ImportRequest request,
+        byte[] csvData,
+        string fileName,
+        TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        if (csvData == null || csvData.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(csvData));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvData, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト・Stream使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">インポートリクエスト</param>
+    /// <param name="csvStream">CSVファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        ImportRequest request,
+        Stream csvStream,
+        string fileName,
+        TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        if (csvStream == null)
+        {
+            throw new ArgumentNullException(nameof(csvStream));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvStream, fileName, timeout);
+    }
+
+    /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
     /// <param name="guid">添付ファイルのGUID</param>
@@ -662,6 +936,145 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// サイトパッケージをコピーします
+    /// </summary>
+    /// <param name="siteId">コピーするサイトのうちタイトル更新対象のサイトID</param>
+    /// <param name="selectedSites">コピーするサイトの一覧</param>
+    /// <param name="targetSiteId">コピー先のフォルダのサイトID。省略する場合、トップ画面にコピーします。</param>
+    /// <param name="siteTitle">サイトのタイトル。サイトのタイトルを変更する場合に使用してください。</param>
+    /// <param name="includeSitePermission">サイトのアクセス権を含めるかどうか</param>
+    /// <param name="includeRecordPermission">レコードのアクセス権を含めるかどうか</param>
+    /// <param name="includeColumnPermission">項目のアクセス権を含めるかどうか</param>
+    /// <param name="includeNotifications">通知設定を含めるかどうか</param>
+    /// <param name="includeReminders">リマインダー設定を含めるかどうか</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 期限付きテーブルおよび記録テーブルのみ使用可能です。
+    /// </remarks>
+    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
+        long siteId,
+        List<SelectedSite> selectedSites,
+        long? targetSiteId = null,
+        string? siteTitle = null,
+        bool? includeSitePermission = null,
+        bool? includeRecordPermission = null,
+        bool? includeColumnPermission = null,
+        bool? includeNotifications = null,
+        bool? includeReminders = null,
+        TimeSpan? timeout = null)
+    {
+        if (selectedSites == null || selectedSites.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(selectedSites));
+        }
+
+        var request = new CopySitePackageRequest
+        {
+            ApiKey = _apiKey,
+            TargetSiteId = targetSiteId,
+            SiteTitle = siteTitle,
+            SelectedSites = selectedSites,
+            IncludeSitePermission = includeSitePermission,
+            IncludeRecordPermission = includeRecordPermission,
+            IncludeColumnPermission = includeColumnPermission,
+            IncludeNotifications = includeNotifications,
+            IncludeReminders = includeReminders
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
+        return await PostAsync<CopySitePackageResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトパッケージをコピーします - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">コピーするサイトのうちタイトル更新対象のサイトID</param>
+    /// <param name="request">サイトコピーリクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 期限付きテーブルおよび記録テーブルのみ使用可能です。
+    /// </remarks>
+    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(long siteId, CopySitePackageRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
+        return await PostAsync<CopySitePackageResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトを作成します
+    /// </summary>
+    /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
+    /// <param name="title">サイトのタイトル</param>
+    /// <param name="referenceType">参照タイプ</param>
+    /// <param name="tenantId">テナントID</param>
+    /// <param name="inheritPermission">アクセス権の継承元サイトID</param>
+    /// <param name="siteSettings">サイト設定（サイトパッケージのSiteパラメータと同等の形式）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// </remarks>
+    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
+        long parentSiteId,
+        string title,
+        SiteReferenceType referenceType,
+        int? tenantId = null,
+        long? inheritPermission = null,
+        object? siteSettings = null,
+        TimeSpan? timeout = null)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentNullException(nameof(title));
+        }
+
+        var request = new CreateSiteRequest
+        {
+            ApiKey = _apiKey,
+            TenantId = tenantId,
+            Title = title,
+            ReferenceType = referenceType,
+            InheritPermission = inheritPermission,
+            SiteSettings = siteSettings
+        };
+
+        var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
+        return await PostAsync<CreateSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトを作成します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
+    /// <param name="request">サイト作成リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// </remarks>
+    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(long parentSiteId, CreateSiteRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
+        return await PostAsync<CreateSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     /// <param name="url">リクエストURL</param>
@@ -701,6 +1114,84 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// multipart/form-dataでPOSTリクエストを送信します（byte[]版）
+    /// </summary>
+    /// <param name="url">リクエストURL</param>
+    /// <param name="request">リクエストオブジェクト</param>
+    /// <param name="fileData">ファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    private async Task<ApiResponse<T>> PostMultipartAsync<T>(string url, object request, byte[] fileData, string fileName, TimeSpan? timeout = null) where T : class
+    {
+        var effectiveTimeout = timeout ?? _defaultTimeout;
+        using var cts = effectiveTimeout.HasValue
+            ? new CancellationTokenSource(effectiveTimeout.Value)
+            : new CancellationTokenSource();
+
+        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+
+        using var content = new MultipartFormDataContent();
+        content.Add(new StringContent(requestJson), "parameters");
+
+        var fileContent = new ByteArrayContent(fileData);
+        fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+        content.Add(fileContent, "file", fileName);
+
+        // デバッグモード時：リクエストをログに記録
+        var requestId = Uuid.NewSequential().ToString("N");
+        _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} ({fileData.Length} bytes)");
+
+        using var response = await _httpClient.PostAsync(url, content, cts.Token);
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        // デバッグモード時：レスポンスをログに記録
+        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+
+        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+
+        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+    }
+
+    /// <summary>
+    /// multipart/form-dataでPOSTリクエストを送信します（Stream版）
+    /// </summary>
+    /// <param name="url">リクエストURL</param>
+    /// <param name="request">リクエストオブジェクト</param>
+    /// <param name="fileStream">ファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    private async Task<ApiResponse<T>> PostMultipartAsync<T>(string url, object request, Stream fileStream, string fileName, TimeSpan? timeout = null) where T : class
+    {
+        var effectiveTimeout = timeout ?? _defaultTimeout;
+        using var cts = effectiveTimeout.HasValue
+            ? new CancellationTokenSource(effectiveTimeout.Value)
+            : new CancellationTokenSource();
+
+        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+
+        using var content = new MultipartFormDataContent();
+        content.Add(new StringContent(requestJson), "parameters");
+
+        var streamContent = new StreamContent(fileStream);
+        streamContent.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+        content.Add(streamContent, "file", fileName);
+
+        // デバッグモード時：リクエストをログに記録
+        var requestId = Uuid.NewSequential().ToString("N");
+        _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} (stream)");
+
+        using var response = await _httpClient.PostAsync(url, content, cts.Token);
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        // デバッグモード時：レスポンスをログに記録
+        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+
+        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+
+        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+    }
+
+    /// <summary>
     /// リソースを解放します
     /// </summary>
     public void Dispose()
@@ -722,5 +1213,113 @@ public class PleasanterClient : IDisposable
         }
 
         _disposed = true;
+    }
+
+    /// <summary>
+    /// ファイル内容からエンコーディングを自動判定します
+    /// </summary>
+    /// <param name="data">ファイルのバイナリデータ</param>
+    /// <returns>判定されたエンコーディング（UTF-8 または Shift-JIS）</returns>
+    private static Encoding DetectEncoding(byte[] data)
+    {
+        // UTF-8 BOMのチェック
+        if (data.Length >= 3 && data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF)
+        {
+            return Encoding.UTF8;
+        }
+
+        // UTF-8として有効かどうかをチェック
+        if (IsValidUtf8(data))
+        {
+            return Encoding.UTF8;
+        }
+
+        // UTF-8として無効な場合はShift-JISと判定
+        return Encoding.GetEncoding(932);
+    }
+
+    /// <summary>
+    /// バイト配列がUTF-8として有効かどうかを判定します
+    /// </summary>
+    /// <param name="data">検証するバイト配列</param>
+    /// <returns>UTF-8として有効な場合はtrue</returns>
+    private static bool IsValidUtf8(byte[] data)
+    {
+        var i = 0;
+        while (i < data.Length)
+        {
+            // UTF-8 BOMをスキップ
+            if (i == 0 && data.Length >= 3 && data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF)
+            {
+                i += 3;
+                continue;
+            }
+
+            var b = data[i];
+
+            // ASCII (0x00-0x7F)
+            if (b <= 0x7F)
+            {
+                i++;
+                continue;
+            }
+
+            int expectedBytes;
+
+            // 2バイト文字 (110xxxxx 10xxxxxx)
+            if ((b & 0xE0) == 0xC0)
+            {
+                expectedBytes = 2;
+            }
+            // 3バイト文字 (1110xxxx 10xxxxxx 10xxxxxx)
+            else if ((b & 0xF0) == 0xE0)
+            {
+                expectedBytes = 3;
+            }
+            // 4バイト文字 (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+            else if ((b & 0xF8) == 0xF0)
+            {
+                expectedBytes = 4;
+            }
+            else
+            {
+                // 無効なUTF-8の開始バイト
+                return false;
+            }
+
+            // 残りのバイト数が足りない
+            if (i + expectedBytes > data.Length)
+            {
+                return false;
+            }
+
+            // 続きのバイトが10xxxxxxの形式かチェック
+            for (var j = 1; j < expectedBytes; j++)
+            {
+                if ((data[i + j] & 0xC0) != 0x80)
+                {
+                    return false;
+                }
+            }
+
+            i += expectedBytes;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 指定されたエンコーディングからUTF-8に変換します
+    /// </summary>
+    /// <param name="data">変換するバイト配列</param>
+    /// <param name="sourceEncoding">元のエンコーディング</param>
+    /// <returns>UTF-8に変換されたバイト配列</returns>
+    private static byte[] ConvertToUtf8(byte[] data, Encoding sourceEncoding)
+    {
+        // 元のエンコーディングで文字列にデコード
+        var text = sourceEncoding.GetString(data);
+
+        // UTF-8でエンコード
+        return Encoding.UTF8.GetBytes(text);
     }
 }

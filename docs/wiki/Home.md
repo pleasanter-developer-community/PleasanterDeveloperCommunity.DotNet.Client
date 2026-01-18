@@ -45,16 +45,16 @@ using var client = new PleasanterClient(
 | ✓ | レコード更新 | items/{recordId}/update |
 | ✓ | レコード削除 | items/{recordId}/delete |
 | ✓ | レコード一括削除 | items/{siteId}/bulkdelete |
-| | 添付ファイル取得 | items/{recordId}/binaries/{guid}/get |
-| | テーブルのエクスポート | items/{siteId}/export |
-| | レコードのインポート | items/{siteId}/import |
+| ✓ | 添付ファイル取得 | items/{recordId}/binaries/{guid}/get |
+| ✓ | テーブルのエクスポート | items/{siteId}/export |
+| ✓ | レコードのインポート | items/{siteId}/import |
 
 ### 02.サイト操作
 
 | 実装済み | API名 | エンドポイント |
 |:--------:|------|---------------|
-| | サイトコピー | sites/{siteId}/copy |
-| | サイト作成 | sites/{parentId}/create |
+| ✓ | サイトコピー | sites/{siteId}/copy |
+| ✓ | サイト作成 | sites/{parentId}/create |
 | | サイト削除 | sites/{siteId}/delete |
 | | サイト取得 | sites/{siteId}/get |
 | | サイト名検索で該当サイトに最も近いサイトID取得 | sites/get |
