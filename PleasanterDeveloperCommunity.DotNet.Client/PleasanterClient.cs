@@ -11,8 +11,11 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UUIDNext;
@@ -639,6 +642,164 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="csvData">CSVファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        byte[] csvData,
+        string fileName,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        TimeSpan? timeout = null)
+    {
+        if (csvData == null || csvData.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(csvData));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        var request = new ImportRequest
+        {
+            ApiKey = _apiKey,
+            Encoding = encoding ?? Encoding.UTF8,
+            Key = key,
+            MigrationMode = migrationMode
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvData, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - Stream版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="csvStream">CSVファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="encoding">CSVファイルのエンコーディング（UTF-8 または Shift-JIS のみサポート）</param>
+    /// <param name="key">キーが一致するレコードを更新する場合のキー項目（例: IssueId, ClassA など）。指定すると自動的にUpdatableImport=trueになります。</param>
+    /// <param name="migrationMode">移行モードでのインポートを実施する場合はtrue</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <exception cref="ArgumentException">UTF-8またはShift-JIS以外のエンコーディングを指定した場合</exception>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        Stream csvStream,
+        string fileName,
+        Encoding? encoding = null,
+        string? key = null,
+        bool? migrationMode = null,
+        TimeSpan? timeout = null)
+    {
+        if (csvStream == null)
+        {
+            throw new ArgumentNullException(nameof(csvStream));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        var request = new ImportRequest
+        {
+            ApiKey = _apiKey,
+            Encoding = encoding ?? Encoding.UTF8,
+            Key = key,
+            MigrationMode = migrationMode
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvStream, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">インポートリクエスト</param>
+    /// <param name="csvData">CSVファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        ImportRequest request,
+        byte[] csvData,
+        string fileName,
+        TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        if (csvData == null || csvData.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(csvData));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvData, fileName, timeout);
+    }
+
+    /// <summary>
+    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト・Stream使用版
+    /// </summary>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">インポートリクエスト</param>
+    /// <param name="csvStream">CSVファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    public async Task<ApiResponse<ImportResponse>> ImportAsync(
+        long siteId,
+        ImportRequest request,
+        Stream csvStream,
+        string fileName,
+        TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        if (csvStream == null)
+        {
+            throw new ArgumentNullException(nameof(csvStream));
+        }
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/import";
+        return await PostMultipartAsync<ImportResponse>(url, request, csvStream, fileName, timeout);
+    }
+
+    /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
     /// <param name="guid">添付ファイルのGUID</param>
@@ -812,6 +973,84 @@ public class PleasanterClient : IDisposable
         // デバッグモード時：リクエストをログに記録
         var requestId = Uuid.NewSequential().ToString("N");
         _debugLogger?.LogRequest(requestId, url, requestJson);
+
+        using var response = await _httpClient.PostAsync(url, content, cts.Token);
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        // デバッグモード時：レスポンスをログに記録
+        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+
+        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+
+        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+    }
+
+    /// <summary>
+    /// multipart/form-dataでPOSTリクエストを送信します（byte[]版）
+    /// </summary>
+    /// <param name="url">リクエストURL</param>
+    /// <param name="request">リクエストオブジェクト</param>
+    /// <param name="fileData">ファイルのバイナリデータ</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    private async Task<ApiResponse<T>> PostMultipartAsync<T>(string url, object request, byte[] fileData, string fileName, TimeSpan? timeout = null) where T : class
+    {
+        var effectiveTimeout = timeout ?? _defaultTimeout;
+        using var cts = effectiveTimeout.HasValue
+            ? new CancellationTokenSource(effectiveTimeout.Value)
+            : new CancellationTokenSource();
+
+        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+
+        using var content = new MultipartFormDataContent();
+        content.Add(new StringContent(requestJson), "parameters");
+
+        var fileContent = new ByteArrayContent(fileData);
+        fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+        content.Add(fileContent, "file", fileName);
+
+        // デバッグモード時：リクエストをログに記録
+        var requestId = Uuid.NewSequential().ToString("N");
+        _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} ({fileData.Length} bytes)");
+
+        using var response = await _httpClient.PostAsync(url, content, cts.Token);
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        // デバッグモード時：レスポンスをログに記録
+        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+
+        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+
+        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+    }
+
+    /// <summary>
+    /// multipart/form-dataでPOSTリクエストを送信します（Stream版）
+    /// </summary>
+    /// <param name="url">リクエストURL</param>
+    /// <param name="request">リクエストオブジェクト</param>
+    /// <param name="fileStream">ファイルのストリーム</param>
+    /// <param name="fileName">ファイル名</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    private async Task<ApiResponse<T>> PostMultipartAsync<T>(string url, object request, Stream fileStream, string fileName, TimeSpan? timeout = null) where T : class
+    {
+        var effectiveTimeout = timeout ?? _defaultTimeout;
+        using var cts = effectiveTimeout.HasValue
+            ? new CancellationTokenSource(effectiveTimeout.Value)
+            : new CancellationTokenSource();
+
+        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+
+        using var content = new MultipartFormDataContent();
+        content.Add(new StringContent(requestJson), "parameters");
+
+        var streamContent = new StreamContent(fileStream);
+        streamContent.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+        content.Add(streamContent, "file", fileName);
+
+        // デバッグモード時：リクエストをログに記録
+        var requestId = Uuid.NewSequential().ToString("N");
+        _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} (stream)");
 
         using var response = await _httpClient.PostAsync(url, content, cts.Token);
         var responseBody = await response.Content.ReadAsStringAsync();

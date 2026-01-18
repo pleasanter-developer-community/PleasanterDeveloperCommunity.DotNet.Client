@@ -47,13 +47,13 @@ using var client = new PleasanterClient(
 | ✓ | レコード一括削除 | items/{siteId}/bulkdelete |
 | ✓ | 添付ファイル取得 | items/{recordId}/binaries/{guid}/get |
 | ✓ | テーブルのエクスポート | items/{siteId}/export |
-| | レコードのインポート | items/{siteId}/import |
+| ✓ | レコードのインポート | items/{siteId}/import |
 
 ### 02.サイト操作
 
 | 実装済み | API名 | エンドポイント |
 |:--------:|------|---------------|
-| | サイトコピー | sites/{siteId}/copy |
+| ✓ | サイトコピー | sites/{siteId}/copy |
 | | サイト作成 | sites/{parentId}/create |
 | | サイト削除 | sites/{siteId}/delete |
 | | サイト取得 | sites/{siteId}/get |
