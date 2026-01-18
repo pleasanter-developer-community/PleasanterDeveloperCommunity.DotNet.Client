@@ -7,7 +7,7 @@
     <LangVersion>14</LangVersion>
 
     <!-- Package Information -->
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <PackageId>PleasanterDeveloperCommunity.DotNet.Client</PackageId>
     <Authors>Pleasanter Developer Community</Authors>
     <Copyright>Copyright © $([System.DateTime]::Now.Year) Pleasanter Developer Community and contributors</Copyright>
