@@ -1,6 +1,10 @@
 # PleasanterDeveloperCommunity.DotNet.Client
 
-PleasanterDeveloperCommunity.DotNet.Clientは、オープンソースのWebデータベース「プリザンター」のAPIを.NETアプリケーションから簡単に利用するためのクライアントライブラリです。レコードの取得・作成・更新・一括処理や拡張SQLの実行など、プリザンターAPIの主要な機能を型安全かつ直感的に操作できます。非同期処理に対応し、プロキシ設定やデバッグログ出力などの柔軟なオプションも備えています。.NET Standard 2.1に対応しているため、.NET Core、.NET 5以降、Xamarinなど幅広いプラットフォームで利用可能です。
+[![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet)](https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard)
+[![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/)
+[![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
+
+[プリザンター](https://pleasanter.org/)のAPIを.NETから簡単に利用するためのクライアントライブラリです。レコードのCRUD操作、一括処理、拡張SQL実行などを型安全に扱えます。
 
 ## インストール
 
@@ -32,19 +36,13 @@ dotnet add package UUIDNext
 
 [Wiki](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/wiki)を参照してください。
 
-## ライセンス
-
-このプロジェクトは [LGPL-2.1](LICENSE) でライセンスされています。
-
 ## サードパーティライセンス
 
 このプロジェクトは以下のサードパーティライブラリを使用しています：
 
-| ライブラリ | ライセンス |
-|---------|---------|
-| [CsvHelper](https://www.nuget.org/packages/CsvHelper) | [MS-PL / Apache-2.0](https://www.nuget.org/packages/CsvHelper/33.1.0/license) |
-| [Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client) | [MIT](https://licenses.nuget.org/MIT) |
-| [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json) | [MIT](https://licenses.nuget.org/MIT) |
-| [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) | [MIT](https://licenses.nuget.org/MIT) |
-| [System.Threading.Channels](https://www.nuget.org/packages/System.Threading.Channels) | [MIT](https://licenses.nuget.org/MIT) |
-| [UUIDNext](https://www.nuget.org/packages/UUIDNext) | [MIT](https://licenses.nuget.org/MIT) |
+[![CsvHelper](https://img.shields.io/badge/CsvHelper-MS--PL%20%2F%20Apache--2.0-green)](https://www.nuget.org/packages/CsvHelper)
+[![Microsoft.AspNet.WebApi.Client](https://img.shields.io/badge/Microsoft.AspNet.WebApi.Client-MIT-green)](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client)
+[![Newtonsoft.Json](https://img.shields.io/badge/Newtonsoft.Json-MIT-green)](https://www.nuget.org/packages/Newtonsoft.Json)
+[![System.ComponentModel.Annotations](https://img.shields.io/badge/System.ComponentModel.Annotations-MIT-green)](https://www.nuget.org/packages/System.ComponentModel.Annotations)
+[![System.Threading.Channels](https://img.shields.io/badge/System.Threading.Channels-MIT-green)](https://www.nuget.org/packages/System.Threading.Channels)
+[![UUIDNext](https://img.shields.io/badge/UUIDNext-MIT-green)](https://www.nuget.org/packages/UUIDNext)

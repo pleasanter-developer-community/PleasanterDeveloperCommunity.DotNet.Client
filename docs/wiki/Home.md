@@ -1,5 +1,12 @@
 # PleasanterDeveloperCommunity.DotNet.Client
 
+## 動作要件
+
+- プリザンター 1.3.13.0以降
+  - 使用されている.NETスタックがサポート期間中であるバージョンの仕様を推奨
+  - .NET Framework版は非対応
+- .NET Standard 2.1対応環境（.NET Core 3.0以降、.NET 5以降、Xamarinなど）
+
 ## 基本的な使い方
 
 ```csharp
