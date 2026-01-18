@@ -80,8 +80,14 @@ jobs:
 
       - name: Create Release ZIP
         run: |
-          cd PleasanterDeveloperCommunity.DotNet.Client/bin/Release/netstandard2.1
-          zip -r ../../../../PleasanterDeveloperCommunity.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip ./*
+          mkdir -p release-temp/wiki
+          cp -r PleasanterDeveloperCommunity.DotNet.Client/bin/Release/netstandard2.1/* release-temp/
+          cp README.md release-temp/
+          cp AUTHORS release-temp/
+          cp LICENSE release-temp/
+          cp docs/wiki/*.md release-temp/wiki/
+          cd release-temp
+          zip -r ../PleasanterDeveloperCommunity.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip ./*
 
       - name: Commit version update
         run: |
