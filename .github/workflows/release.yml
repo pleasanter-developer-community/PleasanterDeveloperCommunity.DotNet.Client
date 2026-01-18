@@ -98,6 +98,9 @@ jobs:
           git tag "Release_v${{ steps.new_version.outputs.new_version }}"
           git push origin "Release_v${{ steps.new_version.outputs.new_version }}"
 
+      - name: Publish to NuGet.org
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
