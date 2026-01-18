@@ -11,8 +11,18 @@
 
 ## インストール
 
-1. Releasesページから[最新のアーカイブ](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)を取得するか下記のソースからビルドし、下記のファイルをプロジェクトにコピーします：
-   - `PleasanterDeveloperCommunity.DotNet.Client.dll`
+### 方法1: NuGetパッケージ（推奨）
+
+[Releasesページ](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードし、ローカルフィードとして追加します：
+
+```bash
+dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
+dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+```
+
+### 方法2: DLLを直接参照
+
+1. [Releasesページ](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)からzipファイルをダウンロードして展開するか、ソースからビルドします。
 
 2. プロジェクトファイル（.csproj）に参照を追加します：
 
