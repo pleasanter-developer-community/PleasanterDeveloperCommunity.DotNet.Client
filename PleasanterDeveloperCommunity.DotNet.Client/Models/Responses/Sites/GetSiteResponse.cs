@@ -7,13 +7,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// <summary>
 /// サイト取得レスポンス
 /// </summary>
-public class GetSiteResponse
+public class GetSiteResponse : DataResponseBase<GetSiteData>
 {
-    /// <summary>
-    /// サイトデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public GetSiteData? Data { get; set; }
 }
 
 /// <summary>

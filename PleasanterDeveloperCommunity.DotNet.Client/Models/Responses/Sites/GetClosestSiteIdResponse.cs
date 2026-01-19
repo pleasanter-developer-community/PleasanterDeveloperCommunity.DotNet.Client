@@ -6,19 +6,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// <summary>
 /// サイトID取得レスポンス（サイト名検索で該当サイトに最も近いサイトIDを取得）
 /// </summary>
-public class GetClosestSiteIdResponse
+public class GetClosestSiteIdResponse : ListDataResponseBase<ClosestSiteIdData>
 {
     /// <summary>
     /// サイトID（検索を開始したサイトのID）
     /// </summary>
     [JsonProperty("SiteId")]
     public long SiteId { get; set; }
-
-    /// <summary>
-    /// 検索結果データ
-    /// </summary>
-    [JsonProperty("Data")]
-    public List<ClosestSiteIdData>? Data { get; set; }
 }
 
 /// <summary>

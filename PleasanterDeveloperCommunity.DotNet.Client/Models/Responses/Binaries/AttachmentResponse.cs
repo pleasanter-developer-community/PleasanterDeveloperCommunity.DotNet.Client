@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 
 /// <summary>

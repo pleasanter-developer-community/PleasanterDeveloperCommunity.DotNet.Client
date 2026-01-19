@@ -1,40 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 /// <summary>
 /// 複数レコード取得レスポンス
 /// </summary>
-public class RecordsResponse
+public class RecordsResponse : PaginatedResponseBase<RecordData>
 {
-    /// <summary>
-    /// オフセット
-    /// </summary>
-    [JsonProperty("Offset")]
-    public int? Offset { get; set; }
-
-    /// <summary>
-    /// ページサイズ
-    /// </summary>
-    [JsonProperty("PageSize")]
-    public int? PageSize { get; set; }
-
-    /// <summary>
-    /// 合計レコード数
-    /// </summary>
-    [JsonProperty("TotalCount")]
-    public int? TotalCount { get; set; }
-
-    /// <summary>
-    /// レコードデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public List<RecordData>? Data { get; set; }
-
-    /// <summary>
-    /// 次のページが存在するかを判定します
-    /// </summary>
-    public bool HasNextPage => Offset.HasValue && PageSize.HasValue && TotalCount.HasValue
-        && (Offset.Value + PageSize.Value) < TotalCount.Value;
 }

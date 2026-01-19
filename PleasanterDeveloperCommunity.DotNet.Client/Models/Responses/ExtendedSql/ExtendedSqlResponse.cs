@@ -1,17 +1,10 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 
 /// <summary>
 /// 拡張SQL APIレスポンス
 /// </summary>
-public class ExtendedSqlResponse
+public class ExtendedSqlResponse : DataResponseBase<ExtendedSqlData>
 {
-    /// <summary>
-    /// レスポンスデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public ExtendedSqlData? Data { get; set; }
 }
 
 

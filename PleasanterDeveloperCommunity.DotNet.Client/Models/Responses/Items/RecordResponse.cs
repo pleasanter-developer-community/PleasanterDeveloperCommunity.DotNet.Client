@@ -1,16 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 /// <summary>
 /// 単一レコード取得レスポンス
 /// </summary>
-public class RecordResponse
+public class RecordResponse : ListDataResponseBase<RecordData>
 {
-    /// <summary>
-    /// レコードデータ
-    /// </summary>
-    [JsonProperty("Data")]
-    public List<RecordData>? Data { get; set; }
 }
