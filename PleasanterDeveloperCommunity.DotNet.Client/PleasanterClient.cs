@@ -1075,6 +1075,48 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// サイト情報を取得します
+    /// </summary>
+    /// <param name="siteId">サイトID（取得対象のサイトのID）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。Wikiには対応していません。
+    /// </remarks>
+    public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(long siteId, TimeSpan? timeout = null)
+    {
+        var request = new GetSiteRequest
+        {
+            ApiKey = _apiKey
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/getsite";
+        return await PostAsync<GetSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイト情報を取得します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID（取得対象のサイトのID）</param>
+    /// <param name="request">サイト取得リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。Wikiには対応していません。
+    /// </remarks>
+    public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(long siteId, GetSiteRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/getsite";
+        return await PostAsync<GetSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     /// <param name="url">リクエストURL</param>
