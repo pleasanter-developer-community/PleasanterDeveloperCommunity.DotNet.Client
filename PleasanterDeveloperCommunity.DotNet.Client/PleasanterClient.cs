@@ -94,9 +94,8 @@ public class PleasanterClient : IDisposable
     /// <param name="apiKey">APIキー</param>
     /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
     /// <param name="httpClient">HttpClientインスタンス</param>
-    /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    public PleasanterClient(string baseUrl, string apiKey, float apiVersion, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null)
+    public PleasanterClient(string baseUrl, string apiKey, float apiVersion, HttpClient httpClient, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -105,7 +104,7 @@ public class PleasanterClient : IDisposable
             ? apiKey
             : throw new ArgumentNullException(nameof(apiKey));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        _defaultTimeout = defaultTimeout;
+        _defaultTimeout = null;
 
         if (apiVersion < ApiRequest.MinApiVersion)
         {

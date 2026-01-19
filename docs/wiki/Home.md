@@ -27,6 +27,37 @@ using var client = new PleasanterClient(
 
 PleasanterClientでは、さまざまなオプション設定が可能です。
 
+### パラメータ一覧
+
+#### 標準コンストラクタ
+
+| パラメータ名                       | 型               | 必須 | デフォルト値 | 説明                                                                           |
+|:-----------------------------------|:-----------------|:----:|:-------------|:-------------------------------------------------------------------------------|
+| `baseUrl`                          | `string`         |  ✓   | -            | プリザンターのベースURL（例: `https://example.com/pleasanter`）                |
+| `apiKey`                           | `string`         |  ✓   | -            | APIキー                                                                        |
+| `apiVersion`                       | `float`          |  -   | `1.1`        | APIバージョン（最小値: 1.1）                                                   |
+| `defaultTimeout`                   | `TimeSpan?`      |  -   | `null`       | デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）   |
+| `proxySettings`                    | `ProxySettings?` |  -   | `null`       | プロキシ設定（省略時：OS設定に従う）                                           |
+| `ignoreSslCertificateValidation`   | `bool`           |  -   | `false`      | SSL証明書の検証を無効にするかどうか。開発・テスト環境でのみ使用してください    |
+| `debugSettings`                    | `DebugSettings?` |  -   | `null`       | デバッグ設定（省略時：デバッグモード無効）                                     |
+
+#### HttpClient指定コンストラクタ
+
+| パラメータ名    | 型               | 必須 | デフォルト値 | 説明                                                            |
+|:----------------|:-----------------|:----:|:-------------|:----------------------------------------------------------------|
+| `baseUrl`       | `string`         |  ✓   | -            | プリザンターのベースURL（例: `https://example.com/pleasanter`） |
+| `apiKey`        | `string`         |  ✓   | -            | APIキー                                                         |
+| `apiVersion`    | `float`          |  ✓   | -            | APIバージョン（最小値: 1.1）                                    |
+| `httpClient`    | `HttpClient`     |  ✓   | -            | 外部から渡すHttpClientインスタンス                              |
+| `debugSettings` | `DebugSettings?` |  -   | `null`       | デバッグ設定（省略時：デバッグモード無効）                      |
+
+##### 使用シチュエーション
+
+- **DIコンテナとの統合**: ASP.NET CoreのIHttpClientFactoryなど、DIコンテナで管理されたHttpClientを使用する場合
+- **共有HttpClient**: 複数のPleasanterClientインスタンスで同一のHttpClientを共有したい場合
+- **カスタム設定**: 標準コンストラクタでサポートされていない高度なHttpClient設定（カスタムハンドラー、ポリシーなど）が必要な場合
+- **テスト**: モックHttpClientを注入してユニットテストを行う場合
+
 ### APIバージョン
 
 APIバージョンをコンストラクタで指定できます。
@@ -86,18 +117,100 @@ using var clientDevMode = new PleasanterClient(
 
 ### デバッグ設定
 
-リクエスト・レスポンスをログ出力します。詳細は[デバッグ機能](99-デバッグ機能)を参照してください。
+PleasanterClientにはAPIリクエストとレスポンスをログファイルに記録するデバッグ機能があります。問題のトラブルシューティングやAPI通信の確認に役立ちます。
+
+#### 基本的な使い方
 
 ```csharp
-using var clientDebug = new PleasanterClient(
+using var client = new PleasanterClient(
     baseUrl: "https://example.com/pleasanter",
     apiKey: "your-api-key",
     debugSettings: new DebugSettings(
-        logDirectory: @"C:\Logs",
+        logDirectory: @"C:\Logs\PleasanterDebug",
         maskApiKey: true
     )
 );
 ```
+
+#### DebugSettingsのオプション
+
+| パラメータ     | 型         | 必須 | デフォルト値   | 説明                                   |
+|:--------------|:-----------|:----:|:--------------|:---------------------------------------|
+| `logDirectory` | `string`   |  ✓   | -             | ログファイルの出力先ディレクトリパス       |
+| `encoding`     | `Encoding` |  -   | システム規定    | CSVファイルのエンコーディング             |
+| `maskApiKey`   | `bool`     |  -   | `true`        | APIキーをマスクして出力するかどうか       |
+
+#### ファクトリメソッド
+
+```csharp
+// システム規定のエンコーディングを使用
+var settings = DebugSettings.WithSystemDefaultEncoding(@"C:\Logs");
+
+// UTF-8エンコーディングを使用
+var settings = DebugSettings.WithUtf8Encoding(@"C:\Logs");
+
+// 任意のエンコーディングを指定
+var settings = DebugSettings.WithEncoding(@"C:\Logs", Encoding.GetEncoding("Shift_JIS"));
+```
+
+#### 出力されるログ
+
+デバッグ機能を有効にすると、以下の情報がCSVファイルに記録されます：
+
+| フィールド | 説明                           | 備考                                                                     |
+|:-----------|:-------------------------------|:-------------------------------------------------------------------------|
+| Timestamp  | リクエスト/レスポンスの日時    |                                                                          |
+| RequestId  | リクエストを識別するためのID   | UUID v7形式                                                              |
+| Type       | ログの種類                     | `Request`、`Response`、または `Exception`                                |
+| Url        | リクエストURL                  |                                                                          |
+| StatusCode | HTTPステータスコード           | レスポンスのみ                                                           |
+| IsJson     | レスポンスがJSON形式かどうか   | レスポンスのみ                                                           |
+| Content    | リクエスト/レスポンスのボディ  | 例外の場合はスタックトレースを含む詳細情報                               |
+
+#### 例外ハンドリング
+
+API呼び出し中に例外が発生した場合、その詳細情報がログに記録されます：
+
+- **Type**: `Exception` としてログに記録
+- **Content**: 例外の型名、メッセージ、スタックトレースを含む
+- **InnerException**: ネストされた内部例外も再帰的に展開
+- **AggregateException**: 複数の内部例外がある場合はすべて展開
+
+```
+// ログ出力例
+System.Net.Http.HttpRequestException: Connection refused
+StackTrace:
+  at System.Net.Http.HttpClient.SendAsync(...)
+  at PleasanterDeveloperCommunity.DotNet.Client.PleasanterClient.SendRequestAsync(...)
+
+  [InnerException] System.Net.Sockets.SocketException: Connection refused
+  StackTrace:
+    at System.Net.Sockets.Socket.Connect(...)
+```
+
+#### APIキーのマスク
+
+セキュリティのため、デフォルトでAPIキーはマスクされて記録されます：
+
+```csharp
+// APIキーをマスク（デフォルト）
+var settings = new DebugSettings(@"C:\Logs", maskApiKey: true);
+// ログ出力: "ApiKey": "********"
+
+// APIキーをマスクしない（デバッグ目的でのみ使用）
+var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
+// ログ出力: "ApiKey": "実際のAPIキー"
+```
+
+#### 非同期バックグラウンド処理
+
+ログの書き込みは非同期でバックグラウンド処理されるため、アプリケーションのパフォーマンスへの影響を最小限に抑えます。ログの書き込みに失敗してもアプリケーションは停止しません。
+
+#### 注意事項
+
+- ログディレクトリが存在しない場合は自動的に作成されます
+- ディレクトリへの書き込み権限がない場合は例外がスローされます
+- クライアントを`Dispose`する際にログの書き込みが完了するまで待機します
 
 ## 対応API
 
@@ -177,82 +290,6 @@ using var clientDebug = new PleasanterClient(
 | #  | 対応Ver  | 対象    | 操作       | エンドポイント      |
 |:--:|:--------:|:--------|:-----------|:--------------------|
 | 01 | 1.3.13.0 | 拡張SQL | 取得(実行) | /api/extended/sql   |
-
-## デバッグ機能
-
-PleasanterClientにはAPIリクエストとレスポンスをログファイルに記録するデバッグ機能があります。問題のトラブルシューティングやAPI通信の確認に役立ちます。
-
-### デバッグ機能の有効化
-
-```csharp
-// 基本的なデバッグ設定
-using var client = new PleasanterClient(
-    baseUrl: "https://example.com/pleasanter",
-    apiKey: "your-api-key",
-    debugSettings: new DebugSettings(
-        logDirectory: @"C:\Logs\PleasanterDebug"
-    )
-);
-```
-
-### DebugSettingsのオプション
-
-| パラメータ | 型 | 必須 | デフォルト値 | 説明 |
-|-----------|------|:----:|-------------|------|
-| `logDirectory` | string | ✓ | - | ログファイルの出力先ディレクトリパス |
-| `encoding` | Encoding | | システム規定 | CSVファイルのエンコーディング |
-| `maskApiKey` | bool | | true | APIキーをマスクして出力するかどうか |
-
-### ファクトリメソッド
-
-```csharp
-// システム規定のエンコーディングを使用
-var settings = DebugSettings.WithSystemDefaultEncoding(@"C:\Logs");
-
-// UTF-8エンコーディングを使用
-var settings = DebugSettings.WithUtf8Encoding(@"C:\Logs");
-
-// 任意のエンコーディングを指定
-var settings = DebugSettings.WithEncoding(@"C:\Logs", Encoding.GetEncoding("Shift_JIS"));
-```
-
-### 出力されるログ
-
-デバッグ機能を有効にすると、以下の情報がCSVファイルに記録されます：
-
-| フィールド | 説明 | 備考 |
-|-----------|------|------|
-| Timestamp | リクエスト/レスポンスの日時 | |
-| RequestId | リクエストを識別するためのID | UUID v7形式をハイフンなしの32文字の16進数文字列で表現（例: `0194d1f0a1b2c3d4e5f6789012345678`）。タイムスタンプベースのため生成順にソート可能でログ分析に便利 |
-| Type | `Request` または `Response` | |
-| Url | リクエストURL | |
-| StatusCode | HTTPステータスコード | レスポンスのみ |
-| IsJson | レスポンスがJSON形式かどうか | レスポンスのみ |
-| Content | リクエスト/レスポンスのボディ内容 | |
-
-### APIキーのマスク
-
-セキュリティのため、デフォルトでAPIキーはマスクされて記録されます：
-
-```csharp
-// APIキーをマスク（デフォルト）
-var settings = new DebugSettings(@"C:\Logs", maskApiKey: true);
-// ログ出力: "ApiKey": "********"
-
-// APIキーをマスクしない（デバッグ目的でのみ使用）
-var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
-// ログ出力: "ApiKey": "実際のAPIキー"
-```
-
-### 非同期バックグラウンド処理
-
-ログの書き込みは非同期でバックグラウンド処理されるため、アプリケーションのパフォーマンスへの影響を最小限に抑えます。ログの書き込みに失敗してもアプリケーションは停止しません。
-
-### 注意事項
-
-- ログディレクトリが存在しない場合は自動的に作成されます
-- ディレクトリへの書き込み権限がない場合は例外がスローされます
-- クライアントを`Dispose`する際にログの書き込みが完了するまで待機します
 
 ## Thanks
 
