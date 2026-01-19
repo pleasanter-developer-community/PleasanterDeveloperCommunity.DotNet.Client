@@ -19,6 +19,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -100,6 +101,9 @@ jobs:
 
       - name: Publish to NuGet.org
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push ./nupkg/*.nupkg --source "https://nuget.pkg.github.com/pleasanter-developer-community/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
