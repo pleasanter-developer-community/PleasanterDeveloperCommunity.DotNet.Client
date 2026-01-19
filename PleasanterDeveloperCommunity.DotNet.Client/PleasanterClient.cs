@@ -1,4 +1,4 @@
-﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
@@ -20,7 +20,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using UUIDNext;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client;
 
@@ -969,7 +968,7 @@ public class PleasanterClient : IDisposable
             "application/json");
 
         // デバッグモード時：リクエストをログに記録
-        var requestId = Uuid.NewSequential().ToString("N");
+        var requestId = Uuid7.NewGuid().ToString("N");
         _debugLogger?.LogRequest(requestId, url, requestJson);
 
         try
@@ -1017,7 +1016,7 @@ public class PleasanterClient : IDisposable
         content.Add(fileContent, "file", fileName);
 
         // デバッグモード時：リクエストをログに記録
-        var requestId = Uuid.NewSequential().ToString("N");
+        var requestId = Uuid7.NewGuid().ToString("N");
         _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} ({fileData.Length} bytes)");
 
         try
@@ -1065,7 +1064,7 @@ public class PleasanterClient : IDisposable
         content.Add(streamContent, "file", fileName);
 
         // デバッグモード時：リクエストをログに記録
-        var requestId = Uuid.NewSequential().ToString("N");
+        var requestId = Uuid7.NewGuid().ToString("N");
         _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} (stream)");
 
         try
