@@ -1,4 +1,4 @@
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
@@ -954,7 +954,7 @@ public class PleasanterClient : IDisposable
     /// <param name="url">リクエストURL</param>
     /// <param name="request">リクエストオブジェクト</param>
     /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    private async Task<ApiResponse<T>> PostAsync<T>(string url, object request, TimeSpan? timeout = null) where T : class
+    private async Task<T> PostAsync<T>(string url, object request, TimeSpan? timeout = null) where T : class
     {
         var effectiveTimeout = timeout ?? _defaultTimeout;
         using var cts = effectiveTimeout.HasValue
@@ -979,9 +979,9 @@ public class PleasanterClient : IDisposable
             // デバッグモード時：レスポンスをログに記録
             _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-            var result = JsonSerializer.Deserialize<ApiResponse<T>>(responseBody, JsonOptions);
+            var result = JsonSerializer.Deserialize<T>(responseBody, JsonOptions);
 
-            return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+            return result ?? new T { StatusCode = response.StatusCode };
         }
         catch (Exception ex)
         {
