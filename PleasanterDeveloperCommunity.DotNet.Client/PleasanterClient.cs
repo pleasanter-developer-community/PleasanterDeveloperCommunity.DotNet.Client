@@ -92,10 +92,10 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="baseUrl">プリザンターのベースURL</param>
     /// <param name="apiKey">APIキー</param>
-    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
     /// <param name="httpClient">HttpClientインスタンス</param>
+    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    public PleasanterClient(string baseUrl, string apiKey, float apiVersion, HttpClient httpClient, DebugSettings? debugSettings = null)
+    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, float apiVersion = ApiRequest.MinApiVersion, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')

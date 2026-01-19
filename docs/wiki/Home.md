@@ -21,8 +21,6 @@ using var client = new PleasanterClient(
 );
 ```
 
-詳細な使用方法については、各エンドポイントのドキュメントを参照してください。
-
 ## オプション設定
 
 PleasanterClientでは、さまざまなオプション設定が可能です。
@@ -31,25 +29,25 @@ PleasanterClientでは、さまざまなオプション設定が可能です。
 
 #### 標準コンストラクタ
 
-| パラメータ名                       | 型               | 必須 | デフォルト値 | 説明                                                                           |
-|:-----------------------------------|:-----------------|:----:|:-------------|:-------------------------------------------------------------------------------|
-| `baseUrl`                          | `string`         |  ✓   | -            | プリザンターのベースURL（例: `https://example.com/pleasanter`）                |
-| `apiKey`                           | `string`         |  ✓   | -            | APIキー                                                                        |
-| `apiVersion`                       | `float`          |  -   | `1.1`        | APIバージョン（最小値: 1.1）                                                   |
-| `defaultTimeout`                   | `TimeSpan?`      |  -   | `null`       | デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）   |
-| `proxySettings`                    | `ProxySettings?` |  -   | `null`       | プロキシ設定（省略時：OS設定に従う）                                           |
-| `ignoreSslCertificateValidation`   | `bool`           |  -   | `false`      | SSL証明書の検証を無効にするかどうか。開発・テスト環境でのみ使用してください    |
-| `debugSettings`                    | `DebugSettings?` |  -   | `null`       | デバッグ設定（省略時：デバッグモード無効）                                     |
+| パラメータ名                       | 型               | 必須 | 説明                                                                           |
+|:-----------------------------------|:-----------------|:----:|:-------------------------------------------------------------------------------|
+| `baseUrl`                          | `string`         |  ✓   | プリザンターのベースURL（例: `https://example.com/pleasanter`）                |
+| `apiKey`                           | `string`         |  ✓   | APIキー                                                                        |
+| `apiVersion`                       | `float`          |      | APIバージョン（省略時: 1.1、最小値: 1.1）                                      |
+| `defaultTimeout`                   | `TimeSpan?`      |      | デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値 100秒）   |
+| `proxySettings`                    | `ProxySettings?` |      | プロキシ設定（省略時：OS設定に従う）                                           |
+| `ignoreSslCertificateValidation`   | `bool`           |      | SSL証明書の検証を無効にするかどうか（省略時: false）。開発・テスト環境でのみ使用 |
+| `debugSettings`                    | `DebugSettings?` |      | デバッグ設定（省略時：デバッグモード無効）                                     |
 
 #### HttpClient指定コンストラクタ
 
-| パラメータ名    | 型               | 必須 | デフォルト値 | 説明                                                            |
-|:----------------|:-----------------|:----:|:-------------|:----------------------------------------------------------------|
-| `baseUrl`       | `string`         |  ✓   | -            | プリザンターのベースURL（例: `https://example.com/pleasanter`） |
-| `apiKey`        | `string`         |  ✓   | -            | APIキー                                                         |
-| `apiVersion`    | `float`          |  ✓   | -            | APIバージョン（最小値: 1.1）                                    |
-| `httpClient`    | `HttpClient`     |  ✓   | -            | 外部から渡すHttpClientインスタンス                              |
-| `debugSettings` | `DebugSettings?` |  -   | `null`       | デバッグ設定（省略時：デバッグモード無効）                      |
+| パラメータ名    | 型               | 必須 | 説明                                                            |
+|:----------------|:-----------------|:----:|:----------------------------------------------------------------|
+| `baseUrl`       | `string`         |  ✓   | プリザンターのベースURL（例: `https://example.com/pleasanter`） |
+| `apiKey`        | `string`         |  ✓   | APIキー                                                         |
+| `httpClient`    | `HttpClient`     |  ✓   | 外部から渡すHttpClientインスタンス                              |
+| `apiVersion`    | `float`          |      | APIバージョン（省略時: 1.1、最小値: 1.1）                       |
+| `debugSettings` | `DebugSettings?` |      | デバッグ設定（省略時：デバッグモード無効）                      |
 
 ##### 使用シチュエーション
 
@@ -88,14 +86,43 @@ using var client = new PleasanterClient(
 ### プロキシ設定
 
 ```csharp
-// プロキシ設定
+// OS設定のプロキシを使用（デフォルト動作、proxySettingsを省略した場合と同じ）
+using var clientSystemProxy = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    proxySettings: ProxySettings.UseSystemDefault
+);
+
+// カスタムプロキシ
 using var clientWithProxy = new PleasanterClient(
     baseUrl: "https://example.com/pleasanter",
     apiKey: "your-api-key",
-    proxySettings: ProxySettings.WithCustomProxy(new WebProxy("http://proxy:8080"))
+    proxySettings: ProxySettings.Custom("http://proxy:8080")
 );
 
-// プロキシなし
+// 認証付きプロキシ
+using var clientWithAuthProxy = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    proxySettings: ProxySettings.Custom(
+        proxyAddress: "http://proxy:8080",
+        username: "proxyuser",
+        password: "proxypassword"
+    )
+);
+
+// IWebProxyを直接指定（ドメイン認証など高度な設定が必要な場合）
+var proxy = new WebProxy("http://proxy:8080")
+{
+    Credentials = new NetworkCredential("user", "password", "domain")
+};
+using var clientWithCustomProxy = new PleasanterClient(
+    baseUrl: "https://example.com/pleasanter",
+    apiKey: "your-api-key",
+    proxySettings: ProxySettings.Custom(proxy)
+);
+
+// プロキシなし（OS設定を無視してプロキシを使用しない）
 using var clientNoProxy = new PleasanterClient(
     baseUrl: "https://example.com/pleasanter",
     apiKey: "your-api-key",
