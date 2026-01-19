@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using SiteSettingsType = PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettings;
 using System;
 using System.Collections.Generic;
 
@@ -146,7 +147,7 @@ public class GetSiteData
     /// サイト設定
     /// </summary>
     [JsonProperty("SiteSettings")]
-    public object? SiteSettings { get; set; }
+    public SiteSettingsType? SiteSettings { get; set; }
 
     /// <summary>
     /// 公開フラグ

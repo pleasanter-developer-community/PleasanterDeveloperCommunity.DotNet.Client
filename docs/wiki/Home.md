@@ -269,7 +269,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 02 | 1.3.13.0 | サイト   | コピー                                 | /api/sites/{siteId}/copy                 |
 | 03 | 1.3.13.0 | サイト   | 取得                                   | /api/items/{siteId}/getsite              |
 | 04 | 1.4.5.0  | サイト   | 検索で該当サイトに最も近いサイトID取得 | /api/items/{siteId}/getclosestsiteid     |
-| 05 |          | サイト   | 更新                                   | /api/sites/{siteId}/update               |
+| 05 | 1.3.13.0 | サイト   | 更新                                   | /api/items/{siteId}/updatesite           |
 | 06 |          | サイト   | 設定更新（部分追加/更新/削除）         | /api/sites/{siteId}/updatesitesettings   |
 | 07 |          | サイト   | サマリ同期                             | /api/sites/{siteId}/synchronizesummaries |
 | 08 |          | サイト   | 検索インデックス再構築                 | /api/sites/{siteId}/rebuildsearchindexes |

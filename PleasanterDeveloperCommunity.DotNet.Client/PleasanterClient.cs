@@ -10,6 +10,7 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
+using SiteSettingsType = PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -836,7 +837,7 @@ public class PleasanterClient : IDisposable
         SiteReferenceType referenceType,
         int? tenantId = null,
         long? inheritPermission = null,
-        object? siteSettings = null,
+        SiteSettingsType? siteSettings = null,
         TimeSpan? timeout = null)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -878,6 +879,47 @@ public class PleasanterClient : IDisposable
 
         var url = $"{_baseUrl}/api/items/{siteId}/getsite";
         return await PostAsync<GetSiteResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイトを更新します
+    /// </summary>
+    /// <param name="siteId">サイトID（更新対象のサイトのID）</param>
+    /// <param name="title">サイトのタイトル</param>
+    /// <param name="referenceType">参照タイプ</param>
+    /// <param name="tenantId">テナントID</param>
+    /// <param name="parentId">親サイトID</param>
+    /// <param name="inheritPermission">アクセス権の継承元サイトID</param>
+    /// <param name="siteSettings">サイト設定（サイトパッケージのSiteパラメータと同等の形式）</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// </remarks>
+    public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
+        long siteId,
+        string? title = null,
+        SiteReferenceType? referenceType = null,
+        int? tenantId = null,
+        long? parentId = null,
+        long? inheritPermission = null,
+        SiteSettingsType? siteSettings = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new UpdateSiteRequest
+        {
+            ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
+            TenantId = tenantId,
+            Title = title,
+            ReferenceType = referenceType,
+            ParentId = parentId,
+            InheritPermission = inheritPermission,
+            SiteSettings = siteSettings
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/updatesite";
+        return await PostAsync<UpdateSiteResponse>(url, request, timeout);
     }
 
     /// <summary>

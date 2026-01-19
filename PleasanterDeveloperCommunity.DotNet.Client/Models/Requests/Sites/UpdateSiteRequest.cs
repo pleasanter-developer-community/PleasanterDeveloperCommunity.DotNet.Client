@@ -1,14 +1,13 @@
 using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using SiteSettingsType = PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettings;
-using System.ComponentModel.DataAnnotations;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
 /// <summary>
-/// サイト作成リクエスト
+/// サイト更新リクエスト
 /// </summary>
-public class CreateSiteRequest : ApiRequest
+public class UpdateSiteRequest : ApiRequest
 {
     /// <summary>
     /// テナントID
@@ -20,18 +19,16 @@ public class CreateSiteRequest : ApiRequest
     /// サイトのタイトル
     /// </summary>
     [JsonProperty("Title")]
-    [Required(ErrorMessage = "Title は必須です。")]
-    public string Title { get; set; } = string.Empty;
+    public string? Title { get; set; }
 
     /// <summary>
     /// 参照タイプ（Sites, Issues, Results, Wikis のいずれか）
     /// </summary>
     [JsonProperty("ReferenceType")]
-    [Required(ErrorMessage = "ReferenceType は必須です。")]
-    public SiteReferenceType ReferenceType { get; set; }
+    public SiteReferenceType? ReferenceType { get; set; }
 
     /// <summary>
-    /// 親サイトID（省略時はAPIリクエストURLで指定した親サイトID配下に作成されます）
+    /// 親サイトID
     /// </summary>
     [JsonProperty("ParentId")]
     public long? ParentId { get; set; }
