@@ -31,81 +31,83 @@ using var client = new PleasanterClient(
 
 ## 対応API
 
-> **Note:** 各APIの詳細なパラメータや使用方法については、[Pleasanter公式マニュアル](https://pleasanter.org/ja/manual)を参照してください。
+対応Verに記載ありのものが実装済みです。
+
+> **Note:** 各APIの詳細については、[Pleasanter公式マニュアル](https://pleasanter.org/ja/manual)を参照してください。
 
 ### 01.テーブル操作
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| ✓ | 単一レコード取得 | items/{recordId}/get |
-| ✓ | 複数レコード取得 | items/{siteId}/get |
-| ✓ | レコード作成 | items/{siteId}/create |
-| ✓ | レコード一括作成・更新 | items/{siteId}/bulkupsert |
-| ✓ | レコード作成・更新 | items/{siteId}/upsert |
-| ✓ | レコード更新 | items/{recordId}/update |
-| ✓ | レコード削除 | items/{recordId}/delete |
-| ✓ | レコード一括削除 | items/{siteId}/bulkdelete |
-| ✓ | 添付ファイル取得 | items/{recordId}/binaries/{guid}/get |
-| ✓ | テーブルのエクスポート | items/{siteId}/export |
-| ✓ | レコードのインポート | items/{siteId}/import |
+| #  | 対応Ver  | 対象       | 操作               | エンドポイント                       |
+|:--:|:--------:|:-----------|:-------------------|:-------------------------------------|
+| 01 | 1.3.13.0 | レコード   | 作成               | items/{siteId}/create                |
+| 02 | 1.3.13.0 | テーブル   | インポート         | items/{siteId}/import                |
+| 03 | 1.3.13.0 | レコード   | 取得(単一)         | items/{recordId}/get                 |
+| 04 | 1.3.13.0 | テーブル   | 取得(複数)         | items/{siteId}/get                   |
+| 05 | 1.3.13.0 | レコード   | 取得(添付ファイル) | items/{recordId}/binaries/{guid}/get |
+| 06 | 1.3.13.0 | テーブル   | エクスポート       | items/{siteId}/export                |
+| 07 | 1.3.13.0 | レコード   | 更新               | items/{recordId}/update              |
+| 08 | 1.3.13.0 | テーブル   | 作成・更新         | items/{siteId}/upsert                |
+| 09 | 1.4.6.0  | テーブル   | 一括作成・更新     | items/{siteId}/bulkupsert            |
+| 10 | 1.3.13.0 | レコード   | 削除               | items/{recordId}/delete              |
+| 11 | 1.3.13.0 | テーブル   | 一括削除           | items/{siteId}/bulkdelete            |
 
 ### 02.サイト操作
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| ✓ | サイトコピー | sites/{siteId}/copy |
-| ✓ | サイト作成 | sites/{parentId}/create |
-| | サイト削除 | sites/{siteId}/delete |
-| | サイト取得 | sites/{siteId}/get |
-| | サイト名検索で該当サイトに最も近いサイトID取得 | sites/get |
-| | サイト更新 | sites/{siteId}/update |
-| | サイト設定の更新（部分追加/更新/削除） | sites/{siteId}/updatesitesettings |
-| | サマリ同期 | sites/{siteId}/synchronizesummaries |
-| | 検索インデックス再構築 | sites/{siteId}/rebuildsearchindexes |
+| #  | 対応Ver  | 対象     | 操作                                   | エンドポイント                      |
+|:--:|:--------:|:---------|:---------------------------------------|:------------------------------------|
+| 01 | 1.3.13.0 | サイト   | 作成                                   | sites/{parentId}/create             |
+| 02 | 1.3.13.0 | サイト   | コピー                                 | sites/{siteId}/copy                 |
+| 03 |          | サイト   | 取得                                   | sites/{siteId}/get                  |
+| 04 |          | サイト   | 検索で該当サイトに最も近いサイトID取得 | sites/get                           |
+| 05 |          | サイト   | 更新                                   | sites/{siteId}/update               |
+| 06 |          | サイト   | 設定更新（部分追加/更新/削除）         | sites/{siteId}/updatesitesettings   |
+| 07 |          | サイト   | サマリ同期                             | sites/{siteId}/synchronizesummaries |
+| 08 |          | サイト   | 検索インデックス再構築                 | sites/{siteId}/rebuildsearchindexes |
+| 09 |          | サイト   | 削除                                   | sites/{siteId}/delete               |
 
 ### 03.ユーザ操作
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| | ユーザ作成 | users/create |
-| | ユーザ削除 | users/{userId}/delete |
-| | ユーザ取得(全て) | users/get |
-| | ユーザ取得(選択) | users/{userId}/get |
-| | ユーザ更新 | users/{userId}/update |
-| | インポート | users/import |
+| #  | 対応Ver | 対象     | 操作       | エンドポイント        |
+|:--:|:-------:|:---------|:-----------|:----------------------|
+| 01 |         | ユーザ   | 作成       | users/create          |
+| 02 |         | ユーザ   | インポート | users/import          |
+| 03 |         | ユーザ   | 取得(全て) | users/get             |
+| 04 |         | ユーザ   | 取得       | users/{userId}/get    |
+| 05 |         | ユーザ   | 更新       | users/{userId}/update |
+| 06 |         | ユーザ   | 削除       | users/{userId}/delete |
 
 ### 04.グループ操作
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| | グループ作成 | groups/create |
-| | グループ削除 | groups/{groupId}/delete |
-| | グループ取得 | groups/{groupId}/get |
-| | グループ更新 | groups/{groupId}/update |
-| | インポート | groups/import |
+| #  | 対応Ver | 対象       | 操作       | エンドポイント          |
+|:--:|:-------:|:-----------|:-----------|:------------------------|
+| 01 |         | グループ   | 作成       | groups/create           |
+| 02 |         | グループ   | インポート | groups/import           |
+| 03 |         | グループ   | 取得       | groups/{groupId}/get    |
+| 04 |         | グループ   | 更新       | groups/{groupId}/update |
+| 05 |         | グループ   | 削除       | groups/{groupId}/delete |
 
 ### 05.組織操作
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| | 組織取得 | depts/{deptId}/get |
-| | 組織作成 | depts/create |
-| | 組織削除 | depts/{deptId}/delete |
-| | 組織更新 | depts/{deptId}/update |
-| | インポート | depts/import |
+| #  | 対応Ver | 対象 | 操作       | エンドポイント        |
+|:--:|:-------:|:-----|:-----------|:----------------------|
+| 01 |         | 組織 | 作成       | depts/create          |
+| 02 |         | 組織 | インポート | depts/import          |
+| 03 |         | 組織 | 取得       | depts/{deptId}/get    |
+| 04 |         | 組織 | 更新       | depts/{deptId}/update |
+| 05 |         | 組織 | 削除       | depts/{deptId}/delete |
 
 ### 06.メール
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| | メール送信 | items/{siteId}/mail |
+| #  | 対応Ver | 対象     | 操作 | エンドポイント      |
+|:--:|:-------:|:---------|:-----|:--------------------|
+| 01 |         | メール   | 送信 | items/{siteId}/mail |
 
 ### 09.その他
 
-| 実装済み | API名 | エンドポイント |
-|:--------:|------|---------------|
-| ✓ | 拡張SQL実行 | extended/sql |
-| | ヘルスチェック | healthz |
+| #  | 対応Ver  | 対象    | 操作       | エンドポイント |
+|:--:|:--------:|:--------|:-----------|:---------------|
+| 01 | 1.3.13.0 | 拡張SQL | 取得(実行) | extended/sql   |
 
 ## Thanks
+
 このWikiは[sync-docs-to-wiki](https://github.com/ShoWaka/sync-docs-to-wiki)をベースに、本体レポジトリのdocsがWikiに自動同期される仕組みを構築しています。
