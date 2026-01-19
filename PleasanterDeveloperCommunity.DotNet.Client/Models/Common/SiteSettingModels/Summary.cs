@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,61 +10,61 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// サイトID
         /// </summary>
-        [JsonProperty("SiteId")]
+        [JsonPropertyName("SiteId")]
         public long? SiteId { get; set; }
 
         /// <summary>
         /// 宛先のレファレンスの種類
         /// </summary>
-        [JsonProperty("DestinationReferenceType")]
+        [JsonPropertyName("DestinationReferenceType")]
         public string? DestinationReferenceType { get; set; }
 
         /// <summary>
         /// 宛先の列
         /// </summary>
-        [JsonProperty("DestinationColumn")]
+        [JsonPropertyName("DestinationColumn")]
         public string? DestinationColumn { get; set; }
 
         /// <summary>
         /// 宛先の条件
         /// </summary>
-        [JsonProperty("DestinationCondition")]
+        [JsonPropertyName("DestinationCondition")]
         public int? DestinationCondition { get; set; }
 
         /// <summary>
         /// リンクを設定する列
         /// </summary>
-        [JsonProperty("SetZeroWhenOutOfCondition")]
+        [JsonPropertyName("SetZeroWhenOutOfCondition")]
         public bool? SetZeroWhenOutOfCondition { get; set; }
 
         /// <summary>
         /// リンクの列
         /// </summary>
-        [JsonProperty("LinkColumn")]
+        [JsonPropertyName("LinkColumn")]
         public string? LinkColumn { get; set; }
 
         /// <summary>
         /// 種類
         /// </summary>
-        [JsonProperty("Type")]
+        [JsonPropertyName("Type")]
         public string? Type { get; set; }
 
         /// <summary>
         /// 元の列
         /// </summary>
-        [JsonProperty("SourceColumn")]
+        [JsonPropertyName("SourceColumn")]
         public string? SourceColumn { get; set; }
 
         /// <summary>
         /// 元の条件
         /// </summary>
-        [JsonProperty("SourceCondition")]
+        [JsonPropertyName("SourceCondition")]
         public int? SourceCondition { get; set; }
     }
 }

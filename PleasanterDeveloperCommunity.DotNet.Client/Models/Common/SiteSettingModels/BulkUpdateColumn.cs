@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
@@ -11,31 +11,31 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// タイトル
         /// </summary>
-        [JsonProperty("Title")]
+        [JsonPropertyName("Title")]
         public string? Title { get; set; }
 
         /// <summary>
         /// 列
         /// </summary>
-        [JsonProperty("Columns")]
+        [JsonPropertyName("Columns")]
         public List<string>? Columns { get; set; }
 
         /// <summary>
         /// 詳細
         /// </summary>
-        [JsonProperty("Details")]
+        [JsonPropertyName("Details")]
         public Dictionary<string, BulkUpdateColumnDetail>? Details { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

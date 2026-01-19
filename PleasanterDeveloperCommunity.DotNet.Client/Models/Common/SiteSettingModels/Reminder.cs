@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
@@ -11,91 +11,91 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// 件名
         /// </summary>
-        [JsonProperty("Subject")]
+        [JsonPropertyName("Subject")]
         public string? Subject { get; set; }
 
         /// <summary>
         /// 本文
         /// </summary>
-        [JsonProperty("Body")]
+        [JsonPropertyName("Body")]
         public string? Body { get; set; }
 
         /// <summary>
         /// 行
         /// </summary>
-        [JsonProperty("Line")]
+        [JsonPropertyName("Line")]
         public string? Line { get; set; }
 
         /// <summary>
         /// 宛先
         /// </summary>
-        [JsonProperty("To")]
+        [JsonPropertyName("To")]
         public string? To { get; set; }
 
         /// <summary>
         /// 列
         /// </summary>
-        [JsonProperty("Column")]
+        [JsonPropertyName("Column")]
         public string? Column { get; set; }
 
         /// <summary>
         /// 開始日時
         /// </summary>
-        [JsonProperty("StartDateTime")]
+        [JsonPropertyName("StartDateTime")]
         public string? StartDateTime { get; set; }
 
         /// <summary>
         /// 種類
         /// </summary>
-        [JsonProperty("Type")]
+        [JsonPropertyName("Type")]
         public int? Type { get; set; }
 
         /// <summary>
         /// 範囲
         /// </summary>
-        [JsonProperty("Range")]
+        [JsonPropertyName("Range")]
         public int? Range { get; set; }
 
         /// <summary>
         /// 繰り返しを送信
         /// </summary>
-        [JsonProperty("SendCompletedInPast")]
+        [JsonPropertyName("SendCompletedInPast")]
         public bool? SendCompletedInPast { get; set; }
 
         /// <summary>
         /// 未変更を含まない
         /// </summary>
-        [JsonProperty("NotSendIfNotApplicable")]
+        [JsonPropertyName("NotSendIfNotApplicable")]
         public bool? NotSendIfNotApplicable { get; set; }
 
         /// <summary>
         /// 通知のタイミング
         /// </summary>
-        [JsonProperty("NotSendHyperLink")]
+        [JsonPropertyName("NotSendHyperLink")]
         public bool? NotSendHyperLink { get; set; }
 
         /// <summary>
         /// メールアドレスを除外
         /// </summary>
-        [JsonProperty("ExcludeOverdue")]
+        [JsonPropertyName("ExcludeOverdue")]
         public bool? ExcludeOverdue { get; set; }
 
         /// <summary>
         /// 条件
         /// </summary>
-        [JsonProperty("Condition")]
+        [JsonPropertyName("Condition")]
         public int? Condition { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

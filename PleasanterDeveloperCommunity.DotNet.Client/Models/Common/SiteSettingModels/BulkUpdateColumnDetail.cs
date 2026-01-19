@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,19 +10,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// デフォルト入力値
         /// </summary>
-        [JsonProperty("DefaultInput")]
+        [JsonPropertyName("DefaultInput")]
         public string? DefaultInput { get; set; }
 
         /// <summary>
         /// 必須検証
         /// </summary>
-        [JsonProperty("ValidateRequired")]
+        [JsonPropertyName("ValidateRequired")]
         public bool? ValidateRequired { get; set; }
 
         /// <summary>
         /// エディタ読取専用
         /// </summary>
-        [JsonProperty("EditorReadOnly")]
+        [JsonPropertyName("EditorReadOnly")]
         public bool? EditorReadOnly { get; set; }
     }
 }

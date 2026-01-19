@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Net;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -12,19 +12,19 @@ public class ApiResponse<T> where T : class
     /// <summary>
     /// ステータスコード（200: 成功）
     /// </summary>
-    [JsonProperty("StatusCode")]
+    [JsonPropertyName("StatusCode")]
     public HttpStatusCode StatusCode { get; set; }
 
     /// <summary>
     /// レスポンスデータ
     /// </summary>
-    [JsonProperty("Response")]
+    [JsonPropertyName("Response")]
     public T? Response { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonProperty("Message")]
+    [JsonPropertyName("Message")]
     public string? Message { get; set; }
 
     /// <summary>

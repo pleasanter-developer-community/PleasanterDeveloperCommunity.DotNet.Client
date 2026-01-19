@@ -1,4 +1,5 @@
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
@@ -15,7 +16,7 @@ public class CopySitePackageResponse
     /// Pleasanter APIはこのフィールドをJSON文字列として返すため、
     /// パースが必要な場合は GetCopiedSites() メソッドを使用してください。
     /// </remarks>
-    [JsonProperty("Data")]
+    [JsonPropertyName("Data")]
     public string? Data { get; set; }
 
     /// <summary>
@@ -29,6 +30,6 @@ public class CopySitePackageResponse
             return null;
         }
 
-        return JsonConvert.DeserializeObject<List<CopiedSiteData>>(Data);
+        return JsonSerializer.Deserialize<List<CopiedSiteData>>(Data);
     }
 }

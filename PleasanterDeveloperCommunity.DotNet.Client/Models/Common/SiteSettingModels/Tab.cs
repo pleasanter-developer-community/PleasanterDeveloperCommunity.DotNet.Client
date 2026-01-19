@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,13 +10,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// ラベルテキスト
         /// </summary>
-        [JsonProperty("LabelText")]
+        [JsonPropertyName("LabelText")]
         public string? LabelText { get; set; }
     }
 }

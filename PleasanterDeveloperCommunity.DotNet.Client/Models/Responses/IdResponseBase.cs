@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
@@ -10,6 +10,6 @@ public abstract class IdResponseBase : ApiLimitInfoBase
     /// <summary>
     /// ID（レコードIDまたはサイトID）
     /// </summary>
-    [JsonProperty("Id")]
+    [JsonPropertyName("Id")]
     public long Id { get; set; }
 }

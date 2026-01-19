@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,25 +10,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// ラベルテキスト
         /// </summary>
-        [JsonProperty("LabelText")]
+        [JsonPropertyName("LabelText")]
         public string? LabelText { get; set; }
 
         /// <summary>
         /// 展開を許可
         /// </summary>
-        [JsonProperty("AllowExpand")]
+        [JsonPropertyName("AllowExpand")]
         public bool? AllowExpand { get; set; }
 
         /// <summary>
         /// 展開
         /// </summary>
-        [JsonProperty("Expand")]
+        [JsonPropertyName("Expand")]
         public bool? Expand { get; set; }
     }
 }

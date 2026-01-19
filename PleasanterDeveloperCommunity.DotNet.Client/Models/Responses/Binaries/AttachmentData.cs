@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -13,37 +13,37 @@ public class AttachmentData
     /// <summary>
     /// ファイルが紐づいているレコードのID
     /// </summary>
-    [JsonProperty("ReferenceId")]
+    [JsonPropertyName("ReferenceId")]
     public long ReferenceId { get; set; }
 
     /// <summary>
     /// バイナリタイプ（Attachments: 添付ファイル, Images: 画像）
     /// </summary>
-    [JsonProperty("BinaryType")]
+    [JsonPropertyName("BinaryType")]
     public string? BinaryType { get; set; }
 
     /// <summary>
     /// Base64エンコードされたファイルの内容
     /// </summary>
-    [JsonProperty("Base64")]
+    [JsonPropertyName("Base64")]
     public string? Base64 { get; set; }
 
     /// <summary>
     /// ファイルのGUID
     /// </summary>
-    [JsonProperty("Guid")]
+    [JsonPropertyName("Guid")]
     public string? Guid { get; set; }
 
     /// <summary>
     /// ファイル名（拡張子なし）
     /// </summary>
-    [JsonProperty("FileName")]
+    [JsonPropertyName("FileName")]
     public string? FileNameWithoutExtension { get; set; }
 
     /// <summary>
     /// 拡張子
     /// </summary>
-    [JsonProperty("Extension")]
+    [JsonPropertyName("Extension")]
     public string? Extension { get; set; }
 
     /// <summary>
@@ -55,37 +55,37 @@ public class AttachmentData
     /// <summary>
     /// ファイルサイズ（バイト単位）
     /// </summary>
-    [JsonProperty("Size")]
+    [JsonPropertyName("Size")]
     public long Size { get; set; }
 
     /// <summary>
     /// ファイルのMIMEタイプ
     /// </summary>
-    [JsonProperty("ContentType")]
+    [JsonPropertyName("ContentType")]
     public string? ContentType { get; set; }
 
     /// <summary>
     /// ファイル作成者のユーザID
     /// </summary>
-    [JsonProperty("Creator")]
+    [JsonPropertyName("Creator")]
     public long Creator { get; set; }
 
     /// <summary>
     /// ファイル更新者のユーザID
     /// </summary>
-    [JsonProperty("Updator")]
+    [JsonPropertyName("Updator")]
     public long Updator { get; set; }
 
     /// <summary>
     /// ファイル作成日時
     /// </summary>
-    [JsonProperty("CreatedTime")]
+    [JsonPropertyName("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// ファイル更新日時
     /// </summary>
-    [JsonProperty("UpdatedTime")]
+    [JsonPropertyName("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>

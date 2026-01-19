@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,79 +10,79 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// タイトル
         /// </summary>
-        [JsonProperty("Title")]
+        [JsonPropertyName("Title")]
         public string? Title { get; set; }
 
         /// <summary>
         /// 種類
         /// </summary>
-        [JsonProperty("Type")]
+        [JsonPropertyName("Type")]
         public int? Type { get; set; }
 
         /// <summary>
         /// サイトID
         /// </summary>
-        [JsonProperty("SiteId")]
+        [JsonPropertyName("SiteId")]
         public long? SiteId { get; set; }
 
         /// <summary>
         /// 内容
         /// </summary>
-        [JsonProperty("Content")]
+        [JsonPropertyName("Content")]
         public string? Content { get; set; }
 
         /// <summary>
         /// HTML内容
         /// </summary>
-        [JsonProperty("HtmlContent")]
+        [JsonPropertyName("HtmlContent")]
         public string? HtmlContent { get; set; }
 
         /// <summary>
         /// 非同期読み込み
         /// </summary>
-        [JsonProperty("AsynchronousLoading")]
+        [JsonPropertyName("AsynchronousLoading")]
         public bool? AsynchronousLoading { get; set; }
 
         /// <summary>
         /// 展開
         /// </summary>
-        [JsonProperty("Expand")]
+        [JsonPropertyName("Expand")]
         public bool? Expand { get; set; }
 
         /// <summary>
         /// X位置
         /// </summary>
-        [JsonProperty("X")]
+        [JsonPropertyName("X")]
         public int? X { get; set; }
 
         /// <summary>
         /// Y位置
         /// </summary>
-        [JsonProperty("Y")]
+        [JsonPropertyName("Y")]
         public int? Y { get; set; }
 
         /// <summary>
         /// 幅
         /// </summary>
-        [JsonProperty("Width")]
+        [JsonPropertyName("Width")]
         public int? Width { get; set; }
 
         /// <summary>
         /// 高さ
         /// </summary>
-        [JsonProperty("Height")]
+        [JsonPropertyName("Height")]
         public int? Height { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

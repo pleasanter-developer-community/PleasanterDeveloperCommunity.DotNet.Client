@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -10,6 +10,6 @@ public class ExportColumn
     /// <summary>
     /// 列名
     /// </summary>
-    [JsonProperty("ColumnName")]
+    [JsonPropertyName("ColumnName")]
     public string? ColumnName { get; set; }
 }

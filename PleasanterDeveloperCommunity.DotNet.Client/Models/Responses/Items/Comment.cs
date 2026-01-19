@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -10,30 +10,30 @@ public class Comment
     /// <summary>
     /// コメントID
     /// </summary>
-    [JsonProperty("CommentId")]
+    [JsonPropertyName("CommentId")]
     public long CommentId { get; set; }
 
     /// <summary>
     /// 作成日時
     /// </summary>
-    [JsonProperty("CreatedTime")]
+    [JsonPropertyName("CreatedTime")]
     public string? CreatedTime { get; set; }
 
     /// <summary>
     /// 更新日時
     /// </summary>
-    [JsonProperty("UpdatedTime")]
+    [JsonPropertyName("UpdatedTime")]
     public string? UpdatedTime { get; set; }
 
     /// <summary>
     /// 作成者ID
     /// </summary>
-    [JsonProperty("Creator")]
+    [JsonPropertyName("Creator")]
     public int Creator { get; set; }
 
     /// <summary>
     /// コメント本文
     /// </summary>
-    [JsonProperty("Body")]
+    [JsonPropertyName("Body")]
     public string? Body { get; set; }
 }

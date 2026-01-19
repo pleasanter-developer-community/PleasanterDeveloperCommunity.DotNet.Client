@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
@@ -10,12 +10,12 @@ public class SelectedSite
     /// <summary>
     /// コピー対象のサイトID
     /// </summary>
-    [JsonProperty("SiteId")]
+    [JsonPropertyName("SiteId")]
     public long SiteId { get; set; }
 
     /// <summary>
     /// データを含めるかどうか（省略時：true）
     /// </summary>
-    [JsonProperty("IncludeData")]
+    [JsonPropertyName("IncludeData")]
     public bool? IncludeData { get; set; }
 }

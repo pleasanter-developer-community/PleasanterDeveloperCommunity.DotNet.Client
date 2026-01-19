@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
@@ -11,55 +11,55 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// 名前
         /// </summary>
-        [JsonProperty("Name")]
+        [JsonPropertyName("Name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// ヘッダーを含める
         /// </summary>
-        [JsonProperty("Header")]
+        [JsonPropertyName("Header")]
         public bool? Header { get; set; }
 
         /// <summary>
         /// 列
         /// </summary>
-        [JsonProperty("Columns")]
+        [JsonPropertyName("Columns")]
         public List<ExportColumn>? Columns { get; set; }
 
         /// <summary>
         /// エクスポート形式
         /// </summary>
-        [JsonProperty("Type")]
+        [JsonPropertyName("Type")]
         public int? Type { get; set; }
 
         /// <summary>
         /// 区切り文字
         /// </summary>
-        [JsonProperty("DelimitateStandard")]
+        [JsonPropertyName("DelimitateStandard")]
         public bool? DelimitateStandard { get; set; }
 
         /// <summary>
         /// 履歴を結合
         /// </summary>
-        [JsonProperty("JoinAll")]
+        [JsonPropertyName("JoinAll")]
         public bool? JoinAll { get; set; }
 
         /// <summary>
         /// リンクを使用
         /// </summary>
-        [JsonProperty("UseLinks")]
+        [JsonPropertyName("UseLinks")]
         public bool? UseLinks { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

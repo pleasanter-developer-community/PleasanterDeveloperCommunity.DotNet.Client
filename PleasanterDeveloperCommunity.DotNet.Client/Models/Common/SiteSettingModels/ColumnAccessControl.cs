@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
@@ -11,43 +11,43 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// 列名
         /// </summary>
-        [JsonProperty("ColumnName")]
+        [JsonPropertyName("ColumnName")]
         public string? ColumnName { get; set; }
 
         /// <summary>
         /// 許可種類
         /// </summary>
-        [JsonProperty("AllowedType")]
+        [JsonPropertyName("AllowedType")]
         public long? AllowedType { get; set; }
 
         /// <summary>
         /// 許可ユーザー
         /// </summary>
-        [JsonProperty("AllowedUsers")]
+        [JsonPropertyName("AllowedUsers")]
         public List<int>? AllowedUsers { get; set; }
 
         /// <summary>
         /// 許可部署
         /// </summary>
-        [JsonProperty("Depts")]
+        [JsonPropertyName("Depts")]
         public List<int>? Depts { get; set; }
 
         /// <summary>
         /// 許可グループ
         /// </summary>
-        [JsonProperty("Groups")]
+        [JsonPropertyName("Groups")]
         public List<int>? Groups { get; set; }
 
         /// <summary>
         /// 許可ユーザー（ユーザーID）
         /// </summary>
-        [JsonProperty("Users")]
+        [JsonPropertyName("Users")]
         public List<int>? Users { get; set; }
 
         /// <summary>
         /// 記録許可種類
         /// </summary>
-        [JsonProperty("RecordUsers")]
+        [JsonPropertyName("RecordUsers")]
         public List<string>? RecordUsers { get; set; }
     }
 }

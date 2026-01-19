@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
@@ -18,6 +17,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using UUIDNext;
@@ -30,9 +30,9 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 public class PleasanterClient : IDisposable
 {
     private static readonly Lazy<HttpClient> DefaultHttpClient = new(() => CreateHttpClient(ProxySettings.UseSystemDefault, false));
-    private static readonly JsonSerializerSettings JsonSettings = new()
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        NullValueHandling = NullValueHandling.Ignore
+        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
     };
 
     private readonly HttpClient _httpClient;
@@ -160,16 +160,14 @@ public class PleasanterClient : IDisposable
     /// 単一レコードを取得します
     /// </summary>
     /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
-    /// <param name="view">ビュー設定（取得する列の指定など）</param>
     /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, View? view = null, TimeSpan? timeout = null)
+    public async Task<ApiResponse<RecordResponse>> GetRecordAsync(long recordId, TimeSpan? timeout = null)
     {
         var request = new RecordRequest
         {
             ApiKey = _apiKey,
-            ApiVersion = _apiVersion,
-            View = view
+            ApiVersion = _apiVersion
         };
 
         var url = $"{_baseUrl}/api/items/{recordId}/get";
@@ -959,17 +957,12 @@ public class PleasanterClient : IDisposable
     /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
     private async Task<ApiResponse<T>> PostAsync<T>(string url, object request, TimeSpan? timeout = null) where T : class
     {
-        var formatter = new System.Net.Http.Formatting.JsonMediaTypeFormatter
-        {
-            SerializerSettings = JsonSettings
-        };
-
         var effectiveTimeout = timeout ?? _defaultTimeout;
         using var cts = effectiveTimeout.HasValue
             ? new CancellationTokenSource(effectiveTimeout.Value)
             : new CancellationTokenSource();
 
-        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+        var requestJson = JsonSerializer.Serialize(request, JsonOptions);
         var content = new StringContent(
             requestJson,
             System.Text.Encoding.UTF8,
@@ -987,7 +980,7 @@ public class PleasanterClient : IDisposable
             // デバッグモード時：レスポンスをログに記録
             _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonSerializer.Deserialize<ApiResponse<T>>(responseBody, JsonOptions);
 
             return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
         }
@@ -1014,7 +1007,7 @@ public class PleasanterClient : IDisposable
             ? new CancellationTokenSource(effectiveTimeout.Value)
             : new CancellationTokenSource();
 
-        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+        var requestJson = JsonSerializer.Serialize(request, JsonOptions);
 
         using var content = new MultipartFormDataContent();
         content.Add(new StringContent(requestJson), "parameters");
@@ -1035,7 +1028,7 @@ public class PleasanterClient : IDisposable
             // デバッグモード時：レスポンスをログに記録
             _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonSerializer.Deserialize<ApiResponse<T>>(responseBody, JsonOptions);
 
             return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
         }
@@ -1062,7 +1055,7 @@ public class PleasanterClient : IDisposable
             ? new CancellationTokenSource(effectiveTimeout.Value)
             : new CancellationTokenSource();
 
-        var requestJson = JsonConvert.SerializeObject(request, JsonSettings);
+        var requestJson = JsonSerializer.Serialize(request, JsonOptions);
 
         using var content = new MultipartFormDataContent();
         content.Add(new StringContent(requestJson), "parameters");
@@ -1083,7 +1076,7 @@ public class PleasanterClient : IDisposable
             // デバッグモード時：レスポンスをログに記録
             _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonSerializer.Deserialize<ApiResponse<T>>(responseBody, JsonOptions);
 
             return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
         }

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
@@ -11,6 +11,6 @@ public class GetClosestSiteIdRequest : ApiRequest
     /// <summary>
     /// 検索対象のサイト名の配列
     /// </summary>
-    [JsonProperty("FindSiteNames")]
+    [JsonPropertyName("FindSiteNames")]
     public List<string>? FindSiteNames { get; set; }
 }

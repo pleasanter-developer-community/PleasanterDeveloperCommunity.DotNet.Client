@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -12,25 +12,25 @@ public abstract class PaginatedResponseBase<T>
     /// <summary>
     /// オフセット
     /// </summary>
-    [JsonProperty("Offset")]
+    [JsonPropertyName("Offset")]
     public int? Offset { get; set; }
 
     /// <summary>
     /// ページサイズ
     /// </summary>
-    [JsonProperty("PageSize")]
+    [JsonPropertyName("PageSize")]
     public int? PageSize { get; set; }
 
     /// <summary>
     /// 合計レコード数
     /// </summary>
-    [JsonProperty("TotalCount")]
+    [JsonPropertyName("TotalCount")]
     public int? TotalCount { get; set; }
 
     /// <summary>
     /// レスポンスデータリスト
     /// </summary>
-    [JsonProperty("Data")]
+    [JsonPropertyName("Data")]
     public List<T>? Data { get; set; }
 
     /// <summary>

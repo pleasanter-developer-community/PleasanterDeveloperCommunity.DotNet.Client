@@ -1,12 +1,13 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -244,11 +245,11 @@ internal class DebugLogger : IDisposable
 
         try
         {
-            var token = JToken.Parse(content);
-            var formatted = token.ToString(Formatting.Indented);
+            var doc = JsonDocument.Parse(content);
+            var formatted = JsonSerializer.Serialize(doc, new JsonSerializerOptions { WriteIndented = true });
             return (true, formatted);
         }
-        catch (JsonReaderException)
+        catch (JsonException)
         {
             return (false, content);
         }
@@ -268,11 +269,15 @@ internal class DebugLogger : IDisposable
 
         try
         {
-            var token = JToken.Parse(json);
-            MaskApiKeyRecursive(token);
-            return token.ToString(Formatting.None);
+            var node = JsonNode.Parse(json);
+            if (node != null)
+            {
+                MaskApiKeyRecursive(node);
+                return node.ToJsonString();
+            }
+            return json;
         }
-        catch (JsonReaderException)
+        catch (JsonException)
         {
             // JSONでない場合はそのまま返す
             return json;
@@ -280,31 +285,34 @@ internal class DebugLogger : IDisposable
     }
 
     /// <summary>
-    /// JToken内のApiKeyを再帰的にマスクします
+    /// JsonNode内のApiKeyを再帰的にマスクします
     /// </summary>
-    /// <param name="token">JToken</param>
-    private static void MaskApiKeyRecursive(JToken token)
+    /// <param name="node">JsonNode</param>
+    private static void MaskApiKeyRecursive(JsonNode node)
     {
-        switch (token)
+        switch (node)
         {
-            case JObject obj:
-                foreach (var property in obj.Properties())
+            case JsonObject obj:
+                foreach (var property in obj.ToArray())
                 {
-                    if (property.Name.Equals("ApiKey", StringComparison.OrdinalIgnoreCase))
+                    if (property.Key.Equals("ApiKey", StringComparison.OrdinalIgnoreCase))
                     {
-                        property.Value = MaskedValue;
+                        obj[property.Key] = MaskedValue;
                     }
-                    else
+                    else if (property.Value != null)
                     {
                         MaskApiKeyRecursive(property.Value);
                     }
                 }
                 break;
 
-            case JArray array:
+            case JsonArray array:
                 foreach (var item in array)
                 {
-                    MaskApiKeyRecursive(item);
+                    if (item != null)
+                    {
+                        MaskApiKeyRecursive(item);
+                    }
                 }
                 break;
         }

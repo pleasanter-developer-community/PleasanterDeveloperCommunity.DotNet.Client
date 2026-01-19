@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,43 +10,43 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// 対象列
         /// </summary>
-        [JsonProperty("Target")]
+        [JsonPropertyName("Target")]
         public string? Target { get; set; }
 
         /// <summary>
         /// 計算式
         /// </summary>
-        [JsonProperty("Formula")]
+        [JsonPropertyName("Formula")]
         public object? Formula { get; set; }
 
         /// <summary>
         /// 条件
         /// </summary>
-        [JsonProperty("Condition")]
+        [JsonPropertyName("Condition")]
         public int? Condition { get; set; }
 
         /// <summary>
         /// 条件外の場合の値
         /// </summary>
-        [JsonProperty("OutOfCondition")]
+        [JsonPropertyName("OutOfCondition")]
         public string? OutOfCondition { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
 
         /// <summary>
         /// 計算方法
         /// </summary>
-        [JsonProperty("CalculationMethod")]
+        [JsonPropertyName("CalculationMethod")]
         public string? CalculationMethod { get; set; }
     }
 }

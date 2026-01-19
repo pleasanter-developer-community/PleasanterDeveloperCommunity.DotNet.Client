@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Converters;
 using System.Collections.Generic;
 

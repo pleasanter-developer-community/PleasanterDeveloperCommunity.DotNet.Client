@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,559 +10,559 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// 列名
         /// </summary>
-        [JsonProperty("ColumnName")]
+        [JsonPropertyName("ColumnName")]
         public string? ColumnName { get; set; }
 
         /// <summary>
         /// ラベルテキスト
         /// </summary>
-        [JsonProperty("LabelText")]
+        [JsonPropertyName("LabelText")]
         public string? LabelText { get; set; }
 
         /// <summary>
         /// 一覧用ラベルテキスト
         /// </summary>
-        [JsonProperty("GridLabelText")]
+        [JsonPropertyName("GridLabelText")]
         public string? GridLabelText { get; set; }
 
         /// <summary>
         /// 説明
         /// </summary>
-        [JsonProperty("Description")]
+        [JsonPropertyName("Description")]
         public string? Description { get; set; }
 
         /// <summary>
         /// 入力ガイド
         /// </summary>
-        [JsonProperty("InputGuide")]
+        [JsonPropertyName("InputGuide")]
         public string? InputGuide { get; set; }
 
         /// <summary>
         /// 選択肢テキスト
         /// </summary>
-        [JsonProperty("ChoicesText")]
+        [JsonPropertyName("ChoicesText")]
         public string? ChoicesText { get; set; }
 
         /// <summary>
         /// 検索を使用
         /// </summary>
-        [JsonProperty("UseSearch")]
+        [JsonPropertyName("UseSearch")]
         public bool? UseSearch { get; set; }
 
         /// <summary>
         /// 複数選択
         /// </summary>
-        [JsonProperty("MultipleSelections")]
+        [JsonPropertyName("MultipleSelections")]
         public bool? MultipleSelections { get; set; }
 
         /// <summary>
         /// 空白選択肢を挿入しない
         /// </summary>
-        [JsonProperty("NotInsertBlankChoice")]
+        [JsonPropertyName("NotInsertBlankChoice")]
         public bool? NotInsertBlankChoice { get; set; }
 
         /// <summary>
         /// デフォルト入力値
         /// </summary>
-        [JsonProperty("DefaultInput")]
+        [JsonPropertyName("DefaultInput")]
         public string? DefaultInput { get; set; }
 
         /// <summary>
         /// インポートキー
         /// </summary>
-        [JsonProperty("ImportKey")]
+        [JsonPropertyName("ImportKey")]
         public bool? ImportKey { get; set; }
 
         /// <summary>
         /// 一覧フォーマット
         /// </summary>
-        [JsonProperty("GridFormat")]
+        [JsonPropertyName("GridFormat")]
         public string? GridFormat { get; set; }
 
         /// <summary>
         /// エディタフォーマット
         /// </summary>
-        [JsonProperty("EditorFormat")]
+        [JsonPropertyName("EditorFormat")]
         public string? EditorFormat { get; set; }
 
         /// <summary>
         /// エクスポートフォーマット
         /// </summary>
-        [JsonProperty("ExportFormat")]
+        [JsonPropertyName("ExportFormat")]
         public string? ExportFormat { get; set; }
 
         /// <summary>
         /// コントロールの種類
         /// </summary>
-        [JsonProperty("ControlType")]
+        [JsonPropertyName("ControlType")]
         public string? ControlType { get; set; }
 
         /// <summary>
         /// 選択肢コントロールの種類
         /// </summary>
-        [JsonProperty("ChoicesControlType")]
+        [JsonPropertyName("ChoicesControlType")]
         public string? ChoicesControlType { get; set; }
 
         /// <summary>
         /// フォーマット
         /// </summary>
-        [JsonProperty("Format")]
+        [JsonPropertyName("Format")]
         public string? Format { get; set; }
 
         /// <summary>
         /// 折り返しなし
         /// </summary>
-        [JsonProperty("NoWrap")]
+        [JsonPropertyName("NoWrap")]
         public bool? NoWrap { get; set; }
 
         /// <summary>
         /// 非表示
         /// </summary>
-        [JsonProperty("Hide")]
+        [JsonPropertyName("Hide")]
         public bool? Hide { get; set; }
 
         /// <summary>
         /// 自動採番フォーマット
         /// </summary>
-        [JsonProperty("AutoNumberingFormat")]
+        [JsonPropertyName("AutoNumberingFormat")]
         public string? AutoNumberingFormat { get; set; }
 
         /// <summary>
         /// 自動採番リセット種類
         /// </summary>
-        [JsonProperty("AutoNumberingResetType")]
+        [JsonPropertyName("AutoNumberingResetType")]
         public int? AutoNumberingResetType { get; set; }
 
         /// <summary>
         /// 自動採番のデフォルト値
         /// </summary>
-        [JsonProperty("AutoNumberingDefault")]
+        [JsonPropertyName("AutoNumberingDefault")]
         public int? AutoNumberingDefault { get; set; }
 
         /// <summary>
         /// 自動採番のステップ
         /// </summary>
-        [JsonProperty("AutoNumberingStep")]
+        [JsonPropertyName("AutoNumberingStep")]
         public int? AutoNumberingStep { get; set; }
 
         /// <summary>
         /// 拡張セルCSS
         /// </summary>
-        [JsonProperty("ExtendedCellCss")]
+        [JsonPropertyName("ExtendedCellCss")]
         public string? ExtendedCellCss { get; set; }
 
         /// <summary>
         /// 拡張フィールドCSS
         /// </summary>
-        [JsonProperty("ExtendedFieldCss")]
+        [JsonPropertyName("ExtendedFieldCss")]
         public string? ExtendedFieldCss { get; set; }
 
         /// <summary>
         /// 拡張コントロールCSS
         /// </summary>
-        [JsonProperty("ExtendedControlCss")]
+        [JsonPropertyName("ExtendedControlCss")]
         public string? ExtendedControlCss { get; set; }
 
         /// <summary>
         /// セクション
         /// </summary>
-        [JsonProperty("Section")]
+        [JsonPropertyName("Section")]
         public string? Section { get; set; }
 
         /// <summary>
         /// セル固定
         /// </summary>
-        [JsonProperty("CellSticky")]
+        [JsonPropertyName("CellSticky")]
         public bool? CellSticky { get; set; }
 
         /// <summary>
         /// セル幅
         /// </summary>
-        [JsonProperty("CellWidth")]
+        [JsonPropertyName("CellWidth")]
         public int? CellWidth { get; set; }
 
         /// <summary>
         /// セル折り返し
         /// </summary>
-        [JsonProperty("CellWordWrap")]
+        [JsonPropertyName("CellWordWrap")]
         public bool? CellWordWrap { get; set; }
 
         /// <summary>
         /// 一覧デザイン
         /// </summary>
-        [JsonProperty("GridDesign")]
+        [JsonPropertyName("GridDesign")]
         public string? GridDesign { get; set; }
 
         /// <summary>
         /// 必須入力の検証
         /// </summary>
-        [JsonProperty("ValidateRequired")]
+        [JsonPropertyName("ValidateRequired")]
         public bool? ValidateRequired { get; set; }
 
         /// <summary>
         /// 数値の検証
         /// </summary>
-        [JsonProperty("ValidateNumber")]
+        [JsonPropertyName("ValidateNumber")]
         public bool? ValidateNumber { get; set; }
 
         /// <summary>
         /// 日付の検証
         /// </summary>
-        [JsonProperty("ValidateDate")]
+        [JsonPropertyName("ValidateDate")]
         public bool? ValidateDate { get; set; }
 
         /// <summary>
         /// メールの検証
         /// </summary>
-        [JsonProperty("ValidateEmail")]
+        [JsonPropertyName("ValidateEmail")]
         public bool? ValidateEmail { get; set; }
 
         /// <summary>
         /// 一致の検証対象
         /// </summary>
-        [JsonProperty("ValidateEqualTo")]
+        [JsonPropertyName("ValidateEqualTo")]
         public string? ValidateEqualTo { get; set; }
 
         /// <summary>
         /// 最大長の検証
         /// </summary>
-        [JsonProperty("ValidateMaxLength")]
+        [JsonPropertyName("ValidateMaxLength")]
         public int? ValidateMaxLength { get; set; }
 
         /// <summary>
         /// 最大長
         /// </summary>
-        [JsonProperty("MaxLength")]
+        [JsonPropertyName("MaxLength")]
         public decimal? MaxLength { get; set; }
 
         /// <summary>
         /// クライアント正規表現検証
         /// </summary>
-        [JsonProperty("ClientRegexValidation")]
+        [JsonPropertyName("ClientRegexValidation")]
         public string? ClientRegexValidation { get; set; }
 
         /// <summary>
         /// サーバ正規表現検証
         /// </summary>
-        [JsonProperty("ServerRegexValidation")]
+        [JsonPropertyName("ServerRegexValidation")]
         public string? ServerRegexValidation { get; set; }
 
         /// <summary>
         /// 正規表現検証メッセージ
         /// </summary>
-        [JsonProperty("RegexValidationMessage")]
+        [JsonPropertyName("RegexValidationMessage")]
         public string? RegexValidationMessage { get; set; }
 
         /// <summary>
         /// フィールド前の拡張HTML
         /// </summary>
-        [JsonProperty("ExtendedHtmlBeforeField")]
+        [JsonPropertyName("ExtendedHtmlBeforeField")]
         public string? ExtendedHtmlBeforeField { get; set; }
 
         /// <summary>
         /// ラベル前の拡張HTML
         /// </summary>
-        [JsonProperty("ExtendedHtmlBeforeLabel")]
+        [JsonPropertyName("ExtendedHtmlBeforeLabel")]
         public string? ExtendedHtmlBeforeLabel { get; set; }
 
         /// <summary>
         /// ラベルとコントロール間の拡張HTML
         /// </summary>
-        [JsonProperty("ExtendedHtmlBetweenLabelAndControl")]
+        [JsonPropertyName("ExtendedHtmlBetweenLabelAndControl")]
         public string? ExtendedHtmlBetweenLabelAndControl { get; set; }
 
         /// <summary>
         /// コントロール後の拡張HTML
         /// </summary>
-        [JsonProperty("ExtendedHtmlAfterControl")]
+        [JsonPropertyName("ExtendedHtmlAfterControl")]
         public string? ExtendedHtmlAfterControl { get; set; }
 
         /// <summary>
         /// フィールド後の拡張HTML
         /// </summary>
-        [JsonProperty("ExtendedHtmlAfterField")]
+        [JsonPropertyName("ExtendedHtmlAfterField")]
         public string? ExtendedHtmlAfterField { get; set; }
 
         /// <summary>
         /// 多言語ラベルテキスト
         /// </summary>
-        [JsonProperty("MultilingualLabelText")]
+        [JsonPropertyName("MultilingualLabelText")]
         public string? MultilingualLabelText { get; set; }
 
         /// <summary>
         /// NULL許容
         /// </summary>
-        [JsonProperty("Nullable")]
+        [JsonPropertyName("Nullable")]
         public bool? Nullable { get; set; }
 
         /// <summary>
         /// 単位
         /// </summary>
-        [JsonProperty("Unit")]
+        [JsonPropertyName("Unit")]
         public string? Unit { get; set; }
 
         /// <summary>
         /// 小数点以下桁数
         /// </summary>
-        [JsonProperty("DecimalPlaces")]
+        [JsonPropertyName("DecimalPlaces")]
         public int? DecimalPlaces { get; set; }
 
         /// <summary>
         /// 丸め種類
         /// </summary>
-        [JsonProperty("RoundingType")]
+        [JsonPropertyName("RoundingType")]
         public int? RoundingType { get; set; }
 
         /// <summary>
         /// 最小値
         /// </summary>
-        [JsonProperty("Min")]
+        [JsonPropertyName("Min")]
         public decimal? Min { get; set; }
 
         /// <summary>
         /// 最大値
         /// </summary>
-        [JsonProperty("Max")]
+        [JsonPropertyName("Max")]
         public decimal? Max { get; set; }
 
         /// <summary>
         /// ステップ
         /// </summary>
-        [JsonProperty("Step")]
+        [JsonPropertyName("Step")]
         public decimal? Step { get; set; }
 
         /// <summary>
         /// 重複禁止
         /// </summary>
-        [JsonProperty("NoDuplication")]
+        [JsonPropertyName("NoDuplication")]
         public bool? NoDuplication { get; set; }
 
         /// <summary>
         /// 重複時のメッセージ
         /// </summary>
-        [JsonProperty("MessageWhenDuplicated")]
+        [JsonPropertyName("MessageWhenDuplicated")]
         public string? MessageWhenDuplicated { get; set; }
 
         /// <summary>
         /// デフォルトでコピー
         /// </summary>
-        [JsonProperty("CopyByDefault")]
+        [JsonPropertyName("CopyByDefault")]
         public bool? CopyByDefault { get; set; }
 
         /// <summary>
         /// エディタ読取専用
         /// </summary>
-        [JsonProperty("EditorReadOnly")]
+        [JsonPropertyName("EditorReadOnly")]
         public bool? EditorReadOnly { get; set; }
 
         /// <summary>
         /// 自動ポストバック
         /// </summary>
-        [JsonProperty("AutoPostBack")]
+        [JsonPropertyName("AutoPostBack")]
         public bool? AutoPostBack { get; set; }
 
         /// <summary>
         /// 自動ポストバック時に返却する列
         /// </summary>
-        [JsonProperty("ColumnsReturnedWhenAutomaticPostback")]
+        [JsonPropertyName("ColumnsReturnedWhenAutomaticPostback")]
         public string? ColumnsReturnedWhenAutomaticPostback { get; set; }
 
         /// <summary>
         /// 一括更新を許可
         /// </summary>
-        [JsonProperty("AllowBulkUpdate")]
+        [JsonPropertyName("AllowBulkUpdate")]
         public bool? AllowBulkUpdate { get; set; }
 
         /// <summary>
         /// 添付ファイルの削除を許可
         /// </summary>
-        [JsonProperty("AllowDeleteAttachments")]
+        [JsonPropertyName("AllowDeleteAttachments")]
         public bool? AllowDeleteAttachments { get; set; }
 
         /// <summary>
         /// 既存履歴を削除しない
         /// </summary>
-        [JsonProperty("NotDeleteExistHistory")]
+        [JsonPropertyName("NotDeleteExistHistory")]
         public bool? NotDeleteExistHistory { get; set; }
 
         /// <summary>
         /// 画像を許可
         /// </summary>
-        [JsonProperty("AllowImage")]
+        [JsonPropertyName("AllowImage")]
         public bool? AllowImage { get; set; }
 
         /// <summary>
         /// サムネイル制限サイズ
         /// </summary>
-        [JsonProperty("ThumbnailLimitSize")]
+        [JsonPropertyName("ThumbnailLimitSize")]
         public decimal? ThumbnailLimitSize { get; set; }
 
         /// <summary>
         /// フィールドCSS
         /// </summary>
-        [JsonProperty("FieldCss")]
+        [JsonPropertyName("FieldCss")]
         public string? FieldCss { get; set; }
 
         /// <summary>
         /// ビューア切替種類
         /// </summary>
-        [JsonProperty("ViewerSwitchingType")]
+        [JsonPropertyName("ViewerSwitchingType")]
         public int? ViewerSwitchingType { get; set; }
 
         /// <summary>
         /// テキスト配置
         /// </summary>
-        [JsonProperty("TextAlign")]
+        [JsonPropertyName("TextAlign")]
         public int? TextAlign { get; set; }
 
         /// <summary>
         /// リンク
         /// </summary>
-        [JsonProperty("Link")]
+        [JsonPropertyName("Link")]
         public bool? Link { get; set; }
 
         /// <summary>
         /// チェックフィルタコントロール種類
         /// </summary>
-        [JsonProperty("CheckFilterControlType")]
+        [JsonPropertyName("CheckFilterControlType")]
         public int? CheckFilterControlType { get; set; }
 
         /// <summary>
         /// 数値フィルタ最小値
         /// </summary>
-        [JsonProperty("NumFilterMin")]
+        [JsonPropertyName("NumFilterMin")]
         public decimal? NumFilterMin { get; set; }
 
         /// <summary>
         /// 数値フィルタ最大値
         /// </summary>
-        [JsonProperty("NumFilterMax")]
+        [JsonPropertyName("NumFilterMax")]
         public decimal? NumFilterMax { get; set; }
 
         /// <summary>
         /// 数値フィルタステップ
         /// </summary>
-        [JsonProperty("NumFilterStep")]
+        [JsonPropertyName("NumFilterStep")]
         public decimal? NumFilterStep { get; set; }
 
         /// <summary>
         /// 日付フィルタ設定モード
         /// </summary>
-        [JsonProperty("DateFilterSetMode")]
+        [JsonPropertyName("DateFilterSetMode")]
         public int? DateFilterSetMode { get; set; }
 
         /// <summary>
         /// 検索種類
         /// </summary>
-        [JsonProperty("SearchType")]
+        [JsonPropertyName("SearchType")]
         public int? SearchType { get; set; }
 
         /// <summary>
         /// 全文検索種類
         /// </summary>
-        [JsonProperty("FullTextType")]
+        [JsonPropertyName("FullTextType")]
         public int? FullTextType { get; set; }
 
         /// <summary>
         /// 日付フィルタ最小スパン
         /// </summary>
-        [JsonProperty("DateFilterMinSpan")]
+        [JsonPropertyName("DateFilterMinSpan")]
         public int? DateFilterMinSpan { get; set; }
 
         /// <summary>
         /// 日付フィルタ最大スパン
         /// </summary>
-        [JsonProperty("DateFilterMaxSpan")]
+        [JsonPropertyName("DateFilterMaxSpan")]
         public int? DateFilterMaxSpan { get; set; }
 
         /// <summary>
         /// 日付フィルタ年度
         /// </summary>
-        [JsonProperty("DateFilterFy")]
+        [JsonPropertyName("DateFilterFy")]
         public bool? DateFilterFy { get; set; }
 
         /// <summary>
         /// 日付フィルタ半期
         /// </summary>
-        [JsonProperty("DateFilterHalf")]
+        [JsonPropertyName("DateFilterHalf")]
         public bool? DateFilterHalf { get; set; }
 
         /// <summary>
         /// 日付フィルタ四半期
         /// </summary>
-        [JsonProperty("DateFilterQuarter")]
+        [JsonPropertyName("DateFilterQuarter")]
         public bool? DateFilterQuarter { get; set; }
 
         /// <summary>
         /// 日付フィルタ月
         /// </summary>
-        [JsonProperty("DateFilterMonth")]
+        [JsonPropertyName("DateFilterMonth")]
         public bool? DateFilterMonth { get; set; }
 
         /// <summary>
         /// 同名ファイルを上書き
         /// </summary>
-        [JsonProperty("OverwriteSameFileName")]
+        [JsonPropertyName("OverwriteSameFileName")]
         public bool? OverwriteSameFileName { get; set; }
 
         /// <summary>
         /// 添付ファイル数制限
         /// </summary>
-        [JsonProperty("LimitQuantity")]
+        [JsonPropertyName("LimitQuantity")]
         public decimal? LimitQuantity { get; set; }
 
         /// <summary>
         /// ファイルサイズ制限
         /// </summary>
-        [JsonProperty("LimitSize")]
+        [JsonPropertyName("LimitSize")]
         public decimal? LimitSize { get; set; }
 
         /// <summary>
         /// 合計ファイルサイズ制限
         /// </summary>
-        [JsonProperty("TotalLimitSize")]
+        [JsonPropertyName("TotalLimitSize")]
         public decimal? TotalLimitSize { get; set; }
 
         /// <summary>
         /// ローカルフォルダサイズ制限
         /// </summary>
-        [JsonProperty("LocalFolderLimitSize")]
+        [JsonPropertyName("LocalFolderLimitSize")]
         public decimal? LocalFolderLimitSize { get; set; }
 
         /// <summary>
         /// ローカルフォルダ合計サイズ制限
         /// </summary>
-        [JsonProperty("LocalFolderTotalLimitSize")]
+        [JsonPropertyName("LocalFolderTotalLimitSize")]
         public decimal? LocalFolderTotalLimitSize { get; set; }
 
         /// <summary>
         /// バイナリストレージプロバイダ
         /// </summary>
-        [JsonProperty("BinaryStorageProvider")]
+        [JsonPropertyName("BinaryStorageProvider")]
         public string? BinaryStorageProvider { get; set; }
 
         /// <summary>
         /// 日時ステップ
         /// </summary>
-        [JsonProperty("DateTimeStep")]
+        [JsonPropertyName("DateTimeStep")]
         public int? DateTimeStep { get; set; }
 
         /// <summary>
         /// アンカー
         /// </summary>
-        [JsonProperty("Anchor")]
+        [JsonPropertyName("Anchor")]
         public bool? Anchor { get; set; }
 
         /// <summary>
         /// アンカーを新しいタブで開く
         /// </summary>
-        [JsonProperty("OpenAnchorNewTab")]
+        [JsonPropertyName("OpenAnchorNewTab")]
         public bool? OpenAnchorNewTab { get; set; }
 
         /// <summary>
         /// アンカーフォーマット
         /// </summary>
-        [JsonProperty("AnchorFormat")]
+        [JsonPropertyName("AnchorFormat")]
         public string? AnchorFormat { get; set; }
     }
 }

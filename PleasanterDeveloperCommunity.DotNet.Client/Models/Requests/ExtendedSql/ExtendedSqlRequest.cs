@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.ExtendedSql;
@@ -11,12 +11,12 @@ public class ExtendedSqlRequest : ApiRequest
     /// <summary>
     /// 拡張SQLの名前（JSONファイルで定義したName）
     /// </summary>
-    [JsonProperty("Name")]
+    [JsonPropertyName("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// SQLに渡すパラメータ
     /// </summary>
-    [JsonProperty("Params")]
+    [JsonPropertyName("Params")]
     public Dictionary<string, object>? Params { get; set; }
 }

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,139 +10,139 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// タイトル
         /// </summary>
-        [JsonProperty("Title")]
+        [JsonPropertyName("Title")]
         public string? Title { get; set; }
 
         /// <summary>
         /// 名前
         /// </summary>
-        [JsonProperty("Name")]
+        [JsonPropertyName("Name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// 本文
         /// </summary>
-        [JsonProperty("Body")]
+        [JsonPropertyName("Body")]
         public string? Body { get; set; }
 
         /// <summary>
         /// サイト設定読み込み時
         /// </summary>
-        [JsonProperty("WhenloadingSiteSettings")]
+        [JsonPropertyName("WhenloadingSiteSettings")]
         public bool? WhenloadingSiteSettings { get; set; }
 
         /// <summary>
         /// ビュー処理時
         /// </summary>
-        [JsonProperty("WhenViewProcessing")]
+        [JsonPropertyName("WhenViewProcessing")]
         public bool? WhenViewProcessing { get; set; }
 
         /// <summary>
         /// レコード読み込み時
         /// </summary>
-        [JsonProperty("WhenloadingRecord")]
+        [JsonPropertyName("WhenloadingRecord")]
         public bool? WhenloadingRecord { get; set; }
 
         /// <summary>
         /// 計算式前
         /// </summary>
-        [JsonProperty("BeforeFormula")]
+        [JsonPropertyName("BeforeFormula")]
         public bool? BeforeFormula { get; set; }
 
         /// <summary>
         /// 計算式後
         /// </summary>
-        [JsonProperty("AfterFormula")]
+        [JsonPropertyName("AfterFormula")]
         public bool? AfterFormula { get; set; }
 
         /// <summary>
         /// 作成前
         /// </summary>
-        [JsonProperty("BeforeCreate")]
+        [JsonPropertyName("BeforeCreate")]
         public bool? BeforeCreate { get; set; }
 
         /// <summary>
         /// 作成後
         /// </summary>
-        [JsonProperty("AfterCreate")]
+        [JsonPropertyName("AfterCreate")]
         public bool? AfterCreate { get; set; }
 
         /// <summary>
         /// 更新前
         /// </summary>
-        [JsonProperty("BeforeUpdate")]
+        [JsonPropertyName("BeforeUpdate")]
         public bool? BeforeUpdate { get; set; }
 
         /// <summary>
         /// 更新後
         /// </summary>
-        [JsonProperty("AfterUpdate")]
+        [JsonPropertyName("AfterUpdate")]
         public bool? AfterUpdate { get; set; }
 
         /// <summary>
         /// 削除前
         /// </summary>
-        [JsonProperty("BeforeDelete")]
+        [JsonPropertyName("BeforeDelete")]
         public bool? BeforeDelete { get; set; }
 
         /// <summary>
         /// 一括削除前
         /// </summary>
-        [JsonProperty("BeforeBulkDelete")]
+        [JsonPropertyName("BeforeBulkDelete")]
         public bool? BeforeBulkDelete { get; set; }
 
         /// <summary>
         /// 削除後
         /// </summary>
-        [JsonProperty("AfterDelete")]
+        [JsonPropertyName("AfterDelete")]
         public bool? AfterDelete { get; set; }
 
         /// <summary>
         /// 一括削除後
         /// </summary>
-        [JsonProperty("AfterBulkDelete")]
+        [JsonPropertyName("AfterBulkDelete")]
         public bool? AfterBulkDelete { get; set; }
 
         /// <summary>
         /// ページ表示前
         /// </summary>
-        [JsonProperty("BeforeOpeningPage")]
+        [JsonPropertyName("BeforeOpeningPage")]
         public bool? BeforeOpeningPage { get; set; }
 
         /// <summary>
         /// 行表示前
         /// </summary>
-        [JsonProperty("BeforeOpeningRow")]
+        [JsonPropertyName("BeforeOpeningRow")]
         public bool? BeforeOpeningRow { get; set; }
 
         /// <summary>
         /// 共有
         /// </summary>
-        [JsonProperty("Shared")]
+        [JsonPropertyName("Shared")]
         public bool? Shared { get; set; }
 
         /// <summary>
         /// 関数化
         /// </summary>
-        [JsonProperty("Functionalize")]
+        [JsonPropertyName("Functionalize")]
         public bool? Functionalize { get; set; }
 
         /// <summary>
         /// try-catch
         /// </summary>
-        [JsonProperty("TryCatch")]
+        [JsonPropertyName("TryCatch")]
         public bool? TryCatch { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

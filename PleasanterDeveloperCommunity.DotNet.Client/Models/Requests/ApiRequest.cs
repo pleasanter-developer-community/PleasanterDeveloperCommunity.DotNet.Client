@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Converters;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
@@ -20,7 +20,7 @@ public class ApiRequest
     /// APIバージョン（既定値: 1.1、1.1未満は設定不可）
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">1.1未満の値を設定した場合</exception>
-    [JsonProperty("ApiVersion")]
+    [JsonPropertyName("ApiVersion")]
     [JsonConverter(typeof(ApiVersionConverter))]
     public float ApiVersion
     {
@@ -41,6 +41,6 @@ public class ApiRequest
     /// <summary>
     /// APIキー
     /// </summary>
-    [JsonProperty("ApiKey")]
+    [JsonPropertyName("ApiKey")]
     public string? ApiKey { get; set; }
 }

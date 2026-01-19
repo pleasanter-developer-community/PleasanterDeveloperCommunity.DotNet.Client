@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using SiteSettingsType = PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettings;
 using System.ComponentModel.DataAnnotations;
@@ -13,33 +13,33 @@ public class CreateSiteRequest : ApiRequest
     /// <summary>
     /// テナントID
     /// </summary>
-    [JsonProperty("TenantId")]
+    [JsonPropertyName("TenantId")]
     public int? TenantId { get; set; }
 
     /// <summary>
     /// サイトのタイトル
     /// </summary>
-    [JsonProperty("Title")]
+    [JsonPropertyName("Title")]
     [Required(ErrorMessage = "Title は必須です。")]
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
     /// 参照タイプ（Sites, Issues, Results, Wikis のいずれか）
     /// </summary>
-    [JsonProperty("ReferenceType")]
+    [JsonPropertyName("ReferenceType")]
     [Required(ErrorMessage = "ReferenceType は必須です。")]
     public SiteReferenceType ReferenceType { get; set; }
 
     /// <summary>
     /// 親サイトID（省略時はAPIリクエストURLで指定した親サイトID配下に作成されます）
     /// </summary>
-    [JsonProperty("ParentId")]
+    [JsonPropertyName("ParentId")]
     public long? ParentId { get; set; }
 
     /// <summary>
     /// アクセス権の継承元サイトID
     /// </summary>
-    [JsonProperty("InheritPermission")]
+    [JsonPropertyName("InheritPermission")]
     public long? InheritPermission { get; set; }
 
     /// <summary>
@@ -49,6 +49,6 @@ public class CreateSiteRequest : ApiRequest
     /// SiteSettingsには、GridColumns、EditorColumnHash、その他のサイト設定を指定できます。
     /// 詳細なスキーマについては、サイトパッケージのエクスポート結果を参照してください。
     /// </remarks>
-    [JsonProperty("SiteSettings")]
+    [JsonPropertyName("SiteSettings")]
     public SiteSettingsType? SiteSettings { get; set; }
 }

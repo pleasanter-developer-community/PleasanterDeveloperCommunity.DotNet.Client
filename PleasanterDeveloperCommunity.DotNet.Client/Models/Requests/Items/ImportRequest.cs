@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Resources;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
@@ -34,7 +34,7 @@ public class ImportRequest : ApiRequest
     /// <summary>
     /// エンコーディング名（API送信用、内部使用）
     /// </summary>
-    [JsonProperty("Encoding")]
+    [JsonPropertyName("Encoding")]
     internal string? EncodingName => _encoding != null ? GetEncodingName(_encoding) : null;
 
     private static bool IsValidEncoding(Encoding encoding)
@@ -56,7 +56,7 @@ public class ImportRequest : ApiRequest
     /// （例: IssueId, ClassA など）
     /// このプロパティを設定すると、自動的にUpdatableImportがtrueになります。
     /// </summary>
-    [JsonProperty("Key")]
+    [JsonPropertyName("Key")]
     [RegularExpression(ColumnPatterns.ColumnNamePattern, ErrorMessage = "Key はプリザンターの有効な列名である必要があります。")]
     public string? Key
     {
@@ -68,12 +68,12 @@ public class ImportRequest : ApiRequest
     /// キーが一致するレコードを更新するかどうか（API送信用、内部使用）
     /// Keyが設定されている場合は自動的にtrueになります。
     /// </summary>
-    [JsonProperty("UpdatableImport")]
+    [JsonPropertyName("UpdatableImport")]
     internal bool? UpdatableImport => !string.IsNullOrWhiteSpace(_key) ? true : null;
 
     /// <summary>
     /// 移行モードでのレコードのインポートを実施する場合はtrue
     /// </summary>
-    [JsonProperty("MigrationMode")]
+    [JsonPropertyName("MigrationMode")]
     public bool? MigrationMode { get; set; }
 }

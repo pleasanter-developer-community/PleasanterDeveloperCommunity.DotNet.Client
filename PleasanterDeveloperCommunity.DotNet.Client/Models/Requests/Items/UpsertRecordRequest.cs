@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ public class UpsertRecordRequest : RecordRequestBase
     /// <summary>
     /// キーとなる項目名の配列
     /// </summary>
-    [JsonProperty("Keys")]
+    [JsonPropertyName("Keys")]
     [RegexList(ColumnPatterns.ColumnNamePattern, ErrorMessage = "Keys の要素はプリザンターの有効な列名である必要があります。")]
     public List<string>? Keys { get; set; }
 }

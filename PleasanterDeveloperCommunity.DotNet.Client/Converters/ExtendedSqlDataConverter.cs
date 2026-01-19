@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.ExtendedSql;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Converters;
 
@@ -11,18 +11,20 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Converters;
 /// </summary>
 internal class ExtendedSqlDataConverter : JsonConverter<ExtendedSqlData>
 {
-    public override ExtendedSqlData? ReadJson(JsonReader reader, Type objectType, ExtendedSqlData? existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override ExtendedSqlData? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var data = new ExtendedSqlData();
-        var jObject = JObject.Load(reader);
+
+        using var doc = JsonDocument.ParseValue(ref reader);
+        var root = doc.RootElement;
 
         // Table, Table1, Table2... の順番でプロパティを処理
-        if (jObject["Table"] is JArray table)
+        if (root.TryGetProperty("Table", out var table) && table.ValueKind == JsonValueKind.Array)
         {
             data.Tables.Add(new ExtendedSqlTable
             {
                 Name = "Table",
-                Rows = table.ToObject<List<Dictionary<string, object>>>(serializer) ?? new List<Dictionary<string, object>>()
+                Rows = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(table.GetRawText(), options) ?? new List<Dictionary<string, object>>()
             });
         }
 
@@ -30,12 +32,12 @@ internal class ExtendedSqlDataConverter : JsonConverter<ExtendedSqlData>
         for (int i = 1; i <= 100; i++)
         {
             var tableName = $"Table{i}";
-            if (jObject[tableName] is JArray tableN)
+            if (root.TryGetProperty(tableName, out var tableN) && tableN.ValueKind == JsonValueKind.Array)
             {
                 data.Tables.Add(new ExtendedSqlTable
                 {
                     Name = tableName,
-                    Rows = tableN.ToObject<List<Dictionary<string, object>>>(serializer) ?? new List<Dictionary<string, object>>()
+                    Rows = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(tableN.GetRawText(), options) ?? new List<Dictionary<string, object>>()
                 });
             }
             else
@@ -47,7 +49,7 @@ internal class ExtendedSqlDataConverter : JsonConverter<ExtendedSqlData>
         return data;
     }
 
-    public override void WriteJson(JsonWriter writer, ExtendedSqlData? value, JsonSerializer serializer)
+    public override void Write(Utf8JsonWriter writer, ExtendedSqlData? value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 
@@ -56,7 +58,7 @@ internal class ExtendedSqlDataConverter : JsonConverter<ExtendedSqlData>
             foreach (var table in value.Tables)
             {
                 writer.WritePropertyName(table.Name);
-                serializer.Serialize(writer, table.Rows);
+                JsonSerializer.Serialize(writer, table.Rows, options);
             }
         }
 

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -10,12 +10,12 @@ public class ExportData
     /// <summary>
     /// エクスポートファイル名
     /// </summary>
-    [JsonProperty("Name")]
+    [JsonPropertyName("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// エクスポートデータ内容（CSVまたはJSON形式の文字列）
     /// </summary>
-    [JsonProperty("Content")]
+    [JsonPropertyName("Content")]
     public string? Content { get; set; }
 }

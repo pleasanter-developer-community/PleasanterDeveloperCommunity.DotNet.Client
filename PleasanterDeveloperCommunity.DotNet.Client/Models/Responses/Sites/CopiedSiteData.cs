@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
@@ -10,24 +10,24 @@ public class CopiedSiteData
     /// <summary>
     /// コピー元のサイトID
     /// </summary>
-    [JsonProperty("OldSiteId")]
+    [JsonPropertyName("OldSiteId")]
     public long OldSiteId { get; set; }
 
     /// <summary>
     /// コピー先の新しいサイトID
     /// </summary>
-    [JsonProperty("NewSiteId")]
+    [JsonPropertyName("NewSiteId")]
     public long NewSiteId { get; set; }
 
     /// <summary>
     /// 参照タイプ（Sites, Results, Issuesなど）
     /// </summary>
-    [JsonProperty("ReferenceType")]
+    [JsonPropertyName("ReferenceType")]
     public string? ReferenceType { get; set; }
 
     /// <summary>
     /// サイトのタイトル
     /// </summary>
-    [JsonProperty("Title")]
+    [JsonPropertyName("Title")]
     public string? Title { get; set; }
 }

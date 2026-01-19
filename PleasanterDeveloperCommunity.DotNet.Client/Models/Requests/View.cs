@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using PleasanterDeveloperCommunity.DotNet.Client.Resources;
 using PleasanterDeveloperCommunity.DotNet.Client.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
@@ -16,109 +16,109 @@ public class View
     /// <summary>
     /// 未完了
     /// </summary>
-    [JsonProperty("Incomplete")]
+    [JsonPropertyName("Incomplete")]
     public bool? Incomplete { get; set; }
 
     /// <summary>
     /// 自分
     /// </summary>
-    [JsonProperty("Own")]
+    [JsonPropertyName("Own")]
     public bool? Own { get; set; }
 
     /// <summary>
     /// 期限が近い
     /// </summary>
-    [JsonProperty("NearCompletionTime")]
+    [JsonPropertyName("NearCompletionTime")]
     public bool? NearCompletionTime { get; set; }
 
     /// <summary>
     /// 遅延
     /// </summary>
-    [JsonProperty("Delay")]
+    [JsonPropertyName("Delay")]
     public bool? Delay { get; set; }
 
     /// <summary>
     /// 期限超過
     /// </summary>
-    [JsonProperty("Overdue")]
+    [JsonPropertyName("Overdue")]
     public bool? Overdue { get; set; }
 
     /// <summary>
     /// 検索
     /// </summary>
-    [JsonProperty("Search")]
+    [JsonPropertyName("Search")]
     public string? Search { get; set; }
 
     /// <summary>
     /// 取得する列名のフィルタ設定
     /// </summary>
-    [JsonProperty("ColumnFilterHash")]
+    [JsonPropertyName("ColumnFilterHash")]
     [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterHashKeyError))]
     public Dictionary<string, string>? ColumnFilterHash { get; set; }
 
     /// <summary>
     /// 列フィルタ検索タイプ
     /// </summary>
-    [JsonProperty("ColumnFilterSearchTypes")]
+    [JsonPropertyName("ColumnFilterSearchTypes")]
     [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterSearchTypesKeyError))]
     public Dictionary<string, ColumnFilterSearchType>? ColumnFilterSearchTypes { get; set; }
 
     /// <summary>
     /// 否定フィルタ対象の列名
     /// </summary>
-    [JsonProperty("ColumnFilterNegatives")]
+    [JsonPropertyName("ColumnFilterNegatives")]
     [RegexList(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnFilterNegativesValueError))]
     public List<string>? ColumnFilterNegatives { get; set; }
 
     /// <summary>
     /// ソートする列名（キー: 列名、値: "asc" または "desc"）
     /// </summary>
-    [JsonProperty("ColumnSorterHash")]
+    [JsonPropertyName("ColumnSorterHash")]
     [RegexKeyDictionary(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ColumnSorterHashKeyError))]
     public Dictionary<string, SortOrderType>? ColumnSorterHash { get; set; }
 
     /// <summary>
     /// APIデータタイプ
     /// </summary>
-    [JsonProperty("ApiDataType")]
+    [JsonPropertyName("ApiDataType")]
     public ApiDataType? ApiDataType { get; set; }
 
     /// <summary>
     /// APIカラムキー表示タイプ（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
-    [JsonProperty("ApiColumnKeyDisplayType")]
+    [JsonPropertyName("ApiColumnKeyDisplayType")]
     public ApiColumnKeyDisplayType? ApiColumnKeyDisplayType { get; set; }
 
     /// <summary>
     /// APIカラム値表示タイプ（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
-    [JsonProperty("ApiColumnValueDisplayType")]
+    [JsonPropertyName("ApiColumnValueDisplayType")]
     public ApiColumnValueDisplayType? ApiColumnValueDisplayType { get; set; }
 
     /// <summary>
     /// 項目単位のKey、Value表示形式設定（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
-    [JsonProperty("ApiColumnHash")]
+    [JsonPropertyName("ApiColumnHash")]
     [RegexKeyDictionary(ColumnPatterns.ColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.ApiColumnHashKeyError))]
     public Dictionary<string, ApiColumnSetting>? ApiColumnHash { get; set; }
 
     /// <summary>
     /// 返却される項目を制御する配列（ApiDataTypeがKeyValuesの場合のみ有効）
     /// </summary>
-    [JsonProperty("GridColumns")]
+    [JsonPropertyName("GridColumns")]
     [RegexList(ColumnPatterns.GridColumnNamePattern, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.GridColumnsValueError))]
     public List<string>? GridColumns { get; set; }
 
     /// <summary>
     /// APIで指定したフィルタ条件とセッションに存在するフィルタ条件をマージするかどうか
     /// </summary>
-    [JsonProperty("MergeSessionViewFilters")]
+    [JsonPropertyName("MergeSessionViewFilters")]
     public bool? MergeSessionViewFilters { get; set; }
 
     /// <summary>
     /// APIで指定したソート条件とセッションに存在するソート条件をマージするかどうか
     /// </summary>
-    [JsonProperty("MergeSessionViewSorters")]
+    [JsonPropertyName("MergeSessionViewSorters")]
     public bool? MergeSessionViewSorters { get; set; }
 
     /// <summary>

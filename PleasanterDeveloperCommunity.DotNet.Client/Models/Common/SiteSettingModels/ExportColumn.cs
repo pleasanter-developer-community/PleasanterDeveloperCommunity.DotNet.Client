@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,49 +10,49 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// 列名
         /// </summary>
-        [JsonProperty("ColumnName")]
+        [JsonPropertyName("ColumnName")]
         public string? ColumnName { get; set; }
 
         /// <summary>
         /// ラベルテキスト
         /// </summary>
-        [JsonProperty("LabelText")]
+        [JsonPropertyName("LabelText")]
         public string? LabelText { get; set; }
 
         /// <summary>
         /// 種類
         /// </summary>
-        [JsonProperty("Type")]
+        [JsonPropertyName("Type")]
         public int? Type { get; set; }
 
         /// <summary>
         /// フォーマット
         /// </summary>
-        [JsonProperty("Format")]
+        [JsonPropertyName("Format")]
         public string? Format { get; set; }
 
         /// <summary>
         /// サイトタイトルを出力
         /// </summary>
-        [JsonProperty("OutputSiteTitle")]
+        [JsonPropertyName("OutputSiteTitle")]
         public bool? OutputSiteTitle { get; set; }
 
         /// <summary>
         /// 結合情報を出力（ID）
         /// </summary>
-        [JsonProperty("JoinOutputId")]
+        [JsonPropertyName("JoinOutputId")]
         public bool? JoinOutputId { get; set; }
 
         /// <summary>
         /// 結合情報を出力（タイトル）
         /// </summary>
-        [JsonProperty("JoinOutputTitle")]
+        [JsonPropertyName("JoinOutputTitle")]
         public bool? JoinOutputTitle { get; set; }
 
         /// <summary>
         /// JSONフォーマットでエクスポート
         /// </summary>
-        [JsonProperty("ExportJsonFormat")]
+        [JsonPropertyName("ExportJsonFormat")]
         public bool? ExportJsonFormat { get; set; }
     }
 }

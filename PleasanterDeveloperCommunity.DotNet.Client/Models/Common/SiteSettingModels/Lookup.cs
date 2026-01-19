@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,19 +10,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// 取得元の列名
         /// </summary>
-        [JsonProperty("From")]
+        [JsonPropertyName("From")]
         public string? From { get; set; }
 
         /// <summary>
         /// 設定先の列名
         /// </summary>
-        [JsonProperty("To")]
+        [JsonPropertyName("To")]
         public string? To { get; set; }
 
         /// <summary>
         /// 上書き
         /// </summary>
-        [JsonProperty("Overwrite")]
+        [JsonPropertyName("Overwrite")]
         public bool? Overwrite { get; set; }
     }
 }

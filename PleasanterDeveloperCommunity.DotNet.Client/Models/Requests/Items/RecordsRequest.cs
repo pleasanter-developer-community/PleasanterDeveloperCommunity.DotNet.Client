@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -10,12 +10,12 @@ public class RecordsRequest : ApiRequest
     /// <summary>
     /// オフセット（取得開始位置）
     /// </summary>
-    [JsonProperty("Offset")]
+    [JsonPropertyName("Offset")]
     public int? Offset { get; set; }
 
     /// <summary>
     /// ビュー設定（フィルタや並び替えなど）
     /// </summary>
-    [JsonProperty("View")]
+    [JsonPropertyName("View")]
     public View? View { get; set; }
 }

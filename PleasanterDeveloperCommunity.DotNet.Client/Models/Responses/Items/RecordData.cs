@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -14,19 +15,19 @@ public class RecordData
     /// <summary>
     /// サイトID
     /// </summary>
-    [JsonProperty("SiteId")]
+    [JsonPropertyName("SiteId")]
     public long SiteId { get; set; }
 
     /// <summary>
     /// レコードID（Issues）
     /// </summary>
-    [JsonProperty("IssueId")]
+    [JsonPropertyName("IssueId")]
     public long? IssueId { get; set; }
 
     /// <summary>
     /// レコードID（Results）
     /// </summary>
-    [JsonProperty("ResultId")]
+    [JsonPropertyName("ResultId")]
     public long? ResultId { get; set; }
 
     /// <summary>
@@ -37,49 +38,49 @@ public class RecordData
     /// <summary>
     /// 更新日時
     /// </summary>
-    [JsonProperty("UpdatedTime")]
+    [JsonPropertyName("UpdatedTime")]
     public string? UpdatedTime { get; set; }
 
     /// <summary>
     /// バージョン
     /// </summary>
-    [JsonProperty("Ver")]
+    [JsonPropertyName("Ver")]
     public int? Ver { get; set; }
 
     /// <summary>
     /// タイトル
     /// </summary>
-    [JsonProperty("Title")]
+    [JsonPropertyName("Title")]
     public string? Title { get; set; }
 
     /// <summary>
     /// 内容
     /// </summary>
-    [JsonProperty("Body")]
+    [JsonPropertyName("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// 状況
     /// </summary>
-    [JsonProperty("Status")]
+    [JsonPropertyName("Status")]
     public int? Status { get; set; }
 
     /// <summary>
     /// 管理者
     /// </summary>
-    [JsonProperty("Manager")]
+    [JsonPropertyName("Manager")]
     public int? Manager { get; set; }
 
     /// <summary>
     /// 担当者
     /// </summary>
-    [JsonProperty("Owner")]
+    [JsonPropertyName("Owner")]
     public int? Owner { get; set; }
 
     /// <summary>
     /// コメント（JSON文字列）
     /// </summary>
-    [JsonProperty("Comments")]
+    [JsonPropertyName("Comments")]
     public string? Comments
     {
         get => _comments;
@@ -110,7 +111,7 @@ public class RecordData
 
             try
             {
-                _commentList = JsonConvert.DeserializeObject<List<Comment>>(_comments);
+                _commentList = JsonSerializer.Deserialize<List<Comment>>(_comments);
             }
             catch
             {
@@ -124,49 +125,49 @@ public class RecordData
     /// <summary>
     /// 作成者
     /// </summary>
-    [JsonProperty("Creator")]
+    [JsonPropertyName("Creator")]
     public int? Creator { get; set; }
 
     /// <summary>
     /// 更新者
     /// </summary>
-    [JsonProperty("Updator")]
+    [JsonPropertyName("Updator")]
     public int? Updator { get; set; }
 
     /// <summary>
     /// 作成日時
     /// </summary>
-    [JsonProperty("CreatedTime")]
+    [JsonPropertyName("CreatedTime")]
     public string? CreatedTime { get; set; }
 
     /// <summary>
     /// 分類項目（API 1.1: ClassA〜ClassZ, Class001〜Class999）
     /// </summary>
-    [JsonProperty("ClassHash")]
+    [JsonPropertyName("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目（API 1.1: NumA〜NumZ, Num001〜Num999）
     /// </summary>
-    [JsonProperty("NumHash")]
+    [JsonPropertyName("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目（API 1.1: DateA〜DateZ, Date001〜Date999）
     /// </summary>
-    [JsonProperty("DateHash")]
+    [JsonPropertyName("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目（API 1.1: DescriptionA〜DescriptionZ, Description001〜Description999）
     /// </summary>
-    [JsonProperty("DescriptionHash")]
+    [JsonPropertyName("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目（API 1.1: CheckA〜CheckZ, Check001〜Check999）
     /// </summary>
-    [JsonProperty("CheckHash")]
+    [JsonPropertyName("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>

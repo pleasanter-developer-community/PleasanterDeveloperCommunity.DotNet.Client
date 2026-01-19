@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
@@ -11,49 +11,49 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// 名前
         /// </summary>
-        [JsonProperty("Name")]
+        [JsonPropertyName("Name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// 説明
         /// </summary>
-        [JsonProperty("Description")]
+        [JsonPropertyName("Description")]
         public string? Description { get; set; }
 
         /// <summary>
         /// ステータス
         /// </summary>
-        [JsonProperty("Status")]
+        [JsonPropertyName("Status")]
         public int? Status { get; set; }
 
         /// <summary>
         /// 読取専用
         /// </summary>
-        [JsonProperty("ReadOnly")]
+        [JsonPropertyName("ReadOnly")]
         public bool? ReadOnly { get; set; }
 
         /// <summary>
         /// 列ハッシュ
         /// </summary>
-        [JsonProperty("ColumnHash")]
+        [JsonPropertyName("ColumnHash")]
         public Dictionary<string, int>? ColumnHash { get; set; }
 
         /// <summary>
         /// ビュー
         /// </summary>
-        [JsonProperty("View")]
+        [JsonPropertyName("View")]
         public SiteSettingsView? View { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

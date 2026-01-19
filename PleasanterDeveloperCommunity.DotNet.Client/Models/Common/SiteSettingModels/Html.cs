@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,103 +10,103 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// ID
         /// </summary>
-        [JsonProperty("Id")]
+        [JsonPropertyName("Id")]
         public int? Id { get; set; }
 
         /// <summary>
         /// タイトル
         /// </summary>
-        [JsonProperty("Title")]
+        [JsonPropertyName("Title")]
         public string? Title { get; set; }
 
         /// <summary>
         /// 本文
         /// </summary>
-        [JsonProperty("Body")]
+        [JsonPropertyName("Body")]
         public string? Body { get; set; }
 
         /// <summary>
         /// 位置種類
         /// </summary>
-        [JsonProperty("PositionType")]
+        [JsonPropertyName("PositionType")]
         public int? PositionType { get; set; }
 
         /// <summary>
         /// 全て
         /// </summary>
-        [JsonProperty("All")]
+        [JsonPropertyName("All")]
         public bool? All { get; set; }
 
         /// <summary>
         /// 新規
         /// </summary>
-        [JsonProperty("New")]
+        [JsonPropertyName("New")]
         public bool? New { get; set; }
 
         /// <summary>
         /// 編集
         /// </summary>
-        [JsonProperty("Edit")]
+        [JsonPropertyName("Edit")]
         public bool? Edit { get; set; }
 
         /// <summary>
         /// 一覧
         /// </summary>
-        [JsonProperty("Index")]
+        [JsonPropertyName("Index")]
         public bool? Index { get; set; }
 
         /// <summary>
         /// カレンダー
         /// </summary>
-        [JsonProperty("Calendar")]
+        [JsonPropertyName("Calendar")]
         public bool? Calendar { get; set; }
 
         /// <summary>
         /// クロス集計
         /// </summary>
-        [JsonProperty("Crosstab")]
+        [JsonPropertyName("Crosstab")]
         public bool? Crosstab { get; set; }
 
         /// <summary>
         /// ガント
         /// </summary>
-        [JsonProperty("Gantt")]
+        [JsonPropertyName("Gantt")]
         public bool? Gantt { get; set; }
 
         /// <summary>
         /// バーンダウン
         /// </summary>
-        [JsonProperty("BurnDown")]
+        [JsonPropertyName("BurnDown")]
         public bool? BurnDown { get; set; }
 
         /// <summary>
         /// 時系列
         /// </summary>
-        [JsonProperty("TimeSeries")]
+        [JsonPropertyName("TimeSeries")]
         public bool? TimeSeries { get; set; }
 
         /// <summary>
         /// 分析
         /// </summary>
-        [JsonProperty("Analy")]
+        [JsonPropertyName("Analy")]
         public bool? Analy { get; set; }
 
         /// <summary>
         /// カンバン
         /// </summary>
-        [JsonProperty("Kamban")]
+        [JsonPropertyName("Kamban")]
         public bool? Kamban { get; set; }
 
         /// <summary>
         /// 画像ライブラリ
         /// </summary>
-        [JsonProperty("ImageLib")]
+        [JsonPropertyName("ImageLib")]
         public bool? ImageLib { get; set; }
 
         /// <summary>
         /// 無効
         /// </summary>
-        [JsonProperty("Disabled")]
+        [JsonPropertyName("Disabled")]
         public bool? Disabled { get; set; }
     }
 }

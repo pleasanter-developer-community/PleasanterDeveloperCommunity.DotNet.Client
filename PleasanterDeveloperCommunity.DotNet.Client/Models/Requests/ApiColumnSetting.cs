@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
@@ -11,12 +11,12 @@ public class ApiColumnSetting
     /// <summary>
     /// キーの表示タイプ
     /// </summary>
-    [JsonProperty("KeyDisplayType")]
+    [JsonPropertyName("KeyDisplayType")]
     public ApiColumnKeyDisplayType? KeyDisplayType { get; set; }
 
     /// <summary>
     /// 値の表示タイプ
     /// </summary>
-    [JsonProperty("ValueDisplayType")]
+    [JsonPropertyName("ValueDisplayType")]
     public ApiColumnValueDisplayType? ValueDisplayType { get; set; }
 }

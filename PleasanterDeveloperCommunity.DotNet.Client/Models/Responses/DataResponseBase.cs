@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
@@ -11,6 +11,6 @@ public abstract class DataResponseBase<T>
     /// <summary>
     /// レスポンスデータ
     /// </summary>
-    [JsonProperty("Data")]
+    [JsonPropertyName("Data")]
     public T? Data { get; set; }
 }

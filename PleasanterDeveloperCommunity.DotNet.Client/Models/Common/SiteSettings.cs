@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels;
 using System.Collections.Generic;
 
@@ -13,7 +13,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// サイト設定のバージョン
         /// </summary>
-        [JsonProperty("Version")]
+        [JsonPropertyName("Version")]
         public decimal? Version { get; set; }
 
         #region 一般設定
@@ -21,145 +21,145 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 近く完了する期限（前）の日数
         /// </summary>
-        [JsonProperty("NearCompletionTimeBeforeDays")]
+        [JsonPropertyName("NearCompletionTimeBeforeDays")]
         public decimal? NearCompletionTimeBeforeDays { get; set; }
 
         /// <summary>
         /// 近く完了する期限（後）の日数
         /// </summary>
-        [JsonProperty("NearCompletionTimeAfterDays")]
+        [JsonPropertyName("NearCompletionTimeAfterDays")]
         public decimal? NearCompletionTimeAfterDays { get; set; }
 
         /// <summary>
         /// 一覧のページサイズ
         /// </summary>
-        [JsonProperty("GridPageSize")]
+        [JsonPropertyName("GridPageSize")]
         public int? GridPageSize { get; set; }
 
         /// <summary>
         /// 一覧のビューID
         /// </summary>
-        [JsonProperty("GridView")]
+        [JsonPropertyName("GridView")]
         public int? GridView { get; set; }
 
         /// <summary>
         /// ビューリセットを許可
         /// </summary>
-        [JsonProperty("AllowViewReset")]
+        [JsonPropertyName("AllowViewReset")]
         public bool? AllowViewReset { get; set; }
 
         /// <summary>
         /// 一覧のエディタの種類
         /// </summary>
-        [JsonProperty("GridEditorType")]
+        [JsonPropertyName("GridEditorType")]
         public int? GridEditorType { get; set; }
 
         /// <summary>
         /// 履歴を一覧に表示
         /// </summary>
-        [JsonProperty("HistoryOnGrid")]
+        [JsonPropertyName("HistoryOnGrid")]
         public bool? HistoryOnGrid { get; set; }
 
         /// <summary>
         /// 常に検索条件をリクエスト
         /// </summary>
-        [JsonProperty("AlwaysRequestSearchCondition")]
+        [JsonPropertyName("AlwaysRequestSearchCondition")]
         public bool? AlwaysRequestSearchCondition { get; set; }
 
         /// <summary>
         /// 編集リンクを無効化
         /// </summary>
-        [JsonProperty("DisableLinkToEdit")]
+        [JsonPropertyName("DisableLinkToEdit")]
         public bool? DisableLinkToEdit { get; set; }
 
         /// <summary>
         /// 編集を新しいタブで開く
         /// </summary>
-        [JsonProperty("OpenEditInNewTab")]
+        [JsonPropertyName("OpenEditInNewTab")]
         public bool? OpenEditInNewTab { get; set; }
 
         /// <summary>
         /// 週の開始日
         /// </summary>
-        [JsonProperty("FirstDayOfWeek")]
+        [JsonPropertyName("FirstDayOfWeek")]
         public int? FirstDayOfWeek { get; set; }
 
         /// <summary>
         /// 年度開始月
         /// </summary>
-        [JsonProperty("FirstMonth")]
+        [JsonPropertyName("FirstMonth")]
         public int? FirstMonth { get; set; }
 
         /// <summary>
         /// 自動バージョンアップの種類
         /// </summary>
-        [JsonProperty("AutoVerUpType")]
+        [JsonPropertyName("AutoVerUpType")]
         public int? AutoVerUpType { get; set; }
 
         /// <summary>
         /// コメント編集を許可
         /// </summary>
-        [JsonProperty("AllowEditingComments")]
+        [JsonPropertyName("AllowEditingComments")]
         public bool? AllowEditingComments { get; set; }
 
         /// <summary>
         /// コピーを許可
         /// </summary>
-        [JsonProperty("AllowCopy")]
+        [JsonPropertyName("AllowCopy")]
         public bool? AllowCopy { get; set; }
 
         /// <summary>
         /// 参照コピーを許可
         /// </summary>
-        [JsonProperty("AllowReferenceCopy")]
+        [JsonPropertyName("AllowReferenceCopy")]
         public bool? AllowReferenceCopy { get; set; }
 
         /// <summary>
         /// コピー時に追加する文字
         /// </summary>
-        [JsonProperty("CharToAddWhenCopying")]
+        [JsonPropertyName("CharToAddWhenCopying")]
         public string? CharToAddWhenCopying { get; set; }
 
         /// <summary>
         /// 分割を許可
         /// </summary>
-        [JsonProperty("AllowSeparate")]
+        [JsonPropertyName("AllowSeparate")]
         public bool? AllowSeparate { get; set; }
 
         /// <summary>
         /// テーブルロックを許可
         /// </summary>
-        [JsonProperty("AllowLockTable")]
+        [JsonPropertyName("AllowLockTable")]
         public bool? AllowLockTable { get; set; }
 
         /// <summary>
         /// 履歴の復元を許可
         /// </summary>
-        [JsonProperty("AllowRestoreHistories")]
+        [JsonPropertyName("AllowRestoreHistories")]
         public bool? AllowRestoreHistories { get; set; }
 
         /// <summary>
         /// 履歴の物理削除を許可
         /// </summary>
-        [JsonProperty("AllowPhysicalDeleteHistories")]
+        [JsonPropertyName("AllowPhysicalDeleteHistories")]
         public bool? AllowPhysicalDeleteHistories { get; set; }
 
         /// <summary>
         /// リンクを非表示
         /// </summary>
-        [JsonProperty("HideLink")]
+        [JsonPropertyName("HideLink")]
         public bool? HideLink { get; set; }
 
         /// <summary>
         /// Ajaxでレコードを切り替え
         /// </summary>
-        [JsonProperty("SwitchRecordWithAjax")]
+        [JsonPropertyName("SwitchRecordWithAjax")]
         public bool? SwitchRecordWithAjax { get; set; }
 
         /// <summary>
         /// 削除時に画像を削除
         /// </summary>
-        [JsonProperty("DeleteImageWhenDeleting")]
+        [JsonPropertyName("DeleteImageWhenDeleting")]
         public bool? DeleteImageWhenDeleting { get; set; }
 
         #endregion
@@ -169,55 +169,55 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 一覧に表示する列
         /// </summary>
-        [JsonProperty("GridColumns")]
+        [JsonPropertyName("GridColumns")]
         public List<string>? GridColumns { get; set; }
 
         /// <summary>
         /// フィルタに表示する列
         /// </summary>
-        [JsonProperty("FilterColumns")]
+        [JsonPropertyName("FilterColumns")]
         public List<string>? FilterColumns { get; set; }
 
         /// <summary>
         /// エディタに表示する列（タブごと）
         /// </summary>
-        [JsonProperty("EditorColumnHash")]
+        [JsonPropertyName("EditorColumnHash")]
         public Dictionary<string, List<string>>? EditorColumnHash { get; set; }
 
         /// <summary>
         /// タイトルに使用する列
         /// </summary>
-        [JsonProperty("TitleColumns")]
+        [JsonPropertyName("TitleColumns")]
         public List<string>? TitleColumns { get; set; }
 
         /// <summary>
         /// リンクに表示する列
         /// </summary>
-        [JsonProperty("LinkColumns")]
+        [JsonPropertyName("LinkColumns")]
         public List<string>? LinkColumns { get; set; }
 
         /// <summary>
         /// 履歴に表示する列
         /// </summary>
-        [JsonProperty("HistoryColumns")]
+        [JsonPropertyName("HistoryColumns")]
         public List<string>? HistoryColumns { get; set; }
 
         /// <summary>
         /// 移動先
         /// </summary>
-        [JsonProperty("MoveTargets")]
+        [JsonPropertyName("MoveTargets")]
         public List<long>? MoveTargets { get; set; }
 
         /// <summary>
         /// 列の詳細設定
         /// </summary>
-        [JsonProperty("Columns")]
+        [JsonPropertyName("Columns")]
         public List<SiteSettingsColumn>? Columns { get; set; }
 
         /// <summary>
         /// タイトルの区切り文字
         /// </summary>
-        [JsonProperty("TitleSeparator")]
+        [JsonPropertyName("TitleSeparator")]
         public string? TitleSeparator { get; set; }
 
         #endregion
@@ -227,31 +227,31 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 一般タブのラベルテキスト
         /// </summary>
-        [JsonProperty("GeneralTabLabelText")]
+        [JsonPropertyName("GeneralTabLabelText")]
         public string? GeneralTabLabelText { get; set; }
 
         /// <summary>
         /// タブの最新ID
         /// </summary>
-        [JsonProperty("TabLatestId")]
+        [JsonPropertyName("TabLatestId")]
         public int? TabLatestId { get; set; }
 
         /// <summary>
         /// タブ設定
         /// </summary>
-        [JsonProperty("Tabs")]
+        [JsonPropertyName("Tabs")]
         public List<Tab>? Tabs { get; set; }
 
         /// <summary>
         /// セクションの最新ID
         /// </summary>
-        [JsonProperty("SectionLatestId")]
+        [JsonPropertyName("SectionLatestId")]
         public int? SectionLatestId { get; set; }
 
         /// <summary>
         /// セクション設定
         /// </summary>
-        [JsonProperty("Sections")]
+        [JsonPropertyName("Sections")]
         public List<Section>? Sections { get; set; }
 
         #endregion
@@ -261,25 +261,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 集計設定
         /// </summary>
-        [JsonProperty("Aggregations")]
+        [JsonPropertyName("Aggregations")]
         public List<Aggregation>? Aggregations { get; set; }
 
         /// <summary>
         /// リンク設定
         /// </summary>
-        [JsonProperty("Links")]
+        [JsonPropertyName("Links")]
         public List<Link>? Links { get; set; }
 
         /// <summary>
         /// サマリ設定
         /// </summary>
-        [JsonProperty("Summaries")]
+        [JsonPropertyName("Summaries")]
         public List<Summary>? Summaries { get; set; }
 
         /// <summary>
         /// 計算式設定
         /// </summary>
-        [JsonProperty("Formulas")]
+        [JsonPropertyName("Formulas")]
         public List<FormulaSet>? Formulas { get; set; }
 
         #endregion
@@ -289,19 +289,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// ビューの最新ID
         /// </summary>
-        [JsonProperty("ViewLatestId")]
+        [JsonPropertyName("ViewLatestId")]
         public int? ViewLatestId { get; set; }
 
         /// <summary>
         /// ビュー設定
         /// </summary>
-        [JsonProperty("Views")]
+        [JsonPropertyName("Views")]
         public List<SiteSettingsView>? Views { get; set; }
 
         /// <summary>
         /// ビューの保存方法
         /// </summary>
-        [JsonProperty("SaveViewType")]
+        [JsonPropertyName("SaveViewType")]
         public int? SaveViewType { get; set; }
 
         #endregion
@@ -311,13 +311,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 通知設定
         /// </summary>
-        [JsonProperty("Notifications")]
+        [JsonPropertyName("Notifications")]
         public List<Notification>? Notifications { get; set; }
 
         /// <summary>
         /// リマインダ設定
         /// </summary>
-        [JsonProperty("Reminders")]
+        [JsonPropertyName("Reminders")]
         public List<Reminder>? Reminders { get; set; }
 
         #endregion
@@ -327,37 +327,37 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// インポートのエンコーディング
         /// </summary>
-        [JsonProperty("ImportEncoding")]
+        [JsonPropertyName("ImportEncoding")]
         public string? ImportEncoding { get; set; }
 
         /// <summary>
         /// 更新可能なインポート
         /// </summary>
-        [JsonProperty("UpdatableImport")]
+        [JsonPropertyName("UpdatableImport")]
         public bool? UpdatableImport { get; set; }
 
         /// <summary>
         /// デフォルトのインポートキー
         /// </summary>
-        [JsonProperty("DefaultImportKey")]
+        [JsonPropertyName("DefaultImportKey")]
         public string? DefaultImportKey { get; set; }
 
         /// <summary>
         /// null値のインポートを拒否
         /// </summary>
-        [JsonProperty("RejectNullImport")]
+        [JsonPropertyName("RejectNullImport")]
         public bool? RejectNullImport { get; set; }
 
         /// <summary>
         /// エクスポート設定
         /// </summary>
-        [JsonProperty("Exports")]
+        [JsonPropertyName("Exports")]
         public List<Export>? Exports { get; set; }
 
         /// <summary>
         /// 標準エクスポートを許可
         /// </summary>
-        [JsonProperty("AllowStandardExport")]
+        [JsonPropertyName("AllowStandardExport")]
         public bool? AllowStandardExport { get; set; }
 
         #endregion
@@ -367,73 +367,73 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// カレンダーを有効にする
         /// </summary>
-        [JsonProperty("EnableCalendar")]
+        [JsonPropertyName("EnableCalendar")]
         public bool? EnableCalendar { get; set; }
 
         /// <summary>
         /// カレンダーの種類
         /// </summary>
-        [JsonProperty("CalendarType")]
+        [JsonPropertyName("CalendarType")]
         public int? CalendarType { get; set; }
 
         /// <summary>
         /// クロス集計を有効にする
         /// </summary>
-        [JsonProperty("EnableCrosstab")]
+        [JsonPropertyName("EnableCrosstab")]
         public bool? EnableCrosstab { get; set; }
 
         /// <summary>
         /// クロス集計グラフを非表示
         /// </summary>
-        [JsonProperty("NoDisplayCrosstabGraph")]
+        [JsonPropertyName("NoDisplayCrosstabGraph")]
         public bool? NoDisplayCrosstabGraph { get; set; }
 
         /// <summary>
         /// ガントチャートを有効にする
         /// </summary>
-        [JsonProperty("EnableGantt")]
+        [JsonPropertyName("EnableGantt")]
         public bool? EnableGantt { get; set; }
 
         /// <summary>
         /// ガントチャートに進捗率を表示
         /// </summary>
-        [JsonProperty("ShowGanttProgressRate")]
+        [JsonPropertyName("ShowGanttProgressRate")]
         public bool? ShowGanttProgressRate { get; set; }
 
         /// <summary>
         /// バーンダウンチャートを有効にする
         /// </summary>
-        [JsonProperty("EnableBurnDown")]
+        [JsonPropertyName("EnableBurnDown")]
         public bool? EnableBurnDown { get; set; }
 
         /// <summary>
         /// 時系列チャートを有効にする
         /// </summary>
-        [JsonProperty("EnableTimeSeries")]
+        [JsonPropertyName("EnableTimeSeries")]
         public bool? EnableTimeSeries { get; set; }
 
         /// <summary>
         /// 分析を有効にする
         /// </summary>
-        [JsonProperty("EnableAnaly")]
+        [JsonPropertyName("EnableAnaly")]
         public bool? EnableAnaly { get; set; }
 
         /// <summary>
         /// カンバンを有効にする
         /// </summary>
-        [JsonProperty("EnableKamban")]
+        [JsonPropertyName("EnableKamban")]
         public bool? EnableKamban { get; set; }
 
         /// <summary>
         /// 画像ライブラリを有効にする
         /// </summary>
-        [JsonProperty("EnableImageLib")]
+        [JsonPropertyName("EnableImageLib")]
         public bool? EnableImageLib { get; set; }
 
         /// <summary>
         /// 画像ライブラリのページサイズ
         /// </summary>
-        [JsonProperty("ImageLibPageSize")]
+        [JsonPropertyName("ImageLibPageSize")]
         public int? ImageLibPageSize { get; set; }
 
         #endregion
@@ -443,67 +443,67 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// フィルタボタンを使用
         /// </summary>
-        [JsonProperty("UseFilterButton")]
+        [JsonPropertyName("UseFilterButton")]
         public bool? UseFilterButton { get; set; }
 
         /// <summary>
         /// フィルタエリアを使用
         /// </summary>
-        [JsonProperty("UseFiltersArea")]
+        [JsonPropertyName("UseFiltersArea")]
         public bool? UseFiltersArea { get; set; }
 
         /// <summary>
         /// 一覧ヘッダフィルタを使用
         /// </summary>
-        [JsonProperty("UseGridHeaderFilters")]
+        [JsonPropertyName("UseGridHeaderFilters")]
         public bool? UseGridHeaderFilters { get; set; }
 
         /// <summary>
         /// 否定フィルタを使用
         /// </summary>
-        [JsonProperty("UseNegativeFilters")]
+        [JsonPropertyName("UseNegativeFilters")]
         public bool? UseNegativeFilters { get; set; }
 
         /// <summary>
         /// 関連列フィルタを使用
         /// </summary>
-        [JsonProperty("UseRelatingColumnsOnFilter")]
+        [JsonPropertyName("UseRelatingColumnsOnFilter")]
         public bool? UseRelatingColumnsOnFilter { get; set; }
 
         /// <summary>
         /// 未完了フィルタを使用
         /// </summary>
-        [JsonProperty("UseIncompleteFilter")]
+        [JsonPropertyName("UseIncompleteFilter")]
         public bool? UseIncompleteFilter { get; set; }
 
         /// <summary>
         /// 自分のフィルタを使用
         /// </summary>
-        [JsonProperty("UseOwnFilter")]
+        [JsonPropertyName("UseOwnFilter")]
         public bool? UseOwnFilter { get; set; }
 
         /// <summary>
         /// 近く完了フィルタを使用
         /// </summary>
-        [JsonProperty("UseNearCompletionTimeFilter")]
+        [JsonPropertyName("UseNearCompletionTimeFilter")]
         public bool? UseNearCompletionTimeFilter { get; set; }
 
         /// <summary>
         /// 遅延フィルタを使用
         /// </summary>
-        [JsonProperty("UseDelayFilter")]
+        [JsonPropertyName("UseDelayFilter")]
         public bool? UseDelayFilter { get; set; }
 
         /// <summary>
         /// 期限超過フィルタを使用
         /// </summary>
-        [JsonProperty("UseOverdueFilter")]
+        [JsonPropertyName("UseOverdueFilter")]
         public bool? UseOverdueFilter { get; set; }
 
         /// <summary>
         /// 検索フィルタを使用
         /// </summary>
-        [JsonProperty("UseSearchFilter")]
+        [JsonPropertyName("UseSearchFilter")]
         public bool? UseSearchFilter { get; set; }
 
         #endregion
@@ -513,31 +513,31 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 検索の種類
         /// </summary>
-        [JsonProperty("SearchType")]
+        [JsonPropertyName("SearchType")]
         public int? SearchType { get; set; }
 
         /// <summary>
         /// 全文検索にパンくずリストを含める
         /// </summary>
-        [JsonProperty("FullTextIncludeBreadcrumb")]
+        [JsonPropertyName("FullTextIncludeBreadcrumb")]
         public bool? FullTextIncludeBreadcrumb { get; set; }
 
         /// <summary>
         /// 全文検索にサイトIDを含める
         /// </summary>
-        [JsonProperty("FullTextIncludeSiteId")]
+        [JsonPropertyName("FullTextIncludeSiteId")]
         public bool? FullTextIncludeSiteId { get; set; }
 
         /// <summary>
         /// 全文検索にサイトタイトルを含める
         /// </summary>
-        [JsonProperty("FullTextIncludeSiteTitle")]
+        [JsonPropertyName("FullTextIncludeSiteTitle")]
         public bool? FullTextIncludeSiteTitle { get; set; }
 
         /// <summary>
         /// 全文検索に含めるメール数
         /// </summary>
-        [JsonProperty("FullTextNumberOfMails")]
+        [JsonPropertyName("FullTextNumberOfMails")]
         public int? FullTextNumberOfMails { get; set; }
 
         #endregion
@@ -547,55 +547,55 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// スタイル設定
         /// </summary>
-        [JsonProperty("Styles")]
+        [JsonPropertyName("Styles")]
         public List<Style>? Styles { get; set; }
 
         /// <summary>
         /// スクリプト設定
         /// </summary>
-        [JsonProperty("Scripts")]
+        [JsonPropertyName("Scripts")]
         public List<Script>? Scripts { get; set; }
 
         /// <summary>
         /// HTML設定
         /// </summary>
-        [JsonProperty("Htmls")]
+        [JsonPropertyName("Htmls")]
         public List<Html>? Htmls { get; set; }
 
         /// <summary>
         /// サーバスクリプト設定
         /// </summary>
-        [JsonProperty("ServerScripts")]
+        [JsonPropertyName("ServerScripts")]
         public List<ServerScript>? ServerScripts { get; set; }
 
         /// <summary>
         /// スタイルを全て無効化
         /// </summary>
-        [JsonProperty("StylesAllDisabled")]
+        [JsonPropertyName("StylesAllDisabled")]
         public bool? StylesAllDisabled { get; set; }
 
         /// <summary>
         /// スクリプトを全て無効化
         /// </summary>
-        [JsonProperty("ScriptsAllDisabled")]
+        [JsonPropertyName("ScriptsAllDisabled")]
         public bool? ScriptsAllDisabled { get; set; }
 
         /// <summary>
         /// HTMLを全て無効化
         /// </summary>
-        [JsonProperty("HtmlsAllDisabled")]
+        [JsonPropertyName("HtmlsAllDisabled")]
         public bool? HtmlsAllDisabled { get; set; }
 
         /// <summary>
         /// サーバスクリプトを全て無効化
         /// </summary>
-        [JsonProperty("ServerScriptsAllDisabled")]
+        [JsonPropertyName("ServerScriptsAllDisabled")]
         public bool? ServerScriptsAllDisabled { get; set; }
 
         /// <summary>
         /// 拡張ヘッダ
         /// </summary>
-        [JsonProperty("ExtendedHeader")]
+        [JsonPropertyName("ExtendedHeader")]
         public string? ExtendedHeader { get; set; }
 
         #endregion
@@ -605,25 +605,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// プロセス設定
         /// </summary>
-        [JsonProperty("Processes")]
+        [JsonPropertyName("Processes")]
         public List<Process>? Processes { get; set; }
 
         /// <summary>
         /// ステータスコントロール設定
         /// </summary>
-        [JsonProperty("StatusControls")]
+        [JsonPropertyName("StatusControls")]
         public List<StatusControl>? StatusControls { get; set; }
 
         /// <summary>
         /// 計算式ログを出力
         /// </summary>
-        [JsonProperty("OutputFormulaLogs")]
+        [JsonPropertyName("OutputFormulaLogs")]
         public bool? OutputFormulaLogs { get; set; }
 
         /// <summary>
         /// プロセス計算式ログを出力
         /// </summary>
-        [JsonProperty("ProcessOutputFormulaLogs")]
+        [JsonPropertyName("ProcessOutputFormulaLogs")]
         public bool? ProcessOutputFormulaLogs { get; set; }
 
         #endregion
@@ -633,13 +633,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 一括更新列設定
         /// </summary>
-        [JsonProperty("BulkUpdateColumns")]
+        [JsonPropertyName("BulkUpdateColumns")]
         public List<BulkUpdateColumn>? BulkUpdateColumns { get; set; }
 
         /// <summary>
         /// 関連列設定
         /// </summary>
-        [JsonProperty("RelatingColumns")]
+        [JsonPropertyName("RelatingColumns")]
         public List<RelatingColumn>? RelatingColumns { get; set; }
 
         #endregion
@@ -649,25 +649,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// アドレス帳
         /// </summary>
-        [JsonProperty("AddressBook")]
+        [JsonPropertyName("AddressBook")]
         public string? AddressBook { get; set; }
 
         /// <summary>
         /// デフォルトの宛先
         /// </summary>
-        [JsonProperty("MailToDefault")]
+        [JsonPropertyName("MailToDefault")]
         public string? MailToDefault { get; set; }
 
         /// <summary>
         /// デフォルトのCC
         /// </summary>
-        [JsonProperty("MailCcDefault")]
+        [JsonPropertyName("MailCcDefault")]
         public string? MailCcDefault { get; set; }
 
         /// <summary>
         /// デフォルトのBCC
         /// </summary>
-        [JsonProperty("MailBccDefault")]
+        [JsonPropertyName("MailBccDefault")]
         public string? MailBccDefault { get; set; }
 
         #endregion
@@ -677,43 +677,43 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 作成時の権限
         /// </summary>
-        [JsonProperty("PermissionForCreating")]
+        [JsonPropertyName("PermissionForCreating")]
         public Dictionary<string, long>? PermissionForCreating { get; set; }
 
         /// <summary>
         /// 更新時の権限
         /// </summary>
-        [JsonProperty("PermissionForUpdating")]
+        [JsonPropertyName("PermissionForUpdating")]
         public Dictionary<string, long>? PermissionForUpdating { get; set; }
 
         /// <summary>
         /// 作成時の列アクセス制御
         /// </summary>
-        [JsonProperty("CreateColumnAccessControls")]
+        [JsonPropertyName("CreateColumnAccessControls")]
         public List<ColumnAccessControl>? CreateColumnAccessControls { get; set; }
 
         /// <summary>
         /// 読取時の列アクセス制御
         /// </summary>
-        [JsonProperty("ReadColumnAccessControls")]
+        [JsonPropertyName("ReadColumnAccessControls")]
         public List<ColumnAccessControl>? ReadColumnAccessControls { get; set; }
 
         /// <summary>
         /// 更新時の列アクセス制御
         /// </summary>
-        [JsonProperty("UpdateColumnAccessControls")]
+        [JsonPropertyName("UpdateColumnAccessControls")]
         public List<ColumnAccessControl>? UpdateColumnAccessControls { get; set; }
 
         /// <summary>
         /// 読取専用時に非表示
         /// </summary>
-        [JsonProperty("NoDisplayIfReadOnly")]
+        [JsonPropertyName("NoDisplayIfReadOnly")]
         public bool? NoDisplayIfReadOnly { get; set; }
 
         /// <summary>
         /// サイト作成時に権限を継承しない
         /// </summary>
-        [JsonProperty("NotInheritPermissionsWhenCreatingSite")]
+        [JsonPropertyName("NotInheritPermissionsWhenCreatingSite")]
         public bool? NotInheritPermissionsWhenCreatingSite { get; set; }
 
         #endregion
@@ -723,7 +723,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 統合サイト
         /// </summary>
-        [JsonProperty("IntegratedSites")]
+        [JsonPropertyName("IntegratedSites")]
         public List<long>? IntegratedSites { get; set; }
 
         #endregion
@@ -733,19 +733,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// レスポンシブ対応
         /// </summary>
-        [JsonProperty("Responsive")]
+        [JsonPropertyName("Responsive")]
         public bool? Responsive { get; set; }
 
         /// <summary>
         /// ダッシュボードパーツの非同期読み込み
         /// </summary>
-        [JsonProperty("DashboardPartsAsynchronousLoading")]
+        [JsonPropertyName("DashboardPartsAsynchronousLoading")]
         public bool? DashboardPartsAsynchronousLoading { get; set; }
 
         /// <summary>
         /// ダッシュボードパーツ設定
         /// </summary>
-        [JsonProperty("DashboardParts")]
+        [JsonPropertyName("DashboardParts")]
         public List<DashboardPart>? DashboardParts { get; set; }
 
         #endregion
@@ -755,25 +755,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// フォーム開始日時
         /// </summary>
-        [JsonProperty("FormStartDateTime")]
+        [JsonPropertyName("FormStartDateTime")]
         public string? FormStartDateTime { get; set; }
 
         /// <summary>
         /// フォーム終了日時
         /// </summary>
-        [JsonProperty("FormEndDateTime")]
+        [JsonPropertyName("FormEndDateTime")]
         public string? FormEndDateTime { get; set; }
 
         /// <summary>
         /// フォーム利用不可メッセージ
         /// </summary>
-        [JsonProperty("FormUnavailableMessage")]
+        [JsonPropertyName("FormUnavailableMessage")]
         public string? FormUnavailableMessage { get; set; }
 
         /// <summary>
         /// フォーム完了メッセージ
         /// </summary>
-        [JsonProperty("FormThanksMessage")]
+        [JsonPropertyName("FormThanksMessage")]
         public string? FormThanksMessage { get; set; }
 
         #endregion
@@ -783,19 +783,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// サイト条件を無効化
         /// </summary>
-        [JsonProperty("DisableSiteConditions")]
+        [JsonPropertyName("DisableSiteConditions")]
         public bool? DisableSiteConditions { get; set; }
 
         /// <summary>
         /// ガイドの展開を許可
         /// </summary>
-        [JsonProperty("GuideAllowExpand")]
+        [JsonPropertyName("GuideAllowExpand")]
         public bool? GuideAllowExpand { get; set; }
 
         /// <summary>
         /// ガイド展開設定
         /// </summary>
-        [JsonProperty("GuideExpand")]
+        [JsonPropertyName("GuideExpand")]
         public string? GuideExpand { get; set; }
 
         #endregion
@@ -805,19 +805,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// リンクパス展開を有効化
         /// </summary>
-        [JsonProperty("EnableExpandLinkPath")]
+        [JsonPropertyName("EnableExpandLinkPath")]
         public bool? EnableExpandLinkPath { get; set; }
 
         /// <summary>
         /// リンクテーブルビュー
         /// </summary>
-        [JsonProperty("LinkTableView")]
+        [JsonPropertyName("LinkTableView")]
         public int? LinkTableView { get; set; }
 
         /// <summary>
         /// リンクページサイズ
         /// </summary>
-        [JsonProperty("LinkPageSize")]
+        [JsonPropertyName("LinkPageSize")]
         public int? LinkPageSize { get; set; }
 
         #endregion
@@ -827,13 +827,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common
         /// <summary>
         /// 作成後のアクション種類
         /// </summary>
-        [JsonProperty("AfterCreateActionType")]
+        [JsonPropertyName("AfterCreateActionType")]
         public int? AfterCreateActionType { get; set; }
 
         /// <summary>
         /// 更新後のアクション種類
         /// </summary>
-        [JsonProperty("AfterUpdateActionType")]
+        [JsonPropertyName("AfterUpdateActionType")]
         public int? AfterUpdateActionType { get; set; }
 
         #endregion

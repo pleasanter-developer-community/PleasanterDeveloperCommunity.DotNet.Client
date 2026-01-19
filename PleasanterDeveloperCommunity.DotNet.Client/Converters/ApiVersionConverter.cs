@@ -1,5 +1,6 @@
-using System;
-using Newtonsoft.Json;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Converters;
 
@@ -9,29 +10,25 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Converters;
 public class ApiVersionConverter : JsonConverter<float>
 {
     /// <inheritdoc />
-    public override void WriteJson(JsonWriter writer, float value, JsonSerializer serializer)
+    public override void Write(Utf8JsonWriter writer, float value, JsonSerializerOptions options)
     {
-        writer.WriteValue(value.ToString("0.0"));
+        writer.WriteStringValue(value.ToString("0.0"));
     }
 
     /// <inheritdoc />
-    public override float ReadJson(JsonReader reader, Type objectType, float existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override float Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.Value == null)
+        if (reader.TokenType == JsonTokenType.String)
         {
-            return existingValue;
+            var str = reader.GetString();
+            return str != null ? float.Parse(str) : 0f;
         }
 
-        if (reader.TokenType == JsonToken.String)
+        if (reader.TokenType == JsonTokenType.Number)
         {
-            return float.Parse((string)reader.Value);
+            return reader.GetSingle();
         }
 
-        if (reader.TokenType == JsonToken.Float || reader.TokenType == JsonToken.Integer)
-        {
-            return Convert.ToSingle(reader.Value);
-        }
-
-        throw new JsonSerializationException($"Unexpected token type: {reader.TokenType}");
+        throw new JsonException($"Unexpected token type: {reader.TokenType}");
     }
 }

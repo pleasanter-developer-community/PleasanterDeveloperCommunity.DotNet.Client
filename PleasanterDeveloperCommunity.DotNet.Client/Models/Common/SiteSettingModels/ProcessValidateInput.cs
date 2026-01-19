@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingModels
 {
@@ -10,31 +10,31 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common.SiteSettingMo
         /// <summary>
         /// 列名
         /// </summary>
-        [JsonProperty("ColumnName")]
+        [JsonPropertyName("ColumnName")]
         public string? ColumnName { get; set; }
 
         /// <summary>
         /// 必須
         /// </summary>
-        [JsonProperty("Required")]
+        [JsonPropertyName("Required")]
         public bool? Required { get; set; }
 
         /// <summary>
         /// クライアント正規表現検証
         /// </summary>
-        [JsonProperty("ClientRegexValidation")]
+        [JsonPropertyName("ClientRegexValidation")]
         public string? ClientRegexValidation { get; set; }
 
         /// <summary>
         /// サーバ正規表現検証
         /// </summary>
-        [JsonProperty("ServerRegexValidation")]
+        [JsonPropertyName("ServerRegexValidation")]
         public string? ServerRegexValidation { get; set; }
 
         /// <summary>
         /// 正規表現検証メッセージ
         /// </summary>
-        [JsonProperty("RegexValidationMessage")]
+        [JsonPropertyName("RegexValidationMessage")]
         public string? RegexValidationMessage { get; set; }
     }
 }

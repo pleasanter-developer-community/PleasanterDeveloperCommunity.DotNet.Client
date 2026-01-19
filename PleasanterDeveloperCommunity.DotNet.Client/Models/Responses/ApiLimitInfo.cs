@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
@@ -26,12 +26,12 @@ public abstract class ApiLimitInfoBase : IApiLimitInfo
     /// <summary>
     /// 1日あたりのAPI呼び出し上限
     /// </summary>
-    [JsonProperty("LimitPerDate")]
+    [JsonPropertyName("LimitPerDate")]
     public int? LimitPerDate { get; set; }
 
     /// <summary>
     /// 残りのAPI呼び出し回数
     /// </summary>
-    [JsonProperty("LimitRemaining")]
+    [JsonPropertyName("LimitRemaining")]
     public int? LimitRemaining { get; set; }
 }
