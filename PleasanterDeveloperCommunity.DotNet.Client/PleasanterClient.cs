@@ -39,6 +39,7 @@ public class PleasanterClient : IDisposable
     private readonly string _baseUrl;
     private readonly TimeSpan? _defaultTimeout;
     private readonly DebugLogger? _debugLogger;
+    private readonly float _apiVersion;
     private bool _disposed;
 
     /// <summary>
@@ -50,7 +51,8 @@ public class PleasanterClient : IDisposable
     /// <param name="proxySettings">プロキシ設定（省略時：OS設定に従う）</param>
     /// <param name="ignoreSslCertificateValidation">SSL証明書の検証を無効にするかどうか（省略時：false）。開発・テスト環境でのみ使用してください。</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false, DebugSettings? debugSettings = null)
+    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
+    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false, DebugSettings? debugSettings = null, float apiVersion = ApiRequest.MinApiVersion)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -59,6 +61,15 @@ public class PleasanterClient : IDisposable
             ? apiKey
             : throw new ArgumentNullException(nameof(apiKey));
         _defaultTimeout = defaultTimeout;
+
+        if (apiVersion < ApiRequest.MinApiVersion)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(apiVersion),
+                apiVersion,
+                $"ApiVersion must be {ApiRequest.MinApiVersion} or greater.");
+        }
+        _apiVersion = apiVersion;
 
         var effectiveProxySettings = proxySettings ?? ProxySettings.UseSystemDefault;
         if (effectiveProxySettings.Mode == ProxyMode.UseSystemDefault && !ignoreSslCertificateValidation)
@@ -84,7 +95,8 @@ public class PleasanterClient : IDisposable
     /// <param name="httpClient">HttpClientインスタンス</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null)
+    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
+    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null, float apiVersion = ApiRequest.MinApiVersion)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -94,6 +106,15 @@ public class PleasanterClient : IDisposable
             : throw new ArgumentNullException(nameof(apiKey));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _defaultTimeout = defaultTimeout;
+
+        if (apiVersion < ApiRequest.MinApiVersion)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(apiVersion),
+                apiVersion,
+                $"ApiVersion must be {ApiRequest.MinApiVersion} or greater.");
+        }
+        _apiVersion = apiVersion;
 
         if (debugSettings != null)
         {
@@ -147,6 +168,7 @@ public class PleasanterClient : IDisposable
         var request = new RecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             View = view
         };
 
@@ -167,6 +189,7 @@ public class PleasanterClient : IDisposable
         var request = new RecordsRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Offset = offset,
             View = view
         };
@@ -264,6 +287,7 @@ public class PleasanterClient : IDisposable
         var request = new CreateRecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Title = title,
             Body = body,
             Status = status,
@@ -284,26 +308,6 @@ public class PleasanterClient : IDisposable
         var url = $"{_baseUrl}/api/items/{siteId}/create";
         return await PostAsync<CreateRecordResponse>(url, request, timeout);
     }
-
-    /// <summary>
-    /// レコードを作成します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">作成リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(long siteId, CreateRecordRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
-        var url = $"{_baseUrl}/api/items/{siteId}/create";
-        return await PostAsync<CreateRecordResponse>(url, request, timeout);
-    }
-
 
     /// <summary>
     /// レコードを作成または更新します（Upsert）
@@ -348,6 +352,7 @@ public class PleasanterClient : IDisposable
         var request = new UpsertRecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Keys = keys,
             Title = title,
             Body = body,
@@ -365,25 +370,6 @@ public class PleasanterClient : IDisposable
             ImageHash = imageHash
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/upsert";
-        return await PostAsync<UpsertRecordResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// レコードを作成または更新します（Upsert）- リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">Upsertリクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(long siteId, UpsertRecordRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/upsert";
         return await PostAsync<UpsertRecordResponse>(url, request, timeout);
     }
@@ -433,6 +419,7 @@ public class PleasanterClient : IDisposable
         var request = new UpdateRecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Title = title,
             Body = body,
             Status = status,
@@ -451,25 +438,6 @@ public class PleasanterClient : IDisposable
             RecordPermissions = recordPermissions
         };
 
-        var url = $"{_baseUrl}/api/items/{recordId}/update";
-        return await PostAsync<UpdateRecordResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// レコードを更新します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="recordId">レコードID（IssueIdまたはResultId）</param>
-    /// <param name="request">更新リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(long recordId, UpdateRecordRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{recordId}/update";
         return await PostAsync<UpdateRecordResponse>(url, request, timeout);
     }
@@ -498,30 +466,12 @@ public class PleasanterClient : IDisposable
         var request = new BulkUpsertRecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Keys = keys,
             KeyNotFoundCreate = keyNotFoundCreate,
             Data = data
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
-        return await PostAsync<BulkUpsertRecordResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// 複数レコードを一括作成または更新します（BulkUpsert）- リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">BulkUpsertリクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(long siteId, BulkUpsertRecordRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/bulkupsert";
         return await PostAsync<BulkUpsertRecordResponse>(url, request, timeout);
     }
@@ -538,7 +488,8 @@ public class PleasanterClient : IDisposable
     {
         var request = new ApiRequest
         {
-            ApiKey = _apiKey
+            ApiKey = _apiKey,
+            ApiVersion = _apiVersion
         };
 
         var url = $"{_baseUrl}/api/items/{recordId}/delete";
@@ -566,31 +517,13 @@ public class PleasanterClient : IDisposable
         var request = new BulkDeleteRecordRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Selected = selected,
             View = view,
             All = all,
             PhysicalDelete = physicalDelete
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/bulkdelete";
-        return await PostAsync<BulkDeleteRecordResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// レコードを一括削除します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">一括削除リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(long siteId, BulkDeleteRecordRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/bulkdelete";
         return await PostAsync<BulkDeleteRecordResponse>(url, request, timeout);
     }
@@ -614,30 +547,12 @@ public class PleasanterClient : IDisposable
         var request = new ExportRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             ExportId = exportId,
             Export = export,
             View = view
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/export";
-        return await PostAsync<ExportResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// テーブルをエクスポートします - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">エクスポートリクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<ExportResponse>> ExportAsync(long siteId, ExportRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/export";
         return await PostAsync<ExportResponse>(url, request, timeout);
     }
@@ -676,6 +591,7 @@ public class PleasanterClient : IDisposable
         var request = new ImportRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Encoding = encoding ?? Encoding.UTF8,
             Key = key,
             MigrationMode = migrationMode
@@ -719,6 +635,7 @@ public class PleasanterClient : IDisposable
         var request = new ImportRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Encoding = encoding ?? Encoding.UTF8,
             Key = key,
             MigrationMode = migrationMode
@@ -792,78 +709,6 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
-    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">インポートリクエスト</param>
-    /// <param name="csvData">CSVファイルのバイナリデータ</param>
-    /// <param name="fileName">ファイル名</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<ImportResponse>> ImportAsync(
-        long siteId,
-        ImportRequest request,
-        byte[] csvData,
-        string fileName,
-        TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        if (csvData == null || csvData.Length == 0)
-        {
-            throw new ArgumentNullException(nameof(csvData));
-        }
-
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentNullException(nameof(fileName));
-        }
-
-        request.ApiKey = _apiKey;
-        var url = $"{_baseUrl}/api/items/{siteId}/import";
-        return await PostMultipartAsync<ImportResponse>(url, request, csvData, fileName, timeout);
-    }
-
-    /// <summary>
-    /// CSVファイルをインポートしてレコードを作成・更新します - リクエストオブジェクト・Stream使用版
-    /// </summary>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="request">インポートリクエスト</param>
-    /// <param name="csvStream">CSVファイルのストリーム</param>
-    /// <param name="fileName">ファイル名</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<ImportResponse>> ImportAsync(
-        long siteId,
-        ImportRequest request,
-        Stream csvStream,
-        string fileName,
-        TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        if (csvStream == null)
-        {
-            throw new ArgumentNullException(nameof(csvStream));
-        }
-
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentNullException(nameof(fileName));
-        }
-
-        request.ApiKey = _apiKey;
-        var url = $"{_baseUrl}/api/items/{siteId}/import";
-        return await PostMultipartAsync<ImportResponse>(url, request, csvStream, fileName, timeout);
-    }
-
-    /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
     /// <param name="guid">添付ファイルのGUID</param>
@@ -882,7 +727,8 @@ public class PleasanterClient : IDisposable
 
         var request = new GetAttachmentRequest
         {
-            ApiKey = _apiKey
+            ApiKey = _apiKey,
+            ApiVersion = _apiVersion
         };
 
         var url = $"{_baseUrl}/api/binaries/{guid}/get";
@@ -909,28 +755,11 @@ public class PleasanterClient : IDisposable
         var request = new ExtendedSqlRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             Name = name,
             Params = parameters
         };
 
-        var url = $"{_baseUrl}/api/extended/sql";
-        return await PostAsync<ExtendedSqlResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// 拡張SQLを実行します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="request">拡張SQLリクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/extended/sql";
         return await PostAsync<ExtendedSqlResponse>(url, request, timeout);
     }
@@ -973,6 +802,7 @@ public class PleasanterClient : IDisposable
         var request = new CopySitePackageRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             TargetSiteId = targetSiteId,
             SiteTitle = siteTitle,
             SelectedSites = selectedSites,
@@ -983,29 +813,6 @@ public class PleasanterClient : IDisposable
             IncludeReminders = includeReminders
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
-        return await PostAsync<CopySitePackageResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// サイトパッケージをコピーします - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">コピーするサイトのうちタイトル更新対象のサイトID</param>
-    /// <param name="request">サイトコピーリクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    /// <remarks>
-    /// このAPIはテナント管理者権限が必要です。
-    /// 期限付きテーブルおよび記録テーブルのみ使用可能です。
-    /// </remarks>
-    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(long siteId, CopySitePackageRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/copysitepackage";
         return await PostAsync<CopySitePackageResponse>(url, request, timeout);
     }
@@ -1041,6 +848,7 @@ public class PleasanterClient : IDisposable
         var request = new CreateSiteRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             TenantId = tenantId,
             Title = title,
             ReferenceType = referenceType,
@@ -1048,28 +856,6 @@ public class PleasanterClient : IDisposable
             SiteSettings = siteSettings
         };
 
-        var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
-        return await PostAsync<CreateSiteResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// サイトを作成します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="parentSiteId">親サイトID（作成するサイトの親となるフォルダまたはサイトのID）</param>
-    /// <param name="request">サイト作成リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    /// <remarks>
-    /// このAPIはテナント管理者権限が必要です。
-    /// </remarks>
-    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(long parentSiteId, CreateSiteRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{parentSiteId}/createsite";
         return await PostAsync<CreateSiteResponse>(url, request, timeout);
     }
@@ -1087,31 +873,10 @@ public class PleasanterClient : IDisposable
     {
         var request = new GetSiteRequest
         {
-            ApiKey = _apiKey
+            ApiKey = _apiKey,
+            ApiVersion = _apiVersion
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/getsite";
-        return await PostAsync<GetSiteResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// サイト情報を取得します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID（取得対象のサイトのID）</param>
-    /// <param name="request">サイト取得リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    /// <remarks>
-    /// このAPIはテナント管理者権限が必要です。Wikiには対応していません。
-    /// </remarks>
-    public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(long siteId, GetSiteRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/getsite";
         return await PostAsync<GetSiteResponse>(url, request, timeout);
     }
@@ -1137,32 +902,10 @@ public class PleasanterClient : IDisposable
         var request = new GetClosestSiteIdRequest
         {
             ApiKey = _apiKey,
+            ApiVersion = _apiVersion,
             FindSiteNames = findSiteNames
         };
 
-        var url = $"{_baseUrl}/api/items/{siteId}/getclosestsiteid";
-        return await PostAsync<GetClosestSiteIdResponse>(url, request, timeout);
-    }
-
-    /// <summary>
-    /// サイト名検索で該当サイトに最も近いサイトIDを取得します - リクエストオブジェクト使用版
-    /// </summary>
-    /// <param name="siteId">サイトID（検索を開始するサイトのID）</param>
-    /// <param name="request">サイトID取得リクエスト</param>
-    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
-    /// <returns>APIレスポンス</returns>
-    /// <remarks>
-    /// このAPIはテナント管理者権限が必要です。
-    /// 見つからなかった場合またはアクセス権が無い場合はSiteIdに-1が返却されます。
-    /// </remarks>
-    public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(long siteId, GetClosestSiteIdRequest request, TimeSpan? timeout = null)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        request.ApiKey = _apiKey;
         var url = $"{_baseUrl}/api/items/{siteId}/getclosestsiteid";
         return await PostAsync<GetClosestSiteIdResponse>(url, request, timeout);
     }
