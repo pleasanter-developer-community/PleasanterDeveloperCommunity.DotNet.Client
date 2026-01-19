@@ -938,15 +938,24 @@ public class PleasanterClient : IDisposable
         var requestId = Uuid.NewSequential().ToString("N");
         _debugLogger?.LogRequest(requestId, url, requestJson);
 
-        using var response = await _httpClient.PostAsync(url, content, cts.Token);
-        var responseBody = await response.Content.ReadAsStringAsync();
+        try
+        {
+            using var response = await _httpClient.PostAsync(url, content, cts.Token);
+            var responseBody = await response.Content.ReadAsStringAsync();
 
-        // デバッグモード時：レスポンスをログに記録
-        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+            // デバッグモード時：レスポンスをログに記録
+            _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
 
-        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+            return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+        }
+        catch (Exception ex)
+        {
+            // デバッグモード時：例外をログに記録
+            _debugLogger?.LogException(requestId, url, ex);
+            throw;
+        }
     }
 
     /// <summary>
@@ -977,15 +986,24 @@ public class PleasanterClient : IDisposable
         var requestId = Uuid.NewSequential().ToString("N");
         _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} ({fileData.Length} bytes)");
 
-        using var response = await _httpClient.PostAsync(url, content, cts.Token);
-        var responseBody = await response.Content.ReadAsStringAsync();
+        try
+        {
+            using var response = await _httpClient.PostAsync(url, content, cts.Token);
+            var responseBody = await response.Content.ReadAsStringAsync();
 
-        // デバッグモード時：レスポンスをログに記録
-        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+            // デバッグモード時：レスポンスをログに記録
+            _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
 
-        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+            return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+        }
+        catch (Exception ex)
+        {
+            // デバッグモード時：例外をログに記録
+            _debugLogger?.LogException(requestId, url, ex);
+            throw;
+        }
     }
 
     /// <summary>
@@ -1016,15 +1034,24 @@ public class PleasanterClient : IDisposable
         var requestId = Uuid.NewSequential().ToString("N");
         _debugLogger?.LogRequest(requestId, url, $"[multipart/form-data] parameters={requestJson}, file={fileName} (stream)");
 
-        using var response = await _httpClient.PostAsync(url, content, cts.Token);
-        var responseBody = await response.Content.ReadAsStringAsync();
+        try
+        {
+            using var response = await _httpClient.PostAsync(url, content, cts.Token);
+            var responseBody = await response.Content.ReadAsStringAsync();
 
-        // デバッグモード時：レスポンスをログに記録
-        _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
+            // デバッグモード時：レスポンスをログに記録
+            _debugLogger?.LogResponse(requestId, url, response.StatusCode, responseBody);
 
-        var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
+            var result = JsonConvert.DeserializeObject<ApiResponse<T>>(responseBody, JsonSettings);
 
-        return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+            return result ?? new ApiResponse<T> { StatusCode = response.StatusCode };
+        }
+        catch (Exception ex)
+        {
+            // デバッグモード時：例外をログに記録
+            _debugLogger?.LogException(requestId, url, ex);
+            throw;
+        }
     }
 
     /// <summary>

@@ -111,6 +111,90 @@ internal class DebugLogger : IDisposable
     }
 
     /// <summary>
+    /// 例外をログに記録します
+    /// </summary>
+    /// <param name="requestId">リクエストID</param>
+    /// <param name="url">リクエストURL</param>
+    /// <param name="exception">例外</param>
+    public void LogException(string requestId, string url, Exception exception)
+    {
+        var content = FormatException(exception);
+
+        var record = new DebugLogRecord
+        {
+            Timestamp = DateTime.Now,
+            RequestId = requestId,
+            Type = "Exception",
+            Url = url,
+            StatusCode = null,
+            IsJson = false,
+            Content = content
+        };
+
+        EnqueueRecord(record);
+    }
+
+    /// <summary>
+    /// 例外を文字列にフォーマットします（InnerExceptionも展開）
+    /// </summary>
+    /// <param name="exception">例外</param>
+    /// <returns>フォーマット済みの例外文字列</returns>
+    private static string FormatException(Exception exception)
+    {
+        if (exception == null)
+        {
+            return string.Empty;
+        }
+
+        var sb = new StringBuilder();
+        FormatExceptionRecursive(exception, sb, 0);
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// 例外を再帰的にフォーマットします
+    /// </summary>
+    /// <param name="exception">例外</param>
+    /// <param name="sb">StringBuilder</param>
+    /// <param name="depth">ネストの深さ</param>
+    private static void FormatExceptionRecursive(Exception exception, StringBuilder sb, int depth)
+    {
+        var indent = new string(' ', depth * 2);
+        var prefix = depth == 0 ? "" : "[InnerException] ";
+
+        sb.AppendLine($"{indent}{prefix}{exception.GetType().FullName}: {exception.Message}");
+
+        if (!string.IsNullOrEmpty(exception.StackTrace))
+        {
+            sb.AppendLine($"{indent}StackTrace:");
+            foreach (var line in exception.StackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+            {
+                sb.AppendLine($"{indent}  {line}");
+            }
+        }
+
+        if (exception.InnerException != null)
+        {
+            sb.AppendLine();
+            FormatExceptionRecursive(exception.InnerException, sb, depth + 1);
+        }
+
+        // AggregateExceptionの場合は全てのInnerExceptionsを展開
+        if (exception is AggregateException aggregateException)
+        {
+            foreach (var innerException in aggregateException.InnerExceptions)
+            {
+                // InnerExceptionと重複しないようにチェック
+                if (innerException != exception.InnerException)
+                {
+                    sb.AppendLine();
+                    FormatExceptionRecursive(innerException, sb, depth + 1);
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// レコードをキューに追加します
     /// </summary>
     /// <param name="record">ログレコード</param>
