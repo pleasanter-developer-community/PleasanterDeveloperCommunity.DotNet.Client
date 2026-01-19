@@ -1117,6 +1117,57 @@ public class PleasanterClient : IDisposable
     }
 
     /// <summary>
+    /// サイト名検索で該当サイトに最も近いサイトIDを取得します
+    /// </summary>
+    /// <param name="siteId">サイトID（検索を開始するサイトのID）</param>
+    /// <param name="findSiteNames">検索対象のサイト名の配列</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 見つからなかった場合またはアクセス権が無い場合はSiteIdに-1が返却されます。
+    /// </remarks>
+    public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(long siteId, List<string> findSiteNames, TimeSpan? timeout = null)
+    {
+        if (findSiteNames == null)
+        {
+            throw new ArgumentNullException(nameof(findSiteNames));
+        }
+
+        var request = new GetClosestSiteIdRequest
+        {
+            ApiKey = _apiKey,
+            FindSiteNames = findSiteNames
+        };
+
+        var url = $"{_baseUrl}/api/items/{siteId}/getclosestsiteid";
+        return await PostAsync<GetClosestSiteIdResponse>(url, request, timeout);
+    }
+
+    /// <summary>
+    /// サイト名検索で該当サイトに最も近いサイトIDを取得します - リクエストオブジェクト使用版
+    /// </summary>
+    /// <param name="siteId">サイトID（検索を開始するサイトのID）</param>
+    /// <param name="request">サイトID取得リクエスト</param>
+    /// <param name="timeout">リクエストタイムアウト（省略時：デフォルトタイムアウトを使用）</param>
+    /// <returns>APIレスポンス</returns>
+    /// <remarks>
+    /// このAPIはテナント管理者権限が必要です。
+    /// 見つからなかった場合またはアクセス権が無い場合はSiteIdに-1が返却されます。
+    /// </remarks>
+    public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(long siteId, GetClosestSiteIdRequest request, TimeSpan? timeout = null)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        request.ApiKey = _apiKey;
+        var url = $"{_baseUrl}/api/items/{siteId}/getclosestsiteid";
+        return await PostAsync<GetClosestSiteIdResponse>(url, request, timeout);
+    }
+
+    /// <summary>
     /// POSTリクエストを送信します
     /// </summary>
     /// <param name="url">リクエストURL</param>
