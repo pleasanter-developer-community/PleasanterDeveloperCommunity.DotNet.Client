@@ -47,12 +47,12 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="baseUrl">プリザンターのベースURL（例: https://example.com/pleasanter）</param>
     /// <param name="apiKey">APIキー</param>
+    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="proxySettings">プロキシ設定（省略時：OS設定に従う）</param>
     /// <param name="ignoreSslCertificateValidation">SSL証明書の検証を無効にするかどうか（省略時：false）。開発・テスト環境でのみ使用してください。</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
-    public PleasanterClient(string baseUrl, string apiKey, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false, DebugSettings? debugSettings = null, float apiVersion = ApiRequest.MinApiVersion)
+    public PleasanterClient(string baseUrl, string apiKey, float apiVersion = ApiRequest.MinApiVersion, TimeSpan? defaultTimeout = null, ProxySettings? proxySettings = null, bool ignoreSslCertificateValidation = false, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
@@ -92,11 +92,11 @@ public class PleasanterClient : IDisposable
     /// </summary>
     /// <param name="baseUrl">プリザンターのベースURL</param>
     /// <param name="apiKey">APIキー</param>
+    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
     /// <param name="httpClient">HttpClientインスタンス</param>
     /// <param name="defaultTimeout">デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値を使用）</param>
     /// <param name="debugSettings">デバッグ設定（省略時：デバッグモード無効）</param>
-    /// <param name="apiVersion">APIバージョン（省略時：1.1）</param>
-    public PleasanterClient(string baseUrl, string apiKey, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null, float apiVersion = ApiRequest.MinApiVersion)
+    public PleasanterClient(string baseUrl, string apiKey, float apiVersion, HttpClient httpClient, TimeSpan? defaultTimeout = null, DebugSettings? debugSettings = null)
     {
         _baseUrl = !string.IsNullOrWhiteSpace(baseUrl)
             ? baseUrl.TrimEnd('/')
