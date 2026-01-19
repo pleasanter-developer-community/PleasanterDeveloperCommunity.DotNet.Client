@@ -20,7 +20,45 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 Install-Package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
-### 方法2: オフライン環境でのNuGetパッケージ
+### 方法2: GitHub Packages
+
+[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-PleasanterDeveloperCommunity.DotNet.Client-blue?logo=github)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/pkgs/nuget/PleasanterDeveloperCommunity.DotNet.Client)
+
+> **Note**: GitHub PackagesのNuGetレジストリはパブリックパッケージでも認証が必要です（GitHubの仕様）。認証不要でインストールしたい場合は[方法1: NuGetパッケージ](#方法1-nugetパッケージ推奨)をご利用ください。
+
+#### 1. 認証の設定
+
+GitHub Packagesを利用するには、GitHub Personal Access Token（PAT）が必要です。[GitHub Settings](https://github.com/settings/tokens)で`read:packages`スコープを持つトークンを作成してください。
+
+#### 2. NuGetソースの追加
+
+プロジェクトのルートに`nuget.config`ファイルを作成します：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="github" value="https://nuget.pkg.github.com/pleasanter-developer-community/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <github>
+      <add key="Username" value="YOUR_GITHUB_USERNAME" />
+      <add key="ClearTextPassword" value="YOUR_GITHUB_PAT" />
+    </github>
+  </packageSourceCredentials>
+</configuration>
+```
+
+> **Note**: `YOUR_GITHUB_USERNAME`と`YOUR_GITHUB_PAT`を実際の値に置き換えてください。
+
+#### 3. パッケージのインストール
+
+```bash
+dotnet add package PleasanterDeveloperCommunity.DotNet.Client --source github
+```
+
+### 方法3: オフライン環境でのNuGetパッケージ
 
 #### 1. パッケージのダウンロード
 
@@ -42,7 +80,7 @@ dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
 dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
-### 方法3: DLLを直接参照
+### 方法4: DLLを直接参照
 
 #### 1. DLLの取得
 
