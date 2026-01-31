@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Version>1.1.1</Version>
+    <Authors>Pleasanter Developer Community</Authors>
+    <Description>Pleasanter API Client Library for .NET</Description>
+    <PackageProjectUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>Pleasanter;API;Client</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
+  </ItemGroup>
+
+</Project>
