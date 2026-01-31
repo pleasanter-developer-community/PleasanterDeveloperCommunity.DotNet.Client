@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
@@ -14,6 +13,24 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
     /// </summary>
     public partial class PleasanterClient
     {
+        #region Create Site
+
+        /// <summary>
+        /// サイトを作成します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
+            long parentSiteId,
+            CreateSiteRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (string.IsNullOrEmpty(request.Title)) throw new ArgumentException("Title is required", nameof(request));
+            if (string.IsNullOrEmpty(request.ReferenceType)) throw new ArgumentException("ReferenceType is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<CreateSiteResponse>(
+                $"/api/items/{parentSiteId}/createsite", request, timeout);
+        }
+
         /// <summary>
         /// サイトを作成します
         /// </summary>
@@ -26,25 +43,33 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             SiteSettings? siteSettings = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new CreateSiteRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey,
-                ["Title"] = title ?? throw new ArgumentNullException(nameof(title)),
-                ["ReferenceType"] = referenceType.ToString()
+                Title = title ?? throw new ArgumentNullException(nameof(title)),
+                ReferenceType = referenceType.ToString(),
+                TenantId = tenantId,
+                InheritPermission = inheritPermission,
+                SiteSettings = siteSettings
             };
+            return await CreateSiteAsync(parentSiteId, request, timeout);
+        }
 
-            if (tenantId.HasValue)
-                request["TenantId"] = tenantId.Value;
+        #endregion
 
-            if (inheritPermission.HasValue)
-                request["InheritPermission"] = inheritPermission.Value;
+        #region Get Site
 
-            if (siteSettings != null)
-                request["SiteSettings"] = siteSettings;
-
-            return await SendRequestAsync<CreateSiteResponse>(
-                $"/api/items/{parentSiteId}/createsite", request, timeout);
+        /// <summary>
+        /// サイトを取得します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(
+            long siteId,
+            GetSiteRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<GetSiteResponse>(
+                $"/api/items/{siteId}/getsite", request, timeout);
         }
 
         /// <summary>
@@ -54,14 +79,27 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             long siteId,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
-            {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
-            };
+            var request = new GetSiteRequest();
+            return await GetSiteAsync(siteId, request, timeout);
+        }
 
-            return await SendRequestAsync<GetSiteResponse>(
-                $"/api/items/{siteId}/getsite", request, timeout);
+        #endregion
+
+        #region Get Closest Site Id
+
+        /// <summary>
+        /// サイト名検索で最も近いサイトIDを取得します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(
+            long siteId,
+            GetClosestSiteIdRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request.FindSiteNames == null) throw new ArgumentException("FindSiteNames is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<GetClosestSiteIdResponse>(
+                $"/api/items/{siteId}/getclosestsiteid", request, timeout);
         }
 
         /// <summary>
@@ -72,15 +110,29 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             List<string> findSiteNames,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new GetClosestSiteIdRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey,
-                ["FindSiteNames"] = findSiteNames ?? throw new ArgumentNullException(nameof(findSiteNames))
+                FindSiteNames = findSiteNames ?? throw new ArgumentNullException(nameof(findSiteNames))
             };
+            return await GetClosestSiteIdAsync(siteId, request, timeout);
+        }
 
-            return await SendRequestAsync<GetClosestSiteIdResponse>(
-                $"/api/items/{siteId}/getclosestsiteid", request, timeout);
+        #endregion
+
+        #region Update Site
+
+        /// <summary>
+        /// サイトを更新します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
+            long siteId,
+            UpdateSiteRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<UpdateSiteResponse>(
+                $"/api/items/{siteId}/updatesite", request, timeout);
         }
 
         /// <summary>
@@ -96,32 +148,35 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             SiteSettings? siteSettings = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new UpdateSiteRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
+                Title = title,
+                ReferenceType = referenceType?.ToString(),
+                TenantId = tenantId,
+                ParentId = parentId,
+                InheritPermission = inheritPermission,
+                SiteSettings = siteSettings
             };
+            return await UpdateSiteAsync(siteId, request, timeout);
+        }
 
-            if (title != null)
-                request["Title"] = title;
+        #endregion
 
-            if (referenceType.HasValue)
-                request["ReferenceType"] = referenceType.Value.ToString();
+        #region Copy Site Package
 
-            if (tenantId.HasValue)
-                request["TenantId"] = tenantId.Value;
-
-            if (parentId.HasValue)
-                request["ParentId"] = parentId.Value;
-
-            if (inheritPermission.HasValue)
-                request["InheritPermission"] = inheritPermission.Value;
-
-            if (siteSettings != null)
-                request["SiteSettings"] = siteSettings;
-
-            return await SendRequestAsync<UpdateSiteResponse>(
-                $"/api/items/{siteId}/updatesite", request, timeout);
+        /// <summary>
+        /// サイトパッケージをコピーします（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
+            long siteId,
+            CopySitePackageRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request.SelectedSites == null) throw new ArgumentException("SelectedSites is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<CopySitePackageResponse>(
+                $"/api/items/{siteId}/copysitepackage", request, timeout);
         }
 
         /// <summary>
@@ -139,36 +194,20 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             bool? includeReminders = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new CopySitePackageRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey,
-                ["SelectedSites"] = selectedSites ?? throw new ArgumentNullException(nameof(selectedSites))
+                SelectedSites = selectedSites ?? throw new ArgumentNullException(nameof(selectedSites)),
+                TargetSiteId = targetSiteId,
+                SiteTitle = siteTitle,
+                IncludeSitePermission = includeSitePermission,
+                IncludeRecordPermission = includeRecordPermission,
+                IncludeColumnPermission = includeColumnPermission,
+                IncludeNotifications = includeNotifications,
+                IncludeReminders = includeReminders
             };
-
-            if (targetSiteId.HasValue)
-                request["TargetSiteId"] = targetSiteId.Value;
-
-            if (siteTitle != null)
-                request["SiteTitle"] = siteTitle;
-
-            if (includeSitePermission.HasValue)
-                request["IncludeSitePermission"] = includeSitePermission.Value;
-
-            if (includeRecordPermission.HasValue)
-                request["IncludeRecordPermission"] = includeRecordPermission.Value;
-
-            if (includeColumnPermission.HasValue)
-                request["IncludeColumnPermission"] = includeColumnPermission.Value;
-
-            if (includeNotifications.HasValue)
-                request["IncludeNotifications"] = includeNotifications.Value;
-
-            if (includeReminders.HasValue)
-                request["IncludeReminders"] = includeReminders.Value;
-
-            return await SendRequestAsync<CopySitePackageResponse>(
-                $"/api/items/{siteId}/copysitepackage", request, timeout);
+            return await CopySitePackageAsync(siteId, request, timeout);
         }
+
+        #endregion
     }
 }

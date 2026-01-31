@@ -15,6 +15,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
     /// </summary>
     public partial class PleasanterClient
     {
+        #region Import
+
         /// <summary>
         /// CSVデータをインポートします（byte[]版）
         /// </summary>
@@ -94,6 +96,24 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             return await ImportAsync(siteId, csvData, fileName, detectedEncoding, key, migrationMode, timeout);
         }
 
+        #endregion
+
+        #region Export
+
+        /// <summary>
+        /// テーブルをエクスポートします（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<ExportResponse>> ExportAsync(
+            long siteId,
+            ExportRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<ExportResponse>(
+                $"/api/items/{siteId}/export", request, timeout);
+        }
+
         /// <summary>
         /// テーブルをエクスポートします
         /// </summary>
@@ -104,23 +124,15 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             View? view = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new ExportRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
+                ExportId = exportId,
+                Export = export,
+                View = view
             };
-
-            if (exportId.HasValue)
-                request["ExportId"] = exportId.Value;
-
-            if (export != null)
-                request["Export"] = export;
-
-            if (view != null)
-                request["View"] = view;
-
-            return await SendRequestAsync<ExportResponse>(
-                $"/api/items/{siteId}/export", request, timeout);
+            return await ExportAsync(siteId, request, timeout);
         }
+
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extended;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
@@ -12,6 +12,20 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
     public partial class PleasanterClient
     {
         /// <summary>
+        /// 拡張SQLを実行します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
+            ExtendedSqlRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (string.IsNullOrEmpty(request.Name)) throw new ArgumentException("Name is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<ExtendedSqlResponse>(
+                "/api/extended/sql", request, timeout);
+        }
+
+        /// <summary>
         /// 拡張SQLを実行します
         /// </summary>
         public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
@@ -19,23 +33,12 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             Dictionary<string, object>? parameters = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new ExtendedSqlRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey,
-                ["Name"] = name ?? throw new ArgumentNullException(nameof(name))
+                Name = name ?? throw new ArgumentNullException(nameof(name)),
+                AdditionalParameters = parameters
             };
-
-            if (parameters != null)
-            {
-                foreach (var kvp in parameters)
-                {
-                    request[kvp.Key] = kvp.Value;
-                }
-            }
-
-            return await SendRequestAsync<ExtendedSqlResponse>(
-                "/api/extended/sql", request, timeout);
+            return await ExecuteExtendedSqlAsync(request, timeout);
         }
     }
 }

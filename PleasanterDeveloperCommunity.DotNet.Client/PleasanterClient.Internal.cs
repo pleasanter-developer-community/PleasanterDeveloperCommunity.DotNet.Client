@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
@@ -17,46 +17,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
     /// </summary>
     public partial class PleasanterClient
     {
-        private Dictionary<string, object> BuildRecordRequest(
-            string? title,
-            string? body,
-            int? status,
-            int? manager,
-            int? owner,
-            string? completionTime,
-            Dictionary<string, string>? classHash,
-            Dictionary<string, decimal>? numHash,
-            Dictionary<string, DateTime>? dateHash,
-            Dictionary<string, string>? descriptionHash,
-            Dictionary<string, bool>? checkHash,
-            Dictionary<string, List<AttachmentData>>? attachmentsHash,
-            int? processId,
-            List<int>? processIds,
-            Dictionary<string, ImageSettings>? imageHash)
+        /// <summary>
+        /// リクエストにAPI認証情報を設定します
+        /// </summary>
+        private void SetApiCredentials(ApiRequestBase request)
         {
-            var request = new Dictionary<string, object>
-            {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
-            };
-
-            if (title != null) request["Title"] = title;
-            if (body != null) request["Body"] = body;
-            if (status.HasValue) request["Status"] = status.Value;
-            if (manager.HasValue) request["Manager"] = manager.Value;
-            if (owner.HasValue) request["Owner"] = owner.Value;
-            if (completionTime != null) request["CompletionTime"] = completionTime;
-            if (classHash != null) request["ClassHash"] = classHash;
-            if (numHash != null) request["NumHash"] = numHash;
-            if (dateHash != null) request["DateHash"] = dateHash;
-            if (descriptionHash != null) request["DescriptionHash"] = descriptionHash;
-            if (checkHash != null) request["CheckHash"] = checkHash;
-            if (attachmentsHash != null) request["AttachmentsHash"] = attachmentsHash;
-            if (processId.HasValue) request["ProcessId"] = processId.Value;
-            if (processIds != null) request["ProcessIds"] = processIds;
-            if (imageHash != null) request["ImageHash"] = imageHash;
-
-            return request;
+            request.ApiVersion = _apiVersion.ToString("F1", CultureInfo.InvariantCulture);
+            request.ApiKey = _apiKey;
         }
 
         private async Task<ApiResponse<T>> SendRequestAsync<T>(

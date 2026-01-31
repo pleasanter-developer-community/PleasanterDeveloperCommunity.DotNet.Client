@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
@@ -15,6 +14,22 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
     /// </summary>
     public partial class PleasanterClient
     {
+        #region Create Record
+
+        /// <summary>
+        /// レコードを作成します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(
+            long siteId,
+            CreateRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<CreateRecordResponse>(
+                $"/api/items/{siteId}/create", request, timeout);
+        }
+
         /// <summary>
         /// レコードを作成します
         /// </summary>
@@ -37,12 +52,43 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             Dictionary<string, ImageSettings>? imageHash = null,
             TimeSpan? timeout = null)
         {
-            var request = BuildRecordRequest(title, body, status, manager, owner, completionTime,
-                classHash, numHash, dateHash, descriptionHash, checkHash, attachmentsHash,
-                processId, processIds, imageHash);
+            var request = new CreateRecordRequest
+            {
+                Title = title,
+                Body = body,
+                Status = status,
+                Manager = manager,
+                Owner = owner,
+                CompletionTime = completionTime,
+                ClassHash = classHash,
+                NumHash = numHash,
+                DateHash = dateHash,
+                DescriptionHash = descriptionHash,
+                CheckHash = checkHash,
+                AttachmentsHash = attachmentsHash,
+                ProcessId = processId,
+                ProcessIds = processIds,
+                ImageHash = imageHash
+            };
+            return await CreateRecordAsync(siteId, request, timeout);
+        }
 
-            return await SendRequestAsync<CreateRecordResponse>(
-                $"/api/items/{siteId}/create", request, timeout);
+        #endregion
+
+        #region Get Record
+
+        /// <summary>
+        /// 単一レコードを取得します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
+            long recordId,
+            GetRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<RecordResponse>(
+                $"/api/items/{recordId}/get", request, timeout);
         }
 
         /// <summary>
@@ -53,17 +99,26 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             View? view = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
-            {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
-            };
+            var request = new GetRecordRequest { View = view };
+            return await GetRecordAsync(recordId, request, timeout);
+        }
 
-            if (view != null)
-                request["View"] = view;
+        #endregion
 
-            return await SendRequestAsync<RecordResponse>(
-                $"/api/items/{recordId}/get", request, timeout);
+        #region Get Records
+
+        /// <summary>
+        /// 複数レコードを取得します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(
+            long siteId,
+            GetRecordsRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<RecordsResponse>(
+                $"/api/items/{siteId}/get", request, timeout);
         }
 
         /// <summary>
@@ -75,20 +130,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             View? view = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
-            {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
-            };
-
-            if (offset.HasValue)
-                request["Offset"] = offset.Value;
-
-            if (view != null)
-                request["View"] = view;
-
-            return await SendRequestAsync<RecordsResponse>(
-                $"/api/items/{siteId}/get", request, timeout);
+            var request = new GetRecordsRequest { Offset = offset, View = view };
+            return await GetRecordsAsync(siteId, request, timeout);
         }
 
         /// <summary>
@@ -133,6 +176,24 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             };
         }
 
+        #endregion
+
+        #region Update Record
+
+        /// <summary>
+        /// レコードを更新します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(
+            long recordId,
+            UpdateRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<UpdateRecordResponse>(
+                $"/api/items/{recordId}/update", request, timeout);
+        }
+
         /// <summary>
         /// レコードを更新します
         /// </summary>
@@ -156,15 +217,45 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             List<string>? recordPermissions = null,
             TimeSpan? timeout = null)
         {
-            var request = BuildRecordRequest(title, body, status, manager, owner, completionTime,
-                classHash, numHash, dateHash, descriptionHash, checkHash, attachmentsHash,
-                processId, processIds, imageHash);
+            var request = new UpdateRecordRequest
+            {
+                Title = title,
+                Body = body,
+                Status = status,
+                Manager = manager,
+                Owner = owner,
+                CompletionTime = completionTime,
+                ClassHash = classHash,
+                NumHash = numHash,
+                DateHash = dateHash,
+                DescriptionHash = descriptionHash,
+                CheckHash = checkHash,
+                AttachmentsHash = attachmentsHash,
+                ProcessId = processId,
+                ProcessIds = processIds,
+                ImageHash = imageHash,
+                RecordPermissions = recordPermissions
+            };
+            return await UpdateRecordAsync(recordId, request, timeout);
+        }
 
-            if (recordPermissions != null)
-                request["RecordPermissions"] = recordPermissions;
+        #endregion
 
-            return await SendRequestAsync<UpdateRecordResponse>(
-                $"/api/items/{recordId}/update", request, timeout);
+        #region Upsert Record
+
+        /// <summary>
+        /// レコードを作成または更新します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(
+            long siteId,
+            UpsertRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request.Keys == null) throw new ArgumentException("Keys is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<UpsertRecordResponse>(
+                $"/api/items/{siteId}/upsert", request, timeout);
         }
 
         /// <summary>
@@ -189,14 +280,44 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             Dictionary<string, ImageSettings>? imageHash = null,
             TimeSpan? timeout = null)
         {
-            var request = BuildRecordRequest(title, body, status, manager, owner, completionTime,
-                classHash, numHash, dateHash, descriptionHash, checkHash, null,
-                processId, processIds, imageHash);
+            var request = new UpsertRecordRequest
+            {
+                Keys = keys ?? throw new ArgumentNullException(nameof(keys)),
+                Title = title,
+                Body = body,
+                Status = status,
+                Manager = manager,
+                Owner = owner,
+                CompletionTime = completionTime,
+                ClassHash = classHash,
+                NumHash = numHash,
+                DateHash = dateHash,
+                DescriptionHash = descriptionHash,
+                CheckHash = checkHash,
+                ProcessId = processId,
+                ProcessIds = processIds,
+                ImageHash = imageHash
+            };
+            return await UpsertRecordAsync(siteId, request, timeout);
+        }
 
-            request["Keys"] = keys ?? throw new ArgumentNullException(nameof(keys));
+        #endregion
 
-            return await SendRequestAsync<UpsertRecordResponse>(
-                $"/api/items/{siteId}/upsert", request, timeout);
+        #region Bulk Upsert Record
+
+        /// <summary>
+        /// 複数レコードを一括で作成または更新します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(
+            long siteId,
+            BulkUpsertRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request.Data == null) throw new ArgumentException("Data is required", nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<BulkUpsertRecordResponse>(
+                $"/api/items/{siteId}/bulkupsert", request, timeout);
         }
 
         /// <summary>
@@ -209,21 +330,31 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             bool? keyNotFoundCreate = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new BulkUpsertRecordRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey,
-                ["Data"] = data ?? throw new ArgumentNullException(nameof(data))
+                Data = data ?? throw new ArgumentNullException(nameof(data)),
+                Keys = keys,
+                KeyNotFoundCreate = keyNotFoundCreate
             };
+            return await BulkUpsertRecordAsync(siteId, request, timeout);
+        }
 
-            if (keys != null)
-                request["Keys"] = keys;
+        #endregion
 
-            if (keyNotFoundCreate.HasValue)
-                request["KeyNotFoundCreate"] = keyNotFoundCreate.Value;
+        #region Delete Record
 
-            return await SendRequestAsync<BulkUpsertRecordResponse>(
-                $"/api/items/{siteId}/bulkupsert", request, timeout);
+        /// <summary>
+        /// レコードを削除します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<DeleteRecordResponse>> DeleteRecordAsync(
+            long recordId,
+            DeleteRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<DeleteRecordResponse>(
+                $"/api/items/{recordId}/delete", request, timeout);
         }
 
         /// <summary>
@@ -233,14 +364,26 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             long recordId,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
-            {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
-            };
+            var request = new DeleteRecordRequest();
+            return await DeleteRecordAsync(recordId, request, timeout);
+        }
 
-            return await SendRequestAsync<DeleteRecordResponse>(
-                $"/api/items/{recordId}/delete", request, timeout);
+        #endregion
+
+        #region Bulk Delete Record
+
+        /// <summary>
+        /// レコードを一括削除します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(
+            long siteId,
+            BulkDeleteRecordRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<BulkDeleteRecordResponse>(
+                $"/api/items/{siteId}/bulkdelete", request, timeout);
         }
 
         /// <summary>
@@ -254,26 +397,16 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             bool? physicalDelete = null,
             TimeSpan? timeout = null)
         {
-            var request = new Dictionary<string, object>
+            var request = new BulkDeleteRecordRequest
             {
-                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
-                ["ApiKey"] = _apiKey
+                Selected = selected,
+                View = view,
+                All = all,
+                PhysicalDelete = physicalDelete
             };
-
-            if (selected != null)
-                request["Selected"] = selected;
-
-            if (view != null)
-                request["View"] = view;
-
-            if (all.HasValue)
-                request["All"] = all.Value;
-
-            if (physicalDelete.HasValue)
-                request["PhysicalDelete"] = physicalDelete.Value;
-
-            return await SendRequestAsync<BulkDeleteRecordResponse>(
-                $"/api/items/{siteId}/bulkdelete", request, timeout);
+            return await BulkDeleteRecordAsync(siteId, request, timeout);
         }
+
+        #endregion
     }
 }

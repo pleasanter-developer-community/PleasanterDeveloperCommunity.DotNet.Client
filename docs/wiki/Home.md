@@ -73,6 +73,47 @@ using var client = new PleasanterClient(
 );
 ```
 
+### リクエストモデルの使用
+
+各APIメソッドには、パラメータを個別に指定するオーバーロードと、リクエストモデルを使用するオーバーロードの2種類があります。
+
+#### パラメータ指定版
+
+```csharp
+// パラメータを個別に指定
+var result = await client.CreateRecordAsync(
+    siteId: 456,
+    title: "タイトル",
+    body: "内容",
+    status: 100
+);
+```
+
+#### リクエストモデル版
+
+```csharp
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+
+// リクエストモデルを使用
+var request = new CreateRecordRequest
+{
+    Title = "タイトル",
+    Body = "内容",
+    Status = 100
+};
+
+var result = await client.CreateRecordAsync(siteId: 456, request: request);
+```
+
+リクエストモデルは以下の名前空間で提供されます：
+
+| 名前空間 | 説明 |
+|:---------|:-----|
+| `Models.Requests.Items` | テーブル・レコード操作のリクエストモデル |
+| `Models.Requests.Sites` | サイト操作のリクエストモデル |
+| `Models.Requests.Binaries` | 添付ファイル取得のリクエストモデル |
+| `Models.Requests.Extended` | 拡張SQL実行のリクエストモデル |
+
 ### タイムアウト設定
 
 ```csharp
