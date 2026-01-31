@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Users;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {
@@ -184,7 +185,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportUsersAsync(
+        public async Task<ApiResponse<ImportUsersResponse>> ImportUsersAsync(
             byte[] csvData,
             string fileName,
             Encoding? encoding = null,
@@ -205,7 +206,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportUsersAsync(
+        public async Task<ApiResponse<ImportUsersResponse>> ImportUsersAsync(
             Stream csvStream,
             string fileName,
             Encoding? encoding = null,
@@ -221,7 +222,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
                 ["Encoding"] = encodingName
             };
 
-            return await SendMultipartRequestAsync<ImportResponse>(
+            return await SendMultipartRequestAsync<ImportUsersResponse>(
                 "/api/users/import", csvStream, fileName, parameters, timeout);
         }
 
@@ -235,7 +236,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportUsersFromFileAsync(
+        public async Task<ApiResponse<ImportUsersResponse>> ImportUsersFromFileAsync(
             string filePath,
             Encoding? encoding = null,
             TimeSpan? timeout = null)

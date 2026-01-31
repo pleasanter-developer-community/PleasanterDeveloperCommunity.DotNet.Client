@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+﻿using System.Text.Json.Serialization;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries
 {
     /// <summary>
-    /// メール送信レスポンス
+    /// バイナリアップロードレスポンス
     /// </summary>
-    public class SendMailResponse
+    public class UploadBinaryResponse
     {
         /// <summary>
         /// ステータスコード
@@ -26,18 +23,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
         /// レスポンスデータ
         /// </summary>
         [JsonPropertyName("Response")]
-        public SendMailResponseData? Response { get; set; }
+        public UploadBinaryResponseData? Response { get; set; }
     }
 
     /// <summary>
-    /// メール送信レスポンスデータ
+    /// バイナリアップロードレスポンスデータ
     /// </summary>
-    public class SendMailResponseData
+    public class UploadBinaryResponseData
     {
         /// <summary>
-        /// 送信結果
+        /// アップロードされたファイルのGUID
         /// </summary>
-        [JsonPropertyName("Data")]
-        public object? Data { get; set; }
+        [JsonPropertyName("Guid")]
+        public string? Guid { get; set; }
     }
 }

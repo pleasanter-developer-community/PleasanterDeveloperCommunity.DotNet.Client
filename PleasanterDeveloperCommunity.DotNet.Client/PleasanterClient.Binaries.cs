@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {

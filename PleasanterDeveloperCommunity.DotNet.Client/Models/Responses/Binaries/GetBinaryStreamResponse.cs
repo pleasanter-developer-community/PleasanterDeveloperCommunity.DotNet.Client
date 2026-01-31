@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+﻿using System.Text.Json.Serialization;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries
 {
     /// <summary>
     /// バイナリストリーム取得レスポンス
@@ -51,41 +48,5 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
         /// </summary>
         [JsonPropertyName("FileName")]
         public string? FileName { get; set; }
-    }
-
-    /// <summary>
-    /// バイナリアップロードレスポンス
-    /// </summary>
-    public class UploadBinaryResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
-
-        /// <summary>
-        /// レスポンスデータ
-        /// </summary>
-        [JsonPropertyName("Response")]
-        public UploadBinaryResponseData? Response { get; set; }
-    }
-
-    /// <summary>
-    /// バイナリアップロードレスポンスデータ
-    /// </summary>
-    public class UploadBinaryResponseData
-    {
-        /// <summary>
-        /// アップロードされたファイルのGUID
-        /// </summary>
-        [JsonPropertyName("Guid")]
-        public string? Guid { get; set; }
     }
 }

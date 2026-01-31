@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Groups;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {
@@ -184,7 +185,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportGroupsAsync(
+        public async Task<ApiResponse<ImportGroupsResponse>> ImportGroupsAsync(
             byte[] csvData,
             string fileName,
             Encoding? encoding = null,
@@ -205,7 +206,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportGroupsAsync(
+        public async Task<ApiResponse<ImportGroupsResponse>> ImportGroupsAsync(
             Stream csvStream,
             string fileName,
             Encoding? encoding = null,
@@ -221,7 +222,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
                 ["Encoding"] = encodingName
             };
 
-            return await SendMultipartRequestAsync<ImportResponse>(
+            return await SendMultipartRequestAsync<ImportGroupsResponse>(
                 "/api/groups/import", csvStream, fileName, parameters, timeout);
         }
 
@@ -235,7 +236,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         /// <remarks>
         /// テナント管理者権限が必要です。
         /// </remarks>
-        public async Task<ApiResponse<ImportResponse>> ImportGroupsFromFileAsync(
+        public async Task<ApiResponse<ImportGroupsResponse>> ImportGroupsFromFileAsync(
             string filePath,
             Encoding? encoding = null,
             TimeSpan? timeout = null)

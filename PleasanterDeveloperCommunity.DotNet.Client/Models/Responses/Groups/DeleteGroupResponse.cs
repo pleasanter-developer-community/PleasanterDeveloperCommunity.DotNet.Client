@@ -1,14 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups
 {
     /// <summary>
-    /// デモ登録レスポンス
+    /// グループ削除レスポンス
     /// </summary>
-    public class RegisterDemoResponse
+    public class DeleteGroupResponse
     {
         [JsonPropertyName("Id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("StatusCode")]
         public int StatusCode { get; set; }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sessions
 {
     /// <summary>
     /// セッション取得レスポンス
@@ -57,41 +55,5 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
         /// </summary>
         [JsonPropertyName("Value")]
         public string? Value { get; set; }
-    }
-
-    /// <summary>
-    /// セッション設定レスポンス
-    /// </summary>
-    public class SetSessionResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
-    }
-
-    /// <summary>
-    /// セッション削除レスポンス
-    /// </summary>
-    public class DeleteSessionResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
     }
 }

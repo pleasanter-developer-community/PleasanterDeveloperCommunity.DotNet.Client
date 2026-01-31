@@ -6,6 +6,7 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {

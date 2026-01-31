@@ -5,6 +5,7 @@ using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {

@@ -1,14 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups
 {
     /// <summary>
-    /// 検索インデックス再構築レスポンス
+    /// グループインポートレスポンス
     /// </summary>
-    public class RebuildSearchIndexesResponse
+    public class ImportGroupsResponse
     {
         [JsonPropertyName("Id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("StatusCode")]
         public int StatusCode { get; set; }

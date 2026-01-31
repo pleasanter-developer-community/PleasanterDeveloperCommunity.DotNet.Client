@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Extensions
 {
     /// <summary>
     /// 拡張機能取得レスポンス
@@ -105,71 +104,5 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
         /// </summary>
         [JsonPropertyName("UpdatedTime")]
         public DateTime UpdatedTime { get; set; }
-    }
-
-    /// <summary>
-    /// 拡張機能作成レスポンス
-    /// </summary>
-    public class CreateExtensionResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
-
-        /// <summary>
-        /// 作成された拡張機能ID
-        /// </summary>
-        [JsonPropertyName("Id")]
-        public long Id { get; set; }
-    }
-
-    /// <summary>
-    /// 拡張機能更新レスポンス
-    /// </summary>
-    public class UpdateExtensionResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
-
-        /// <summary>
-        /// 更新された拡張機能ID
-        /// </summary>
-        [JsonPropertyName("Id")]
-        public long Id { get; set; }
-    }
-
-    /// <summary>
-    /// 拡張機能削除レスポンス
-    /// </summary>
-    public class DeleteExtensionResponse
-    {
-        /// <summary>
-        /// ステータスコード
-        /// </summary>
-        [JsonPropertyName("StatusCode")]
-        public int StatusCode { get; set; }
-
-        /// <summary>
-        /// メッセージ
-        /// </summary>
-        [JsonPropertyName("Message")]
-        public string? Message { get; set; }
     }
 }

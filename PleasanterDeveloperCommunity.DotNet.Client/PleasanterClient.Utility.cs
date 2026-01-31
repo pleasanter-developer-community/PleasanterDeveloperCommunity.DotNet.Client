@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Utility;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Utility;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client
 {
