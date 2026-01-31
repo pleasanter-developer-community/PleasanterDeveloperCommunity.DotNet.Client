@@ -5,6 +5,7 @@
 - プリザンター 1.3.13.0以降
   - 使用されている.NETスタックがサポート期間中であるバージョンの仕様を推奨
   - .NET Framework版は非対応
+  - このクライアントは**プリザンター 1.5.0.0 のソースコードを参考に実装**
 - プリザンター ApiVersion 1.1以降
   - Api.jsonの設定で1.0を指定した場合でも1.1以降のバージョンを強制指定
 - .NET Standard 2.1対応環境（.NET Core 3.0以降、.NET 5以降、Xamarinなど）
@@ -291,7 +292,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | # | カテゴリ | コントローラー | API数 | 対応 | 未対応 |
 |:-:|:---------|:---------------|:-----:|:----:|:------:|
 | 01 | テーブル操作 | ItemsController | 9 | 9 | 0 |
-| 02 | サイト操作 | ItemsController | 7 | 7 | 0 |
+| 02 | サイト操作 | ItemsController | 8 | 8 | 0 |
 | 03 | ユーザ操作 | UsersController | 5 | 5 | 0 |
 | 04 | グループ操作 | GroupsController | 5 | 5 | 0 |
 | 05 | 組織操作 | DeptsController | 5 | 5 | 0 |
@@ -303,7 +304,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 11 | ユーティリティ | UtilityController | 1 | 1 | 0 |
 | 12 | バックグラウンドタスク | BackgroundTasksController | 2 | 2 | 0 |
 | 13 | デモ | DemoController | 1 | 1 | 0 |
-| | **合計** | | **48** | **48** | **0** |
+| | **合計** | | **49** | **49** | **0** |
 
 ### 01. テーブル操作
 
