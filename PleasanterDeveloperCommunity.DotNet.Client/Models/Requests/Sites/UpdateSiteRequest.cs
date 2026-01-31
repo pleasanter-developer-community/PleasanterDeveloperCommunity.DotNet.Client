@@ -1,4 +1,4 @@
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites

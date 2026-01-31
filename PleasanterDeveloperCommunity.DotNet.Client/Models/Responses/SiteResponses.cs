@@ -234,4 +234,64 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses
         [JsonPropertyName("Title")]
         public string? Title { get; set; }
     }
+
+    /// <summary>
+    /// サイト削除レスポンス
+    /// </summary>
+    public class DeleteSiteResponse
+    {
+        [JsonPropertyName("Id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("StatusCode")]
+        public int StatusCode { get; set; }
+
+        [JsonPropertyName("Message")]
+        public string? Message { get; set; }
+    }
+
+    /// <summary>
+    /// サマリ同期レスポンス
+    /// </summary>
+    public class SynchronizeSummariesResponse
+    {
+        [JsonPropertyName("Id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("StatusCode")]
+        public int StatusCode { get; set; }
+
+        [JsonPropertyName("Message")]
+        public string? Message { get; set; }
+    }
+
+    /// <summary>
+    /// サイト設定更新レスポンス
+    /// </summary>
+    public class UpdateSiteSettingsResponse
+    {
+        [JsonPropertyName("Id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("StatusCode")]
+        public int StatusCode { get; set; }
+
+        [JsonPropertyName("Message")]
+        public string? Message { get; set; }
+    }
+
+    /// <summary>
+    /// 検索インデックス再構築レスポンス
+    /// </summary>
+    public class RebuildSearchIndexesResponse
+    {
+        [JsonPropertyName("Id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("StatusCode")]
+        public int StatusCode { get; set; }
+
+        [JsonPropertyName("Message")]
+        public string? Message { get; set; }
+    }
 }

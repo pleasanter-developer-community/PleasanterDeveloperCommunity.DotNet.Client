@@ -282,9 +282,9 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 ## 対応API
 
-これらの表の対応Verはプリザンターのバージョンを示します。対応Verに記載ありのものがクライエントライブラリに実装済みです。
+これらの表の対応Verはプリザンターのバージョンを示します。
 
-> **Note:** 各APIの詳細については、[プリザンター公式マニュアル](https://pleasanter.org/ja/manual)を参照してください。
+> **Note:** 各APIの詳細については、[プリザンター公式マニュアル](https://pleasanter.org/ja/manual)を参照してください。APIの洗い出しは[ソースコード](https://github.com/Implem/Implem.Pleasanter)からおこなっているためマニュアルにないものも網羅しています。マニュアルに存在しないものはコードを参照してください。
 
 ### 01.テーブル操作
 

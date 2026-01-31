@@ -209,5 +209,148 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         }
 
         #endregion
+
+        #region Delete Site
+
+        /// <summary>
+        /// サイトを削除します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
+            long siteId,
+            DeleteSiteRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<DeleteSiteResponse>(
+                $"/api/items/{siteId}/deletesite", request, timeout);
+        }
+
+        /// <summary>
+        /// サイトを削除します
+        /// </summary>
+        public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
+            long siteId,
+            TimeSpan? timeout = null)
+        {
+            var request = new DeleteSiteRequest();
+            return await DeleteSiteAsync(siteId, request, timeout);
+        }
+
+        #endregion
+
+        #region Synchronize Summaries
+
+        /// <summary>
+        /// サマリを同期します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
+            long siteId,
+            SynchronizeSummariesRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<SynchronizeSummariesResponse>(
+                $"/api/items/{siteId}/synchronizesummaries", request, timeout);
+        }
+
+        /// <summary>
+        /// サマリを同期します
+        /// </summary>
+        public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
+            long siteId,
+            TimeSpan? timeout = null)
+        {
+            var request = new SynchronizeSummariesRequest();
+            return await SynchronizeSummariesAsync(siteId, request, timeout);
+        }
+
+        #endregion
+
+        #region Update Site Settings
+
+        /// <summary>
+        /// サイト設定を更新します（部分追加/更新/削除）（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
+            long siteId,
+            UpdateSiteSettingsRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<UpdateSiteSettingsResponse>(
+                $"/api/items/{siteId}/updatesitesettings", request, timeout);
+        }
+
+        /// <summary>
+        /// サイト設定を更新します（部分追加/更新/削除）
+        /// </summary>
+        public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
+            long siteId,
+            SiteSettings? siteSettings = null,
+            TimeSpan? timeout = null)
+        {
+            var request = new UpdateSiteSettingsRequest
+            {
+                SiteSettings = siteSettings
+            };
+            return await UpdateSiteSettingsAsync(siteId, request, timeout);
+        }
+
+        #endregion
+
+        #region Rebuild Search Indexes
+
+        /// <summary>
+        /// 検索インデックスを再構築します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
+            long siteId,
+            RebuildSearchIndexesRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<RebuildSearchIndexesResponse>(
+                $"/api/items/{siteId}/rebuildsearchindexes", request, timeout);
+        }
+
+        /// <summary>
+        /// 検索インデックスを再構築します
+        /// </summary>
+        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
+            long siteId,
+            TimeSpan? timeout = null)
+        {
+            var request = new RebuildSearchIndexesRequest();
+            return await RebuildSearchIndexesAsync(siteId, request, timeout);
+        }
+
+        /// <summary>
+        /// 全サイトの検索インデックスを再構築します（リクエストモデル版）
+        /// </summary>
+        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
+            RebuildSearchIndexesRequest request,
+            TimeSpan? timeout = null)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            SetApiCredentials(request);
+            return await SendRequestAsync<RebuildSearchIndexesResponse>(
+                "/api/backgroundtasks/rebuildsearchindexes", request, timeout);
+        }
+
+        /// <summary>
+        /// 全サイトの検索インデックスを再構築します
+        /// </summary>
+        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
+            TimeSpan? timeout = null)
+        {
+            var request = new RebuildSearchIndexesRequest();
+            return await RebuildSearchIndexesAsync(request, timeout);
+        }
+
+        #endregion
     }
 }

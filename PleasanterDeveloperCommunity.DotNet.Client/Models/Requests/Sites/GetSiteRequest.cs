@@ -1,4 +1,4 @@
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites
 {
     /// <summary>
     /// サイト取得リクエスト
