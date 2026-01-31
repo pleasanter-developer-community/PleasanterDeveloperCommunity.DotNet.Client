@@ -297,13 +297,13 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 05 | 組織操作 | DeptsController | 5 | 5 | 0 |
 | 06 | セッション操作 | SessionsController | 3 | 3 | 0 |
 | 07 | メール操作 | OutgoingMailsController | 1 | 1 | 0 |
-| 08 | バイナリ操作 | BinariesController | 3 | 3 | 0 |
+| 08 | バイナリ操作 | BinariesController | 4 | 4 | 0 |
 | 09 | 拡張SQL | ExtendedController | 1 | 1 | 0 |
 | 10 | 拡張機能操作 | ExtensionsController | 4 | 4 | 0 |
 | 11 | ユーティリティ | UtilityController | 1 | 1 | 0 |
 | 12 | バックグラウンドタスク | BackgroundTasksController | 2 | 2 | 0 |
 | 13 | デモ | DemoController | 1 | 1 | 0 |
-| | **合計** | | **47** | **47** | **0** |
+| | **合計** | | **48** | **48** | **0** |
 
 ### 01. テーブル操作
 
@@ -398,7 +398,8 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 |:-:|:---------------|:-----|:-----|:----:|
 | 1 | `/api/binaries/{guid}/get` | 取得 | 添付ファイル情報をBase64形式で取得 | ✓ |
 | 2 | `/api/binaries/{guid}/getstream` | ストリーム取得 | 添付ファイルをストリームとして取得 | ✓ |
-| 3 | `/api/binaries/{siteId}/upload` | アップロード | ファイルをアップロード | ✓ |
+| 3 | `/api/binaries/{siteId}/upload` | アップロード | ファイルをアップロード（Base64） | ✓ |
+| 4 | `/api/binaries/upload` | ストリームアップロード | ファイルをストリームでアップロード（Bearer認証） | ✓ |
 
 ### 09. 拡張SQL
 

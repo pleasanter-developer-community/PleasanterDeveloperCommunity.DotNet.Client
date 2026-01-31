@@ -165,6 +165,108 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
             }
         }
 
+        /// <summary>
+        /// Bearer認証を使用してマルチパートフォームデータでファイルをアップロードします
+        /// </summary>
+        private async Task<ApiResponse<T>> SendMultipartWithBearerAsync<T>(
+            string endpoint,
+            Stream fileStream,
+            string fileName,
+            string? contentType,
+            long? rangeFrom,
+            long? rangeTo,
+            long? rangeTotal,
+            string? fileHash,
+            TimeSpan? timeout)
+        {
+            var requestId = Guid.NewGuid().ToString();
+            var url = _baseUrl + endpoint;
+
+            // デバッグログ（リクエスト）
+            LogRequest(requestId, url, $"[Multipart Upload] FileName: {fileName}, ContentType: {contentType}");
+
+            try
+            {
+                using var cts = timeout.HasValue
+                    ? new CancellationTokenSource(timeout.Value)
+                    : new CancellationTokenSource();
+
+                using var content = new MultipartFormDataContent();
+
+                var streamContent = new StreamContent(fileStream);
+                if (!string.IsNullOrEmpty(contentType))
+                {
+                    streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+                }
+
+                // Content-Rangeヘッダー（分割アップロード用）
+                if (rangeFrom.HasValue && rangeTo.HasValue && rangeTotal.HasValue)
+                {
+                    streamContent.Headers.Add("Content-Range", $"bytes {rangeFrom.Value}-{rangeTo.Value}/{rangeTotal.Value}");
+                }
+
+                content.Add(streamContent, "file", fileName);
+
+                // ファイルハッシュ（整合性検証用）
+                if (!string.IsNullOrEmpty(fileHash))
+                {
+                    content.Add(new StringContent(fileHash), "FileHash");
+                }
+
+                using var request = new HttpRequestMessage(HttpMethod.Post, url)
+                {
+                    Content = content
+                };
+
+                // Bearer認証ヘッダーを追加
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+
+                using var response = await _httpClient.SendAsync(request, cts.Token);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                // デバッグログ（レスポンス）
+                LogResponse(requestId, url, (int)response.StatusCode, responseContent);
+
+                var apiResponse = new ApiResponse<T>
+                {
+                    StatusCode = response.StatusCode
+                };
+
+                if (!string.IsNullOrEmpty(responseContent))
+                {
+                    try
+                    {
+                        using var doc = JsonDocument.Parse(responseContent);
+                        var root = doc.RootElement;
+
+                        if (root.TryGetProperty("Message", out var messageElement))
+                            apiResponse.Message = messageElement.GetString();
+
+                        if (root.TryGetProperty("Response", out var responseElement))
+                        {
+                            apiResponse.Response = JsonSerializer.Deserialize<T>(
+                                responseElement.GetRawText(), JsonOptions);
+                        }
+                        else
+                        {
+                            apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
+                        }
+                    }
+                    catch (JsonException)
+                    {
+                        apiResponse.Message = responseContent;
+                    }
+                }
+
+                return apiResponse;
+            }
+            catch (Exception ex)
+            {
+                LogException(requestId, url, ex);
+                throw;
+            }
+        }
+
         private static Encoding DetectFileEncoding(string filePath)
         {
             var bytes = File.ReadAllBytes(filePath);
