@@ -291,19 +291,19 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | # | カテゴリ | コントローラー | API数 | 対応 | 未対応 |
 |:-:|:---------|:---------------|:-----:|:----:|:------:|
 | 01 | テーブル操作 | ItemsController | 9 | 9 | 0 |
-| 02 | サイト操作 | ItemsController | 8 | 8 | 0 |
-| 03 | ユーザ操作 | UsersController | 5 | 4 | 1 |
-| 04 | グループ操作 | GroupsController | 5 | 4 | 1 |
-| 05 | 組織操作 | DeptsController | 5 | 4 | 1 |
+| 02 | サイト操作 | ItemsController | 7 | 7 | 0 |
+| 03 | ユーザ操作 | UsersController | 5 | 5 | 0 |
+| 04 | グループ操作 | GroupsController | 5 | 5 | 0 |
+| 05 | 組織操作 | DeptsController | 5 | 5 | 0 |
 | 06 | セッション操作 | SessionsController | 3 | 3 | 0 |
 | 07 | メール操作 | OutgoingMailsController | 1 | 1 | 0 |
 | 08 | バイナリ操作 | BinariesController | 3 | 3 | 0 |
 | 09 | 拡張SQL | ExtendedController | 1 | 1 | 0 |
 | 10 | 拡張機能操作 | ExtensionsController | 4 | 4 | 0 |
 | 11 | ユーティリティ | UtilityController | 1 | 1 | 0 |
-| 12 | バックグラウンドタスク | BackgroundTasksController | 1 | 1 | 0 |
-| 13 | デモ | DemoController | 1 | 0 | 1 |
-| | **合計** | | **47** | **43** | **4** |
+| 12 | バックグラウンドタスク | BackgroundTasksController | 2 | 2 | 0 |
+| 13 | デモ | DemoController | 1 | 1 | 0 |
+| | **合計** | | **47** | **47** | **0** |
 
 ### 01. テーブル操作
 
@@ -335,7 +335,6 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 6 | `/api/items/{id}/synchronizesummaries` | 集計同期 | 集計を同期 | ✓ |
 | 7 | `/api/items/{id}/updatesitesettings` | サイト設定更新 | サイト設定を部分更新 | ✓ |
 | 8 | `/api/items/{id}/getclosestsiteid` | サイトID取得 | サイト名検索で最も近いサイトIDを取得 | ✓ |
-| 9 | `/api/backgroundtasks/{id}/rebuildsearchindexes` | 検索インデックス再構築 | 検索インデックスを再構築 | ✓ |
 
 ### 03. ユーザ操作
 
@@ -347,7 +346,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 2 | `/api/users/create` | 作成 | 新しいユーザを作成 | ✓ |
 | 3 | `/api/users/{id}/update` | 更新 | ユーザ情報を更新 | ✓ |
 | 4 | `/api/users/{id}/delete` | 削除 | ユーザを削除 | ✓ |
-| 5 | `/api/users/import` | インポート | ユーザをCSVインポート | |
+| 5 | `/api/users/import` | インポート | ユーザをCSVインポート | ✓ |
 
 ### 04. グループ操作
 
@@ -359,7 +358,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 2 | `/api/groups/create` | 作成 | 新しいグループを作成 | ✓ |
 | 3 | `/api/groups/{id}/update` | 更新 | グループ情報を更新 | ✓ |
 | 4 | `/api/groups/{id}/delete` | 削除 | グループを削除 | ✓ |
-| 5 | `/api/groups/import` | インポート | グループをCSVインポート | |
+| 5 | `/api/groups/import` | インポート | グループをCSVインポート | ✓ |
 
 ### 05. 組織操作
 
@@ -371,7 +370,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 | 2 | `/api/depts/create` | 作成 | 新しい組織を作成 | ✓ |
 | 3 | `/api/depts/{id}/update` | 更新 | 組織情報を更新 | ✓ |
 | 4 | `/api/depts/{id}/delete` | 削除 | 組織を削除 | ✓ |
-| 5 | `/api/depts/import` | インポート | 組織をCSVインポート | |
+| 5 | `/api/depts/import` | インポート | 組織をCSVインポート | ✓ |
 
 ### 06. セッション操作
 
@@ -435,12 +434,11 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 `Route: api/backgroundtasks`
 
 > **注意:** この機能には `BackgroundTask.Enabled` パラメータの有効化が必要です。
-> 
-> ※ クライアントライブラリでは「02. サイト操作」に含めて実装しています。
 
 | # | エンドポイント | 操作 | 説明 | 対応 |
 |:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/backgroundtasks/rebuildsearchindexes`<br>`/api/backgroundtasks/{id}/rebuildsearchindexes` | 検索インデックス再構築 | 検索インデックスを再構築 | ✓ |
+| 1 | `/api/backgroundtasks/rebuildsearchindexes` | 全サイト検索インデックス再構築 | 全サイトの検索インデックスを再構築 | ✓ |
+| 2 | `/api/backgroundtasks/{id}/rebuildsearchindexes` | 検索インデックス再構築 | 特定サイトの検索インデックスを再構築 | ✓ |
 
 ### 13. デモ
 
@@ -450,7 +448,7 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 | # | エンドポイント | 操作 | 説明 | 対応 |
 |:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/demo/register` | 登録 | デモ環境を登録 | |
+| 1 | `/api/demo/register` | 登録 | デモ環境を登録 | ✓ |
 
 ## Thanks
 

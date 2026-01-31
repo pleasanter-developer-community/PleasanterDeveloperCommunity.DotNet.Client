@@ -300,57 +300,5 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         }
 
         #endregion
-
-        #region Rebuild Search Indexes
-
-        /// <summary>
-        /// 検索インデックスを再構築します（リクエストモデル版）
-        /// </summary>
-        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-            long siteId,
-            RebuildSearchIndexesRequest request,
-            TimeSpan? timeout = null)
-        {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-            SetApiCredentials(request);
-            return await SendRequestAsync<RebuildSearchIndexesResponse>(
-                $"/api/items/{siteId}/rebuildsearchindexes", request, timeout);
-        }
-
-        /// <summary>
-        /// 検索インデックスを再構築します
-        /// </summary>
-        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-            long siteId,
-            TimeSpan? timeout = null)
-        {
-            var request = new RebuildSearchIndexesRequest();
-            return await RebuildSearchIndexesAsync(siteId, request, timeout);
-        }
-
-        /// <summary>
-        /// 全サイトの検索インデックスを再構築します（リクエストモデル版）
-        /// </summary>
-        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-            RebuildSearchIndexesRequest request,
-            TimeSpan? timeout = null)
-        {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-            SetApiCredentials(request);
-            return await SendRequestAsync<RebuildSearchIndexesResponse>(
-                "/api/backgroundtasks/rebuildsearchindexes", request, timeout);
-        }
-
-        /// <summary>
-        /// 全サイトの検索インデックスを再構築します
-        /// </summary>
-        public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-            TimeSpan? timeout = null)
-        {
-            var request = new RebuildSearchIndexesRequest();
-            return await RebuildSearchIndexesAsync(request, timeout);
-        }
-
-        #endregion
     }
 }

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Users;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -163,6 +167,84 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
         {
             var request = new DeleteUserRequest();
             return await DeleteUserAsync(userId, request, timeout);
+        }
+
+        #endregion
+
+        #region ImportUsers (ユーザインポート)
+
+        /// <summary>
+        /// CSVデータからユーザをインポートします（byte[]版）
+        /// </summary>
+        /// <param name="csvData">CSVデータ</param>
+        /// <param name="fileName">ファイル名</param>
+        /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
+        /// <param name="timeout">タイムアウト</param>
+        /// <returns>インポートレスポンス</returns>
+        /// <remarks>
+        /// テナント管理者権限が必要です。
+        /// </remarks>
+        public async Task<ApiResponse<ImportResponse>> ImportUsersAsync(
+            byte[] csvData,
+            string fileName,
+            Encoding? encoding = null,
+            TimeSpan? timeout = null)
+        {
+            using var stream = new MemoryStream(csvData);
+            return await ImportUsersAsync(stream, fileName, encoding, timeout);
+        }
+
+        /// <summary>
+        /// CSVデータからユーザをインポートします（Stream版）
+        /// </summary>
+        /// <param name="csvStream">CSVストリーム</param>
+        /// <param name="fileName">ファイル名</param>
+        /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
+        /// <param name="timeout">タイムアウト</param>
+        /// <returns>インポートレスポンス</returns>
+        /// <remarks>
+        /// テナント管理者権限が必要です。
+        /// </remarks>
+        public async Task<ApiResponse<ImportResponse>> ImportUsersAsync(
+            Stream csvStream,
+            string fileName,
+            Encoding? encoding = null,
+            TimeSpan? timeout = null)
+        {
+            var enc = encoding ?? Encoding.UTF8;
+            var encodingName = enc.WebName == "utf-8" ? "utf-8" : "shift-jis";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["ApiVersion"] = _apiVersion.ToString("F1", CultureInfo.InvariantCulture),
+                ["ApiKey"] = _apiKey,
+                ["Encoding"] = encodingName
+            };
+
+            return await SendMultipartRequestAsync<ImportResponse>(
+                "/api/users/import", csvStream, fileName, parameters, timeout);
+        }
+
+        /// <summary>
+        /// ファイルパスを指定してユーザをインポートします
+        /// </summary>
+        /// <param name="filePath">ファイルパス</param>
+        /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
+        /// <param name="timeout">タイムアウト</param>
+        /// <returns>インポートレスポンス</returns>
+        /// <remarks>
+        /// テナント管理者権限が必要です。
+        /// </remarks>
+        public async Task<ApiResponse<ImportResponse>> ImportUsersFromFileAsync(
+            string filePath,
+            Encoding? encoding = null,
+            TimeSpan? timeout = null)
+        {
+            var detectedEncoding = encoding ?? DetectFileEncoding(filePath);
+            var fileName = Path.GetFileName(filePath);
+            var csvData = File.ReadAllBytes(filePath);
+
+            return await ImportUsersAsync(csvData, fileName, detectedEncoding, timeout);
         }
 
         #endregion
