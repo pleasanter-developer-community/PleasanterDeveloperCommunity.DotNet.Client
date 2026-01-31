@@ -2,59 +2,58 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
+
+/// <summary>
+/// 組織取得レスポンス
+/// </summary>
+public class GetDeptsResponse
 {
-    /// <summary>
-    /// 組織取得レスポンス
-    /// </summary>
-    public class GetDeptsResponse
-    {
-        [JsonPropertyName("Data")]
-        public List<DeptData>? Data { get; set; }
+    [JsonPropertyName("Data")]
+    public List<DeptData>? Data { get; set; }
 
-        [JsonPropertyName("TotalCount")]
-        public int TotalCount { get; set; }
-    }
+    [JsonPropertyName("TotalCount")]
+    public int TotalCount { get; set; }
+}
 
-    /// <summary>
-    /// 組織データ
-    /// </summary>
-    public class DeptData
-    {
-        [JsonPropertyName("TenantId")]
-        public int TenantId { get; set; }
+/// <summary>
+/// 組織データ
+/// </summary>
+public class DeptData
+{
+    [JsonPropertyName("TenantId")]
+    public int TenantId { get; set; }
 
-        [JsonPropertyName("DeptId")]
-        public int DeptId { get; set; }
+    [JsonPropertyName("DeptId")]
+    public int DeptId { get; set; }
 
-        [JsonPropertyName("Ver")]
-        public int Ver { get; set; }
+    [JsonPropertyName("Ver")]
+    public int Ver { get; set; }
 
-        [JsonPropertyName("DeptCode")]
-        public string? DeptCode { get; set; }
+    [JsonPropertyName("DeptCode")]
+    public string? DeptCode { get; set; }
 
-        [JsonPropertyName("DeptName")]
-        public string? DeptName { get; set; }
+    [JsonPropertyName("DeptName")]
+    public string? DeptName { get; set; }
 
-        [JsonPropertyName("Body")]
-        public string? Body { get; set; }
+    [JsonPropertyName("Body")]
+    public string? Body { get; set; }
 
-        [JsonPropertyName("Disabled")]
-        public bool Disabled { get; set; }
+    [JsonPropertyName("Disabled")]
+    public bool Disabled { get; set; }
 
-        [JsonPropertyName("Comments")]
-        public string? Comments { get; set; }
+    [JsonPropertyName("Comments")]
+    public string? Comments { get; set; }
 
-        [JsonPropertyName("Creator")]
-        public int Creator { get; set; }
+    [JsonPropertyName("Creator")]
+    public int Creator { get; set; }
 
-        [JsonPropertyName("Updator")]
-        public int Updator { get; set; }
+    [JsonPropertyName("Updator")]
+    public int Updator { get; set; }
 
-        [JsonPropertyName("CreatedTime")]
-        public DateTime? CreatedTime { get; set; }
+    [JsonPropertyName("CreatedTime")]
+    public DateTime? CreatedTime { get; set; }
 
-        [JsonPropertyName("UpdatedTime")]
-        public DateTime? UpdatedTime { get; set; }
-    }
+    [JsonPropertyName("UpdatedTime")]
+    public DateTime? UpdatedTime { get; set; }
 }
