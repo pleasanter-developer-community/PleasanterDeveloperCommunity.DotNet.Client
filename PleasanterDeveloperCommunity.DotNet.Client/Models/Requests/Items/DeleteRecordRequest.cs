@@ -1,9 +1,8 @@
-﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+
+/// <summary>
+/// レコード削除リクエスト
+/// </summary>
+public class DeleteRecordRequest : ApiRequestBase
 {
-    /// <summary>
-    /// レコード削除リクエスト
-    /// </summary>
-    public class DeleteRecordRequest : ApiRequestBase
-    {
-    }
 }

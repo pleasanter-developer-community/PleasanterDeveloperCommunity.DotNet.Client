@@ -1,45 +1,43 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extended;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
-namespace PleasanterDeveloperCommunity.DotNet.Client
+namespace PleasanterDeveloperCommunity.DotNet.Client;
+/// <summary>
+/// PleasanterClient - 拡張SQL API
+/// </summary>
+public partial class PleasanterClient
 {
     /// <summary>
-    /// PleasanterClient - 拡張SQL API
+    /// 拡張SQLを実行します（リクエストモデル版）
     /// </summary>
-    public partial class PleasanterClient
+    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
+        ExtendedSqlRequest request,
+        TimeSpan? timeout = null)
     {
-        /// <summary>
-        /// 拡張SQLを実行します（リクエストモデル版）
-        /// </summary>
-        public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
-            ExtendedSqlRequest request,
-            TimeSpan? timeout = null)
-        {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-            if (string.IsNullOrEmpty(request.Name)) throw new ArgumentException("Name is required", nameof(request));
-            SetApiCredentials(request);
-            return await SendRequestAsync<ExtendedSqlResponse>(
-                "/api/extended/sql", request, timeout);
-        }
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrEmpty(request.Name)) throw new ArgumentException("Name is required", nameof(request));
+        SetApiCredentials(request);
+        return await SendRequestAsync<ExtendedSqlResponse>(
+            "/api/extended/sql", request, timeout);
+    }
 
-        /// <summary>
-        /// 拡張SQLを実行します
-        /// </summary>
-        public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
-            string name,
-            Dictionary<string, object>? parameters = null,
-            TimeSpan? timeout = null)
+    /// <summary>
+    /// 拡張SQLを実行します
+    /// </summary>
+    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
+        string name,
+        Dictionary<string, object>? parameters = null,
+        TimeSpan? timeout = null)
+    {
+        var request = new ExtendedSqlRequest
         {
-            var request = new ExtendedSqlRequest
-            {
-                Name = name ?? throw new ArgumentNullException(nameof(name)),
-                AdditionalParameters = parameters
-            };
-            return await ExecuteExtendedSqlAsync(request, timeout);
-        }
+            Name = name ?? throw new ArgumentNullException(nameof(name)),
+            AdditionalParameters = parameters
+        };
+        return await ExecuteExtendedSqlAsync(request, timeout);
     }
 }
