@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Groups;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -21,15 +22,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ取得レスポンス</returns>
     public async Task<ApiResponse<GetGroupsResponse>> GetGroupsAsync(
         GetGroupsRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<GetGroupsResponse>(
-            "/api/groups/get", request, timeout);
+            "/api/groups/get", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -37,16 +40,18 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="offset">取得開始位置</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ取得レスポンス</returns>
     public async Task<ApiResponse<GetGroupsResponse>> GetGroupsAsync(
         int? offset = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new GetGroupsRequest
         {
             Offset = offset
         };
-        return await GetGroupsAsync(request, timeout);
+        return await GetGroupsAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -58,15 +63,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ作成レスポンス</returns>
     public async Task<ApiResponse<CreateGroupResponse>> CreateGroupAsync(
         CreateGroupRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<CreateGroupResponse>(
-            "/api/groups/create", request, timeout);
+            "/api/groups/create", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -75,18 +82,20 @@ public partial class PleasanterClient
     /// <param name="groupName">グループ名</param>
     /// <param name="body">内容</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ作成レスポンス</returns>
     public async Task<ApiResponse<CreateGroupResponse>> CreateGroupAsync(
         string groupName,
         string? body = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new CreateGroupRequest
         {
             GroupName = groupName ?? throw new ArgumentNullException(nameof(groupName)),
             Body = body
         };
-        return await CreateGroupAsync(request, timeout);
+        return await CreateGroupAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -99,16 +108,18 @@ public partial class PleasanterClient
     /// <param name="groupId">グループID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ更新レスポンス</returns>
     public async Task<ApiResponse<UpdateGroupResponse>> UpdateGroupAsync(
         long groupId,
         UpdateGroupRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateGroupResponse>(
-            $"/api/groups/{groupId}/update", request, timeout);
+            $"/api/groups/{groupId}/update", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -118,19 +129,21 @@ public partial class PleasanterClient
     /// <param name="groupName">グループ名</param>
     /// <param name="body">内容</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ更新レスポンス</returns>
     public async Task<ApiResponse<UpdateGroupResponse>> UpdateGroupAsync(
         long groupId,
         string? groupName = null,
         string? body = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new UpdateGroupRequest
         {
             GroupName = groupName,
             Body = body
         };
-        return await UpdateGroupAsync(groupId, request, timeout);
+        return await UpdateGroupAsync(groupId, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -143,16 +156,18 @@ public partial class PleasanterClient
     /// <param name="groupId">グループID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ削除レスポンス</returns>
     public async Task<ApiResponse<DeleteGroupResponse>> DeleteGroupAsync(
         long groupId,
         DeleteGroupRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteGroupResponse>(
-            $"/api/groups/{groupId}/delete", request, timeout);
+            $"/api/groups/{groupId}/delete", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -160,13 +175,15 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="groupId">グループID</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>グループ削除レスポンス</returns>
     public async Task<ApiResponse<DeleteGroupResponse>> DeleteGroupAsync(
         long groupId,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new DeleteGroupRequest();
-        return await DeleteGroupAsync(groupId, request, timeout);
+        return await DeleteGroupAsync(groupId, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -180,6 +197,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -188,10 +206,11 @@ public partial class PleasanterClient
         byte[] csvData,
         string fileName,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         using var stream = new MemoryStream(csvData);
-        return await ImportGroupsAsync(stream, fileName, encoding, timeout);
+        return await ImportGroupsAsync(stream, fileName, encoding, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -201,6 +220,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -209,7 +229,8 @@ public partial class PleasanterClient
         Stream csvStream,
         string fileName,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var enc = encoding ?? Encoding.UTF8;
         var encodingName = enc.WebName == "utf-8" ? "utf-8" : "shift-jis";
@@ -222,7 +243,7 @@ public partial class PleasanterClient
         };
 
         return await SendMultipartRequestAsync<ImportGroupsResponse>(
-            "/api/groups/import", csvStream, fileName, parameters, timeout);
+            "/api/groups/import", csvStream, fileName, parameters, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -231,6 +252,7 @@ public partial class PleasanterClient
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -238,13 +260,14 @@ public partial class PleasanterClient
     public async Task<ApiResponse<ImportGroupsResponse>> ImportGroupsFromFileAsync(
         string filePath,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var detectedEncoding = encoding ?? DetectFileEncoding(filePath);
         var fileName = Path.GetFileName(filePath);
         var csvData = File.ReadAllBytes(filePath);
 
-        return await ImportGroupsAsync(csvData, fileName, detectedEncoding, timeout);
+        return await ImportGroupsAsync(csvData, fileName, detectedEncoding, timeout, cancellationToken);
     }
 
     #endregion

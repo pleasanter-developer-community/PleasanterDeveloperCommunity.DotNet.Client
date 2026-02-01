@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Demo;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -17,18 +18,20 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>デモ登録レスポンス</returns>
     /// <remarks>
     /// この機能を使用するには、サーバー側で Service.DemoApi パラメータが有効になっている必要があります。
     /// </remarks>
     public async Task<ApiResponse<RegisterDemoResponse>> RegisterDemoAsync(
         RegisterDemoRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<RegisterDemoResponse>(
-            "/api/demo/register", request, timeout);
+            "/api/demo/register", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -36,19 +39,21 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="mailAddress">メールアドレス</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>デモ登録レスポンス</returns>
     /// <remarks>
     /// この機能を使用するには、サーバー側で Service.DemoApi パラメータが有効になっている必要があります。
     /// </remarks>
     public async Task<ApiResponse<RegisterDemoResponse>> RegisterDemoAsync(
         string mailAddress,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new RegisterDemoRequest
         {
             MailAddress = mailAddress ?? throw new ArgumentNullException(nameof(mailAddress))
         };
-        return await RegisterDemoAsync(request, timeout);
+        return await RegisterDemoAsync(request, timeout, cancellationToken);
     }
 
     #endregion

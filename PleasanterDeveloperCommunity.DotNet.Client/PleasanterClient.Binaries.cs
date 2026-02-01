@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -20,12 +21,13 @@ public partial class PleasanterClient
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         GetAttachmentRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<AttachmentResponse>(
-            $"/api/binaries/{guid}/get", request, timeout);
+            $"/api/binaries/{guid}/get", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -33,10 +35,11 @@ public partial class PleasanterClient
     /// </summary>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new GetAttachmentRequest();
-        return await GetAttachmentAsync(guid, request, timeout);
+        return await GetAttachmentAsync(guid, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -49,16 +52,18 @@ public partial class PleasanterClient
     /// <param name="guid">GUID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリストリーム取得レスポンス</returns>
     public async Task<ApiResponse<GetBinaryStreamResponse>> GetBinaryStreamAsync(
         string guid,
         GetBinaryStreamRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<GetBinaryStreamResponse>(
-            $"/api/binaries/{guid}/getstream", request, timeout);
+            $"/api/binaries/{guid}/getstream", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -66,13 +71,15 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="guid">GUID</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリストリーム取得レスポンス</returns>
     public async Task<ApiResponse<GetBinaryStreamResponse>> GetBinaryStreamAsync(
         string guid,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new GetBinaryStreamRequest();
-        return await GetBinaryStreamAsync(guid, request, timeout);
+        return await GetBinaryStreamAsync(guid, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -85,16 +92,18 @@ public partial class PleasanterClient
     /// <param name="siteId">サイトID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリアップロードレスポンス</returns>
     public async Task<ApiResponse<UploadBinaryResponse>> UploadBinaryAsync(
         long siteId,
         UploadBinaryRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<UploadBinaryResponse>(
-            $"/api/binaries/{siteId}/upload", request, timeout);
+            $"/api/binaries/{siteId}/upload", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -105,13 +114,15 @@ public partial class PleasanterClient
     /// <param name="base64Data">Base64エンコードされたファイルデータ</param>
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリアップロードレスポンス</returns>
     public async Task<ApiResponse<UploadBinaryResponse>> UploadBinaryAsync(
         long siteId,
         string fileName,
         string base64Data,
         string? contentType = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new UploadBinaryRequest
         {
@@ -119,7 +130,7 @@ public partial class PleasanterClient
             Base64 = base64Data ?? throw new ArgumentNullException(nameof(base64Data)),
             ContentType = contentType
         };
-        return await UploadBinaryAsync(siteId, request, timeout);
+        return await UploadBinaryAsync(siteId, request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -130,17 +141,19 @@ public partial class PleasanterClient
     /// <param name="fileData">ファイルデータ</param>
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリアップロードレスポンス</returns>
     public async Task<ApiResponse<UploadBinaryResponse>> UploadBinaryAsync(
         long siteId,
         string fileName,
         byte[] fileData,
         string? contentType = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (fileData == null) throw new ArgumentNullException(nameof(fileData));
         var base64Data = Convert.ToBase64String(fileData);
-        return await UploadBinaryAsync(siteId, fileName, base64Data, contentType, timeout);
+        return await UploadBinaryAsync(siteId, fileName, base64Data, contentType, timeout, cancellationToken);
     }
 
     #endregion
@@ -155,6 +168,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// このメソッドはBearer認証を使用し、マルチパートフォームデータで直接ファイルをアップロードします。
@@ -165,7 +179,8 @@ public partial class PleasanterClient
         Stream fileStream,
         string fileName,
         string? contentType = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (fileStream == null) throw new ArgumentNullException(nameof(fileStream));
         if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
@@ -179,7 +194,8 @@ public partial class PleasanterClient
             rangeTo: null,
             rangeTotal: null,
             fileHash: null,
-            timeout);
+            timeout,
+            cancellationToken);
     }
 
     /// <summary>
@@ -190,6 +206,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// このメソッドはBearer認証を使用し、マルチパートフォームデータで直接ファイルをアップロードします。
@@ -200,11 +217,12 @@ public partial class PleasanterClient
         byte[] fileData,
         string fileName,
         string? contentType = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (fileData == null) throw new ArgumentNullException(nameof(fileData));
         using var stream = new MemoryStream(fileData);
-        return await UploadBinaryStreamAsync(siteId, stream, fileName, contentType, timeout);
+        return await UploadBinaryStreamAsync(siteId, stream, fileName, contentType, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -214,6 +232,7 @@ public partial class PleasanterClient
     /// <param name="filePath">ファイルパス</param>
     /// <param name="contentType">コンテンツタイプ（省略時は自動判定）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// このメソッドはBearer認証を使用し、マルチパートフォームデータで直接ファイルをアップロードします。
@@ -223,13 +242,14 @@ public partial class PleasanterClient
         long siteId,
         string filePath,
         string? contentType = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
 
         var fileName = Path.GetFileName(filePath);
         using var fileStream = File.OpenRead(filePath);
-        return await UploadBinaryStreamAsync(siteId, fileStream, fileName, contentType, timeout);
+        return await UploadBinaryStreamAsync(siteId, fileStream, fileName, contentType, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -241,6 +261,7 @@ public partial class PleasanterClient
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="overwrite">上書きモード（true: 同じGUIDで上書き、false: 新しいGUIDを生成）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// このメソッドはBearer認証を使用し、マルチパートフォームデータで直接ファイルをアップロードします。
@@ -252,7 +273,8 @@ public partial class PleasanterClient
         string fileName,
         string? contentType = null,
         bool overwrite = false,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(guid)) throw new ArgumentNullException(nameof(guid));
         if (fileStream == null) throw new ArgumentNullException(nameof(fileStream));
@@ -273,7 +295,8 @@ public partial class PleasanterClient
             rangeTo: null,
             rangeTotal: null,
             fileHash: null,
-            timeout);
+            timeout,
+            cancellationToken);
     }
 
     /// <summary>
@@ -285,6 +308,7 @@ public partial class PleasanterClient
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="overwrite">上書きモード（true: 同じGUIDで上書き、false: 新しいGUIDを生成）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     public async Task<ApiResponse<UploadBinaryResponse>> UpdateBinaryStreamAsync(
         string guid,
@@ -292,11 +316,12 @@ public partial class PleasanterClient
         string fileName,
         string? contentType = null,
         bool overwrite = false,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (fileData == null) throw new ArgumentNullException(nameof(fileData));
         using var stream = new MemoryStream(fileData);
-        return await UpdateBinaryStreamAsync(guid, stream, fileName, contentType, overwrite, timeout);
+        return await UpdateBinaryStreamAsync(guid, stream, fileName, contentType, overwrite, timeout, cancellationToken);
     }
 
     #endregion
@@ -315,6 +340,7 @@ public partial class PleasanterClient
     /// <param name="contentType">コンテンツタイプ</param>
     /// <param name="fileHash">ファイルハッシュ（最終チャンク時に検証用）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// 大きなファイルを複数のチャンクに分割してアップロードする場合に使用します。
@@ -329,7 +355,8 @@ public partial class PleasanterClient
         long rangeTotal,
         string? contentType = null,
         string? fileHash = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (chunkData == null) throw new ArgumentNullException(nameof(chunkData));
         if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
@@ -344,7 +371,8 @@ public partial class PleasanterClient
             rangeTo,
             rangeTotal,
             fileHash,
-            timeout);
+            timeout,
+            cancellationToken);
     }
 
     /// <summary>
@@ -360,6 +388,7 @@ public partial class PleasanterClient
     /// <param name="overwrite">上書きモード</param>
     /// <param name="fileHash">ファイルハッシュ（最終チャンク時に検証用）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     /// <remarks>
     /// 既存の添付ファイルを分割アップロードで更新する場合に使用します。
@@ -374,7 +403,8 @@ public partial class PleasanterClient
         string? contentType = null,
         bool overwrite = false,
         string? fileHash = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(guid)) throw new ArgumentNullException(nameof(guid));
         if (chunkData == null) throw new ArgumentNullException(nameof(chunkData));
@@ -396,7 +426,8 @@ public partial class PleasanterClient
             rangeTo,
             rangeTotal,
             fileHash,
-            timeout);
+            timeout,
+            cancellationToken);
     }
 
     #endregion

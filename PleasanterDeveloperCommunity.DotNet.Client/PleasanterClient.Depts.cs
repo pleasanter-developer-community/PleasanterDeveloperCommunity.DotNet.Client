@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Depts;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -21,15 +22,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織取得レスポンス</returns>
     public async Task<ApiResponse<GetDeptsResponse>> GetDeptsAsync(
         GetDeptsRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<GetDeptsResponse>(
-            "/api/depts/get", request, timeout);
+            "/api/depts/get", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -37,16 +40,18 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="offset">取得開始位置</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織取得レスポンス</returns>
     public async Task<ApiResponse<GetDeptsResponse>> GetDeptsAsync(
         int? offset = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new GetDeptsRequest
         {
             Offset = offset
         };
-        return await GetDeptsAsync(request, timeout);
+        return await GetDeptsAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -58,15 +63,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織作成レスポンス</returns>
     public async Task<ApiResponse<CreateDeptResponse>> CreateDeptAsync(
         CreateDeptRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<CreateDeptResponse>(
-            "/api/depts/create", request, timeout);
+            "/api/depts/create", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -76,12 +83,14 @@ public partial class PleasanterClient
     /// <param name="deptName">組織名</param>
     /// <param name="body">内容</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織作成レスポンス</returns>
     public async Task<ApiResponse<CreateDeptResponse>> CreateDeptAsync(
         string deptCode,
         string deptName,
         string? body = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new CreateDeptRequest
         {
@@ -89,7 +98,7 @@ public partial class PleasanterClient
             DeptName = deptName ?? throw new ArgumentNullException(nameof(deptName)),
             Body = body
         };
-        return await CreateDeptAsync(request, timeout);
+        return await CreateDeptAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -102,16 +111,18 @@ public partial class PleasanterClient
     /// <param name="deptId">組織ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織更新レスポンス</returns>
     public async Task<ApiResponse<UpdateDeptResponse>> UpdateDeptAsync(
         long deptId,
         UpdateDeptRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateDeptResponse>(
-            $"/api/depts/{deptId}/update", request, timeout);
+            $"/api/depts/{deptId}/update", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -121,19 +132,21 @@ public partial class PleasanterClient
     /// <param name="deptName">組織名</param>
     /// <param name="body">内容</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織更新レスポンス</returns>
     public async Task<ApiResponse<UpdateDeptResponse>> UpdateDeptAsync(
         long deptId,
         string? deptName = null,
         string? body = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new UpdateDeptRequest
         {
             DeptName = deptName,
             Body = body
         };
-        return await UpdateDeptAsync(deptId, request, timeout);
+        return await UpdateDeptAsync(deptId, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -146,16 +159,18 @@ public partial class PleasanterClient
     /// <param name="deptId">組織ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織削除レスポンス</returns>
     public async Task<ApiResponse<DeleteDeptResponse>> DeleteDeptAsync(
         long deptId,
         DeleteDeptRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteDeptResponse>(
-            $"/api/depts/{deptId}/delete", request, timeout);
+            $"/api/depts/{deptId}/delete", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -163,13 +178,15 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="deptId">組織ID</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>組織削除レスポンス</returns>
     public async Task<ApiResponse<DeleteDeptResponse>> DeleteDeptAsync(
         long deptId,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new DeleteDeptRequest();
-        return await DeleteDeptAsync(deptId, request, timeout);
+        return await DeleteDeptAsync(deptId, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -183,6 +200,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -191,10 +209,11 @@ public partial class PleasanterClient
         byte[] csvData,
         string fileName,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         using var stream = new MemoryStream(csvData);
-        return await ImportDeptsAsync(stream, fileName, encoding, timeout);
+        return await ImportDeptsAsync(stream, fileName, encoding, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -204,6 +223,7 @@ public partial class PleasanterClient
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -212,7 +232,8 @@ public partial class PleasanterClient
         Stream csvStream,
         string fileName,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var enc = encoding ?? Encoding.UTF8;
         var encodingName = enc.WebName == "utf-8" ? "utf-8" : "shift-jis";
@@ -225,7 +246,7 @@ public partial class PleasanterClient
         };
 
         return await SendMultipartRequestAsync<ImportDeptsResponse>(
-            "/api/depts/import", csvStream, fileName, parameters, timeout);
+            "/api/depts/import", csvStream, fileName, parameters, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -234,6 +255,7 @@ public partial class PleasanterClient
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>インポートレスポンス</returns>
     /// <remarks>
     /// テナント管理者権限が必要です。
@@ -241,13 +263,14 @@ public partial class PleasanterClient
     public async Task<ApiResponse<ImportDeptsResponse>> ImportDeptsFromFileAsync(
         string filePath,
         Encoding? encoding = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var detectedEncoding = encoding ?? DetectFileEncoding(filePath);
         var fileName = Path.GetFileName(filePath);
         var csvData = File.ReadAllBytes(filePath);
 
-        return await ImportDeptsAsync(csvData, fileName, detectedEncoding, timeout);
+        return await ImportDeptsAsync(csvData, fileName, detectedEncoding, timeout, cancellationToken);
     }
 
     #endregion

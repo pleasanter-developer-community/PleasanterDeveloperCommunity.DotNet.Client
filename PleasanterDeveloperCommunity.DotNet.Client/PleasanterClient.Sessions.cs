@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sessions;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
@@ -17,15 +18,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション取得レスポンス</returns>
     public async Task<ApiResponse<GetSessionResponse>> GetSessionAsync(
         GetSessionRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<GetSessionResponse>(
-            "/api/sessions/get", request, timeout);
+            "/api/sessions/get", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -33,16 +36,18 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="name">セッション名</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション取得レスポンス</returns>
     public async Task<ApiResponse<GetSessionResponse>> GetSessionAsync(
         string? name = null,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new GetSessionRequest
         {
             Name = name
         };
-        return await GetSessionAsync(request, timeout);
+        return await GetSessionAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -54,15 +59,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション設定レスポンス</returns>
     public async Task<ApiResponse<SetSessionResponse>> SetSessionAsync(
         SetSessionRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<SetSessionResponse>(
-            "/api/sessions/set", request, timeout);
+            "/api/sessions/set", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -71,18 +78,20 @@ public partial class PleasanterClient
     /// <param name="name">セッション名</param>
     /// <param name="value">値</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション設定レスポンス</returns>
     public async Task<ApiResponse<SetSessionResponse>> SetSessionAsync(
         string name,
         string value,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new SetSessionRequest
         {
             Name = name ?? throw new ArgumentNullException(nameof(name)),
             Value = value ?? throw new ArgumentNullException(nameof(value))
         };
-        return await SetSessionAsync(request, timeout);
+        return await SetSessionAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -94,15 +103,17 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション削除レスポンス</returns>
     public async Task<ApiResponse<DeleteSessionResponse>> DeleteSessionAsync(
         DeleteSessionRequest request,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteSessionResponse>(
-            "/api/sessions/delete", request, timeout);
+            "/api/sessions/delete", request, timeout, cancellationToken);
     }
 
     /// <summary>
@@ -110,16 +121,18 @@ public partial class PleasanterClient
     /// </summary>
     /// <param name="name">セッション名</param>
     /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>セッション削除レスポンス</returns>
     public async Task<ApiResponse<DeleteSessionResponse>> DeleteSessionAsync(
         string name,
-        TimeSpan? timeout = null)
+        TimeSpan? timeout = null,
+        CancellationToken cancellationToken = default)
     {
         var request = new DeleteSessionRequest
         {
             Name = name ?? throw new ArgumentNullException(nameof(name))
         };
-        return await DeleteSessionAsync(request, timeout);
+        return await DeleteSessionAsync(request, timeout, cancellationToken);
     }
 
     #endregion

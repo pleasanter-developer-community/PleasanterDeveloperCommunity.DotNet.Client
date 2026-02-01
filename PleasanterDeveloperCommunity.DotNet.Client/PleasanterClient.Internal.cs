@@ -29,7 +29,8 @@ public partial class PleasanterClient
     private async Task<ApiResponse<T>> SendRequestAsync<T>(
         string endpoint,
         object request,
-        TimeSpan? timeout)
+        TimeSpan? timeout,
+        CancellationToken cancellationToken = default)
     {
         var requestId = Guid.NewGuid().ToString();
         var url = _baseUrl + endpoint;
@@ -41,8 +42,12 @@ public partial class PleasanterClient
         try
         {
             using var cts = timeout.HasValue
-                ? new CancellationTokenSource(timeout.Value)
-                : new CancellationTokenSource();
+                ? CancellationTokenSource.CreateLinkedTokenSource(cancellationToken)
+                : CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            if (timeout.HasValue)
+            {
+                cts.CancelAfter(timeout.Value);
+            }
 
             using var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
             using var response = await _httpClient.PostAsync(url, content, cts.Token);
@@ -98,7 +103,8 @@ public partial class PleasanterClient
         Stream fileStream,
         string fileName,
         Dictionary<string, object> parameters,
-        TimeSpan? timeout)
+        TimeSpan? timeout,
+        CancellationToken cancellationToken = default)
     {
         var requestId = Guid.NewGuid().ToString();
         var url = _baseUrl + endpoint;
@@ -108,9 +114,11 @@ public partial class PleasanterClient
 
         try
         {
-            using var cts = timeout.HasValue
-                ? new CancellationTokenSource(timeout.Value)
-                : new CancellationTokenSource();
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            if (timeout.HasValue)
+            {
+                cts.CancelAfter(timeout.Value);
+            }
 
             using var content = new MultipartFormDataContent();
             content.Add(new StringContent(JsonConvert.SerializeObject(parameters, JsonSettings)), "parameters");
@@ -177,7 +185,8 @@ public partial class PleasanterClient
         long? rangeTo,
         long? rangeTotal,
         string? fileHash,
-        TimeSpan? timeout)
+        TimeSpan? timeout,
+        CancellationToken cancellationToken = default)
     {
         var requestId = Guid.NewGuid().ToString();
         var url = _baseUrl + endpoint;
@@ -187,9 +196,11 @@ public partial class PleasanterClient
 
         try
         {
-            using var cts = timeout.HasValue
-                ? new CancellationTokenSource(timeout.Value)
-                : new CancellationTokenSource();
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            if (timeout.HasValue)
+            {
+                cts.CancelAfter(timeout.Value);
+            }
 
             using var content = new MultipartFormDataContent();
 
