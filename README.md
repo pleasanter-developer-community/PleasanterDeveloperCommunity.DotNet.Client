@@ -1,12 +1,15 @@
 # PleasanterDeveloperCommunity.DotNet.Client <!-- omit in toc -->
 
+<!-- markdownlint-disable MD013 -->
+
 [![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet)](https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard) [![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/) [![Pleasanter ApiVersion](https://img.shields.io/badge/Pleasanter%20ApiVersion-1.1%2B-00A0E9)](https://pleasanter.org/ja/manual/api) [![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
+
+<!-- markdownlint-enable MD013 -->
 
 [プリザンター](https://pleasanter.org/)のAPIを.NETから簡単に利用するためのクライアントライブラリです。レコードのCRUD操作、一括処理、拡張SQL実行などを型安全に扱えます。
 
 ## 目次 <!-- omit in toc -->
 
-- [目次](#目次)
 - [インストール](#インストール)
     - [方法1: NuGetパッケージ（推奨）](#方法1-nugetパッケージ推奨)
         - [.NET CLI](#net-cli)
@@ -67,7 +70,11 @@ Install-Package PleasanterDeveloperCommunity.DotNet.Client
 dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
+<!-- markdownlint-disable MD013 -->
+
 > **Note**: VS Codeで NuGet パッケージマネージャーを使用するには、[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) 拡張機能のインストールを推奨します。
+
+<!-- markdownlint-enable MD013 -->
 
 #### JetBrains Rider
 

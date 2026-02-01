@@ -5,7 +5,6 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 
 ## 目次 <!-- omit in toc -->
 
-- [目次](#目次)
 - [はじめに](#はじめに)
 - [ガイドライン一覧](#ガイドライン一覧)
 - [クイックスタート](#クイックスタート)

@@ -4,7 +4,6 @@
 
 ## 目次 <!-- omit in toc -->
 
-- [目次](#目次)
 - [基本原則](#基本原則)
     - [プロジェクト設定](#プロジェクト設定)
     - [重要な方針](#重要な方針)
@@ -715,7 +714,7 @@ var result = from order in orders
 
 ### ディレクトリ構造
 
-```
+```text
 PleasanterDeveloperCommunity.DotNet.Client/
 ├── PleasanterClient.Core.cs
 ├── PleasanterClient.Items.cs

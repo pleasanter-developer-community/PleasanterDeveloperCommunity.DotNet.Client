@@ -287,7 +287,7 @@ API呼び出し中に例外が発生した場合、その詳細情報がログ�
 - **InnerException**: ネストされた内部例外も再帰的に展開
 - **AggregateException**: 複数の内部例外がある場合はすべて展開
 
-```
+```text
 // ログ出力例
 System.Net.Http.HttpRequestException: Connection refused
 StackTrace:
