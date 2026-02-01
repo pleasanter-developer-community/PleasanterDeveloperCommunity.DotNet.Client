@@ -16,6 +16,10 @@ insert_final_newline = true
 [*.cs]
 charset = utf-8-bom
 
+# Markdown files
+[*.md]
+indent_size = 4
+
 # ============================================================
 # C# Formatting Rules
 # ============================================================
@@ -297,4 +301,5 @@ indent_size = 2
 
 # Markdown files
 [*.md]
+indent_size = 4
 trim_trailing_whitespace = false

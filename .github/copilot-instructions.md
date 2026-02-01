@@ -1,4 +1,4 @@
-# Copilot Instructions
+# Copilot Instructions <!-- omit in toc -->
 
 このリポジトリは **PleasanterDeveloperCommunity.DotNet.Client** - プリザンターAPIの.NETクライアントライブラリです。
 

@@ -1,4 +1,4 @@
-# 拡張SQL実行 - extended/sql
+# 拡張SQL実行 - extended/sql <!-- omit in toc -->
 
 ## 概要
 

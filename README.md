@@ -1,8 +1,34 @@
-# PleasanterDeveloperCommunity.DotNet.Client
+# PleasanterDeveloperCommunity.DotNet.Client <!-- omit in toc -->
 
 [![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet)](https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard) [![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/) [![Pleasanter ApiVersion](https://img.shields.io/badge/Pleasanter%20ApiVersion-1.1%2B-00A0E9)](https://pleasanter.org/ja/manual/api) [![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
 
 [プリザンター](https://pleasanter.org/)のAPIを.NETから簡単に利用するためのクライアントライブラリです。レコードのCRUD操作、一括処理、拡張SQL実行などを型安全に扱えます。
+
+## 目次 <!-- omit in toc -->
+
+- [目次](#目次)
+- [インストール](#インストール)
+    - [方法1: NuGetパッケージ（推奨）](#方法1-nugetパッケージ推奨)
+        - [.NET CLI](#net-cli)
+        - [Visual Studio](#visual-studio)
+        - [Visual Studio Code](#visual-studio-code)
+        - [JetBrains Rider](#jetbrains-rider)
+    - [方法2: GitHub Packages](#方法2-github-packages)
+        - [1. 認証の設定](#1-認証の設定)
+        - [2. NuGetソースの追加](#2-nugetソースの追加)
+        - [3. パッケージのインストール](#3-パッケージのインストール)
+    - [方法3: オフライン環境でのNuGetパッケージ](#方法3-オフライン環境でのnugetパッケージ)
+        - [1. パッケージのダウンロード](#1-パッケージのダウンロード)
+        - [2. ローカルフィードの追加](#2-ローカルフィードの追加)
+        - [3. パッケージのインストール（オフライン）](#3-パッケージのインストールオフライン)
+    - [方法4: DLLを直接参照](#方法4-dllを直接参照)
+        - [1. DLLの取得](#1-dllの取得)
+        - [2. プロジェクトへの参照追加](#2-プロジェクトへの参照追加)
+        - [3. 依存パッケージのインストール](#3-依存パッケージのインストール)
+- [使用方法](#使用方法)
+- [サードパーティライセンス](#サードパーティライセンス)
+- [セキュリティ](#セキュリティ)
+- [謝辞](#謝辞)
 
 ## インストール
 
@@ -10,14 +36,50 @@
 
 [![NuGet](https://img.shields.io/nuget/v/PleasanterDeveloperCommunity.DotNet.Client)](https://www.nuget.org/packages/PleasanterDeveloperCommunity.DotNet.Client)
 
+#### .NET CLI
+
 ```bash
 dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
-または、Visual Studioのパッケージマネージャーコンソールから：
+#### Visual Studio
+
+1. **ソリューションエクスプローラー**でプロジェクトを右クリック
+2. **NuGet パッケージの管理**を選択
+3. **参照**タブで `PleasanterDeveloperCommunity.DotNet.Client` を検索
+4. パッケージを選択して**インストール**をクリック
+
+または、**パッケージマネージャーコンソール**（ツール → NuGet パッケージ マネージャー → パッケージ マネージャー コンソール）から：
 
 ```powershell
 Install-Package PleasanterDeveloperCommunity.DotNet.Client
+```
+
+#### Visual Studio Code
+
+1. **コマンドパレット**（`Ctrl+Shift+P`）を開く
+2. `NuGet: Add NuGet Package` を入力して実行
+3. `PleasanterDeveloperCommunity.DotNet.Client` を検索してインストール
+
+または、**ターミナル**から：
+
+```bash
+dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+```
+
+> **Note**: VS Codeで NuGet パッケージマネージャーを使用するには、[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) 拡張機能のインストールを推奨します。
+
+#### JetBrains Rider
+
+1. **ソリューションエクスプローラー**でプロジェクトを右クリック
+2. **Manage NuGet Packages**を選択
+3. **Packages**タブで `PleasanterDeveloperCommunity.DotNet.Client` を検索
+4. パッケージを選択して**+**ボタン（Install）をクリック
+
+または、**ターミナル**から：
+
+```bash
+dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 ```
 
 ### 方法2: GitHub Packages
