@@ -27,6 +27,10 @@
     - [11. ユーティリティ](#11-ユーティリティ)
     - [12. バックグラウンドタスク](#12-バックグラウンドタスク)
     - [13. デモ](#13-デモ)
+- [コントローラとアクション](#コントローラとアクション)
+    - [エンドポイントの構造](#エンドポイントの構造)
+    - [具体例](#具体例)
+    - [公式マニュアル未記載APIについて](#公式マニュアル未記載apiについて)
 - [謝辞](#謝辞)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -451,6 +455,65 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 |  #  | エンドポイント       | 操作 | 説明           | 対応 |
 | :-: | :------------------- | :--- | :------------- | :--: |
 |  1  | `/api/demo/register` | 登録 | デモ環境を登録 | Yes  |
+
+## コントローラとアクション
+
+プリザンターのAPIエンドポイントは、ASP.NET Core MVCのルーティング規則に基づいて構成されています。
+
+### エンドポイントの構造
+
+プリザンターAPIのURLは以下のパターンで構成されます：
+
+```text
+/api/{コントローラ}/{ルートパラメータ}/{アクション}?{クエリパラメータ}
+または
+/api/{コントローラ}/{アクション}?{クエリパラメータ}
+```
+
+#### URL構成要素
+
+| 要素             | 説明                                                                        | 例                                     |
+| ---------------- | --------------------------------------------------------------------------- | -------------------------------------- |
+| コントローラ     | リソースの種類を表すクラス。`[Route("api/[controller]")]`属性で定義される   | `Items`, `Users`, `Groups`, `Sessions` |
+| アクション       | 実行する操作を表すメソッド。`[HttpPost("{id}/Create")]`属性等で定義される   | `Get`, `Create`, `Update`, `Delete`    |
+| ルートパラメータ | URLパス内に埋め込まれるパラメータ。`{id}`のようにプレースホルダで定義される | `123`, `456`                           |
+| クエリパラメータ | URLの`?`以降に付与されるパラメータ。`?key=value`形式で指定                  | `?overwrite=true`, `?id=123`           |
+
+#### パラメータの種類
+
+| パラメータ種別   | 定義方法                           | URL例                                 | 用途                           |
+| ---------------- | ---------------------------------- | ------------------------------------- | ------------------------------ |
+| ルートパラメータ | `[HttpPost("{id}/Get")]`           | `/api/items/123/get`                  | 操作対象のリソースIDを指定     |
+| クエリパラメータ | `context.QueryStrings.Bool("key")` | `/api/binaries/upload?overwrite=true` | オプション設定や追加パラメータ |
+
+### 具体例
+
+```mermaid
+graph LR
+    A["/api/items/123/create"] --> B["ItemsController"]
+    B --> C["Create(id=123)"]
+    D["/api/users/get"] --> E["UsersController"]
+    E --> F["Get()"]
+    G["/api/binaries/upload?id=123&overwrite=true"] --> H["BinariesController"]
+    H --> I["Upload()"]
+```
+
+| エンドポイント                                                | コントローラ                | アクション             | ルートパラメータ | クエリパラメータ  |
+| ------------------------------------------------------------- | --------------------------- | ---------------------- | ---------------- | ----------------- |
+| `POST /api/items/{id}/get`                                    | `ItemsController`           | `Get`                  | `id`             | -                 |
+| `POST /api/items/{id}/create`                                 | `ItemsController`           | `Create`               | `id`             | -                 |
+| `POST /api/users/get`                                         | `UsersController`           | `Get`                  | -                | -                 |
+| `POST /api/binaries/upload?id={id}&overwrite={bool}`          | `BinariesController`        | `Upload`               | -                | `id`, `overwrite` |
+| `POST /api/backgroundtasks/rebuildsearchindexes?NoLog={bool}` | `BackgroundTasksController` | `RebuildSearchIndexes` | -                | `NoLog`           |
+
+### 公式マニュアル未記載APIについて
+
+一部のAPIはプリザンター公式マニュアルに記載されていません。本ドキュメントでは以下の区分で明示しています：
+
+| 区分                     | 説明                                                             | 例                          |
+| ------------------------ | ---------------------------------------------------------------- | --------------------------- |
+| コントローラ単位で未記載 | コントローラ全体が公式マニュアルに記載されていない               | `BackgroundTasksController` |
+| アクション単位で未記載   | コントローラは記載があるが、特定のアクションのみ記載されていない | 一部の拡張API               |
 
 ## 謝辞
 
