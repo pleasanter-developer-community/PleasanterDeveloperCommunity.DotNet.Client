@@ -21,6 +21,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータをインポートします（byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-02-テーブル-インポート.md">Wiki: 01-テーブル操作-02-テーブル-インポート</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="csvData">CSVデータ</param>
     /// <param name="fileName">ファイル名</param>
@@ -47,6 +48,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータをインポートします（Stream版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-02-テーブル-インポート.md">Wiki: 01-テーブル操作-02-テーブル-インポート</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="csvStream">CSVストリーム</param>
     /// <param name="fileName">ファイル名</param>
@@ -90,6 +92,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルパスを指定してCSVデータをインポートします
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-02-テーブル-インポート.md">Wiki: 01-テーブル操作-02-テーブル-インポート</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング</param>
@@ -134,6 +137,7 @@ public partial class PleasanterClient
     /// <summary>
     /// テーブルをエクスポートします（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-06-テーブル-エクスポート.md">Wiki: 01-テーブル操作-06-テーブル-エクスポート</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -157,6 +161,7 @@ public partial class PleasanterClient
     /// <summary>
     /// テーブルをエクスポートします
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-06-テーブル-エクスポート.md">Wiki: 01-テーブル操作-06-テーブル-エクスポート</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="exportId">エクスポートID</param>
     /// <param name="export">エクスポート設定</param>

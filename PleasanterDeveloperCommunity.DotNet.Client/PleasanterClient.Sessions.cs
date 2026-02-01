@@ -16,6 +16,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-01-セッション-取得.md">Wiki: 06-セッション操作-01-セッション-取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -37,6 +38,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-01-セッション-取得.md">Wiki: 06-セッション操作-01-セッション-取得</seealso>
     /// <param name="name">セッション名</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -60,6 +62,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを設定します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-02-セッション-設定.md">Wiki: 06-セッション操作-02-セッション-設定</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -81,6 +84,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを設定します
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-02-セッション-設定.md">Wiki: 06-セッション操作-02-セッション-設定</seealso>
     /// <param name="name">セッション名</param>
     /// <param name="value">値</param>
     /// <param name="timeout">タイムアウト</param>
@@ -107,6 +111,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-03-セッション-削除.md">Wiki: 06-セッション操作-03-セッション-削除</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -128,6 +133,7 @@ public partial class PleasanterClient
     /// <summary>
     /// セッションを削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/06-セッション操作-03-セッション-削除.md">Wiki: 06-セッション操作-03-セッション-削除</seealso>
     /// <param name="name">セッション名</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>

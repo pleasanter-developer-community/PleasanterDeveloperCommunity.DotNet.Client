@@ -53,10 +53,13 @@ public partial class PleasanterClient : IDisposable
         DebugSettings? debugSettings = null)
     {
         if (string.IsNullOrEmpty(baseUrl))
+        {
             throw new ArgumentNullException(nameof(baseUrl));
+        }
         if (string.IsNullOrEmpty(apiKey))
+        {
             throw new ArgumentNullException(nameof(apiKey));
-
+        }
         _baseUrl = baseUrl.TrimEnd('/');
         _apiKey = apiKey;
         _apiVersion = Math.Max(apiVersion, 1.1f);
@@ -118,10 +121,13 @@ public partial class PleasanterClient : IDisposable
         DebugSettings? debugSettings = null)
     {
         if (string.IsNullOrEmpty(baseUrl))
+        {
             throw new ArgumentNullException(nameof(baseUrl));
+        }
         if (string.IsNullOrEmpty(apiKey))
+        {
             throw new ArgumentNullException(nameof(apiKey));
-
+        }
         _baseUrl = baseUrl.TrimEnd('/');
         _apiKey = apiKey;
         _apiVersion = Math.Max(apiVersion, 1.1f);

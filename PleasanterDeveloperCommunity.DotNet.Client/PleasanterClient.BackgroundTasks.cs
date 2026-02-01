@@ -16,6 +16,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 全サイトの検索インデックスを再構築します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -40,6 +41,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 全サイトの検索インデックスを再構築します
     /// </summary>
+    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>検索インデックス再構築レスポンス</returns>
@@ -57,6 +59,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 特定サイトの検索インデックスを再構築します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -83,6 +86,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 特定サイトの検索インデックスを再構築します
     /// </summary>
+    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>

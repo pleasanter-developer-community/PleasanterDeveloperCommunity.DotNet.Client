@@ -16,6 +16,7 @@ public partial class PleasanterClient
     /// <summary>
     /// デモ環境を登録します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/13-デモ-01-デモ環境-登録.md">Wiki: 13-デモ-01-デモ環境-登録</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -40,6 +41,7 @@ public partial class PleasanterClient
     /// <summary>
     /// デモ環境を登録します
     /// </summary>
+    /// <seealso href="../docs/wiki/13-デモ-01-デモ環境-登録.md">Wiki: 13-デモ-01-デモ環境-登録</seealso>
     /// <param name="mailAddress">メールアドレス</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>

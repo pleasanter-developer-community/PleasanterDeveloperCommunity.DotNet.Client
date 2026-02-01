@@ -20,6 +20,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-01-レコード-作成.md">Wiki: 01-テーブル操作-01-レコード-作成</seealso>
     public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(
         long siteId,
         CreateRecordRequest request,
@@ -38,6 +39,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-01-レコード-作成.md">Wiki: 01-テーブル操作-01-レコード-作成</seealso>
     public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(
         long siteId,
         string? title = null,
@@ -86,6 +88,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 単一レコードを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-03-レコード-取得(単一).md">Wiki: 01-テーブル操作-03-レコード-取得(単一)</seealso>
     public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
         long recordId,
         GetRecordRequest request,
@@ -104,6 +107,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 単一レコードを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-03-レコード-取得(単一).md">Wiki: 01-テーブル操作-03-レコード-取得(単一)</seealso>
     public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
         long recordId,
         View? view = null,
@@ -121,6 +125,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 複数レコードを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-04-テーブル-取得(複数).md">Wiki: 01-テーブル操作-04-テーブル-取得(複数)</seealso>
     public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(
         long siteId,
         GetRecordsRequest request,
@@ -139,6 +144,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 複数レコードを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-04-テーブル-取得(複数).md">Wiki: 01-テーブル操作-04-テーブル-取得(複数)</seealso>
     public async Task<ApiResponse<RecordsResponse>> GetRecordsAsync(
         long siteId,
         int? offset = null,
@@ -153,6 +159,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ページングを自動処理して全レコードを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-04-テーブル-取得(複数).md">Wiki: 01-テーブル操作-04-テーブル-取得(複数)</seealso>
     public async Task<ApiResponse<RecordsResponse>> GetAllRecordsAsync(
         long siteId,
         View? view = null,
@@ -200,6 +207,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-07-レコード-更新.md">Wiki: 01-テーブル操作-07-レコード-更新</seealso>
     public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(
         long recordId,
         UpdateRecordRequest request,
@@ -218,6 +226,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-07-レコード-更新.md">Wiki: 01-テーブル操作-07-レコード-更新</seealso>
     public async Task<ApiResponse<UpdateRecordResponse>> UpdateRecordAsync(
         long recordId,
         string? title = null,
@@ -268,6 +277,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを作成または更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-08-テーブル-作成・更新.md">Wiki: 01-テーブル操作-08-テーブル-作成・更新</seealso>
     public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(
         long siteId,
         UpsertRecordRequest request,
@@ -290,6 +300,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを作成または更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-08-テーブル-作成・更新.md">Wiki: 01-テーブル操作-08-テーブル-作成・更新</seealso>
     public async Task<ApiResponse<UpsertRecordResponse>> UpsertRecordAsync(
         long siteId,
         List<string> keys,
@@ -338,6 +349,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 複数レコードを一括で作成または更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-09-テーブル-一括作成・更新.md">Wiki: 01-テーブル操作-09-テーブル-一括作成・更新</seealso>
     public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(
         long siteId,
         BulkUpsertRecordRequest request,
@@ -360,6 +372,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 複数レコードを一括で作成または更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-09-テーブル-一括作成・更新.md">Wiki: 01-テーブル操作-09-テーブル-一括作成・更新</seealso>
     public async Task<ApiResponse<BulkUpsertRecordResponse>> BulkUpsertRecordAsync(
         long siteId,
         List<BulkUpsertRecordData> data,
@@ -384,6 +397,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-10-レコード-削除.md">Wiki: 01-テーブル操作-10-レコード-削除</seealso>
     public async Task<ApiResponse<DeleteRecordResponse>> DeleteRecordAsync(
         long recordId,
         DeleteRecordRequest request,
@@ -402,6 +416,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-10-レコード-削除.md">Wiki: 01-テーブル操作-10-レコード-削除</seealso>
     public async Task<ApiResponse<DeleteRecordResponse>> DeleteRecordAsync(
         long recordId,
         TimeSpan? timeout = null,
@@ -418,6 +433,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを一括削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-11-テーブル-一括削除.md">Wiki: 01-テーブル操作-11-テーブル-一括削除</seealso>
     public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(
         long siteId,
         BulkDeleteRecordRequest request,
@@ -436,6 +452,7 @@ public partial class PleasanterClient
     /// <summary>
     /// レコードを一括削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/01-テーブル操作-11-テーブル-一括削除.md">Wiki: 01-テーブル操作-11-テーブル-一括削除</seealso>
     public async Task<ApiResponse<BulkDeleteRecordResponse>> BulkDeleteRecordAsync(
         long siteId,
         List<long>? selected = null,
