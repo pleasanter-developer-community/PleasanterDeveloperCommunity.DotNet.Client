@@ -1,0 +1,822 @@
+# コーディングガイドライン
+
+このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトのコーディング規約について詳細に説明します。
+
+## 目次
+
+- [基本原則](#基本原則)
+- [API設計方針](#api設計方針)
+- [命名規則](#命名規則)
+- [フォーマット規則](#フォーマット規則)
+- [コードスタイル](#コードスタイル)
+- [コメントとドキュメント](#コメントとドキュメント)
+- [非同期プログラミング](#非同期プログラミング)
+- [エラーハンドリング](#エラーハンドリング)
+- [Null安全](#null安全)
+- [LINQ](#linq)
+- [ファイル構成](#ファイル構成)
+
+---
+
+## 基本原則
+
+### プロジェクト設定
+
+| 項目           | 値                |
+| -------------- | ----------------- |
+| ターゲット     | .NET Standard 2.1 |
+| 言語バージョン | C# latest         |
+| Nullable参照型 | 有効              |
+| コメント言語   | 日本語            |
+
+### 重要な方針
+
+- **可読性を最優先**：コードは書く時間より読む時間の方が長い
+- **一貫性を保つ**：既存のコードスタイルに従う
+- **シンプルに保つ**：過度な抽象化を避ける
+- **テスト可能な設計**：依存性の注入を考慮する
+
+---
+
+## API設計方針
+
+### 基本方針
+
+- Pleasanter APIのエンドポイントに対応するメソッドを提供
+- レスポンスは型安全なモデルクラスで返却
+- エラーハンドリングは例外またはResult型で統一
+
+### メソッド設計
+
+```csharp
+// 非同期メソッドを主要APIとして提供
+public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
+    long siteId,
+    long recordId,
+    CancellationToken cancellationToken = default);
+
+// 必要に応じて同期版も提供
+public ApiResponse<RecordResponse> GetRecord(long siteId, long recordId);
+```
+
+### レスポンス設計
+
+```csharp
+// 共通APIResponse<T>ラッパーで返却
+public class ApiResponse<T>
+{
+    public int StatusCode { get; set; }
+    public T? Data { get; set; }
+    public string? Message { get; set; }
+    public bool IsSuccess => StatusCode >= 200 && StatusCode < 300;
+}
+```
+
+### 依存関係
+
+- JSONに関する操作はNewtonsoft.Json（JSON.NET）を使用すること
+
+### サードパーティライセンス管理
+
+新しい依存パッケージを追加する際は、以下を実施すること：
+
+| 手順 | 内容                                                                               |
+| ---- | ---------------------------------------------------------------------------------- |
+| 1    | `LICENSES/` にライセンスファイルを追加（`{PackageName}.txt` 形式）                 |
+| 2    | `README.md` のサードパーティライセンスセクションに著作権表示を追加                 |
+| 3    | `.github/workflows/release.yml` でリリースZIPに `LICENSES/` が同梱されることを確認 |
+
+**重要**: MIT、Apache-2.0、BSD系などのライセンスはライセンス文と著作権表示の同梱が必須。
+
+---
+
+## 命名規則
+
+### 一覧表
+
+| 要素                   | スタイル        | 例                  |
+| ---------------------- | --------------- | ------------------- |
+| クラス                 | PascalCase      | `PleasanterClient`  |
+| インターフェース       | IPascalCase     | `IApiClient`        |
+| メソッド               | PascalCase      | `GetRecordAsync`    |
+| 非同期メソッド         | PascalCaseAsync | `CreateRecordAsync` |
+| プロパティ             | PascalCase      | `BaseUrl`           |
+| パブリックフィールド   | PascalCase      | `DefaultTimeout`    |
+| プライベートフィールド | \_camelCase     | `_httpClient`       |
+| パラメータ             | camelCase       | `siteId`            |
+| ローカル変数           | camelCase       | `response`          |
+| 定数                   | PascalCase      | `MaxRetryCount`     |
+| 型パラメータ           | TPascalCase     | `TResponse`         |
+
+### 詳細ルール
+
+#### クラス・構造体
+
+```csharp
+// Good
+public class PleasanterClient { }
+public struct ApiEndpoint { }
+public record CreateRecordRequest { }
+
+// Bad
+public class pleasanterClient { }  // 小文字始まり
+public class Pleasanter_Client { } // アンダースコア
+```
+
+#### インターフェース
+
+```csharp
+// Good
+public interface IApiClient { }
+public interface IRecordRepository { }
+
+// Bad
+public interface ApiClient { }     // Iプレフィックスなし
+public interface IapiClient { }    // 小文字
+```
+
+#### メソッド
+
+```csharp
+// Good
+public RecordResponse GetRecord(long id) { }
+public async Task<RecordResponse> GetRecordAsync(long id) { }
+
+// Bad
+public RecordResponse getRecord(long id) { }      // 小文字始まり
+public async Task<RecordResponse> GetRecord(long id) { } // Asyncサフィックスなし
+```
+
+#### フィールド
+
+```csharp
+public class PleasanterClient
+{
+    // プライベートフィールド: アンダースコア + camelCase
+    private readonly HttpClient _httpClient;
+    private string _baseUrl;
+
+    // パブリックフィールド（通常はプロパティを推奨）: PascalCase
+    public static readonly int DefaultTimeout = 30;
+}
+```
+
+---
+
+## フォーマット規則
+
+### インデント
+
+- **スペース4つ**を使用（タブは使用しない）
+- 継続行は適切にインデントする
+
+```csharp
+// Good
+public async Task<ApiResponse<T>> SendRequestAsync<T>(
+    string endpoint,
+    HttpMethod method,
+    object? body = null,
+    CancellationToken cancellationToken = default)
+{
+    // ...
+}
+```
+
+### 中括弧
+
+**すべての制御文で中括弧を使用する**（単文でも省略しない）
+
+```csharp
+// Good
+if (condition)
+{
+    DoSomething();
+}
+
+foreach (var item in items)
+{
+    Process(item);
+}
+
+// Bad
+if (condition)
+    DoSomething();
+
+foreach (var item in items)
+    Process(item);
+```
+
+### 中括弧の配置
+
+Allmanスタイル（中括弧を新しい行に配置）を使用：
+
+```csharp
+// Good
+public class MyClass
+{
+    public void MyMethod()
+    {
+        if (condition)
+        {
+            // ...
+        }
+        else
+        {
+            // ...
+        }
+    }
+}
+
+// Bad（K&Rスタイル）
+public class MyClass {
+    public void MyMethod() {
+        if (condition) {
+            // ...
+        }
+    }
+}
+```
+
+### スペース
+
+```csharp
+// 制御文のキーワードと括弧の間にスペース
+if (condition)
+for (var i = 0; i < 10; i++)
+while (running)
+
+// メソッド名と括弧の間にスペースなし
+DoSomething();
+var result = Calculate(x, y);
+
+// 二項演算子の前後にスペース
+var sum = a + b;
+var isValid = x > 0 && y < 100;
+
+// カンマの後にスペース
+Method(arg1, arg2, arg3);
+```
+
+---
+
+## コードスタイル
+
+### var の使用
+
+型が明確な場合は `var` を使用：
+
+```csharp
+// Good
+var client = new PleasanterClient();
+var response = await client.GetRecordAsync(123);
+var items = new List<string>();
+
+// 型が不明確な場合は明示的に記述
+IEnumerable<Record> records = GetRecords();
+```
+
+### 式形式メンバー
+
+単一式の場合は式形式を使用：
+
+```csharp
+// Good
+public string FullName => $"{FirstName} {LastName}";
+
+public override string ToString() => $"Record({Id})";
+
+// 複数行の場合はブロック形式
+public async Task<Record> GetRecordAsync(long id)
+{
+    var response = await _client.GetAsync($"records/{id}");
+    return await response.Content.ReadAsAsync<Record>();
+}
+```
+
+### パターンマッチング
+
+積極的に活用：
+
+```csharp
+// Good
+if (obj is string text)
+{
+    Console.WriteLine(text.Length);
+}
+
+var message = status switch
+{
+    200 => "成功",
+    404 => "見つかりません",
+    500 => "サーバーエラー",
+    _ => "不明なステータス"
+};
+
+// nullチェック
+if (value is not null)
+{
+    Process(value);
+}
+```
+
+### ターゲット型new式
+
+型が明確な場合に使用：
+
+```csharp
+// Good
+List<string> items = new();
+Dictionary<string, int> map = new();
+PleasanterClient client = new(settings);
+
+// 型が不明確な場合は従来の形式
+var items = new List<string>();
+```
+
+### using宣言
+
+シンプルなusing宣言を使用：
+
+```csharp
+// Good
+using var stream = new FileStream(path, FileMode.Open);
+var content = await ReadAllTextAsync(stream);
+// streamはスコープ終了時に自動的にDispose
+
+// 複数のusingが必要な場合も有効
+using var reader = new StreamReader(path);
+using var writer = new StreamWriter(outputPath);
+```
+
+### 文字列補間（埋め込みリテラル）
+
+**文字列結合には必ず文字列補間（`$""`）を使用する**：
+
+```csharp
+// Good - 文字列補間を使用
+var message = $"ユーザー {userName} がログインしました";
+var url = $"{baseUrl}/api/items/{itemId}";
+var log = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {level}: {message}";
+
+// Good - 複数行の場合
+var query = $"""
+    SELECT *
+    FROM {tableName}
+    WHERE Id = {id}
+    """;
+
+// Bad - 文字列連結演算子の使用
+var message = "ユーザー " + userName + " がログインしました";  // 避ける
+var url = baseUrl + "/api/items/" + itemId.ToString();          // 避ける
+
+// Bad - string.Format の使用
+var message = string.Format("ユーザー {0} がログインしました", userName);  // 避ける
+
+// Bad - string.Concat の使用
+var message = string.Concat("ユーザー ", userName, " がログインしました");  // 避ける
+```
+
+#### 文字列補間のメリット
+
+- **可読性が高い**：変数が文字列内のどこに挿入されるか一目でわかる
+- **型安全**：コンパイル時に型チェックが行われる
+- **書式指定が容易**：`{value:format}` 形式で書式を指定できる
+- **パフォーマンス**：コンパイラが最適化を行う
+
+#### 書式指定の例
+
+```csharp
+// 数値の書式
+var price = $"価格: {amount:N0}円";           // 3桁区切り: "価格: 1,234円"
+var rate = $"割合: {percentage:P1}";          // パーセント: "割合: 12.3%"
+var hex = $"コード: 0x{code:X4}";             // 16進数: "コード: 0x00FF"
+
+// 日時の書式
+var date = $"日付: {now:yyyy/MM/dd}";
+var time = $"時刻: {now:HH:mm:ss}";
+
+// 幅指定（パディング）
+var padded = $"|{name,10}|{value,-10}|";      // 右寄せ・左寄せ
+```
+
+---
+
+## コメントとドキュメント
+
+### XMLドキュメントコメント
+
+**すべての公開APIに必須**：
+
+```csharp
+/// <summary>
+/// 指定されたサイトからレコードを取得します。
+/// </summary>
+/// <param name="siteId">取得対象のサイトID。</param>
+/// <param name="recordId">取得対象のレコードID。</param>
+/// <param name="cancellationToken">キャンセルトークン。</param>
+/// <returns>レコード情報を含むレスポンス。</returns>
+/// <exception cref="ArgumentException">
+/// <paramref name="siteId"/> または <paramref name="recordId"/> が0以下の場合。
+/// </exception>
+/// <exception cref="PleasanterApiException">API呼び出しに失敗した場合。</exception>
+public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
+    long siteId,
+    long recordId,
+    CancellationToken cancellationToken = default)
+{
+    // 実装
+}
+```
+
+### コメント言語
+
+コメントは**日本語**で記述：
+
+```csharp
+// リトライ回数を超えた場合は例外をスロー
+if (retryCount > MaxRetryCount)
+{
+    throw new PleasanterApiException("最大リトライ回数を超えました");
+}
+
+/*
+ * 複数行コメントの例
+ * APIレスポンスのパースと変換を行う
+ */
+```
+
+### TODOコメント
+
+```csharp
+// TODO: キャッシュ機能を実装する
+// HACK: 一時的な回避策、後で修正が必要
+// FIXME: バグがあるため修正が必要
+```
+
+---
+
+## 非同期プログラミング
+
+### 基本ルール
+
+1. 非同期メソッドには `Async` サフィックスを付ける
+2. `async void` は避ける（イベントハンドラ以外）
+3. `CancellationToken` を受け入れる
+
+```csharp
+// Good
+public async Task<Record> GetRecordAsync(
+    long id,
+    CancellationToken cancellationToken = default)
+{
+    var response = await _httpClient.GetAsync(
+        $"records/{id}",
+        cancellationToken);
+
+    return await response.Content.ReadAsAsync<Record>(cancellationToken);
+}
+
+// Bad
+public async void GetRecord(long id) // async voidは避ける
+{
+    // ...
+}
+```
+
+### ConfigureAwait
+
+ライブラリコードでは `ConfigureAwait(false)` を使用：
+
+```csharp
+public async Task<T> GetAsync<T>(string endpoint, CancellationToken cancellationToken = default)
+{
+    var response = await _httpClient.GetAsync(endpoint, cancellationToken)
+        .ConfigureAwait(false);
+
+    var content = await response.Content.ReadAsStringAsync()
+        .ConfigureAwait(false);
+
+    return JsonConvert.DeserializeObject<T>(content);
+}
+```
+
+### 同期メソッドの提供
+
+必要に応じて同期版も提供：
+
+```csharp
+// 非同期版（主要なAPI）
+public async Task<Record> GetRecordAsync(long id, CancellationToken cancellationToken = default)
+{
+    // 非同期実装
+}
+
+// 同期版（互換性のため）
+public Record GetRecord(long id)
+{
+    return GetRecordAsync(id).GetAwaiter().GetResult();
+}
+```
+
+---
+
+## エラーハンドリング
+
+### 例外の使用
+
+```csharp
+// 引数検証
+public void SetTimeout(int seconds)
+{
+    if (seconds <= 0)
+    {
+        throw new ArgumentOutOfRangeException(
+            nameof(seconds),
+            seconds,
+            "タイムアウトは正の値である必要があります");
+    }
+
+    _timeout = TimeSpan.FromSeconds(seconds);
+}
+
+// カスタム例外
+public class PleasanterApiException : Exception
+{
+    public int StatusCode { get; }
+
+    public PleasanterApiException(string message, int statusCode)
+        : base(message)
+    {
+        StatusCode = statusCode;
+    }
+}
+```
+
+### 例外のキャッチ
+
+```csharp
+try
+{
+    var response = await client.GetRecordAsync(id);
+}
+catch (PleasanterApiException ex) when (ex.StatusCode == 404)
+{
+    // レコードが見つからない場合の処理
+    return null;
+}
+catch (HttpRequestException ex)
+{
+    // ネットワークエラーの処理
+    _logger.LogError(ex, "APIリクエストに失敗しました");
+    throw;
+}
+```
+
+---
+
+## Null安全
+
+### Nullable参照型の活用
+
+```csharp
+// Nullを許容する場合は ? を付ける
+public string? OptionalDescription { get; set; }
+
+// Nullを許容しない場合はそのまま
+public string RequiredName { get; set; }
+
+// メソッドパラメータ
+public void Process(string requiredParam, string? optionalParam = null)
+{
+    // requiredParamはnullでないことが保証される
+    Console.WriteLine(requiredParam.Length);
+
+    // optionalParamはnullチェックが必要
+    if (optionalParam is not null)
+    {
+        Console.WriteLine(optionalParam.Length);
+    }
+}
+```
+
+### Null結合演算子
+
+```csharp
+// Null結合演算子
+var name = user?.Name ?? "Unknown";
+
+// Null結合代入演算子
+_cache ??= new Dictionary<string, object>();
+
+// Null条件演算子
+var length = items?.Count ?? 0;
+```
+
+---
+
+## LINQ
+
+### 積極的に活用
+
+```csharp
+// Good
+var activeUsers = users
+    .Where(u => u.IsActive)
+    .OrderBy(u => u.Name)
+    .Select(u => new UserDto(u.Id, u.Name))
+    .ToList();
+
+// メソッドチェーンが長い場合は適切に改行
+var result = records
+    .Where(r => r.Status == RecordStatus.Active)
+    .Where(r => r.CreatedAt >= startDate)
+    .GroupBy(r => r.Category)
+    .Select(g => new
+    {
+        Category = g.Key,
+        Count = g.Count(),
+        TotalValue = g.Sum(r => r.Value)
+    })
+    .OrderByDescending(x => x.Count)
+    .Take(10)
+    .ToList();
+```
+
+### クエリ構文 vs メソッド構文
+
+メソッド構文を優先：
+
+```csharp
+// 推奨（メソッド構文）
+var result = items.Where(x => x.IsValid).Select(x => x.Name);
+
+// 複雑なjoinの場合はクエリ構文も可
+var result = from order in orders
+             join customer in customers on order.CustomerId equals customer.Id
+             where order.Total > 1000
+             select new { customer.Name, order.Total };
+```
+
+---
+
+## ファイル構成
+
+### ディレクトリ構造
+
+```
+PleasanterDeveloperCommunity.DotNet.Client/
+├── PleasanterClient.Core.cs
+├── PleasanterClient.Items.cs
+├── PleasanterClient.Sites.cs
+├── PleasanterClient.Users.cs
+├── Settings.cs
+└── Models/
+    ├── Request/
+    │   ├── CreateRecordRequest.cs
+    │   └── UpdateRecordRequest.cs
+    ├── Response/
+    │   ├── RecordResponse.cs
+    │   └── ApiResponse.cs
+    └── Shared/
+        └── RecordField.cs
+```
+
+### ファイル内の順序
+
+```csharp
+// 1. usingディレクティブ（System系を先頭に）
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Models;
+
+// 2. 名前空間
+namespace PleasanterDeveloperCommunity.DotNet.Client
+{
+    // 3. クラス定義
+    public partial class PleasanterClient
+    {
+        // 4. 定数・静的フィールド
+        private const int DefaultTimeout = 30;
+
+        // 5. フィールド
+        private readonly HttpClient _httpClient;
+        private string _baseUrl;
+
+        // 6. コンストラクタ
+
+        // 7. プロパティ
+
+        // 8. パブリックメソッド
+
+        // 9. プライベートメソッド
+    }
+}
+```
+
+---
+
+## ツール設定
+
+### EditorConfig
+
+プロジェクトルートの `.editorconfig` で自動フォーマットを設定。
+
+#### 基本設定
+
+| 項目                       | 値          | 説明                     |
+| -------------------------- | ----------- | ------------------------ |
+| `indent_style`             | `space`     | スペースでインデント     |
+| `indent_size`              | `4`         | インデント幅（C#）       |
+| `end_of_line`              | `lf`        | 改行コード               |
+| `charset`                  | `utf-8-bom` | 文字コード（C#ファイル） |
+| `trim_trailing_whitespace` | `true`      | 行末空白を削除           |
+| `insert_final_newline`     | `true`      | ファイル末尾に改行       |
+
+#### 警告レベルで強制されるルール
+
+以下のルールは `warning` レベルで設定されており、違反すると警告が表示される：
+
+| ルール                                     | 設定値    | 説明                 |
+| ------------------------------------------ | --------- | -------------------- |
+| `csharp_prefer_braces`                     | `true`    | 制御文の中括弧を必須 |
+| `dotnet_style_prefer_string_interpolation` | `true`    | 文字列補間を優先     |
+| `IDE0055`                                  | `warning` | フォーマット違反     |
+| `IDE0005`                                  | `warning` | 不要なusing          |
+| `CS8600-CS8605`                            | `warning` | Nullable参照型関連   |
+
+#### 命名規則（EditorConfigで強制）
+
+| 対象                    | スタイル             | 例                   |
+| ----------------------- | -------------------- | -------------------- |
+| インターフェース        | `I` + PascalCase     | `IApiClient`         |
+| 型パラメータ            | `T` + PascalCase     | `TResponse`          |
+| 非同期メソッド          | PascalCase + `Async` | `GetRecordAsync`     |
+| プライベートフィールド  | `_` + camelCase      | `_httpClient`        |
+| パラメータ/ローカル変数 | camelCase            | `siteId`, `response` |
+
+### Directory.Build.props
+
+コード分析とビルド設定を `Directory.Build.props` で一元管理。
+
+#### 設定内容
+
+```xml
+<Project>
+  <PropertyGroup>
+    <!-- コード分析の有効化 -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- Nullable参照型 -->
+    <Nullable>enable</Nullable>
+
+    <!-- 警告をエラーとして扱う（リリースビルド時） -->
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- ドキュメントXML生成 -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- コンパイラ警告レベル -->
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+</Project>
+```
+
+#### 主要な設定項目
+
+| 項目                        | 値                   | 説明                           |
+| --------------------------- | -------------------- | ------------------------------ |
+| `EnableNETAnalyzers`        | `true`               | .NETアナライザーを有効化       |
+| `AnalysisLevel`             | `latest-recommended` | 最新の推奨分析ルールを使用     |
+| `EnforceCodeStyleInBuild`   | `true`               | ビルド時にコードスタイルを強制 |
+| `Nullable`                  | `enable`             | Nullable参照型を有効化         |
+| `TreatWarningsAsErrors`     | `true`（Release時）  | リリースビルドで警告をエラー化 |
+| `GenerateDocumentationFile` | `true`               | XMLドキュメントファイルを生成  |
+| `WarningLevel`              | `5`                  | 最高レベルの警告を有効化       |
+
+### IDE設定
+
+Visual Studio / VS Code で EditorConfig を有効化し、保存時にフォーマットを適用することを推奨。
+
+#### Visual Studio Code
+
+1. C# Dev Kit 拡張機能をインストール
+2. 設定で `editor.formatOnSave` を `true` に設定
+3. EditorConfig for VS Code 拡張機能をインストール（推奨）
+
+#### Visual Studio
+
+1. ツール → オプション → テキストエディター → C# → コードスタイル
+2. 「EditorConfigの設定を使用する」を有効化
+3. 保存時にフォーマットを適用する設定を有効化
+
+---
+
+## 参考リンク
+
+- [C# コーディング規則 (Microsoft)](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+- [.NET API設計ガイドライン](https://learn.microsoft.com/ja-jp/dotnet/standard/design-guidelines/)
+- [非同期プログラミングのベストプラクティス](https://learn.microsoft.com/ja-jp/dotnet/csharp/asynchronous-programming/)

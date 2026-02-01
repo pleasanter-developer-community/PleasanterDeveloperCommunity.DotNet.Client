@@ -74,7 +74,7 @@ dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
 
 > **Note**: `/path/to/nupkg/folder`は実際の`.nupkg`ファイルの配置場所に合わせて変更してください。
 
-#### 3. パッケージのインストール
+#### 3. パッケージのインストール（オフライン）
 
 ```bash
 dotnet add package PleasanterDeveloperCommunity.DotNet.Client

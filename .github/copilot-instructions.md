@@ -10,64 +10,11 @@
 
 ## コーディング規約
 
-### 基本方針
-- 日本語でコメントを記述する
-- XMLドキュメントコメントを公開APIに付与する
-- `async/await` パターンを使用する（同期メソッドも提供する場合あり）
-- null安全を意識し、Nullable参照型を活用する
-- `if`、`for`、`while`、`foreach` などの制御文では、単文でも中括弧 `{}` を省略しない
-- LINQを積極的に活用する
-- C#の最新機能を活用する（例: レコード型、パターンマッチング、ターゲット型new式など）
-
-### 命名規則
-- クラス名・メソッド名: PascalCase
-- パラメータ・ローカル変数: camelCase
-- プライベートフィールド: `_camelCase`（アンダースコアプレフィックス）
-- 非同期メソッド: `Async` サフィックスを付与
-
-### ファイル構成
-- `PleasanterClient.*.cs` - 機能ごとにPartialクラスで分割
-- `Models/` - リクエスト/レスポンスのモデルクラス
-
-## API設計方針
-
-- Pleasanter APIのエンドポイントに対応するメソッドを提供
-- レスポンスは型安全なモデルクラスで返却
-- エラーハンドリングは例外またはResult型で統一
+詳細なコーディング規約は [docs/contributing/coding-guidelines.md](../docs/contributing/coding-guidelines.md) を参照すること。
 
 ## ドキュメント
 
-- `docs/wiki/` 配下にAPIの使い方を日本語で記載
-- ファイル名は `{カテゴリ}-{機能}.md` 形式
-- Markdownを作成するときは絵文字を使用しない
-- 図を使う必要があるときはMermaidを使用する
-- Markdownでテーブルを生成するときは、列幅を揃えて見やすく整形する
-
-## ドキュメント同期
-
-コードやワークフロー（`.github/workflows/*.yml`）を変更した場合は、関連するドキュメントも更新すること：
-
-| 変更対象                            | 更新が必要なドキュメント                           |
-| ----------------------------------- | -------------------------------------------------- |
-| 公開API（メソッド追加・変更・削除） | `docs/wiki/` 配下の該当ドキュメント                |
-| 依存パッケージの変更                | `README.md` のサードパーティライセンスセクション  |
-| CI/CDワークフローの変更             | `docs/contributing/ci-workflow.md`                 |
-| インストール方法の変更              | `README.md` のインストールセクション              |
-| プロジェクト設定の変更              | `README.md` および `.github/copilot-instructions.md` |
-
-## 依存関係
-
-- JSONに関する操作はNewtonsoft.Json（JSON.NET）を使用すること
-
-## サードパーティライセンス管理
-
-- サードパーティライブラリのライセンスファイルは `LICENSES/` フォルダに配置する
-- ファイル名は `{PackageName}.txt` 形式（例: `Newtonsoft.Json.txt`）
-- 新しい依存パッケージを追加する際は、以下を実施すること：
-  1. `LICENSES/` にライセンスファイルを追加
-  2. `README.md` のサードパーティライセンスセクションに著作権表示を追加
-  3. `.github/workflows/release.yml` でリリースZIPに `LICENSES/` フォルダが同梱されることを確認
-- MIT、Apache-2.0、BSD系などのライセンスはライセンス文と著作権表示の同梱が必須
+詳細なドキュメント規約は [docs/contributing/documentation-guidelines.md](../docs/contributing/documentation-guidelines.md) を参照すること。
 
 ## 出力ルール
 
