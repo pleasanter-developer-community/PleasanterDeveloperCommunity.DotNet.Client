@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ドキュメント
+    url: https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/wiki
+    about: まずはWikiドキュメントを確認してください
+  - name: Pleasanter公式ドキュメント
+    url: https://pleasanter.org/manual
+    about: Pleasanter本体に関する質問は公式マニュアルを参照してください
