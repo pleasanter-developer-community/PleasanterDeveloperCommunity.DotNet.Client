@@ -118,3 +118,10 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge main to develop
+        run: |
+          git fetch origin develop
+          git checkout develop
+          git merge main --no-ff -m "chore: merge main (v${{ steps.new_version.outputs.new_version }}) into develop"
+          git push origin develop
