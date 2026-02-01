@@ -1,13 +1,21 @@
 # PleasanterDeveloperCommunity.DotNet.Client
 
+## 目次
+
+- [動作要件](#動作要件)
+- [基本的な使い方](#基本的な使い方)
+- [オプション設定](#オプション設定)
+- [対応 API](#対応-api)
+- [Thanks](#thanks)
+
 ## 動作要件
 
 - プリザンター 1.3.13.0以降
-  - 使用されている.NETスタックがサポート期間中であるバージョンの仕様を推奨
-  - .NET Framework版は非対応
-  - このクライアントは**プリザンター 1.5.0.0 のソースコードを参考に実装**
+    - 使用されている.NETスタックがサポート期間中であるバージョンの仕様を推奨
+    - .NET Framework版は非対応
+    - このクライアントは**プリザンター 1.5.0.0 のソースコードを参考に実装**
 - プリザンター ApiVersion 1.1以降
-  - Api.jsonの設定で1.0を指定した場合でも1.1以降のバージョンを強制指定
+    - Api.jsonの設定で1.0を指定した場合でも1.1以降のバージョンを強制指定
 - .NET Standard 2.1対応環境（.NET Core 3.0以降、.NET 5以降、Xamarinなど）
 
 ## 基本的な使い方
@@ -30,23 +38,23 @@ PleasanterClientでは、さまざまなオプション設定が可能です。
 
 #### 標準コンストラクタ
 
-| パラメータ名                       | 型               | 必須 | 説明                                                                           |
-|:-----------------------------------|:-----------------|:----:|:-------------------------------------------------------------------------------|
-| `baseUrl`                          | `string`         |  Yes   | プリザンターのベースURL（例: `https://example.com/pleasanter`）                |
-| `apiKey`                           | `string`         |  Yes   | APIキー                                                                        |
-| `apiVersion`                       | `float`          |      | APIバージョン（省略時: 1.1、最小値: 1.1）                                      |
-| `defaultTimeout`                   | `TimeSpan?`      |      | デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値 100秒）   |
-| `proxySettings`                    | `ProxySettings?` |      | プロキシ設定（省略時：OS設定に従う）                                           |
-| `ignoreSslCertificateValidation`   | `bool`           |      | SSL証明書の検証を無効にするかどうか（省略時: false）。開発・テスト環境でのみ使用 |
-| `debugSettings`                    | `DebugSettings?` |      | デバッグ設定（省略時：デバッグモード無効）                                     |
+| パラメータ名                     | 型               | 必須 | 説明                                                                             |
+| :------------------------------- | :--------------- | :--: | :------------------------------------------------------------------------------- |
+| `baseUrl`                        | `string`         | Yes  | プリザンターのベースURL（例: `https://example.com/pleasanter`）                  |
+| `apiKey`                         | `string`         | Yes  | APIキー                                                                          |
+| `apiVersion`                     | `float`          |      | APIバージョン（省略時: 1.1、最小値: 1.1）                                        |
+| `defaultTimeout`                 | `TimeSpan?`      |      | デフォルトのリクエストタイムアウト（省略時：HttpClientのデフォルト値 100秒）     |
+| `proxySettings`                  | `ProxySettings?` |      | プロキシ設定（省略時：OS設定に従う）                                             |
+| `ignoreSslCertificateValidation` | `bool`           |      | SSL証明書の検証を無効にするかどうか（省略時: false）。開発・テスト環境でのみ使用 |
+| `debugSettings`                  | `DebugSettings?` |      | デバッグ設定（省略時：デバッグモード無効）                                       |
 
 #### HttpClient指定コンストラクタ
 
 | パラメータ名    | 型               | 必須 | 説明                                                            |
-|:----------------|:-----------------|:----:|:----------------------------------------------------------------|
-| `baseUrl`       | `string`         |  Yes   | プリザンターのベースURL（例: `https://example.com/pleasanter`） |
-| `apiKey`        | `string`         |  Yes   | APIキー                                                         |
-| `httpClient`    | `HttpClient`     |  Yes   | 外部から渡すHttpClientインスタンス                              |
+| :-------------- | :--------------- | :--: | :-------------------------------------------------------------- |
+| `baseUrl`       | `string`         | Yes  | プリザンターのベースURL（例: `https://example.com/pleasanter`） |
+| `apiKey`        | `string`         | Yes  | APIキー                                                         |
+| `httpClient`    | `HttpClient`     | Yes  | 外部から渡すHttpClientインスタンス                              |
 | `apiVersion`    | `float`          |      | APIバージョン（省略時: 1.1、最小値: 1.1）                       |
 | `debugSettings` | `DebugSettings?` |      | デバッグ設定（省略時：デバッグモード無効）                      |
 
@@ -108,12 +116,12 @@ var result = await client.CreateRecordAsync(siteId: 456, request: request);
 
 リクエストモデルは以下の名前空間で提供されます：
 
-| 名前空間                     | 説明                                     |
-|:-----------------------------|:-----------------------------------------|
-| `Models.Requests.Items`      | テーブル・レコード操作のリクエストモデル |
-| `Models.Requests.Sites`      | サイト操作のリクエストモデル             |
-| `Models.Requests.Binaries`   | 添付ファイル取得のリクエストモデル       |
-| `Models.Requests.Extended`   | 拡張SQL実行のリクエストモデル            |
+| 名前空間                   | 説明                                     |
+| :------------------------- | :--------------------------------------- |
+| `Models.Requests.Items`    | テーブル・レコード操作のリクエストモデル |
+| `Models.Requests.Sites`    | サイト操作のリクエストモデル             |
+| `Models.Requests.Binaries` | 添付ファイル取得のリクエストモデル       |
+| `Models.Requests.Extended` | 拡張SQL実行のリクエストモデル            |
 
 ### タイムアウト設定
 
@@ -203,11 +211,11 @@ using var client = new PleasanterClient(
 
 #### DebugSettingsのオプション
 
-| パラメータ     | 型         | 必須 | デフォルト値   | 説明                                   |
-|:--------------|:-----------|:----:|:--------------|:---------------------------------------|
-| `logDirectory` | `string`   |  Yes   | -             | ログファイルの出力先ディレクトリパス       |
-| `encoding`     | `Encoding` |  -   | システム規定    | CSVファイルのエンコーディング             |
-| `maskApiKey`   | `bool`     |  -   | `true`        | APIキーをマスクして出力するかどうか       |
+| パラメータ     | 型         | 必須 | デフォルト値 | 説明                                 |
+| :------------- | :--------- | :--: | :----------- | :----------------------------------- |
+| `logDirectory` | `string`   | Yes  | -            | ログファイルの出力先ディレクトリパス |
+| `encoding`     | `Encoding` |  -   | システム規定 | CSVファイルのエンコーディング        |
+| `maskApiKey`   | `bool`     |  -   | `true`       | APIキーをマスクして出力するかどうか  |
 
 #### ファクトリメソッド
 
@@ -226,15 +234,15 @@ var settings = DebugSettings.WithEncoding(@"C:\Logs", Encoding.GetEncoding("Shif
 
 デバッグ機能を有効にすると、以下の情報がCSVファイルに記録されます：
 
-| フィールド | 説明                           | 備考                                                                     |
-|:-----------|:-------------------------------|:-------------------------------------------------------------------------|
-| Timestamp  | リクエスト/レスポンスの日時    |                                                                          |
-| RequestId  | リクエストを識別するためのID   | UUID v7形式                                                              |
-| Type       | ログの種類                     | `Request`、`Response`、または `Exception`                                |
-| Url        | リクエストURL                  |                                                                          |
-| StatusCode | HTTPステータスコード           | レスポンスのみ                                                           |
-| IsJson     | レスポンスがJSON形式かどうか   | レスポンスのみ                                                           |
-| Content    | リクエスト/レスポンスのボディ  | 例外の場合はスタックトレースを含む詳細情報                               |
+| フィールド | 説明                          | 備考                                       |
+| :--------- | :---------------------------- | :----------------------------------------- |
+| Timestamp  | リクエスト/レスポンスの日時   |                                            |
+| RequestId  | リクエストを識別するためのID  | UUID v7形式                                |
+| Type       | ログの種類                    | `Request`、`Response`、または `Exception`  |
+| Url        | リクエストURL                 |                                            |
+| StatusCode | HTTPステータスコード          | レスポンスのみ                             |
+| IsJson     | レスポンスがJSON形式かどうか  | レスポンスのみ                             |
+| Content    | リクエスト/レスポンスのボディ | 例外の場合はスタックトレースを含む詳細情報 |
 
 #### 例外ハンドリング
 
@@ -289,126 +297,126 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 ### 概要
 
-| # | カテゴリ | コントローラー | API数 | 対応 | 未対応 |
-|:-:|:---------|:---------------|:-----:|:----:|:------:|
-| 01 | テーブル操作 | ItemsController | 9 | 9 | 0 |
-| 02 | サイト操作 | ItemsController | 8 | 8 | 0 |
-| 03 | ユーザ操作 | UsersController | 5 | 5 | 0 |
-| 04 | グループ操作 | GroupsController | 5 | 5 | 0 |
-| 05 | 組織操作 | DeptsController | 5 | 5 | 0 |
-| 06 | セッション操作 | SessionsController | 3 | 3 | 0 |
-| 07 | メール操作 | OutgoingMailsController | 1 | 1 | 0 |
-| 08 | バイナリ操作 | BinariesController | 4 | 4 | 0 |
-| 09 | 拡張SQL | ExtendedController | 1 | 1 | 0 |
-| 10 | 拡張機能操作 | ExtensionsController | 4 | 4 | 0 |
-| 11 | ユーティリティ | UtilityController | 1 | 1 | 0 |
-| 12 | バックグラウンドタスク | BackgroundTasksController | 2 | 2 | 0 |
-| 13 | デモ | DemoController | 1 | 1 | 0 |
-| | **合計** | | **49** | **49** | **0** |
+|  #  | カテゴリ               | コントローラー            | API数  |  対応  | 未対応 |
+| :-: | :--------------------- | :------------------------ | :----: | :----: | :----: |
+| 01  | テーブル操作           | ItemsController           |   9    |   9    |   0    |
+| 02  | サイト操作             | ItemsController           |   8    |   8    |   0    |
+| 03  | ユーザ操作             | UsersController           |   5    |   5    |   0    |
+| 04  | グループ操作           | GroupsController          |   5    |   5    |   0    |
+| 05  | 組織操作               | DeptsController           |   5    |   5    |   0    |
+| 06  | セッション操作         | SessionsController        |   3    |   3    |   0    |
+| 07  | メール操作             | OutgoingMailsController   |   1    |   1    |   0    |
+| 08  | バイナリ操作           | BinariesController        |   4    |   4    |   0    |
+| 09  | 拡張SQL                | ExtendedController        |   1    |   1    |   0    |
+| 10  | 拡張機能操作           | ExtensionsController      |   4    |   4    |   0    |
+| 11  | ユーティリティ         | UtilityController         |   1    |   1    |   0    |
+| 12  | バックグラウンドタスク | BackgroundTasksController |   2    |   2    |   0    |
+| 13  | デモ                   | DemoController            |   1    |   1    |   0    |
+|     | **合計**               |                           | **49** | **49** | **0**  |
 
 ### 01. テーブル操作
 
 `Route: api/items`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/items/{id}/get` | 取得 | レコードまたはテーブルのレコード一覧を取得 | Yes |
-| 2 | `/api/items/{id}/create` | 作成 | 新しいレコードを作成 | Yes |
-| 3 | `/api/items/{id}/update` | 更新 | 既存レコードを更新 | Yes |
-| 4 | `/api/items/{id}/upsert` | 作成・更新 | キーに基づいてレコードを作成または更新 | Yes |
-| 5 | `/api/items/{id}/delete` | 削除 | レコードを削除 | Yes |
-| 6 | `/api/items/{id}/bulkdelete` | 一括削除 | 複数レコードを一括削除 | Yes |
-| 7 | `/api/items/{id}/bulkupsert` | 一括作成・更新 | 複数レコードを一括で作成または更新 | Yes |
-| 8 | `/api/items/{id}/import` | インポート | CSVファイルをインポート | Yes |
-| 9 | `/api/items/{id}/export` | エクスポート | テーブルをCSV/JSON形式でエクスポート | Yes |
+|  #  | エンドポイント               | 操作           | 説明                                       | 対応 |
+| :-: | :--------------------------- | :------------- | :----------------------------------------- | :--: |
+|  1  | `/api/items/{id}/get`        | 取得           | レコードまたはテーブルのレコード一覧を取得 | Yes  |
+|  2  | `/api/items/{id}/create`     | 作成           | 新しいレコードを作成                       | Yes  |
+|  3  | `/api/items/{id}/update`     | 更新           | 既存レコードを更新                         | Yes  |
+|  4  | `/api/items/{id}/upsert`     | 作成・更新     | キーに基づいてレコードを作成または更新     | Yes  |
+|  5  | `/api/items/{id}/delete`     | 削除           | レコードを削除                             | Yes  |
+|  6  | `/api/items/{id}/bulkdelete` | 一括削除       | 複数レコードを一括削除                     | Yes  |
+|  7  | `/api/items/{id}/bulkupsert` | 一括作成・更新 | 複数レコードを一括で作成または更新         | Yes  |
+|  8  | `/api/items/{id}/import`     | インポート     | CSVファイルをインポート                    | Yes  |
+|  9  | `/api/items/{id}/export`     | エクスポート   | テーブルをCSV/JSON形式でエクスポート       | Yes  |
 
 ### 02. サイト操作
 
 `Route: api/items`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/items/{id}/getsite` | サイト取得 | サイト情報を取得 | Yes |
-| 2 | `/api/items/{id}/createsite` | サイト作成 | 新しいサイトを作成 | Yes |
-| 3 | `/api/items/{id}/updatesite` | サイト更新 | サイト情報を更新 | Yes |
-| 4 | `/api/items/{id}/deletesite` | サイト削除 | サイトを削除 | Yes |
-| 5 | `/api/items/{id}/copysitepackage` | サイトコピー | サイトパッケージをコピー | Yes |
-| 6 | `/api/items/{id}/synchronizesummaries` | 集計同期 | 集計を同期 | Yes |
-| 7 | `/api/items/{id}/updatesitesettings` | サイト設定更新 | サイト設定を部分更新 | Yes |
-| 8 | `/api/items/{id}/getclosestsiteid` | サイトID取得 | サイト名検索で最も近いサイトIDを取得 | Yes |
+|  #  | エンドポイント                         | 操作           | 説明                                 | 対応 |
+| :-: | :------------------------------------- | :------------- | :----------------------------------- | :--: |
+|  1  | `/api/items/{id}/getsite`              | サイト取得     | サイト情報を取得                     | Yes  |
+|  2  | `/api/items/{id}/createsite`           | サイト作成     | 新しいサイトを作成                   | Yes  |
+|  3  | `/api/items/{id}/updatesite`           | サイト更新     | サイト情報を更新                     | Yes  |
+|  4  | `/api/items/{id}/deletesite`           | サイト削除     | サイトを削除                         | Yes  |
+|  5  | `/api/items/{id}/copysitepackage`      | サイトコピー   | サイトパッケージをコピー             | Yes  |
+|  6  | `/api/items/{id}/synchronizesummaries` | 集計同期       | 集計を同期                           | Yes  |
+|  7  | `/api/items/{id}/updatesitesettings`   | サイト設定更新 | サイト設定を部分更新                 | Yes  |
+|  8  | `/api/items/{id}/getclosestsiteid`     | サイトID取得   | サイト名検索で最も近いサイトIDを取得 | Yes  |
 
 ### 03. ユーザ操作
 
 `Route: api/users`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/users/get`<br>`/api/users/{id}/get` | 取得 | ユーザ情報を取得（全体または個別） | Yes |
-| 2 | `/api/users/create` | 作成 | 新しいユーザを作成 | Yes |
-| 3 | `/api/users/{id}/update` | 更新 | ユーザ情報を更新 | Yes |
-| 4 | `/api/users/{id}/delete` | 削除 | ユーザを削除 | Yes |
-| 5 | `/api/users/import` | インポート | ユーザをCSVインポート | Yes |
+|  #  | エンドポイント                            | 操作       | 説明                               | 対応 |
+| :-: | :---------------------------------------- | :--------- | :--------------------------------- | :--: |
+|  1  | `/api/users/get`<br>`/api/users/{id}/get` | 取得       | ユーザ情報を取得（全体または個別） | Yes  |
+|  2  | `/api/users/create`                       | 作成       | 新しいユーザを作成                 | Yes  |
+|  3  | `/api/users/{id}/update`                  | 更新       | ユーザ情報を更新                   | Yes  |
+|  4  | `/api/users/{id}/delete`                  | 削除       | ユーザを削除                       | Yes  |
+|  5  | `/api/users/import`                       | インポート | ユーザをCSVインポート              | Yes  |
 
 ### 04. グループ操作
 
 `Route: api/groups`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/groups/get`<br>`/api/groups/{id}/get` | 取得 | グループ情報を取得（全体または個別） | Yes |
-| 2 | `/api/groups/create` | 作成 | 新しいグループを作成 | Yes |
-| 3 | `/api/groups/{id}/update` | 更新 | グループ情報を更新 | Yes |
-| 4 | `/api/groups/{id}/delete` | 削除 | グループを削除 | Yes |
-| 5 | `/api/groups/import` | インポート | グループをCSVインポート | Yes |
+|  #  | エンドポイント                              | 操作       | 説明                                 | 対応 |
+| :-: | :------------------------------------------ | :--------- | :----------------------------------- | :--: |
+|  1  | `/api/groups/get`<br>`/api/groups/{id}/get` | 取得       | グループ情報を取得（全体または個別） | Yes  |
+|  2  | `/api/groups/create`                        | 作成       | 新しいグループを作成                 | Yes  |
+|  3  | `/api/groups/{id}/update`                   | 更新       | グループ情報を更新                   | Yes  |
+|  4  | `/api/groups/{id}/delete`                   | 削除       | グループを削除                       | Yes  |
+|  5  | `/api/groups/import`                        | インポート | グループをCSVインポート              | Yes  |
 
 ### 05. 組織操作
 
 `Route: api/depts`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/depts/get`<br>`/api/depts/{id}/get` | 取得 | 組織情報を取得（全体または個別） | Yes |
-| 2 | `/api/depts/create` | 作成 | 新しい組織を作成 | Yes |
-| 3 | `/api/depts/{id}/update` | 更新 | 組織情報を更新 | Yes |
-| 4 | `/api/depts/{id}/delete` | 削除 | 組織を削除 | Yes |
-| 5 | `/api/depts/import` | インポート | 組織をCSVインポート | Yes |
+|  #  | エンドポイント                            | 操作       | 説明                             | 対応 |
+| :-: | :---------------------------------------- | :--------- | :------------------------------- | :--: |
+|  1  | `/api/depts/get`<br>`/api/depts/{id}/get` | 取得       | 組織情報を取得（全体または個別） | Yes  |
+|  2  | `/api/depts/create`                       | 作成       | 新しい組織を作成                 | Yes  |
+|  3  | `/api/depts/{id}/update`                  | 更新       | 組織情報を更新                   | Yes  |
+|  4  | `/api/depts/{id}/delete`                  | 削除       | 組織を削除                       | Yes  |
+|  5  | `/api/depts/import`                       | インポート | 組織をCSVインポート              | Yes  |
 
 ### 06. セッション操作
 
 `Route: api/sessions`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/sessions/get` | 取得 | セッション情報を取得 | Yes |
-| 2 | `/api/sessions/set` | 設定 | セッション情報を設定 | Yes |
-| 3 | `/api/sessions/delete` | 削除 | セッション情報を削除 | Yes |
+|  #  | エンドポイント         | 操作 | 説明                 | 対応 |
+| :-: | :--------------------- | :--- | :------------------- | :--: |
+|  1  | `/api/sessions/get`    | 取得 | セッション情報を取得 | Yes  |
+|  2  | `/api/sessions/set`    | 設定 | セッション情報を設定 | Yes  |
+|  3  | `/api/sessions/delete` | 削除 | セッション情報を削除 | Yes  |
 
 ### 07. メール操作
 
 `Route: api`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/items/{id}/outgoingmails/send` | 送信 | メールを送信 | Yes |
+|  #  | エンドポイント                       | 操作 | 説明         | 対応 |
+| :-: | :----------------------------------- | :--- | :----------- | :--: |
+|  1  | `/api/items/{id}/outgoingmails/send` | 送信 | メールを送信 | Yes  |
 
 ### 08. バイナリ操作
 
 `Route: api/binaries`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/binaries/{guid}/get` | 取得 | 添付ファイル情報をBase64形式で取得 | Yes |
-| 2 | `/api/binaries/{guid}/getstream` | ストリーム取得 | 添付ファイルをストリームとして取得 | Yes |
-| 3 | `/api/binaries/{siteId}/upload` | アップロード | ファイルをアップロード（Base64） | Yes |
-| 4 | `/api/binaries/upload` | ストリームアップロード | ファイルをストリームでアップロード（Bearer認証） | Yes |
+|  #  | エンドポイント                   | 操作                   | 説明                                             | 対応 |
+| :-: | :------------------------------- | :--------------------- | :----------------------------------------------- | :--: |
+|  1  | `/api/binaries/{guid}/get`       | 取得                   | 添付ファイル情報をBase64形式で取得               | Yes  |
+|  2  | `/api/binaries/{guid}/getstream` | ストリーム取得         | 添付ファイルをストリームとして取得               | Yes  |
+|  3  | `/api/binaries/{siteId}/upload`  | アップロード           | ファイルをアップロード（Base64）                 | Yes  |
+|  4  | `/api/binaries/upload`           | ストリームアップロード | ファイルをストリームでアップロード（Bearer認証） | Yes  |
 
 ### 09. 拡張SQL
 
 `Route: api/extended`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/extended/sql` | 実行 | 事前定義された拡張SQLを実行 | Yes |
+|  #  | エンドポイント      | 操作 | 説明                        | 対応 |
+| :-: | :------------------ | :--- | :-------------------------- | :--: |
+|  1  | `/api/extended/sql` | 実行 | 事前定義された拡張SQLを実行 | Yes  |
 
 ### 10. 拡張機能操作
 
@@ -416,20 +424,20 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 > **注意:** この機能には `AllowExtensionsApi` の有効化と特権が必要です。
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/extensions/get`<br>`/api/extensions/{id}/get` | 取得 | 拡張機能情報を取得 | Yes |
-| 2 | `/api/extensions/create` | 作成 | 新しい拡張機能を作成 | Yes |
-| 3 | `/api/extensions/{id}/update` | 更新 | 拡張機能を更新 | Yes |
-| 4 | `/api/extensions/{id}/delete` | 削除 | 拡張機能を削除 | Yes |
+|  #  | エンドポイント                                      | 操作 | 説明                 | 対応 |
+| :-: | :-------------------------------------------------- | :--- | :------------------- | :--: |
+|  1  | `/api/extensions/get`<br>`/api/extensions/{id}/get` | 取得 | 拡張機能情報を取得   | Yes  |
+|  2  | `/api/extensions/create`                            | 作成 | 新しい拡張機能を作成 | Yes  |
+|  3  | `/api/extensions/{id}/update`                       | 更新 | 拡張機能を更新       | Yes  |
+|  4  | `/api/extensions/{id}/delete`                       | 削除 | 拡張機能を削除       | Yes  |
 
 ### 11. ユーティリティ
 
 `Route: api/utility`
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/utility/getlicenseinfo` | ライセンス情報取得 | ライセンス情報を取得 | Yes |
+|  #  | エンドポイント                | 操作               | 説明                 | 対応 |
+| :-: | :---------------------------- | :----------------- | :------------------- | :--: |
+|  1  | `/api/utility/getlicenseinfo` | ライセンス情報取得 | ライセンス情報を取得 | Yes  |
 
 ### 12. バックグラウンドタスク
 
@@ -437,10 +445,10 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 > **注意:** この機能には `BackgroundTask.Enabled` パラメータの有効化が必要です。
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/backgroundtasks/rebuildsearchindexes` | 全サイト検索インデックス再構築 | 全サイトの検索インデックスを再構築 | Yes |
-| 2 | `/api/backgroundtasks/{id}/rebuildsearchindexes` | 検索インデックス再構築 | 特定サイトの検索インデックスを再構築 | Yes |
+|  #  | エンドポイント                                   | 操作                           | 説明                                 | 対応 |
+| :-: | :----------------------------------------------- | :----------------------------- | :----------------------------------- | :--: |
+|  1  | `/api/backgroundtasks/rebuildsearchindexes`      | 全サイト検索インデックス再構築 | 全サイトの検索インデックスを再構築   | Yes  |
+|  2  | `/api/backgroundtasks/{id}/rebuildsearchindexes` | 検索インデックス再構築         | 特定サイトの検索インデックスを再構築 | Yes  |
 
 ### 13. デモ
 
@@ -448,9 +456,9 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 
 > **注意:** この機能には `Service.DemoApi` パラメータの有効化が必要です。
 
-| # | エンドポイント | 操作 | 説明 | 対応 |
-|:-:|:---------------|:-----|:-----|:----:|
-| 1 | `/api/demo/register` | 登録 | デモ環境を登録 | Yes |
+|  #  | エンドポイント       | 操作 | 説明           | 対応 |
+| :-: | :------------------- | :--- | :------------- | :--: |
+|  1  | `/api/demo/register` | 登録 | デモ環境を登録 | Yes  |
 
 ## Thanks
 

@@ -110,6 +110,35 @@ docs/
 
 VS Codeで `Shift + Alt + F`（Windows）または `Shift + Option + F`（Mac）でフォーマットを実行。
 
+### 目次の自動生成（Markdown All in One）
+
+目次の生成・更新は Markdown All in One 拡張機能で自動化されている。
+
+#### セットアップ
+
+1. VS Code拡張機能 `yzhang.markdown-all-in-one` をインストール
+2. `.vscode/extensions.json` に推奨拡張機能として登録済み
+3. 保存時に目次が自動更新される
+
+#### 目次の挿入
+
+1. 目次を挿入したい位置にカーソルを置く
+2. コマンドパレット（`Ctrl+Shift+P`）を開く
+3. 「Markdown All in One: Create Table of Contents」を実行
+
+#### 設定
+
+| 設定                                  | 値       | 説明                   |
+| ------------------------------------- | -------- | ---------------------- |
+| `markdown.extension.toc.updateOnSave` | `true`   | 保存時に目次を自動更新 |
+| `markdown.extension.toc.levels`       | `"2..3"` | H2〜H3を目次に含める   |
+
+#### セクションを目次から除外
+
+```markdown
+## このセクションは除外 <!-- omit in toc -->
+```
+
 ### 見出し
 
 ```markdown

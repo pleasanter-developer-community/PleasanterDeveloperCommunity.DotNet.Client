@@ -11,5 +11,7 @@
     "editor.formatOnSave": true
   },
   "editor.formatOnSave": true,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "markdown.extension.toc.updateOnSave": true,
+  "markdown.extension.toc.levels": "2..3"
 }
