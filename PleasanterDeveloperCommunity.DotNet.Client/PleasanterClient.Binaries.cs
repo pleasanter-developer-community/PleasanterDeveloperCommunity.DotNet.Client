@@ -24,7 +24,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<AttachmentResponse>(
             $"/api/binaries/{guid}/get", request, timeout, cancellationToken);
@@ -60,7 +63,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<GetBinaryStreamResponse>(
             $"/api/binaries/{guid}/getstream", request, timeout, cancellationToken);
@@ -100,7 +106,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<UploadBinaryResponse>(
             $"/api/binaries/{siteId}/upload", request, timeout, cancellationToken);
@@ -151,7 +160,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (fileData == null) throw new ArgumentNullException(nameof(fileData));
+        if (fileData == null)
+        {
+            throw new ArgumentNullException(nameof(fileData));
+        }
         var base64Data = Convert.ToBase64String(fileData);
         return await UploadBinaryAsync(siteId, fileName, base64Data, contentType, timeout, cancellationToken);
     }
@@ -182,8 +194,14 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (fileStream == null) throw new ArgumentNullException(nameof(fileStream));
-        if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+        if (fileStream == null)
+        {
+            throw new ArgumentNullException(nameof(fileStream));
+        }
+        if (string.IsNullOrEmpty(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
 
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(
             $"/api/binaries/upload?id={siteId}",
@@ -220,7 +238,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (fileData == null) throw new ArgumentNullException(nameof(fileData));
+        if (fileData == null)
+        {
+            throw new ArgumentNullException(nameof(fileData));
+        }
         using var stream = new MemoryStream(fileData);
         return await UploadBinaryStreamAsync(siteId, stream, fileName, contentType, timeout, cancellationToken);
     }
@@ -245,7 +266,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
+        if (string.IsNullOrEmpty(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath));
+        }
 
         var fileName = Path.GetFileName(filePath);
         using var fileStream = File.OpenRead(filePath);
@@ -276,9 +300,18 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(guid)) throw new ArgumentNullException(nameof(guid));
-        if (fileStream == null) throw new ArgumentNullException(nameof(fileStream));
-        if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+        if (string.IsNullOrEmpty(guid))
+        {
+            throw new ArgumentNullException(nameof(guid));
+        }
+        if (fileStream == null)
+        {
+            throw new ArgumentNullException(nameof(fileStream));
+        }
+        if (string.IsNullOrEmpty(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
 
         var endpoint = $"/api/binaries/{guid}/upload";
         if (overwrite)
@@ -319,7 +352,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (fileData == null) throw new ArgumentNullException(nameof(fileData));
+        if (fileData == null)
+        {
+            throw new ArgumentNullException(nameof(fileData));
+        }
         using var stream = new MemoryStream(fileData);
         return await UpdateBinaryStreamAsync(guid, stream, fileName, contentType, overwrite, timeout, cancellationToken);
     }
@@ -358,8 +394,14 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (chunkData == null) throw new ArgumentNullException(nameof(chunkData));
-        if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+        if (chunkData == null)
+        {
+            throw new ArgumentNullException(nameof(chunkData));
+        }
+        if (string.IsNullOrEmpty(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
 
         using var stream = new MemoryStream(chunkData);
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(
@@ -406,9 +448,18 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(guid)) throw new ArgumentNullException(nameof(guid));
-        if (chunkData == null) throw new ArgumentNullException(nameof(chunkData));
-        if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+        if (string.IsNullOrEmpty(guid))
+        {
+            throw new ArgumentNullException(nameof(guid));
+        }
+        if (chunkData == null)
+        {
+            throw new ArgumentNullException(nameof(chunkData));
+        }
+        if (string.IsNullOrEmpty(fileName))
+        {
+            throw new ArgumentNullException(nameof(fileName));
+        }
 
         var endpoint = $"/api/binaries/{guid}/upload";
         if (overwrite)
