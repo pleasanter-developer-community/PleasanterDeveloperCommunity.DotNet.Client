@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,9 +16,14 @@ public partial class PleasanterClient
     #region GetAttachment (添付ファイル取得)
 
     /// <summary>
-    /// 添付ファイルを取得します（リクエストモデル版）
+    /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
+    /// <param name="guid">GUID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         GetAttachmentRequest request,
@@ -38,6 +43,10 @@ public partial class PleasanterClient
     /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
+    /// <param name="guid">GUID</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         TimeSpan? timeout = null,
@@ -52,7 +61,7 @@ public partial class PleasanterClient
     #region GetBinaryStream (バイナリストリーム取得)
 
     /// <summary>
-    /// バイナリストリームを取得します（リクエストモデル版）
+    /// バイナリストリームを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
     /// <param name="guid">GUID</param>
@@ -97,7 +106,7 @@ public partial class PleasanterClient
     #region UploadBinary (バイナリアップロード)
 
     /// <summary>
-    /// バイナリをアップロードします（リクエストモデル版）
+    /// バイナリをアップロードします
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-03-バイナリ-アップロード.md">Wiki: 08-バイナリ操作-03-バイナリ-アップロード</seealso>
     /// <param name="siteId">サイトID</param>
@@ -327,7 +336,7 @@ public partial class PleasanterClient
         var endpoint = $"/api/binaries/{guid}/upload";
         if (overwrite)
         {
-            endpoint += "?overwrite=true";
+            endpoint = $"{endpoint}?overwrite=true";
         }
 
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(

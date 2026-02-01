@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 public partial class PleasanterClient
 {
     /// <summary>
-    /// 拡張SQLを実行します（リクエストモデル版）
+    /// 拡張SQLを実行します
     /// </summary>
     /// <seealso href="../docs/wiki/09-拡張SQL-01-拡張SQL-取得(実行).md">Wiki: 09-拡張SQL-01-拡張SQL-取得(実行)</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -36,28 +36,5 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<ExtendedSqlResponse>(
             "/api/extended/sql", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 拡張SQLを実行します
-    /// </summary>
-    /// <seealso href="../docs/wiki/09-拡張SQL-01-拡張SQL-取得(実行).md">Wiki: 09-拡張SQL-01-拡張SQL-取得(実行)</seealso>
-    /// <param name="name">拡張SQL名</param>
-    /// <param name="parameters">パラメータ</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>拡張SQLレスポンス</returns>
-    public async Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
-        string name,
-        Dictionary<string, object>? parameters = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new ExtendedSqlRequest
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name)),
-            AdditionalParameters = parameters
-        };
-        return await ExecuteExtendedSqlAsync(request, timeout, cancellationToken);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Demo;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region RegisterDemo (デモ登録)
 
     /// <summary>
-    /// デモ環境を登録します（リクエストモデル版）
+    /// デモ環境を登録します
     /// </summary>
     /// <seealso href="../docs/wiki/13-デモ-01-デモ環境-登録.md">Wiki: 13-デモ-01-デモ環境-登録</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -36,29 +36,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<RegisterDemoResponse>(
             "/api/demo/register", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// デモ環境を登録します
-    /// </summary>
-    /// <seealso href="../docs/wiki/13-デモ-01-デモ環境-登録.md">Wiki: 13-デモ-01-デモ環境-登録</seealso>
-    /// <param name="mailAddress">メールアドレス</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>デモ登録レスポンス</returns>
-    /// <remarks>
-    /// この機能を使用するには、サーバー側で Service.DemoApi パラメータが有効になっている必要があります。
-    /// </remarks>
-    public async Task<ApiResponse<RegisterDemoResponse>> RegisterDemoAsync(
-        string mailAddress,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new RegisterDemoRequest
-        {
-            MailAddress = mailAddress ?? throw new ArgumentNullException(nameof(mailAddress))
-        };
-        return await RegisterDemoAsync(request, timeout, cancellationToken);
     }
 
     #endregion
