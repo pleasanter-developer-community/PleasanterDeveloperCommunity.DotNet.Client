@@ -36,10 +36,17 @@
         - [書式指定の例](#書式指定の例)
 - [コメントとドキュメント](#コメントとドキュメント)
     - [XMLドキュメントコメント](#xmlドキュメントコメント)
+        - [必須/任意ルール](#必須任意ルール)
+        - [記述例](#記述例)
+    - [Wikiドキュメントへのリンク（seealso）](#wikiドキュメントへのリンクseealso)
+        - [基本ルール](#基本ルール)
+        - [記述例](#記述例-1)
+        - [Wikiドキュメントとメソッドの対応](#wikiドキュメントとメソッドの対応)
+        - [注意事項](#注意事項)
     - [コメント言語](#コメント言語)
     - [TODOコメント](#todoコメント)
 - [非同期プログラミング](#非同期プログラミング)
-    - [基本ルール](#基本ルール)
+    - [基本ルール](#基本ルール-1)
     - [ConfigureAwait](#configureawait)
     - [同期メソッドの提供](#同期メソッドの提供)
 - [エラーハンドリング](#エラーハンドリング)
@@ -456,7 +463,21 @@ var padded = $"|{name,10}|{value,-10}|";      // 右寄せ・左寄せ
 
 ### XMLドキュメントコメント
 
-**すべての公開APIに必須**：
+**すべての公開APIに必須**。
+
+#### 必須/任意ルール
+
+| タグ          | 条件                                   | 必須/任意 |
+| ------------- | -------------------------------------- | --------- |
+| `<summary>`   | すべての公開API                        | 必須      |
+| `<seealso>`   | 対応するWikiドキュメントが存在する場合 | 必須      |
+| `<param>`     | 引数がある場合                         | 必須      |
+| `<returns>`   | 戻り値がある場合（`void`/`Task`以外）  | 必須      |
+| `<exception>` | 例外をスローする可能性がある場合       | 任意      |
+| `<remarks>`   | 補足説明が必要な場合                   | 任意      |
+| `<example>`   | 使用例を示す場合                       | 任意      |
+
+#### 記述例
 
 ```csharp
 /// <summary>
@@ -478,6 +499,64 @@ public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
     // 実装
 }
 ```
+
+### Wikiドキュメントへのリンク（seealso）
+
+PleasanterClientの公開メソッドには、対応するWikiドキュメントへのリンクを `<seealso>` タグで記述する。
+
+#### 基本ルール
+
+| 項目           | 内容                                         |
+| -------------- | -------------------------------------------- |
+| 対象           | PleasanterClientの全公開メソッド             |
+| タグ           | `<seealso href="...">`                       |
+| リンク形式     | 内部リンク（`../docs/wiki/{ファイル名}.md`） |
+| 配置位置       | `<summary>` タグの直後、`<param>` タグの前   |
+| リンクテキスト | `Wiki: {Wikiページ名}`                       |
+
+#### 記述例
+
+```csharp
+/// <summary>
+/// レコードを作成します（リクエストモデル版）
+/// </summary>
+/// <seealso href="../docs/wiki/01-テーブル操作-01-レコード-作成.md">Wiki: 01-テーブル操作-01-レコード-作成</seealso>
+/// <param name="siteId">サイトID</param>
+/// <param name="request">リクエストモデル</param>
+public async Task<ApiResponse<CreateRecordResponse>> CreateRecordAsync(
+    long siteId,
+    CreateRecordRequest request,
+    TimeSpan? timeout = null,
+    CancellationToken cancellationToken = default)
+{
+    // 実装
+}
+```
+
+#### Wikiドキュメントとメソッドの対応
+
+| カテゴリ番号 | カテゴリ名             | 対応ファイル                        |
+| ------------ | ---------------------- | ----------------------------------- |
+| 01           | テーブル操作           | PleasanterClient.Items.cs           |
+| 01           | テーブル操作（Import） | PleasanterClient.ImportExport.cs    |
+| 02           | サイト操作             | PleasanterClient.Sites.cs           |
+| 03           | ユーザ操作             | PleasanterClient.Users.cs           |
+| 04           | グループ操作           | PleasanterClient.Groups.cs          |
+| 05           | 組織操作               | PleasanterClient.Depts.cs           |
+| 06           | セッション操作         | PleasanterClient.Sessions.cs        |
+| 07           | メール操作             | PleasanterClient.Mails.cs           |
+| 08           | バイナリ操作           | PleasanterClient.Binaries.cs        |
+| 09           | 拡張SQL                | PleasanterClient.Extended.cs        |
+| 10           | 拡張機能操作           | PleasanterClient.Extensions.cs      |
+| 11           | ユーティリティ         | PleasanterClient.Utility.cs         |
+| 12           | バックグラウンドタスク | PleasanterClient.BackgroundTasks.cs |
+| 13           | デモ                   | PleasanterClient.Demo.cs            |
+
+#### 注意事項
+
+- URLエンコードは不要（内部リンクのため日本語のまま記述）
+- 同一メソッドのオーバーロード（リクエストモデル版/簡易版）は同じWikiページを参照
+- 新しいメソッドを追加する際は、対応するWikiドキュメントも作成すること
 
 ### コメント言語
 

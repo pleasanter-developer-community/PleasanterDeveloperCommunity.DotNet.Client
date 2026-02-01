@@ -20,6 +20,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループ一覧を取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-01-グループ-取得.md">Wiki: 04-グループ操作-01-グループ-取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -41,6 +42,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループ一覧を取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-01-グループ-取得.md">Wiki: 04-グループ操作-01-グループ-取得</seealso>
     /// <param name="offset">取得開始位置</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -64,6 +66,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-02-グループ-作成.md">Wiki: 04-グループ操作-02-グループ-作成</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -85,6 +88,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-02-グループ-作成.md">Wiki: 04-グループ操作-02-グループ-作成</seealso>
     /// <param name="groupName">グループ名</param>
     /// <param name="body">内容</param>
     /// <param name="timeout">タイムアウト</param>
@@ -111,6 +115,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-03-グループ-更新.md">Wiki: 04-グループ操作-03-グループ-更新</seealso>
     /// <param name="groupId">グループID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -134,6 +139,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-03-グループ-更新.md">Wiki: 04-グループ操作-03-グループ-更新</seealso>
     /// <param name="groupId">グループID</param>
     /// <param name="groupName">グループ名</param>
     /// <param name="body">内容</param>
@@ -162,6 +168,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-04-グループ-削除.md">Wiki: 04-グループ操作-04-グループ-削除</seealso>
     /// <param name="groupId">グループID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -185,6 +192,7 @@ public partial class PleasanterClient
     /// <summary>
     /// グループを削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-04-グループ-削除.md">Wiki: 04-グループ操作-04-グループ-削除</seealso>
     /// <param name="groupId">グループID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -205,6 +213,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータからグループをインポートします（byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-05-グループ-インポート.md">Wiki: 04-グループ操作-05-グループ-インポート</seealso>
     /// <param name="csvData">CSVデータ</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -228,6 +237,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータからグループをインポートします（Stream版）
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-05-グループ-インポート.md">Wiki: 04-グループ操作-05-グループ-インポート</seealso>
     /// <param name="csvStream">CSVストリーム</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -261,6 +271,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルパスを指定してグループをインポートします
     /// </summary>
+    /// <seealso href="../docs/wiki/04-グループ操作-05-グループ-インポート.md">Wiki: 04-グループ操作-05-グループ-インポート</seealso>
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
     /// <param name="timeout">タイムアウト</param>

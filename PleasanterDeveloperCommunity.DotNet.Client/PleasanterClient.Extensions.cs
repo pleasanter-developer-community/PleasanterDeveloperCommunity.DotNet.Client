@@ -16,6 +16,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能一覧を取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-01-拡張機能-取得.md">Wiki: 10-拡張機能操作-01-拡張機能-取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -37,6 +38,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能一覧を取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-01-拡張機能-取得.md">Wiki: 10-拡張機能操作-01-拡張機能-取得</seealso>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>拡張機能取得レスポンス</returns>
@@ -55,6 +57,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-02-拡張機能-作成.md">Wiki: 10-拡張機能操作-02-拡張機能-作成</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -76,6 +79,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-02-拡張機能-作成.md">Wiki: 10-拡張機能操作-02-拡張機能-作成</seealso>
     /// <param name="extensionType">種類</param>
     /// <param name="extensionName">拡張機能名</param>
     /// <param name="extensionSettings">設定</param>
@@ -108,6 +112,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-03-拡張機能-更新.md">Wiki: 10-拡張機能操作-03-拡張機能-更新</seealso>
     /// <param name="extensionId">拡張機能ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -131,6 +136,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-03-拡張機能-更新.md">Wiki: 10-拡張機能操作-03-拡張機能-更新</seealso>
     /// <param name="extensionId">拡張機能ID</param>
     /// <param name="extensionName">拡張機能名</param>
     /// <param name="extensionSettings">設定</param>
@@ -162,6 +168,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-04-拡張機能-削除.md">Wiki: 10-拡張機能操作-04-拡張機能-削除</seealso>
     /// <param name="extensionId">拡張機能ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -185,6 +192,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 拡張機能を削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/10-拡張機能操作-04-拡張機能-削除.md">Wiki: 10-拡張機能操作-04-拡張機能-削除</seealso>
     /// <param name="extensionId">拡張機能ID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>

@@ -19,6 +19,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-01-サイト-作成.md">Wiki: 02-サイト操作-01-サイト-作成</seealso>
     public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
         long parentSiteId,
         CreateSiteRequest request,
@@ -45,6 +46,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-01-サイト-作成.md">Wiki: 02-サイト操作-01-サイト-作成</seealso>
     public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
         long parentSiteId,
         string title,
@@ -73,6 +75,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-03-サイト-取得.md">Wiki: 02-サイト操作-03-サイト-取得</seealso>
     public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(
         long siteId,
         GetSiteRequest request,
@@ -91,6 +94,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-03-サイト-取得.md">Wiki: 02-サイト操作-03-サイト-取得</seealso>
     public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(
         long siteId,
         TimeSpan? timeout = null,
@@ -107,6 +111,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイト名検索で最も近いサイトIDを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-04-サイト-サイトID取得.md">Wiki: 02-サイト操作-04-サイト-サイトID取得</seealso>
     public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
         long siteId,
         GetClosestSiteIdRequest request,
@@ -129,6 +134,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイト名検索で最も近いサイトIDを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-04-サイト-サイトID取得.md">Wiki: 02-サイト操作-04-サイト-サイトID取得</seealso>
     public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
         long siteId,
         List<string> findSiteNames,
@@ -149,6 +155,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-05-サイト-更新.md">Wiki: 02-サイト操作-05-サイト-更新</seealso>
     public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
         long siteId,
         UpdateSiteRequest request,
@@ -167,6 +174,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-05-サイト-更新.md">Wiki: 02-サイト操作-05-サイト-更新</seealso>
     public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
         long siteId,
         string? title = null,
@@ -197,6 +205,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトパッケージをコピーします（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-02-サイト-コピー.md">Wiki: 02-サイト操作-02-サイト-コピー</seealso>
     public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
         long siteId,
         CopySitePackageRequest request,
@@ -219,6 +228,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトパッケージをコピーします
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-02-サイト-コピー.md">Wiki: 02-サイト操作-02-サイト-コピー</seealso>
     public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
         long siteId,
         List<SelectedSite> selectedSites,
@@ -253,6 +263,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-06-サイト-削除.md">Wiki: 02-サイト操作-06-サイト-削除</seealso>
     public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
         long siteId,
         DeleteSiteRequest request,
@@ -271,6 +282,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイトを削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-06-サイト-削除.md">Wiki: 02-サイト操作-06-サイト-削除</seealso>
     public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
         long siteId,
         TimeSpan? timeout = null,
@@ -287,6 +299,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サマリを同期します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-07-集計-同期.md">Wiki: 02-サイト操作-07-集計-同期</seealso>
     public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
         long siteId,
         SynchronizeSummariesRequest request,
@@ -305,6 +318,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サマリを同期します
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-07-集計-同期.md">Wiki: 02-サイト操作-07-集計-同期</seealso>
     public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
         long siteId,
         TimeSpan? timeout = null,
@@ -321,6 +335,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイト設定を更新します（部分追加/更新/削除）（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-08-サイト設定-更新.md">Wiki: 02-サイト操作-08-サイト設定-更新</seealso>
     public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
         long siteId,
         UpdateSiteSettingsRequest request,
@@ -339,6 +354,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイト設定を更新します（部分追加/更新/削除）
     /// </summary>
+    /// <seealso href="../docs/wiki/02-サイト操作-08-サイト設定-更新.md">Wiki: 02-サイト操作-08-サイト設定-更新</seealso>
     public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
         long siteId,
         SiteSettings? siteSettings = null,

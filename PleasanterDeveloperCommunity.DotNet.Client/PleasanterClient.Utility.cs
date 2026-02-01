@@ -16,6 +16,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ライセンス情報を取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/11-ユーティリティ-01-ライセンス情報取得.md">Wiki: 11-ユーティリティ-01-ライセンス情報取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -37,6 +38,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ライセンス情報を取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/11-ユーティリティ-01-ライセンス情報取得.md">Wiki: 11-ユーティリティ-01-ライセンス情報取得</seealso>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>ライセンス情報取得レスポンス</returns>

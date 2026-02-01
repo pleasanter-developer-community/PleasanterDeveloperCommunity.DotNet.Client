@@ -18,6 +18,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 添付ファイルを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         GetAttachmentRequest request,
@@ -36,6 +37,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         TimeSpan? timeout = null,
@@ -52,6 +54,7 @@ public partial class PleasanterClient
     /// <summary>
     /// バイナリストリームを取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
     /// <param name="guid">GUID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -75,6 +78,7 @@ public partial class PleasanterClient
     /// <summary>
     /// バイナリストリームを取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
     /// <param name="guid">GUID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -95,6 +99,7 @@ public partial class PleasanterClient
     /// <summary>
     /// バイナリをアップロードします（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-03-バイナリ-アップロード.md">Wiki: 08-バイナリ操作-03-バイナリ-アップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -118,6 +123,7 @@ public partial class PleasanterClient
     /// <summary>
     /// バイナリをアップロードします
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-03-バイナリ-アップロード.md">Wiki: 08-バイナリ操作-03-バイナリ-アップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="base64Data">Base64エンコードされたファイルデータ</param>
@@ -145,6 +151,7 @@ public partial class PleasanterClient
     /// <summary>
     /// バイナリをアップロードします（バイト配列版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-03-バイナリ-アップロード.md">Wiki: 08-バイナリ操作-03-バイナリ-アップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="fileData">ファイルデータ</param>
@@ -175,6 +182,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルをストリームでアップロードします（新規添付ファイル作成）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="fileStream">ファイルストリーム</param>
     /// <param name="fileName">ファイル名</param>
@@ -219,6 +227,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルをストリームでアップロードします（新規添付ファイル作成、byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="fileData">ファイルデータ</param>
     /// <param name="fileName">ファイル名</param>
@@ -249,6 +258,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルパスを指定してストリームでアップロードします（新規添付ファイル作成）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="filePath">ファイルパス</param>
     /// <param name="contentType">コンテンツタイプ（省略時は自動判定）</param>
@@ -279,6 +289,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 既存の添付ファイルを更新します（GUID指定）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="guid">更新対象のファイルGUID</param>
     /// <param name="fileStream">ファイルストリーム</param>
     /// <param name="fileName">ファイル名</param>
@@ -335,6 +346,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 既存の添付ファイルを更新します（GUID指定、byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="guid">更新対象のファイルGUID</param>
     /// <param name="fileData">ファイルデータ</param>
     /// <param name="fileName">ファイル名</param>
@@ -367,6 +379,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルを分割（チャンク）でアップロードします
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="siteId">サイトID</param>
     /// <param name="chunkData">チャンクデータ</param>
     /// <param name="fileName">ファイル名</param>
@@ -420,6 +433,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 既存ファイルを分割（チャンク）で更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
     /// <param name="guid">更新対象のファイルGUID</param>
     /// <param name="chunkData">チャンクデータ</param>
     /// <param name="fileName">ファイル名</param>
@@ -464,7 +478,7 @@ public partial class PleasanterClient
         var endpoint = $"/api/binaries/{guid}/upload";
         if (overwrite)
         {
-            endpoint += "?overwrite=true";
+            endpoint = $"{endpoint}?overwrite=true";
         }
 
         using var stream = new MemoryStream(chunkData);

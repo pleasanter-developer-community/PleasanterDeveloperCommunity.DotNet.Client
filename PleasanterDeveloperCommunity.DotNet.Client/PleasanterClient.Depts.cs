@@ -20,6 +20,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織一覧を取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-01-組織-取得.md">Wiki: 05-組織操作-01-組織-取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -41,6 +42,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織一覧を取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-01-組織-取得.md">Wiki: 05-組織操作-01-組織-取得</seealso>
     /// <param name="offset">取得開始位置</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -64,6 +66,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-02-組織-作成.md">Wiki: 05-組織操作-02-組織-作成</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -85,6 +88,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-02-組織-作成.md">Wiki: 05-組織操作-02-組織-作成</seealso>
     /// <param name="deptCode">組織コード</param>
     /// <param name="deptName">組織名</param>
     /// <param name="body">内容</param>
@@ -114,6 +118,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-03-組織-更新.md">Wiki: 05-組織操作-03-組織-更新</seealso>
     /// <param name="deptId">組織ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -137,6 +142,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-03-組織-更新.md">Wiki: 05-組織操作-03-組織-更新</seealso>
     /// <param name="deptId">組織ID</param>
     /// <param name="deptName">組織名</param>
     /// <param name="body">内容</param>
@@ -165,6 +171,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-04-組織-削除.md">Wiki: 05-組織操作-04-組織-削除</seealso>
     /// <param name="deptId">組織ID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -188,6 +195,7 @@ public partial class PleasanterClient
     /// <summary>
     /// 組織を削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-04-組織-削除.md">Wiki: 05-組織操作-04-組織-削除</seealso>
     /// <param name="deptId">組織ID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -208,6 +216,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータから組織をインポートします（byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-05-組織-インポート.md">Wiki: 05-組織操作-05-組織-インポート</seealso>
     /// <param name="csvData">CSVデータ</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -231,6 +240,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータから組織をインポートします（Stream版）
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-05-組織-インポート.md">Wiki: 05-組織操作-05-組織-インポート</seealso>
     /// <param name="csvStream">CSVストリーム</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -264,6 +274,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルパスを指定して組織をインポートします
     /// </summary>
+    /// <seealso href="../docs/wiki/05-組織操作-05-組織-インポート.md">Wiki: 05-組織操作-05-組織-インポート</seealso>
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
     /// <param name="timeout">タイムアウト</param>

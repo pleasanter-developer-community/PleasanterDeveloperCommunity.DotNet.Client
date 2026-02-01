@@ -20,6 +20,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザ一覧を取得します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-01-ユーザ-取得.md">Wiki: 03-ユーザ操作-01-ユーザ-取得</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -41,6 +42,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザ一覧を取得します
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-01-ユーザ-取得.md">Wiki: 03-ユーザ操作-01-ユーザ-取得</seealso>
     /// <param name="offset">取得開始位置</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -64,6 +66,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを作成します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-02-ユーザ-作成.md">Wiki: 03-ユーザ操作-02-ユーザ-作成</seealso>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -85,6 +88,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを作成します
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-02-ユーザ-作成.md">Wiki: 03-ユーザ操作-02-ユーザ-作成</seealso>
     /// <param name="loginId">ログインID</param>
     /// <param name="name">名前</param>
     /// <param name="password">パスワード</param>
@@ -114,6 +118,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを更新します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-03-ユーザ-更新.md">Wiki: 03-ユーザ操作-03-ユーザ-更新</seealso>
     /// <param name="userId">ユーザID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -137,6 +142,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを更新します
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-03-ユーザ-更新.md">Wiki: 03-ユーザ操作-03-ユーザ-更新</seealso>
     /// <param name="userId">ユーザID</param>
     /// <param name="name">名前</param>
     /// <param name="timeout">タイムアウト</param>
@@ -162,6 +168,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを削除します（リクエストモデル版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-04-ユーザ-削除.md">Wiki: 03-ユーザ操作-04-ユーザ-削除</seealso>
     /// <param name="userId">ユーザID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
@@ -185,6 +192,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ユーザを削除します
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-04-ユーザ-削除.md">Wiki: 03-ユーザ操作-04-ユーザ-削除</seealso>
     /// <param name="userId">ユーザID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -205,6 +213,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータからユーザをインポートします（byte[]版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-05-ユーザ-インポート.md">Wiki: 03-ユーザ操作-05-ユーザ-インポート</seealso>
     /// <param name="csvData">CSVデータ</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -228,6 +237,7 @@ public partial class PleasanterClient
     /// <summary>
     /// CSVデータからユーザをインポートします（Stream版）
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-05-ユーザ-インポート.md">Wiki: 03-ユーザ操作-05-ユーザ-インポート</seealso>
     /// <param name="csvStream">CSVストリーム</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="encoding">エンコーディング（省略時はUTF-8）</param>
@@ -261,6 +271,7 @@ public partial class PleasanterClient
     /// <summary>
     /// ファイルパスを指定してユーザをインポートします
     /// </summary>
+    /// <seealso href="../docs/wiki/03-ユーザ操作-05-ユーザ-インポート.md">Wiki: 03-ユーザ操作-05-ユーザ-インポート</seealso>
     /// <param name="filePath">ファイルパス</param>
     /// <param name="encoding">エンコーディング（省略時は自動検出）</param>
     /// <param name="timeout">タイムアウト</param>
