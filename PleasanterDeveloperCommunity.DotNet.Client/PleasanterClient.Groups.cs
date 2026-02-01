@@ -29,7 +29,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<GetGroupsResponse>(
             "/api/groups/get", request, timeout, cancellationToken);
@@ -70,7 +73,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<CreateGroupResponse>(
             "/api/groups/create", request, timeout, cancellationToken);
@@ -116,7 +122,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateGroupResponse>(
             $"/api/groups/{groupId}/update", request, timeout, cancellationToken);
@@ -164,7 +173,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteGroupResponse>(
             $"/api/groups/{groupId}/delete", request, timeout, cancellationToken);
