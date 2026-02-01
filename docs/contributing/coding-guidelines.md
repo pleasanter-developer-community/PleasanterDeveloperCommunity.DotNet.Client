@@ -663,28 +663,22 @@ var result = from order in orders
 
 ### ディレクトリ構造
 
-```mermaid
-graph LR
-    root[PleasanterDeveloperCommunity.DotNet.Client/]
-
-    root --> core[PleasanterClient.Core.cs]
-    root --> items[PleasanterClient.Items.cs]
-    root --> sites[PleasanterClient.Sites.cs]
-    root --> users[PleasanterClient.Users.cs]
-    root --> settings[Settings.cs]
-    root --> models[Models/]
-
-    models --> request[Request/]
-    models --> response[Response/]
-    models --> shared[Shared/]
-
-    request --> createReq[CreateRecordRequest.cs]
-    request --> updateReq[UpdateRecordRequest.cs]
-
-    response --> recordRes[RecordResponse.cs]
-    response --> apiRes[ApiResponse.cs]
-
-    shared --> recordField[RecordField.cs]
+```
+PleasanterDeveloperCommunity.DotNet.Client/
+├── PleasanterClient.Core.cs
+├── PleasanterClient.Items.cs
+├── PleasanterClient.Sites.cs
+├── PleasanterClient.Users.cs
+├── Settings.cs
+└── Models/
+    ├── Request/
+    │   ├── CreateRecordRequest.cs
+    │   └── UpdateRecordRequest.cs
+    ├── Response/
+    │   ├── RecordResponse.cs
+    │   └── ApiResponse.cs
+    └── Shared/
+        └── RecordField.cs
 ```
 
 ### ファイル内の順序

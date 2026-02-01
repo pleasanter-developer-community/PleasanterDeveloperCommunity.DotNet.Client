@@ -31,23 +31,19 @@
 
 ### ディレクトリ構造
 
-```mermaid
-graph LR
-    docs[docs/]
-    docs --> contributing[contributing/]
-    docs --> wiki[wiki/]
-    docs --> script[script/]
-
-    contributing --> cg[coding-guidelines.md]
-    contributing --> dg[documentation-guidelines.md]
-    contributing --> bs[branch-strategy.md]
-    contributing --> cw[ci-workflow.md]
-
-    wiki --> w00[00-*.md]
-    wiki --> w01[01-テーブル操作-*.md]
-    wiki --> w02[02-サイト操作-*.md]
-
-    script --> sync[sync-docs-to-wiki.js]
+```
+docs/
+├── contributing/
+│   ├── coding-guidelines.md
+│   ├── documentation-guidelines.md
+│   ├── branch-strategy.md
+│   └── ci-workflow.md
+├── wiki/
+│   ├── 00-*.md
+│   ├── 01-テーブル操作-*.md
+│   └── 02-サイト操作-*.md
+└── script/
+    └── sync-docs-to-wiki.js
 ```
 
 ### ファイル命名規則
