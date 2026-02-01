@@ -4,7 +4,6 @@
     "ms-dotnettools.csdevkit",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "davidanson.vscode-markdownlint",
-    "yzhang.markdown-all-in-one"
+    "davidanson.vscode-markdownlint"
   ]
 }

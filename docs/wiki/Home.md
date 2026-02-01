@@ -1,30 +1,19 @@
-# PleasanterDeveloperCommunity.DotNet.Client <!-- omit in toc -->
+# PleasanterDeveloperCommunity.DotNet.Client
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [動作要件](#動作要件)
 - [基本的な使い方](#基本的な使い方)
 - [オプション設定](#オプション設定)
     - [パラメータ一覧](#パラメータ一覧)
-        - [標準コンストラクタ](#標準コンストラクタ)
-        - [HttpClient指定コンストラクタ](#httpclient指定コンストラクタ)
-            - [使用シチュエーション](#使用シチュエーション)
     - [APIバージョン](#apiバージョン)
     - [リクエストモデルの使用](#リクエストモデルの使用)
     - [タイムアウト設定](#タイムアウト設定)
     - [プロキシ設定](#プロキシ設定)
     - [SSL証明書検証の無効化](#ssl証明書検証の無効化)
     - [デバッグ設定](#デバッグ設定)
-        - [基本的な使い方](#基本的な使い方-1)
-        - [DebugSettingsのオプション](#debugsettingsのオプション)
-        - [ファクトリメソッド](#ファクトリメソッド)
-        - [出力されるログ](#出力されるログ)
-        - [例外ハンドリング](#例外ハンドリング)
-        - [APIキーのマスク](#apiキーのマスク)
-        - [非同期バックグラウンド処理](#非同期バックグラウンド処理)
-        - [注意事項](#注意事項)
 - [対応API](#対応api)
-    - [概要](#概要)
     - [01. テーブル操作](#01-テーブル操作)
     - [02. サイト操作](#02-サイト操作)
     - [03. ユーザ操作](#03-ユーザ操作)
@@ -39,6 +28,8 @@
     - [12. バックグラウンドタスク](#12-バックグラウンドタスク)
     - [13. デモ](#13-デモ)
 - [謝辞](#謝辞)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 動作要件
 
@@ -312,25 +303,6 @@ var settings = new DebugSettings(@"C:\Logs", maskApiKey: false);
 このライブラリが対応しているPleasanter APIの一覧です。
 
 > **Note:** 各APIの詳細については、[プリザンター公式マニュアル](https://pleasanter.org/ja/manual)を参照してください。APIの洗い出しは[ソースコード](https://github.com/Implem/Implem.Pleasanter)からおこなっているためマニュアルにないものも網羅しています。マニュアルに存在しないものはコードを参照してください。
-
-### 概要
-
-|  #  | カテゴリ               | コントローラー            | API数  |  対応  | 未対応 |
-| :-: | :--------------------- | :------------------------ | :----: | :----: | :----: |
-| 01  | テーブル操作           | ItemsController           |   9    |   9    |   0    |
-| 02  | サイト操作             | ItemsController           |   8    |   8    |   0    |
-| 03  | ユーザ操作             | UsersController           |   5    |   5    |   0    |
-| 04  | グループ操作           | GroupsController          |   5    |   5    |   0    |
-| 05  | 組織操作               | DeptsController           |   5    |   5    |   0    |
-| 06  | セッション操作         | SessionsController        |   3    |   3    |   0    |
-| 07  | メール操作             | OutgoingMailsController   |   1    |   1    |   0    |
-| 08  | バイナリ操作           | BinariesController        |   4    |   4    |   0    |
-| 09  | 拡張SQL                | ExtendedController        |   1    |   1    |   0    |
-| 10  | 拡張機能操作           | ExtensionsController      |   4    |   4    |   0    |
-| 11  | ユーティリティ         | UtilityController         |   1    |   1    |   0    |
-| 12  | バックグラウンドタスク | BackgroundTasksController |   2    |   2    |   0    |
-| 13  | デモ                   | DemoController            |   1    |   1    |   0    |
-|     | **合計**               |                           | **49** | **49** | **0**  |
 
 ### 01. テーブル操作
 

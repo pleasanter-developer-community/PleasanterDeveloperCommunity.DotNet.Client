@@ -1,8 +1,9 @@
-# 開発環境構築ガイド <!-- omit in toc -->
+# 開発環境構築ガイド
 
 このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトの開発環境セットアップについて説明します。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [必要なツール](#必要なツール)
 - [.NET環境](#net環境)
@@ -21,6 +22,9 @@
     - [Visual Studio](#visual-studio)
     - [JetBrains Rider](#jetbrains-rider)
 - [セットアップ確認](#セットアップ確認)
+- [参考リンク](#参考リンク)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 

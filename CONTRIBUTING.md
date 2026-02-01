@@ -1,9 +1,10 @@
-# コントリビューションガイド <!-- omit in toc -->
+# コントリビューションガイド
 
 PleasanterDeveloperCommunity.DotNet.Client へのコントリビューションに感謝します。
 このドキュメントでは、プロジェクトへの貢献方法について説明します。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [はじめに](#はじめに)
 - [ガイドライン一覧](#ガイドライン一覧)
@@ -17,6 +18,8 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 - [Issue報告](#issue報告)
 - [ライセンス](#ライセンス)
 - [質問・サポート](#質問サポート)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## はじめに
 

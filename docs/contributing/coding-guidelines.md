@@ -1,8 +1,9 @@
-# コーディングガイドライン <!-- omit in toc -->
+# コーディングガイドライン
 
 このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトのコーディング規約について詳細に説明します。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [基本原則](#基本原則)
     - [プロジェクト設定](#プロジェクト設定)
@@ -16,10 +17,6 @@
 - [命名規則](#命名規則)
     - [一覧表](#一覧表)
     - [詳細ルール](#詳細ルール)
-        - [クラス・構造体](#クラス構造体)
-        - [インターフェース](#インターフェース)
-        - [メソッド](#メソッド)
-        - [フィールド](#フィールド)
 - [フォーマット規則](#フォーマット規則)
     - [インデント](#インデント)
     - [中括弧](#中括弧)
@@ -32,21 +29,13 @@
     - [ターゲット型new式](#ターゲット型new式)
     - [using宣言](#using宣言)
     - [文字列補間（埋め込みリテラル）](#文字列補間埋め込みリテラル)
-        - [文字列補間のメリット](#文字列補間のメリット)
-        - [書式指定の例](#書式指定の例)
 - [コメントとドキュメント](#コメントとドキュメント)
     - [XMLドキュメントコメント](#xmlドキュメントコメント)
-        - [必須/任意ルール](#必須任意ルール)
-        - [記述例](#記述例)
     - [Wikiドキュメントへのリンク（seealso）](#wikiドキュメントへのリンクseealso)
-        - [基本ルール](#基本ルール)
-        - [記述例](#記述例-1)
-        - [Wikiドキュメントとメソッドの対応](#wikiドキュメントとメソッドの対応)
-        - [注意事項](#注意事項)
     - [コメント言語](#コメント言語)
     - [TODOコメント](#todoコメント)
 - [非同期プログラミング](#非同期プログラミング)
-    - [基本ルール](#基本ルール-1)
+    - [基本ルール](#基本ルール)
     - [ConfigureAwait](#configureawait)
     - [同期メソッドの提供](#同期メソッドの提供)
 - [エラーハンドリング](#エラーハンドリング)
@@ -63,16 +52,11 @@
     - [ファイル内の順序](#ファイル内の順序)
 - [ツール設定](#ツール設定)
     - [EditorConfig](#editorconfig)
-        - [基本設定](#基本設定)
-        - [警告レベルで強制されるルール](#警告レベルで強制されるルール)
-        - [命名規則（EditorConfigで強制）](#命名規則editorconfigで強制)
     - [Directory.Build.props](#directorybuildprops)
-        - [設定内容](#設定内容)
-        - [主要な設定項目](#主要な設定項目)
     - [IDE設定](#ide設定)
-        - [Visual Studio Code](#visual-studio-code)
-        - [Visual Studio](#visual-studio)
 - [参考リンク](#参考リンク)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 

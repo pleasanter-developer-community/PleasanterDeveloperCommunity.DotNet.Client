@@ -1,8 +1,9 @@
-# ドキュメントガイドライン <!-- omit in toc -->
+# ドキュメントガイドライン
 
 このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトのドキュメント作成規約について説明します。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [基本原則](#基本原則)
     - [言語](#言語)
@@ -10,29 +11,14 @@
 - [ファイル構成](#ファイル構成)
     - [ディレクトリ構造](#ディレクトリ構造)
     - [ファイル命名規則](#ファイル命名規則)
-        - [`docs/wiki/` 配下](#docswiki-配下)
-        - [`docs/contributing/` 配下](#docscontributing-配下)
 - [Markdownスタイル](#markdownスタイル)
     - [基本ルール](#基本ルール)
     - [型名の表記](#型名の表記)
     - [HTMLタグの使用](#htmlタグの使用)
     - [フォーマッター（Prettier）](#フォーマッターprettier)
-        - [セットアップ](#セットアップ)
-        - [設定ファイル](#設定ファイル)
-        - [手動実行](#手動実行)
     - [Markdownlint](#markdownlint)
-        - [設定ファイル](#設定ファイル-1)
     - [npmスクリプト](#npmスクリプト)
-        - [前提条件](#前提条件)
-        - [利用可能なスクリプト](#利用可能なスクリプト)
-        - [使用例](#使用例)
-        - [推奨ワークフロー](#推奨ワークフロー)
-    - [目次の自動生成（Markdown All in One）](#目次の自動生成markdown-all-in-one)
-        - [セットアップ](#セットアップ-1)
-        - [目次の挿入](#目次の挿入)
-        - [設定](#設定)
-        - [セクションを目次から除外](#セクションを目次から除外)
-        - [必須の除外設定](#必須の除外設定)
+    - [目次の自動生成（doctoc）](#目次の自動生成doctoc)
     - [見出し](#見出し)
     - [コードブロック](#コードブロック)
     - [テーブル](#テーブル)
@@ -41,10 +27,8 @@
 - [APIドキュメント](#apiドキュメント)
     - [構成テンプレート](#構成テンプレート)
     - [セクション詳細](#セクション詳細)
+    - [複数メソッドがある場合](#複数メソッドがある場合)
     - [パラメータテーブル形式](#パラメータテーブル形式)
-        - [基本ルール](#基本ルール-1)
-        - [記述例](#記述例)
-        - [階層の表現](#階層の表現)
     - [レスポンステーブル形式](#レスポンステーブル形式)
     - [関連ドキュメントセクションのルール](#関連ドキュメントセクションのルール)
     - [XMLドキュメントとの整合性](#xmlドキュメントとの整合性)
@@ -52,6 +36,8 @@
     - [更新ルール](#更新ルール)
     - [GitHub Wiki同期](#github-wiki同期)
 - [参考リンク](#参考リンク)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 
@@ -217,6 +203,8 @@ Node.js環境が必要。セットアップ方法は[開発環境構築ガイド
 | `lint:md:fix`  | `npm run lint:md:fix`  | 自動修正可能なlintエラーを修正                 |
 | `format`       | `npm run format`       | Prettierでファイルをフォーマット               |
 | `format:check` | `npm run format:check` | フォーマットのチェック（ファイルは変更しない） |
+| `toc`          | `npm run toc`          | doctocでwiki配下のTOCを一括更新                |
+| `toc:all`      | `npm run toc:all`      | TOC更新 + Prettierフォーマットを一括実行       |
 
 #### 使用例
 
@@ -232,65 +220,69 @@ npm run format:check
 
 # ファイルをフォーマット
 npm run format
+
+# wiki配下のTOCを一括更新
+npm run toc
+
+# TOC更新 + フォーマットを一括実行（推奨）
+npm run toc:all
 ```
 
 #### 推奨ワークフロー
 
 1. 編集後に `npm run lint:md` で構文チェック
 2. `npm run lint:md:fix` で自動修正可能なエラーを修正
-3. `npm run format` でフォーマットを適用
+3. `npm run toc:all` でTOC更新とフォーマットを一括適用
 4. コミット前に `npm run format:check` で最終確認
 
-### 目次の自動生成（Markdown All in One）
+### 目次の自動生成（doctoc）
 
-目次の生成・更新は Markdown All in One 拡張機能で自動化されている。
+目次の生成・更新は doctoc で自動化されている。
 
 #### セットアップ
 
-1. VS Code拡張機能 `yzhang.markdown-all-in-one` をインストール
-2. `.vscode/extensions.json` に推奨拡張機能として登録済み
-3. 保存時に目次が自動更新される
+doctocはnpmパッケージとしてインストール済み。
 
-#### 目次の挿入
-
-1. 目次を挿入したい位置にカーソルを置く
-2. コマンドパレット（`Ctrl+Shift+P`）を開く
-3. 「Markdown All in One: Create Table of Contents」を実行
-
-#### 設定
-
-| 設定                                  | 値       | 説明                   |
-| ------------------------------------- | -------- | ---------------------- |
-| `markdown.extension.toc.updateOnSave` | `true`   | 保存時に目次を自動更新 |
-| `markdown.extension.toc.levels`       | `"2..3"` | H2〜H3を目次に含める   |
-
-#### セクションを目次から除外
-
-```markdown
-## このセクションは除外 <!-- omit in toc -->
+```bash
+npm install
 ```
 
-#### 必須の除外設定
+#### TOCの生成・更新
 
-以下の見出しには必ず `<!-- omit in toc -->` を付与すること：
+```bash
+# wiki配下のTOCを一括更新
+npm run toc
 
-| 見出し    | 理由                                 |
-| --------- | ------------------------------------ |
-| H1（`#`） | ドキュメントタイトルは目次に含めない |
-| `## 目次` | 目次セクション自体を目次に含めない   |
+# TOC更新 + フォーマットを一括実行
+npm run toc:all
+```
 
-**例**:
+#### doctocの動作
+
+- `<!-- START doctoc -->` と `<!-- END doctoc -->` の間にTOCを生成
+- マーカーがない場合はH1の直後に自動挿入
+- `--maxlevel 3` でH3までを目次に含める
+- `--notitle` でTOCタイトル（`**Table of Contents**`）を省略
+- 日本語リンクはデコードスクリプト（`docs/script/decode-toc.js`）で読みやすい形式に変換
+
+#### 生成されるTOC形式
 
 ```markdown
-# ドキュメントタイトル <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-## 目次 <!-- omit in toc -->
+- [概要](#概要)
+- [対応バージョン](#対応バージョン)
+- [メソッド名](#メソッド名) - [パラメータ](#パラメータ) - [レスポンス](#レスポンス)
 
-- [セクション1](#セクション1)
-- [セクション2](#セクション2)
-
-## セクション1
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ```
+
+#### 注意事項
+
+- doctocはH1（`#`）も目次に含める（除外しない）
+- `<!-- omit in toc -->` は **doctocでは使用不可**（Markdown All in One専用）
+- `npm run toc`を実行するとdoctoc実行後に自動でデコードスクリプトが実行される
 
 ### 見出し
 
@@ -360,7 +352,7 @@ sequenceDiagram
 
 ```text
 # {機能名} - {エンドポイント}
-## 目次                        ← 必須（omit in toc を付与）
+<!-- doctoc マーカー -->       ← doctocが自動生成
 ## 概要
 ## 対応バージョン
 ## {メソッド名A}               ← H2（メソッドごとにセクションを分ける）
@@ -376,17 +368,18 @@ sequenceDiagram
 ### セクション詳細
 
 ````markdown
-# {機能名} - {エンドポイント} <!-- omit in toc -->
+# {機能名} - {エンドポイント}
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [概要](#概要)
 - [対応バージョン](#対応バージョン)
-- [MethodNameAsync](#methodnameasync)
-    - [パラメータ](#パラメータ)
-    - [レスポンス](#レスポンス)
+- [MethodNameAsync](#methodnameasync) - [パラメータ](#パラメータ) - [レスポンス](#レスポンス)
 - [使用例](#使用例)
 - [関連ドキュメント](#関連ドキュメント)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 概要
 

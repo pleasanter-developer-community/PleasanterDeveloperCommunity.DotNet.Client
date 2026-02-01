@@ -1,10 +1,11 @@
-# ブランチ戦略とリリース手順 <!-- omit in toc -->
+# ブランチ戦略とリリース手順
 
 このドキュメントでは、本リポジトリのブランチ戦略とリリース手順について説明します。
 
 本プロジェクトでは **GitFlow** をベースとしたブランチ戦略を採用しています。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [GitFlow 概要](#gitflow-概要)
 - [ブランチ構成](#ブランチ構成)
@@ -27,6 +28,8 @@
     - [リポジトリ設定](#リポジトリ設定)
     - [設定値の意味](#設定値の意味)
     - [設定の確認](#設定の確認)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 

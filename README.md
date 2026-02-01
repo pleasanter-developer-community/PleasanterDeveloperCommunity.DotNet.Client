@@ -1,4 +1,4 @@
-# PleasanterDeveloperCommunity.DotNet.Client <!-- omit in toc -->
+# PleasanterDeveloperCommunity.DotNet.Client
 
 <!-- markdownlint-disable MD013 -->
 
@@ -8,30 +8,20 @@
 
 [プリザンター](https://pleasanter.org/)のAPIを.NETから簡単に利用するためのクライアントライブラリです。レコードのCRUD操作、一括処理、拡張SQL実行などを型安全に扱えます。
 
-## 目次 <!-- omit in toc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [インストール](#インストール)
     - [方法1: NuGetパッケージ（推奨）](#方法1-nugetパッケージ推奨)
-        - [.NET CLI](#net-cli)
-        - [Visual Studio](#visual-studio)
-        - [Visual Studio Code](#visual-studio-code)
-        - [JetBrains Rider](#jetbrains-rider)
     - [方法2: GitHub Packages](#方法2-github-packages)
-        - [1. 認証の設定](#1-認証の設定)
-        - [2. NuGetソースの追加](#2-nugetソースの追加)
-        - [3. パッケージのインストール](#3-パッケージのインストール)
     - [方法3: オフライン環境でのNuGetパッケージ](#方法3-オフライン環境でのnugetパッケージ)
-        - [1. パッケージのダウンロード](#1-パッケージのダウンロード)
-        - [2. ローカルフィードの追加](#2-ローカルフィードの追加)
-        - [3. パッケージのインストール（オフライン）](#3-パッケージのインストールオフライン)
     - [方法4: DLLを直接参照](#方法4-dllを直接参照)
-        - [1. DLLの取得](#1-dllの取得)
-        - [2. プロジェクトへの参照追加](#2-プロジェクトへの参照追加)
-        - [3. 依存パッケージのインストール](#3-依存パッケージのインストール)
 - [使用方法](#使用方法)
 - [サードパーティライセンス](#サードパーティライセンス)
 - [セキュリティ](#セキュリティ)
 - [謝辞](#謝辞)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## インストール
 
