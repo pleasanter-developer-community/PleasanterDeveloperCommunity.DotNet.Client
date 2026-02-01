@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.BackgroundTasks;
@@ -14,35 +14,10 @@ public partial class PleasanterClient
     #region RebuildSearchIndexes (検索インデックス再構築)
 
     /// <summary>
-    /// 全サイトの検索インデックスを再構築します
+    /// 検索インデックスを再構築します
     /// </summary>
     /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
-    /// <param name="request">リクエストモデル</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>検索インデックス再構築レスポンス</returns>
-    /// <remarks>
-    /// この機能には BackgroundTask.Enabled パラメータの有効化が必要です。
-    /// </remarks>
-    public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildAllSearchIndexesAsync(
-        RebuildSearchIndexesRequest request,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-        SetApiCredentials(request);
-        return await SendRequestAsync<RebuildSearchIndexesResponse>(
-            "/api/backgroundtasks/rebuildsearchindexes", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 特定サイトの検索インデックスを再構築します
-    /// </summary>
-    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
-    /// <param name="siteId">サイトID</param>
+    /// <param name="siteId">サイトID（nullの場合は全サイトが対象）</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
@@ -51,7 +26,7 @@ public partial class PleasanterClient
     /// この機能には BackgroundTask.Enabled パラメータの有効化が必要です。
     /// </remarks>
     public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-        long siteId,
+        long? siteId,
         RebuildSearchIndexesRequest request,
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
@@ -61,8 +36,11 @@ public partial class PleasanterClient
             throw new ArgumentNullException(nameof(request));
         }
         SetApiCredentials(request);
+        var endpoint = siteId.HasValue
+            ? $"/api/backgroundtasks/{siteId.Value}/rebuildsearchindexes"
+            : "/api/backgroundtasks/rebuildsearchindexes";
         return await SendRequestAsync<RebuildSearchIndexesResponse>(
-            $"/api/backgroundtasks/{siteId}/rebuildsearchindexes", request, timeout, cancellationToken);
+            endpoint, request, timeout, cancellationToken);
     }
 
     #endregion
