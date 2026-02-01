@@ -28,7 +28,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<RebuildSearchIndexesResponse>(
             "/api/backgroundtasks/rebuildsearchindexes", request, timeout, cancellationToken);
@@ -68,7 +71,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<RebuildSearchIndexesResponse>(
             $"/api/backgroundtasks/{siteId}/rebuildsearchindexes", request, timeout, cancellationToken);
