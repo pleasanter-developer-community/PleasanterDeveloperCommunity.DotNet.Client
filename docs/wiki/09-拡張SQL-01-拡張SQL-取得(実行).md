@@ -20,11 +20,11 @@ Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlReques
 
 ## パラメータ
 
-| 引数 | 型 | 必須 | 説明 |
-|------|------|:----:|------|
-| `name` | string | Yes | 拡張SQLの名前（JSONファイルで定義したName） |
-| `parameters` | Dictionary\<string, object\> | | SQLに渡すパラメータ |
-| `timeout` | TimeSpan? | | リクエストタイムアウト |
+| 引数         | 型                           | 必須 | 説明                                     |
+|--------------|------------------------------|:----:|------------------------------------------|
+| `name`       | string                       | Yes  | 拡張SQLの名前（JSONファイルで定義したName） |
+| `parameters` | Dictionary\<string, object\> |      | SQLに渡すパラメータ                      |
+| `timeout`    | TimeSpan?                    |      | リクエストタイムアウト                   |
 
 ## 使用例
 

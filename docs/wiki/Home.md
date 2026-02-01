@@ -108,12 +108,12 @@ var result = await client.CreateRecordAsync(siteId: 456, request: request);
 
 リクエストモデルは以下の名前空間で提供されます：
 
-| 名前空間 | 説明 |
-|:---------|:-----|
-| `Models.Requests.Items` | テーブル・レコード操作のリクエストモデル |
-| `Models.Requests.Sites` | サイト操作のリクエストモデル |
-| `Models.Requests.Binaries` | 添付ファイル取得のリクエストモデル |
-| `Models.Requests.Extended` | 拡張SQL実行のリクエストモデル |
+| 名前空間                     | 説明                                     |
+|:-----------------------------|:-----------------------------------------|
+| `Models.Requests.Items`      | テーブル・レコード操作のリクエストモデル |
+| `Models.Requests.Sites`      | サイト操作のリクエストモデル             |
+| `Models.Requests.Binaries`   | 添付ファイル取得のリクエストモデル       |
+| `Models.Requests.Extended`   | 拡張SQL実行のリクエストモデル            |
 
 ### タイムアウト設定
 
