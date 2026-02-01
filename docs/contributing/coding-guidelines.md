@@ -481,17 +481,17 @@ var padded = $"|{name,10}|{value,-10}|";      // 右寄せ・左寄せ
 
 ```csharp
 /// <summary>
-/// 指定されたサイトからレコードを取得します。
+/// 指定されたサイトからレコードを取得
 /// </summary>
-/// <param name="siteId">取得対象のサイトID。</param>
-/// <param name="recordId">取得対象のレコードID。</param>
-/// <param name="cancellationToken">キャンセルトークン。</param>
-/// <returns>レコード情報を含むレスポンス。</returns>
+/// <param name="siteId">取得対象のサイトID</param>
+/// <param name="recordId">取得対象のレコードID</param>
+/// <param name="cancellationToken">キャンセルトークン</param>
+/// <returns>レコード情報を含むレスポンス</returns>
 /// <exception cref="ArgumentException">
-/// <paramref name="siteId"/> または <paramref name="recordId"/> が0以下の場合。
+/// <paramref name="siteId"/> または <paramref name="recordId"/> が0以下の場合
 /// </exception>
-/// <exception cref="PleasanterApiException">API呼び出しに失敗した場合。</exception>
-public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
+/// <exception cref="PleasanterApiException">API呼び出しに失敗した場合</exception>
+ public async Task<ApiResponse<RecordResponse>> GetRecordAsync(
     long siteId,
     long recordId,
     CancellationToken cancellationToken = default)
@@ -518,7 +518,7 @@ PleasanterClientの公開メソッドには、対応するWikiドキュメント
 
 ```csharp
 /// <summary>
-/// レコードを作成します（リクエストモデル版）
+/// レコードを作成（リクエストモデル版）
 /// </summary>
 /// <seealso href="../docs/wiki/01-テーブル操作-01-レコード-作成.md">Wiki: 01-テーブル操作-01-レコード-作成</seealso>
 /// <param name="siteId">サイトID</param>
