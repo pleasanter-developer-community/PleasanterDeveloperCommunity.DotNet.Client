@@ -22,12 +22,12 @@
 
 ### プロジェクト設定
 
-| 項目             | 値                 |
-| ---------------- | ------------------ |
-| ターゲット       | .NET Standard 2.1  |
-| 言語バージョン   | C# latest          |
-| Nullable参照型   | 有効               |
-| コメント言語     | 日本語             |
+| 項目           | 値                |
+| -------------- | ----------------- |
+| ターゲット     | .NET Standard 2.1 |
+| 言語バージョン | C# latest         |
+| Nullable参照型 | 有効              |
+| コメント言語   | 日本語            |
 
 ### 重要な方針
 
@@ -80,10 +80,10 @@ public class ApiResponse<T>
 
 新しい依存パッケージを追加する際は、以下を実施すること：
 
-| 手順 | 内容                                                                             |
+| 手順 | 内容                                                                               |
 | ---- | ---------------------------------------------------------------------------------- |
-| 1    | `LICENSES/` にライセンスファイルを追加（`{PackageName}.txt` 形式）          |
-| 2    | `README.md` のサードパーティライセンスセクションに著作権表示を追加 |
+| 1    | `LICENSES/` にライセンスファイルを追加（`{PackageName}.txt` 形式）                 |
+| 2    | `README.md` のサードパーティライセンスセクションに著作権表示を追加                 |
 | 3    | `.github/workflows/release.yml` でリリースZIPに `LICENSES/` が同梱されることを確認 |
 
 **重要**: MIT、Apache-2.0、BSD系などのライセンスはライセンス文と著作権表示の同梱が必須。
@@ -94,19 +94,19 @@ public class ApiResponse<T>
 
 ### 一覧表
 
-| 要素                   | スタイル         | 例                        |
-| ---------------------- | ---------------- | ------------------------- |
-| クラス                 | PascalCase       | `PleasanterClient`        |
-| インターフェース       | IPascalCase      | `IApiClient`              |
-| メソッド               | PascalCase       | `GetRecordAsync`          |
-| 非同期メソッド         | PascalCaseAsync  | `CreateRecordAsync`       |
-| プロパティ             | PascalCase       | `BaseUrl`                 |
-| パブリックフィールド   | PascalCase       | `DefaultTimeout`          |
-| プライベートフィールド | _camelCase       | `_httpClient`             |
-| パラメータ             | camelCase        | `siteId`                  |
-| ローカル変数           | camelCase        | `response`                |
-| 定数                   | PascalCase       | `MaxRetryCount`           |
-| 型パラメータ           | TPascalCase      | `TResponse`               |
+| 要素                   | スタイル        | 例                  |
+| ---------------------- | --------------- | ------------------- |
+| クラス                 | PascalCase      | `PleasanterClient`  |
+| インターフェース       | IPascalCase     | `IApiClient`        |
+| メソッド               | PascalCase      | `GetRecordAsync`    |
+| 非同期メソッド         | PascalCaseAsync | `CreateRecordAsync` |
+| プロパティ             | PascalCase      | `BaseUrl`           |
+| パブリックフィールド   | PascalCase      | `DefaultTimeout`    |
+| プライベートフィールド | \_camelCase     | `_httpClient`       |
+| パラメータ             | camelCase       | `siteId`            |
+| ローカル変数           | camelCase       | `response`          |
+| 定数                   | PascalCase      | `MaxRetryCount`     |
+| 型パラメータ           | TPascalCase     | `TResponse`         |
 
 ### 詳細ルール
 
@@ -439,7 +439,7 @@ if (retryCount > MaxRetryCount)
     throw new PleasanterApiException("最大リトライ回数を超えました");
 }
 
-/* 
+/*
  * 複数行コメントの例
  * APIレスポンスのパースと変換を行う
  */
@@ -663,23 +663,28 @@ var result = from order in orders
 
 ### ディレクトリ構造
 
-```
-PleasanterDeveloperCommunity.DotNet.Client/
-    PleasanterClient.Core.cs        # コア機能（コンストラクタ、設定）
-    PleasanterClient.Items.cs       # アイテム操作
-    PleasanterClient.Sites.cs       # サイト操作
-    PleasanterClient.Users.cs       # ユーザー操作
-    PleasanterClient.*.cs           # 機能ごとにPartialクラスで分割
-    Settings.cs                     # 設定クラス
-    Models/
-        Request/                    # リクエストモデル
-            CreateRecordRequest.cs
-            UpdateRecordRequest.cs
-        Response/                   # レスポンスモデル
-            RecordResponse.cs
-            ApiResponse.cs
-        Shared/                     # 共有モデル
-            RecordField.cs
+```mermaid
+graph LR
+    root[PleasanterDeveloperCommunity.DotNet.Client/]
+
+    root --> core[PleasanterClient.Core.cs]
+    root --> items[PleasanterClient.Items.cs]
+    root --> sites[PleasanterClient.Sites.cs]
+    root --> users[PleasanterClient.Users.cs]
+    root --> settings[Settings.cs]
+    root --> models[Models/]
+
+    models --> request[Request/]
+    models --> response[Response/]
+    models --> shared[Shared/]
+
+    request --> createReq[CreateRecordRequest.cs]
+    request --> updateReq[UpdateRecordRequest.cs]
+
+    response --> recordRes[RecordResponse.cs]
+    response --> apiRes[ApiResponse.cs]
+
+    shared --> recordField[RecordField.cs]
 ```
 
 ### ファイル内の順序
@@ -726,36 +731,36 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
 
 #### 基本設定
 
-| 項目                         | 値           | 説明                     |
-| ---------------------------- | ------------ | ------------------------ |
-| `indent_style`               | `space`      | スペースでインデント     |
-| `indent_size`                | `4`          | インデント幅（C#）       |
-| `end_of_line`                | `lf`         | 改行コード               |
-| `charset`                    | `utf-8-bom`  | 文字コード（C#ファイル） |
-| `trim_trailing_whitespace`   | `true`       | 行末空白を削除           |
-| `insert_final_newline`       | `true`       | ファイル末尾に改行       |
+| 項目                       | 値          | 説明                     |
+| -------------------------- | ----------- | ------------------------ |
+| `indent_style`             | `space`     | スペースでインデント     |
+| `indent_size`              | `4`         | インデント幅（C#）       |
+| `end_of_line`              | `lf`        | 改行コード               |
+| `charset`                  | `utf-8-bom` | 文字コード（C#ファイル） |
+| `trim_trailing_whitespace` | `true`      | 行末空白を削除           |
+| `insert_final_newline`     | `true`      | ファイル末尾に改行       |
 
 #### 警告レベルで強制されるルール
 
 以下のルールは `warning` レベルで設定されており、違反すると警告が表示される：
 
-| ルール                                   | 設定値      | 説明                           |
-| ---------------------------------------- | ----------- | ------------------------------ |
-| `csharp_prefer_braces`                   | `true`      | 制御文の中括弧を必須           |
-| `dotnet_style_prefer_string_interpolation` | `true`   | 文字列補間を優先               |
-| `IDE0055`                                | `warning`   | フォーマット違反               |
-| `IDE0005`                                | `warning`   | 不要なusing                    |
-| `CS8600-CS8605`                          | `warning`   | Nullable参照型関連             |
+| ルール                                     | 設定値    | 説明                 |
+| ------------------------------------------ | --------- | -------------------- |
+| `csharp_prefer_braces`                     | `true`    | 制御文の中括弧を必須 |
+| `dotnet_style_prefer_string_interpolation` | `true`    | 文字列補間を優先     |
+| `IDE0055`                                  | `warning` | フォーマット違反     |
+| `IDE0005`                                  | `warning` | 不要なusing          |
+| `CS8600-CS8605`                            | `warning` | Nullable参照型関連   |
 
 #### 命名規則（EditorConfigで強制）
 
-| 対象               | スタイル           | 例                   |
-| ------------------ | ------------------ | -------------------- |
-| インターフェース   | `I` + PascalCase   | `IApiClient`         |
-| 型パラメータ       | `T` + PascalCase   | `TResponse`          |
-| 非同期メソッド     | PascalCase + `Async` | `GetRecordAsync`   |
-| プライベートフィールド | `_` + camelCase | `_httpClient`        |
-| パラメータ/ローカル変数 | camelCase     | `siteId`, `response` |
+| 対象                    | スタイル             | 例                   |
+| ----------------------- | -------------------- | -------------------- |
+| インターフェース        | `I` + PascalCase     | `IApiClient`         |
+| 型パラメータ            | `T` + PascalCase     | `TResponse`          |
+| 非同期メソッド          | PascalCase + `Async` | `GetRecordAsync`     |
+| プライベートフィールド  | `_` + camelCase      | `_httpClient`        |
+| パラメータ/ローカル変数 | camelCase            | `siteId`, `response` |
 
 ### Directory.Build.props
 
@@ -788,15 +793,15 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
 
 #### 主要な設定項目
 
-| 項目                        | 値                    | 説明                                 |
-| --------------------------- | --------------------- | ------------------------------------ |
-| `EnableNETAnalyzers`        | `true`                | .NETアナライザーを有効化             |
-| `AnalysisLevel`             | `latest-recommended`  | 最新の推奨分析ルールを使用           |
-| `EnforceCodeStyleInBuild`   | `true`                | ビルド時にコードスタイルを強制       |
-| `Nullable`                  | `enable`              | Nullable参照型を有効化               |
-| `TreatWarningsAsErrors`     | `true`（Release時）   | リリースビルドで警告をエラー化       |
-| `GenerateDocumentationFile` | `true`                | XMLドキュメントファイルを生成        |
-| `WarningLevel`              | `5`                   | 最高レベルの警告を有効化             |
+| 項目                        | 値                   | 説明                           |
+| --------------------------- | -------------------- | ------------------------------ |
+| `EnableNETAnalyzers`        | `true`               | .NETアナライザーを有効化       |
+| `AnalysisLevel`             | `latest-recommended` | 最新の推奨分析ルールを使用     |
+| `EnforceCodeStyleInBuild`   | `true`               | ビルド時にコードスタイルを強制 |
+| `Nullable`                  | `enable`             | Nullable参照型を有効化         |
+| `TreatWarningsAsErrors`     | `true`（Release時）  | リリースビルドで警告をエラー化 |
+| `GenerateDocumentationFile` | `true`               | XMLドキュメントファイルを生成  |
+| `WarningLevel`              | `5`                  | 最高レベルの警告を有効化       |
 
 ### IDE設定
 

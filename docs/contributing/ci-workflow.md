@@ -4,10 +4,10 @@
 
 ## ワークフロー一覧
 
-| ワークフロー | ファイル | トリガー | 目的 |
-|-------------|---------|---------|------|
-| Create Release | `release.yml` | 手動実行（main ブランチのみ） | バージョンアップ、NuGet パッケージ公開、GitHub Release 作成 |
-| Sync Docs to Wiki | `sync-wiki.yml` | main への push（docs/wiki 配下の変更時）/ 手動実行 | Wiki ページの自動同期 |
+| ワークフロー      | ファイル        | トリガー                                           | 目的                                                        |
+| ----------------- | --------------- | -------------------------------------------------- | ----------------------------------------------------------- |
+| Create Release    | `release.yml`   | 手動実行（main ブランチのみ）                      | バージョンアップ、NuGet パッケージ公開、GitHub Release 作成 |
+| Sync Docs to Wiki | `sync-wiki.yml` | main への push（docs/wiki 配下の変更時）/ 手動実行 | Wiki ページの自動同期                                       |
 
 ---
 
@@ -47,12 +47,12 @@ flowchart TB
 
 このワークフローでは以下の処理が **すべて自動化** されています：
 
-| 機能 | 説明 |
-|------|------|
+| 機能                                   | 説明                                                                          |
+| -------------------------------------- | ----------------------------------------------------------------------------- |
 | **バージョン番号の自動インクリメント** | 現在のバージョンを読み取り、選択した種別（patch/minor/major）に応じて自動計算 |
-| **リリースタグの自動作成** | `Release_vX.X.X` 形式のタグを自動で作成・プッシュ |
-| **パッケージの自動公開** | NuGet.org および GitHub Packages への公開 |
-| **develop ブランチへの自動マージ** | リリース後、バージョン更新を develop に自動反映 |
+| **リリースタグの自動作成**             | `Release_vX.X.X` 形式のタグを自動で作成・プッシュ                             |
+| **パッケージの自動公開**               | NuGet.org および GitHub Packages への公開                                     |
+| **develop ブランチへの自動マージ**     | リリース後、バージョン更新を develop に自動反映                               |
 
 ```mermaid
 flowchart LR
@@ -60,7 +60,7 @@ flowchart LR
     B -->|タグ作成| C[Release_vX.X.X]
     C -->|公開| D[NuGet / GitHub]
     D -->|自動マージ| E[develop ブランチ]
-    
+
     style C fill:#fff3e0,stroke:#ff9800
     style E fill:#e8f5e9,stroke:#4caf50
 ```
@@ -74,11 +74,11 @@ flowchart LR
 
 ### バージョン種別
 
-| 種別 | 説明 | 例 |
-|------|------|-----|
-| `patch` | バグ修正、小さな変更 | 1.0.0 → 1.0.1 |
+| 種別    | 説明                     | 例            |
+| ------- | ------------------------ | ------------- |
+| `patch` | バグ修正、小さな変更     | 1.0.0 → 1.0.1 |
 | `minor` | 後方互換性のある機能追加 | 1.0.0 → 1.1.0 |
-| `major` | 破壊的変更 | 1.0.0 → 2.0.0 |
+| `major` | 破壊的変更               | 1.0.0 → 2.0.0 |
 
 ### ワークフローの実行方法
 
@@ -86,7 +86,7 @@ flowchart LR
 
 GitHub リポジトリページで **Actions** タブをクリックします。
 
-```
+```text
 リポジトリトップ
 ├── Code
 ├── Issues
@@ -100,7 +100,7 @@ GitHub リポジトリページで **Actions** タブをクリックします。
 
 左側のワークフロー一覧から **Create Release** を選択します。
 
-```
+```text
 All workflows
 ├── Create Release     ← ここをクリック
 └── Sync Docs to Wiki
@@ -119,12 +119,12 @@ flowchart LR
 
 ドロップダウンが表示されたら、以下の項目を設定して **Run workflow** ボタンをクリックします。
 
-| 項目 | 設定内容 |
-|------|---------|
-| **Use workflow from** | `main`（変更不要） |
+| 項目                       | 設定内容                             |
+| -------------------------- | ------------------------------------ |
+| **Use workflow from**      | `main`（変更不要）                   |
 | **バージョンアップの種類** | `patch` / `minor` / `major` から選択 |
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │ Use workflow from                       │
 │ ┌─────────────────────────────────────┐ │
@@ -152,7 +152,7 @@ flowchart LR
 ```mermaid
 flowchart LR
     A[queued] --> B[in progress] --> C[completed]
-    
+
     style A fill:#fff3e0
     style B fill:#e3f2fd
     style C fill:#c8e6c9
@@ -219,7 +219,7 @@ flowchart LR
 
 ### リリース ZIP の内容
 
-```
+```text
 PleasanterDeveloperCommunity.DotNet.Client_vX.X.X.zip
 ├── netstandard2.1/          # ビルド成果物
 │   ├── PleasanterDeveloperCommunity.DotNet.Client.dll
@@ -235,25 +235,25 @@ PleasanterDeveloperCommunity.DotNet.Client_vX.X.X.zip
 
 ### 必要なシークレット
 
-| シークレット名 | 用途 |
-|---------------|------|
-| `GITHUB_TOKEN` | 自動提供。コミット、タグ、リリース作成に使用 |
-| `NUGET_API_KEY` | NuGet.org への公開に使用 |
+| シークレット名  | 用途                                         |
+| --------------- | -------------------------------------------- |
+| `GITHUB_TOKEN`  | 自動提供。コミット、タグ、リリース作成に使用 |
+| `NUGET_API_KEY` | NuGet.org への公開に使用                     |
 
 ---
 
 ## 2. Sync Docs to Wiki ワークフロー
 
-### 概要
+### ワークフロー概要
 
 `docs/wiki/` 配下の Markdown ファイルを GitHub Wiki に自動同期します。
 
-### トリガー
+### 実行トリガー
 
 - **自動**: `main` ブランチへの push（`docs/wiki/**/*.md` の変更時）
 - **手動**: `workflow_dispatch`
 
-### 処理フロー
+### Wiki同期フロー
 
 ```mermaid
 flowchart TD
@@ -294,23 +294,21 @@ flowchart LR
 
 ### リリースワークフローが失敗する
 
-| 症状 | 原因 | 対処法 |
-|------|------|--------|
-| `main` 以外で実行できない | ブランチ制限 | `main` ブランチから実行してください |
-| NuGet 公開エラー | API キーの問題 | `NUGET_API_KEY` シークレットを確認 |
-| パッケージが重複 | 同じバージョンが存在 | `--skip-duplicate` で自動スキップされます |
+| 症状                      | 原因                 | 対処法                                    |
+| ------------------------- | -------------------- | ----------------------------------------- |
+| `main` 以外で実行できない | ブランチ制限         | `main` ブランチから実行してください       |
+| NuGet 公開エラー          | API キーの問題       | `NUGET_API_KEY` シークレットを確認        |
+| パッケージが重複          | 同じバージョンが存在 | `--skip-duplicate` で自動スキップされます |
 
 ### Wiki 同期が動作しない
 
-| 症状 | 原因 | 対処法 |
-|------|------|--------|
+| 症状         | 原因         | 対処法                                   |
+| ------------ | ------------ | ---------------------------------------- |
 | 同期されない | パスが異なる | `docs/wiki/` 配下の `.md` ファイルか確認 |
-| 権限エラー | トークン権限 | `contents: write` 権限があるか確認 |
-
+| 権限エラー   | トークン権限 | `contents: write` 権限があるか確認       |
 
 ---
 
 ## 関連ドキュメント
 
 - [ブランチ戦略とリリース手順](branch-strategy.md)
-

@@ -31,20 +31,23 @@
 
 ### ディレクトリ構造
 
-```
-docs/
-├── contributing/              # コントリビューター向けドキュメント
-│   ├── coding-guidelines.md   # コーディング規約
-│   ├── documentation-guidelines.md  # ドキュメント規約（本ファイル）
-│   ├── branch-strategy.md     # ブランチ戦略
-│   └── ci-workflow.md         # CI/CDワークフロー
-├── wiki/                      # APIリファレンス・使い方ガイド
-│   ├── 00-*.md               # 共通トピック
-│   ├── 01-テーブル操作-*.md  # テーブル操作API
-│   ├── 02-サイト操作-*.md    # サイト操作API
-│   └── ...
-└── script/                    # ドキュメント関連スクリプト
-    └── sync-docs-to-wiki.js   # Wiki同期スクリプト
+```mermaid
+graph LR
+    docs[docs/]
+    docs --> contributing[contributing/]
+    docs --> wiki[wiki/]
+    docs --> script[script/]
+
+    contributing --> cg[coding-guidelines.md]
+    contributing --> dg[documentation-guidelines.md]
+    contributing --> bs[branch-strategy.md]
+    contributing --> cw[ci-workflow.md]
+
+    wiki --> w00[00-*.md]
+    wiki --> w01[01-テーブル操作-*.md]
+    wiki --> w02[02-サイト操作-*.md]
+
+    script --> sync[sync-docs-to-wiki.js]
 ```
 
 ### ファイル命名規則
@@ -53,14 +56,15 @@ docs/
 
 `{カテゴリ番号}-{カテゴリ名}-{連番}-{機能名}.md` 形式
 
-| 要素           | 説明                       | 例                  |
-| -------------- | -------------------------- | ------------------- |
-| カテゴリ番号   | 2桁の数字（ソート用）      | `01`                |
-| カテゴリ名     | 機能カテゴリ               | `テーブル操作`      |
-| 連番           | 2桁の数字（カテゴリ内順序）| `03`                |
-| 機能名         | 具体的な機能               | `レコード-取得(単一)` |
+| 要素         | 説明                        | 例                    |
+| ------------ | --------------------------- | --------------------- |
+| カテゴリ番号 | 2桁の数字（ソート用）       | `01`                  |
+| カテゴリ名   | 機能カテゴリ                | `テーブル操作`        |
+| 連番         | 2桁の数字（カテゴリ内順序） | `03`                  |
+| 機能名       | 具体的な機能                | `レコード-取得(単一)` |
 
 **例**:
+
 - `00-タイムアウトとキャンセル.md`
 - `01-テーブル操作-01-レコード-作成.md`
 - `01-テーブル操作-03-レコード-取得(単一).md`
@@ -70,6 +74,7 @@ docs/
 `{トピック名}.md` 形式（ケバブケース推奨）
 
 **例**:
+
 - `coding-guidelines.md`
 - `branch-strategy.md`
 
@@ -79,13 +84,35 @@ docs/
 
 ### 基本ルール
 
-| ルール               | 説明                                     |
-| -------------------- | ---------------------------------------- |
-| 絵文字禁止           | ドキュメント内で絵文字を使用しない       |
-| 図はMermaid          | 図やダイアグラムはMermaid記法を使用する  |
-| テーブルの列幅       | 列幅を揃えて見やすく整形する             |
-| 見出しレベル         | `#` から順に使用、レベルを飛ばさない     |
-| コードブロック       | 言語指定を必ず付ける（```csharp）        |
+| ルール         | 説明                                             |
+| -------------- | ------------------------------------------------ |
+| 絵文字禁止     | ドキュメント内で絵文字を使用しない               |
+| 図はMermaid    | 図やダイアグラムはMermaid記法を使用する          |
+| テーブルの列幅 | 列幅を揃えて見やすく整形する（Prettierで自動化） |
+| 見出しレベル   | `#` から順に使用、レベルを飛ばさない             |
+| コードブロック | 言語指定を必ず付ける（```csharp）                |
+
+### フォーマッター（Prettier）
+
+テーブルの列幅整形などはPrettierで自動化されている。
+
+#### セットアップ
+
+1. VS Code拡張機能 `esbenp.prettier-vscode` をインストール
+2. `.vscode/extensions.json` に推奨拡張機能として登録済み
+3. 保存時に自動フォーマットが適用される
+
+#### 設定ファイル
+
+| ファイル                | 説明                         |
+| ----------------------- | ---------------------------- |
+| `.prettierrc`           | Prettierの設定               |
+| `.prettierignore`       | フォーマット対象外のファイル |
+| `.vscode/settings.json` | VS Code用の設定              |
+
+#### 手動実行
+
+VS Codeで `Shift + Alt + F`（Windows）または `Shift + Option + F`（Mac）でフォーマットを実行。
 
 ### 見出し
 
@@ -115,15 +142,15 @@ var response = await client.GetRecordAsync(siteId, recordId);
 列幅を揃えて整形：
 
 ```markdown
-| メソッド名         | 説明                     | 戻り値              |
-| ------------------ | ------------------------ | ------------------- |
-| `GetRecordAsync`   | レコードを取得する       | `Task<ApiResponse>` |
-| `CreateRecordAsync`| レコードを作成する       | `Task<ApiResponse>` |
+| メソッド名          | 説明               | 戻り値              |
+| ------------------- | ------------------ | ------------------- |
+| `GetRecordAsync`    | レコードを取得する | `Task<ApiResponse>` |
+| `CreateRecordAsync` | レコードを作成する | `Task<ApiResponse>` |
 ```
 
 ### Mermaid図
 
-```markdown
+````markdown
 ```mermaid
 sequenceDiagram
     participant Client
@@ -131,15 +158,17 @@ sequenceDiagram
     Client->>API: POST /api/items/{id}/get
     API-->>Client: JSON Response
 ```
-```
+````
 
 ### リンク
 
 ```markdown
 <!-- 相対リンク -->
+
 詳細は[コーディングガイドライン](coding-guidelines.md)を参照。
 
 <!-- セクションへのリンク -->
+
 [命名規則](#命名規則)を確認してください。
 ```
 
@@ -151,7 +180,7 @@ sequenceDiagram
 
 各APIドキュメントは以下の構成で記述：
 
-```markdown
+````markdown
 # {機能名}
 
 ## 概要
@@ -175,11 +204,11 @@ public async Task<ApiResponse<T>> MethodNameAsync(
 
 #### パラメータ
 
-| パラメータ名       | 型                  | 説明           |
-| ------------------ | ------------------- | -------------- |
-| `param1`           | `long`              | パラメータ説明 |
-| `param2`           | `string`            | パラメータ説明 |
-| `cancellationToken`| `CancellationToken` | キャンセル用   |
+| パラメータ名        | 型                  | 説明           |
+| ------------------- | ------------------- | -------------- |
+| `param1`            | `long`              | パラメータ説明 |
+| `param2`            | `string`            | パラメータ説明 |
+| `cancellationToken` | `CancellationToken` | キャンセル用   |
 
 #### 戻り値
 
@@ -195,7 +224,7 @@ var response = await client.MethodNameAsync(123, "value");
 
 - {注意点1}
 - {注意点2}
-```
+````
 
 ### XMLドキュメントとの整合性
 
@@ -210,12 +239,12 @@ var response = await client.MethodNameAsync(123, "value");
 
 コードやワークフローを変更した場合は、関連するドキュメントも更新すること。
 
-| 変更対象                            | 更新が必要なドキュメント                          |
-| ----------------------------------- | ------------------------------------------------- |
-| 公開API（メソッド追加・変更・削除） | `docs/wiki/` 配下の該当ドキュメント               |
-| 依存パッケージの変更                | `README.md` のサードパーティライセンスセクション |
-| CI/CDワークフローの変更             | `docs/contributing/ci-workflow.md`                |
-| インストール方法の変更              | `README.md` のインストールセクション             |
+| 変更対象                            | 更新が必要なドキュメント                             |
+| ----------------------------------- | ---------------------------------------------------- |
+| 公開API（メソッド追加・変更・削除） | `docs/wiki/` 配下の該当ドキュメント                  |
+| 依存パッケージの変更                | `README.md` のサードパーティライセンスセクション     |
+| CI/CDワークフローの変更             | `docs/contributing/ci-workflow.md`                   |
+| インストール方法の変更              | `README.md` のインストールセクション                 |
 | プロジェクト設定の変更              | `README.md` および `.github/copilot-instructions.md` |
 
 ### GitHub Wiki同期

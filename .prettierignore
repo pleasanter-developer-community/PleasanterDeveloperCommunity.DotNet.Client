@@ -1,0 +1,15 @@
+# ビルド出力
+**/bin/
+**/obj/
+
+# パッケージ
+**/node_modules/
+
+# 生成ファイル
+*.Designer.cs
+
+# ライセンスファイル（フォーマット不要）
+LICENSES/
+
+# サードパーティ
+**/wwwroot/lib/
