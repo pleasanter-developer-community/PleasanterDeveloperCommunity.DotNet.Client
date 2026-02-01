@@ -12,19 +12,20 @@
 
 ```csharp
 // パラメータ指定版
-Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(string name, Dictionary<string, object>? parameters = null, TimeSpan? timeout = null)
+Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(string name, Dictionary<string, object>? parameters = null, TimeSpan? timeout = null, CancellationToken cancellationToken = default)
 
 // リクエストモデル版
-Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request, TimeSpan? timeout = null)
+Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(ExtendedSqlRequest request, TimeSpan? timeout = null, CancellationToken cancellationToken = default)
 ```
 
 ## パラメータ
 
-| 引数         | 型                           | 必須 | 説明                                     |
-|--------------|------------------------------|:----:|------------------------------------------|
-| `name`       | string                       | Yes  | 拡張SQLの名前（JSONファイルで定義したName） |
-| `parameters` | Dictionary\<string, object\> |      | SQLに渡すパラメータ                      |
-| `timeout`    | TimeSpan?                    |      | リクエストタイムアウト                   |
+| 引数                | 型                           | 必須 | 説明                                       |
+|---------------------|------------------------------|:----:|------------------------------------------|
+| `name`              | string                       | Yes  | 拡張SQLの名前（JSONファイルで定義したName） |
+| `parameters`        | Dictionary\<string, object\> |      | SQLに渡すパラメータ                        |
+| `timeout`           | TimeSpan?                    |      | リクエストタイムアウト                     |
+| `cancellationToken` | CancellationToken            |      | キャンセルトークン                       |
 
 ## 使用例
 
@@ -62,4 +63,5 @@ var result = await client.ExecuteExtendedSqlAsync(request: request);
 
 ## 関連ドキュメント
 
+- [タイムアウトとキャンセル](00-タイムアウトとキャンセル) - タイムアウトとキャンセルトークンの使い方
 - [レスポンスの処理](00-レスポンスの処理) - APIレスポンスの処理方法
