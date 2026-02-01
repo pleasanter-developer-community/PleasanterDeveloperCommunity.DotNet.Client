@@ -145,7 +145,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<ExportResponse>(
             $"/api/items/{siteId}/export", request, timeout, cancellationToken);
