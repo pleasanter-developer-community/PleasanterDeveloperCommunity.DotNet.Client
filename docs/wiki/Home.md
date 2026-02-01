@@ -105,6 +105,8 @@ using var client = new PleasanterClient(
 );
 ```
 
+> **注意**: `ApiKey`と`ApiVersion`はPleasanterClient作成時にのみ設定できます。各APIメソッドのリクエストモデルでは変更できません。
+
 ### リクエストモデルの使用
 
 各APIメソッドはリクエストモデルを使用してパラメータを指定します。

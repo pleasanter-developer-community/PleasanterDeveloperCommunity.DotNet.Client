@@ -38,8 +38,6 @@ Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
 | `request`           |                        | `ExtendedSqlRequest`          | Yes  | リクエストモデル                               |
 |                     | `Name`                 | `string?`                     |      | 拡張SQL名                                      |
 |                     | `AdditionalParameters` | `Dictionary<string, object>?` |      | 追加パラメータ（動的に追加されるプロパティ用） |
-|                     | `ApiVersion`           | `string?`                     |      | APIバージョン                                  |
-|                     | `ApiKey`               | `string?`                     |      | APIキー                                        |
 | `timeout`           |                        | `TimeSpan?`                   |      | リクエストタイムアウト                         |
 | `cancellationToken` |                        | `CancellationToken`           |      | キャンセルトークン                             |
 

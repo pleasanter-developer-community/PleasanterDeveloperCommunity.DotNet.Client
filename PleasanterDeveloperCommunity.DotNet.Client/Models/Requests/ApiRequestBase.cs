@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
@@ -10,12 +10,18 @@ public abstract class ApiRequestBase
     /// <summary>
     /// APIバージョン
     /// </summary>
+    /// <remarks>
+    /// この値はPleasanterClient作成時に設定され、各メソッドでは変更できません。
+    /// </remarks>
     [JsonProperty("ApiVersion")]
-    public string? ApiVersion { get; set; }
+    public string? ApiVersion { get; internal set; }
 
     /// <summary>
     /// APIキー
     /// </summary>
+    /// <remarks>
+    /// この値はPleasanterClient作成時に設定され、各メソッドでは変更できません。
+    /// </remarks>
     [JsonProperty("ApiKey")]
-    public string? ApiKey { get; set; }
+    public string? ApiKey { get; internal set; }
 }
