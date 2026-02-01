@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
 /// <summary>
 /// ソート順タイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum SortOrderType
 {
     Asc,
@@ -16,7 +17,7 @@ public enum SortOrderType
 /// <summary>
 /// 列フィルタ検索タイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ColumnFilterSearchType
 {
     PartialMatch,
@@ -30,7 +31,7 @@ public enum ColumnFilterSearchType
 /// <summary>
 /// APIデータタイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ApiDataType
 {
     Default,
@@ -40,7 +41,7 @@ public enum ApiDataType
 /// <summary>
 /// APIカラムキー表示タイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ApiColumnKeyDisplayType
 {
     LabelText,
@@ -50,7 +51,7 @@ public enum ApiColumnKeyDisplayType
 /// <summary>
 /// APIカラム値表示タイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ApiColumnValueDisplayType
 {
     DisplayValue,
@@ -61,7 +62,7 @@ public enum ApiColumnValueDisplayType
 /// <summary>
 /// サイト参照タイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum SiteReferenceType
 {
     Sites,
@@ -73,7 +74,7 @@ public enum SiteReferenceType
 /// <summary>
 /// エクスポートタイプ
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ExportType
 {
     Csv,
@@ -85,9 +86,9 @@ public enum ExportType
 /// </summary>
 public class ApiColumnSetting
 {
-    [JsonPropertyName("KeyDisplayType")]
+    [JsonProperty("KeyDisplayType")]
     public ApiColumnKeyDisplayType? KeyDisplayType { get; set; }
 
-    [JsonPropertyName("ValueDisplayType")]
+    [JsonProperty("ValueDisplayType")]
     public ApiColumnValueDisplayType? ValueDisplayType { get; set; }
 }

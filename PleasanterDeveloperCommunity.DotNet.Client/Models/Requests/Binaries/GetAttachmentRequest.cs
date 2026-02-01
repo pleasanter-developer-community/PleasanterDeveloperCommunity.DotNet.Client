@@ -1,4 +1,4 @@
-﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 
 /// <summary>
 /// 添付ファイル取得リクエスト

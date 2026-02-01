@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Groups;
 
@@ -12,13 +12,13 @@ public class GetGroupsRequest : ApiRequestBase
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonPropertyName("View")]
+    [JsonProperty("View")]
     public View? View { get; set; }
 
     /// <summary>
     /// 取得開始位置
     /// </summary>
-    [JsonPropertyName("Offset")]
+    [JsonProperty("Offset")]
     public int? Offset { get; set; }
 }
 
@@ -30,25 +30,25 @@ public class CreateGroupRequest : ApiRequestBase
     /// <summary>
     /// グループ名
     /// </summary>
-    [JsonPropertyName("GroupName")]
+    [JsonProperty("GroupName")]
     public string? GroupName { get; set; }
 
     /// <summary>
     /// 内容
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// 無効
     /// </summary>
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool? Disabled { get; set; }
 
     /// <summary>
     /// グループメンバー
     /// </summary>
-    [JsonPropertyName("GroupMembers")]
+    [JsonProperty("GroupMembers")]
     public List<GroupMemberRequest>? GroupMembers { get; set; }
 }
 
@@ -60,25 +60,25 @@ public class UpdateGroupRequest : ApiRequestBase
     /// <summary>
     /// グループ名
     /// </summary>
-    [JsonPropertyName("GroupName")]
+    [JsonProperty("GroupName")]
     public string? GroupName { get; set; }
 
     /// <summary>
     /// 内容
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// 無効
     /// </summary>
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool? Disabled { get; set; }
 
     /// <summary>
     /// グループメンバー
     /// </summary>
-    [JsonPropertyName("GroupMembers")]
+    [JsonProperty("GroupMembers")]
     public List<GroupMemberRequest>? GroupMembers { get; set; }
 }
 
@@ -90,19 +90,19 @@ public class GroupMemberRequest
     /// <summary>
     /// 組織ID
     /// </summary>
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int? DeptId { get; set; }
 
     /// <summary>
     /// ユーザID
     /// </summary>
-    [JsonPropertyName("UserId")]
+    [JsonProperty("UserId")]
     public int? UserId { get; set; }
 
     /// <summary>
     /// 管理者
     /// </summary>
-    [JsonPropertyName("Admin")]
+    [JsonProperty("Admin")]
     public bool? Admin { get; set; }
 }
 

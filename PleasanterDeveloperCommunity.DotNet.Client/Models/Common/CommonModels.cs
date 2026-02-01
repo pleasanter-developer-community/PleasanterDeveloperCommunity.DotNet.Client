@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
@@ -10,19 +9,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 /// </summary>
 public class Comment
 {
-    [JsonPropertyName("CommentId")]
+    [JsonProperty("CommentId")]
     public long CommentId { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public string? CreatedTime { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public string? UpdatedTime { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int Creator { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 }
 
@@ -31,25 +30,25 @@ public class Comment
 /// </summary>
 public class AttachmentData
 {
-    [JsonPropertyName("Guid")]
+    [JsonProperty("Guid")]
     public string? Guid { get; set; }
 
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("Size")]
+    [JsonProperty("Size")]
     public long Size { get; set; }
 
-    [JsonPropertyName("HashCode")]
+    [JsonProperty("HashCode")]
     public string? HashCode { get; set; }
 
-    [JsonPropertyName("Deleted")]
+    [JsonProperty("Deleted")]
     public bool? Deleted { get; set; }
 
-    [JsonPropertyName("ContentType")]
+    [JsonProperty("ContentType")]
     public string? ContentType { get; set; }
 
-    [JsonPropertyName("Base64")]
+    [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 }
 
@@ -58,46 +57,46 @@ public class AttachmentData
 /// </summary>
 public class SiteSettings
 {
-    [JsonPropertyName("Version")]
+    [JsonProperty("Version")]
     public decimal? Version { get; set; }
 
-    [JsonPropertyName("GridColumns")]
+    [JsonProperty("GridColumns")]
     public List<string>? GridColumns { get; set; }
 
-    [JsonPropertyName("EditorColumnHash")]
+    [JsonProperty("EditorColumnHash")]
     public Dictionary<string, List<string>>? EditorColumnHash { get; set; }
 
-    [JsonPropertyName("Columns")]
+    [JsonProperty("Columns")]
     public List<ColumnDefinition>? Columns { get; set; }
 
-    [JsonPropertyName("Links")]
+    [JsonProperty("Links")]
     public List<object>? Links { get; set; }
 
-    [JsonPropertyName("Summaries")]
+    [JsonProperty("Summaries")]
     public List<object>? Summaries { get; set; }
 
-    [JsonPropertyName("Formulas")]
+    [JsonProperty("Formulas")]
     public List<object>? Formulas { get; set; }
 
-    [JsonPropertyName("Processes")]
+    [JsonProperty("Processes")]
     public List<object>? Processes { get; set; }
 
-    [JsonPropertyName("Views")]
+    [JsonProperty("Views")]
     public List<object>? Views { get; set; }
 
-    [JsonPropertyName("Notifications")]
+    [JsonProperty("Notifications")]
     public List<object>? Notifications { get; set; }
 
-    [JsonPropertyName("Reminders")]
+    [JsonProperty("Reminders")]
     public List<object>? Reminders { get; set; }
 
-    [JsonPropertyName("Scripts")]
+    [JsonProperty("Scripts")]
     public List<object>? Scripts { get; set; }
 
-    [JsonPropertyName("Styles")]
+    [JsonProperty("Styles")]
     public List<object>? Styles { get; set; }
 
-    [JsonPropertyName("ServerScripts")]
+    [JsonProperty("ServerScripts")]
     public List<object>? ServerScripts { get; set; }
 }
 
@@ -106,22 +105,22 @@ public class SiteSettings
 /// </summary>
 public class ColumnDefinition
 {
-    [JsonPropertyName("ColumnName")]
+    [JsonProperty("ColumnName")]
     public string? ColumnName { get; set; }
 
-    [JsonPropertyName("LabelText")]
+    [JsonProperty("LabelText")]
     public string? LabelText { get; set; }
 
-    [JsonPropertyName("EditorFormat")]
+    [JsonProperty("EditorFormat")]
     public string? EditorFormat { get; set; }
 
-    [JsonPropertyName("ChoicesText")]
+    [JsonProperty("ChoicesText")]
     public string? ChoicesText { get; set; }
 
-    [JsonPropertyName("DefaultInput")]
+    [JsonProperty("DefaultInput")]
     public string? DefaultInput { get; set; }
 
-    [JsonPropertyName("ValidateRequired")]
+    [JsonProperty("ValidateRequired")]
     public bool? ValidateRequired { get; set; }
 }
 
@@ -130,10 +129,10 @@ public class ColumnDefinition
 /// </summary>
 public class ImageSettings
 {
-    [JsonPropertyName("Base64")]
+    [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 }
 
@@ -142,88 +141,88 @@ public class ImageSettings
 /// </summary>
 public class RecordData
 {
-    [JsonPropertyName("SiteId")]
+    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonPropertyName("IssueId")]
+    [JsonProperty("IssueId")]
     public long? IssueId { get; set; }
 
-    [JsonPropertyName("ResultId")]
+    [JsonProperty("ResultId")]
     public long? ResultId { get; set; }
 
-    [JsonPropertyName("WikiId")]
+    [JsonProperty("WikiId")]
     public long? WikiId { get; set; }
 
-    [JsonPropertyName("Ver")]
+    [JsonProperty("Ver")]
     public int? Ver { get; set; }
 
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("StartTime")]
+    [JsonProperty("StartTime")]
     public DateTime? StartTime { get; set; }
 
-    [JsonPropertyName("CompletionTime")]
+    [JsonProperty("CompletionTime")]
     public DateTime? CompletionTime { get; set; }
 
-    [JsonPropertyName("WorkValue")]
+    [JsonProperty("WorkValue")]
     public decimal? WorkValue { get; set; }
 
-    [JsonPropertyName("ProgressRate")]
+    [JsonProperty("ProgressRate")]
     public decimal? ProgressRate { get; set; }
 
-    [JsonPropertyName("RemainingWorkValue")]
+    [JsonProperty("RemainingWorkValue")]
     public decimal? RemainingWorkValue { get; set; }
 
-    [JsonPropertyName("Status")]
+    [JsonProperty("Status")]
     public int? Status { get; set; }
 
-    [JsonPropertyName("Manager")]
+    [JsonProperty("Manager")]
     public int? Manager { get; set; }
 
-    [JsonPropertyName("Owner")]
+    [JsonProperty("Owner")]
     public int? Owner { get; set; }
 
-    [JsonPropertyName("Locked")]
+    [JsonProperty("Locked")]
     public bool? Locked { get; set; }
 
-    [JsonPropertyName("Comments")]
+    [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int? Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public int? Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("ItemTitle")]
+    [JsonProperty("ItemTitle")]
     public string? ItemTitle { get; set; }
 
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
-    [JsonPropertyName("AttachmentsHash")]
+    [JsonProperty("AttachmentsHash")]
     public Dictionary<string, List<AttachmentData>>? AttachmentsHash { get; set; }
 
     /// <summary>
@@ -237,7 +236,7 @@ public class RecordData
                 return null;
             try
             {
-                return JsonSerializer.Deserialize<List<Comment>>(Comments);
+                return JsonConvert.DeserializeObject<List<Comment>>(Comments);
             }
             catch
             {

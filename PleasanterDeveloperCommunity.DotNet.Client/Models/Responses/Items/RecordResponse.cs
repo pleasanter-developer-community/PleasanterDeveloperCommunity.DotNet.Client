@@ -1,4 +1,4 @@
-﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 

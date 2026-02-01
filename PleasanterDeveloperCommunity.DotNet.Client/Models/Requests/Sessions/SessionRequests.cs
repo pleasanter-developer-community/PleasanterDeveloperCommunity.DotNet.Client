@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sessions;
 
@@ -12,7 +12,7 @@ public class GetSessionRequest : ApiRequestBase
     /// <summary>
     /// セッション名
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 }
 
@@ -24,13 +24,13 @@ public class SetSessionRequest : ApiRequestBase
     /// <summary>
     /// セッション名
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// 値
     /// </summary>
-    [JsonPropertyName("Value")]
+    [JsonProperty("Value")]
     public string? Value { get; set; }
 }
 
@@ -42,6 +42,6 @@ public class DeleteSessionRequest : ApiRequestBase
     /// <summary>
     /// セッション名
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 }

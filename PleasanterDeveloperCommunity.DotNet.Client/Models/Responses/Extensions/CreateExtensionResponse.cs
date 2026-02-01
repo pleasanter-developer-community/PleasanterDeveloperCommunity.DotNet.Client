@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Extensions;
 
@@ -10,18 +10,18 @@ public class CreateExtensionResponse
     /// <summary>
     /// ステータスコード
     /// </summary>
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 
     /// <summary>
     /// 作成された拡張機能ID
     /// </summary>
-    [JsonPropertyName("Id")]
+    [JsonProperty("Id")]
     public long Id { get; set; }
 }

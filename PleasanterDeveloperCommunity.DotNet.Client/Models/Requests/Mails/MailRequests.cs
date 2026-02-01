@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Mails;
 
@@ -12,30 +12,30 @@ public class SendMailRequest : ApiRequestBase
     /// <summary>
     /// 宛先
     /// </summary>
-    [JsonPropertyName("To")]
+    [JsonProperty("To")]
     public string? To { get; set; }
 
     /// <summary>
     /// CC
     /// </summary>
-    [JsonPropertyName("Cc")]
+    [JsonProperty("Cc")]
     public string? Cc { get; set; }
 
     /// <summary>
     /// BCC
     /// </summary>
-    [JsonPropertyName("Bcc")]
+    [JsonProperty("Bcc")]
     public string? Bcc { get; set; }
 
     /// <summary>
     /// 件名
     /// </summary>
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
     /// <summary>
     /// 本文
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 }

@@ -1,7 +1,7 @@
-﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -13,96 +13,96 @@ public class UpdateRecordRequest : ApiRequestBase
     /// <summary>
     /// タイトル
     /// </summary>
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
     /// <summary>
     /// 本文
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// 状態
     /// </summary>
-    [JsonPropertyName("Status")]
+    [JsonProperty("Status")]
     public int? Status { get; set; }
 
     /// <summary>
     /// 管理者
     /// </summary>
-    [JsonPropertyName("Manager")]
+    [JsonProperty("Manager")]
     public int? Manager { get; set; }
 
     /// <summary>
     /// 担当者
     /// </summary>
-    [JsonPropertyName("Owner")]
+    [JsonProperty("Owner")]
     public int? Owner { get; set; }
 
     /// <summary>
     /// 完了日時
     /// </summary>
-    [JsonPropertyName("CompletionTime")]
+    [JsonProperty("CompletionTime")]
     public string? CompletionTime { get; set; }
 
     /// <summary>
     /// 分類項目
     /// </summary>
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目
     /// </summary>
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目
     /// </summary>
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目
     /// </summary>
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目
     /// </summary>
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
     /// <summary>
     /// 添付ファイル
     /// </summary>
-    [JsonPropertyName("AttachmentsHash")]
+    [JsonProperty("AttachmentsHash")]
     public Dictionary<string, List<AttachmentData>>? AttachmentsHash { get; set; }
 
     /// <summary>
     /// プロセスID
     /// </summary>
-    [JsonPropertyName("ProcessId")]
+    [JsonProperty("ProcessId")]
     public int? ProcessId { get; set; }
 
     /// <summary>
     /// プロセスID一覧
     /// </summary>
-    [JsonPropertyName("ProcessIds")]
+    [JsonProperty("ProcessIds")]
     public List<int>? ProcessIds { get; set; }
 
     /// <summary>
     /// 画像設定
     /// </summary>
-    [JsonPropertyName("ImageHash")]
+    [JsonProperty("ImageHash")]
     public Dictionary<string, ImageSettings>? ImageHash { get; set; }
 
     /// <summary>
     /// レコード権限
     /// </summary>
-    [JsonPropertyName("RecordPermissions")]
+    [JsonProperty("RecordPermissions")]
     public List<string>? RecordPermissions { get; set; }
 }

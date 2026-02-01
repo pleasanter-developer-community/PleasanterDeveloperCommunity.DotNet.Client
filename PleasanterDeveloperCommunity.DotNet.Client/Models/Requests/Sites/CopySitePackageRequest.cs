@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
@@ -11,48 +11,48 @@ public class CopySitePackageRequest : ApiRequestBase
     /// <summary>
     /// 選択したサイト一覧
     /// </summary>
-    [JsonPropertyName("SelectedSites")]
+    [JsonProperty("SelectedSites")]
     public List<SelectedSite>? SelectedSites { get; set; }
 
     /// <summary>
     /// コピー先サイトID
     /// </summary>
-    [JsonPropertyName("TargetSiteId")]
+    [JsonProperty("TargetSiteId")]
     public long? TargetSiteId { get; set; }
 
     /// <summary>
     /// サイトタイトル
     /// </summary>
-    [JsonPropertyName("SiteTitle")]
+    [JsonProperty("SiteTitle")]
     public string? SiteTitle { get; set; }
 
     /// <summary>
     /// サイト権限を含める
     /// </summary>
-    [JsonPropertyName("IncludeSitePermission")]
+    [JsonProperty("IncludeSitePermission")]
     public bool? IncludeSitePermission { get; set; }
 
     /// <summary>
     /// レコード権限を含める
     /// </summary>
-    [JsonPropertyName("IncludeRecordPermission")]
+    [JsonProperty("IncludeRecordPermission")]
     public bool? IncludeRecordPermission { get; set; }
 
     /// <summary>
     /// 列権限を含める
     /// </summary>
-    [JsonPropertyName("IncludeColumnPermission")]
+    [JsonProperty("IncludeColumnPermission")]
     public bool? IncludeColumnPermission { get; set; }
 
     /// <summary>
     /// 通知を含める
     /// </summary>
-    [JsonPropertyName("IncludeNotifications")]
+    [JsonProperty("IncludeNotifications")]
     public bool? IncludeNotifications { get; set; }
 
     /// <summary>
     /// リマインダーを含める
     /// </summary>
-    [JsonPropertyName("IncludeReminders")]
+    [JsonProperty("IncludeReminders")]
     public bool? IncludeReminders { get; set; }
 }

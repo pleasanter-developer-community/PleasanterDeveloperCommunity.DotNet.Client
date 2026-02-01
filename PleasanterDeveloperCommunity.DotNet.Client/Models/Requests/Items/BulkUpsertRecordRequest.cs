@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -11,18 +11,18 @@ public class BulkUpsertRecordRequest : ApiRequestBase
     /// <summary>
     /// レコードデータ
     /// </summary>
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<BulkUpsertRecordData>? Data { get; set; }
 
     /// <summary>
     /// キー項目
     /// </summary>
-    [JsonPropertyName("Keys")]
+    [JsonProperty("Keys")]
     public List<string>? Keys { get; set; }
 
     /// <summary>
     /// キーに一致するレコードがない場合に作成するかどうか
     /// </summary>
-    [JsonPropertyName("KeyNotFoundCreate")]
+    [JsonProperty("KeyNotFoundCreate")]
     public bool? KeyNotFoundCreate { get; set; }
 }

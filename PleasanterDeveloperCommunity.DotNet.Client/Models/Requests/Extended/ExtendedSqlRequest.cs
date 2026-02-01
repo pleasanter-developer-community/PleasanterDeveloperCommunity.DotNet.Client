@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extended;
 
@@ -11,7 +11,7 @@ public class ExtendedSqlRequest : ApiRequestBase
     /// <summary>
     /// 拡張SQL名
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -7,9 +7,9 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class ExportResponse
 {
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("Content")]
+    [JsonProperty("Content")]
     public string? Content { get; set; }
 }

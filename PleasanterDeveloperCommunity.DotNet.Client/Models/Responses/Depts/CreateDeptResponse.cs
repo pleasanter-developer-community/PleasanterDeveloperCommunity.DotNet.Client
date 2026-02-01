@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 
@@ -7,12 +7,12 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 /// </summary>
 public class CreateDeptResponse
 {
-    [JsonPropertyName("Id")]
+    [JsonProperty("Id")]
     public int Id { get; set; }
 
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 }

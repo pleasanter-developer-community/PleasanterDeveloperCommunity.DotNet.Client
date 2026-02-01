@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -7,18 +7,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class CreateRecordResponse
 {
-    [JsonPropertyName("Id")]
+    [JsonProperty("Id")]
     public long Id { get; set; }
 
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 
-    [JsonPropertyName("LimitPerDate")]
+    [JsonProperty("LimitPerDate")]
     public int? LimitPerDate { get; set; }
 
-    [JsonPropertyName("LimitRemaining")]
+    [JsonProperty("LimitRemaining")]
     public int? LimitRemaining { get; set; }
 }

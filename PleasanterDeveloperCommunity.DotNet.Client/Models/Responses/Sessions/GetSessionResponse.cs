@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sessions;
 
@@ -11,19 +11,19 @@ public class GetSessionResponse
     /// <summary>
     /// ステータスコード
     /// </summary>
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 
     /// <summary>
     /// セッションデータ
     /// </summary>
-    [JsonPropertyName("Response")]
+    [JsonProperty("Response")]
     public SessionResponseData? Response { get; set; }
 }
 
@@ -35,7 +35,7 @@ public class SessionResponseData
     /// <summary>
     /// データ
     /// </summary>
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<SessionData>? Data { get; set; }
 }
 
@@ -47,12 +47,12 @@ public class SessionData
     /// <summary>
     /// 名前
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// 値
     /// </summary>
-    [JsonPropertyName("Value")]
+    [JsonProperty("Value")]
     public string? Value { get; set; }
 }

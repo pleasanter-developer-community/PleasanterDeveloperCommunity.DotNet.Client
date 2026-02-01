@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
@@ -8,10 +8,10 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class GetClosestSiteIdResponse
 {
-    [JsonPropertyName("SiteId")]
+    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<ClosestSiteIdData>? Data { get; set; }
 }
 
@@ -20,9 +20,9 @@ public class GetClosestSiteIdResponse
 /// </summary>
 public class ClosestSiteIdData
 {
-    [JsonPropertyName("SiteName")]
+    [JsonProperty("SiteName")]
     public string? SiteName { get; set; }
 
-    [JsonPropertyName("SiteId")]
+    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 }

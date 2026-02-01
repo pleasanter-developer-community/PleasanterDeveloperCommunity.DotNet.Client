@@ -1,6 +1,6 @@
-﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
@@ -12,30 +12,30 @@ public class CreateSiteRequest : ApiRequestBase
     /// <summary>
     /// タイトル
     /// </summary>
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
     /// <summary>
     /// 参照タイプ
     /// </summary>
-    [JsonPropertyName("ReferenceType")]
+    [JsonProperty("ReferenceType")]
     public string? ReferenceType { get; set; }
 
     /// <summary>
     /// テナントID
     /// </summary>
-    [JsonPropertyName("TenantId")]
+    [JsonProperty("TenantId")]
     public int? TenantId { get; set; }
 
     /// <summary>
     /// 権限継承元サイトID
     /// </summary>
-    [JsonPropertyName("InheritPermission")]
+    [JsonProperty("InheritPermission")]
     public long? InheritPermission { get; set; }
 
     /// <summary>
     /// サイト設定
     /// </summary>
-    [JsonPropertyName("SiteSettings")]
+    [JsonProperty("SiteSettings")]
     public SiteSettings? SiteSettings { get; set; }
 }

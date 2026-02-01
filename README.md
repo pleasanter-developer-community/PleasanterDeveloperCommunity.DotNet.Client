@@ -108,7 +108,7 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 以下のコマンドで必要な依存パッケージをインストールします：
 
 ```bash
-dotnet add package System.Text.Json
+dotnet add package Newtonsoft.Json
 ```
 
 ## 使用方法
@@ -119,8 +119,8 @@ dotnet add package System.Text.Json
 
 このプロジェクトは以下のサードパーティライブラリを使用しています：
 
-| ライブラリ       | ライセンス | 著作権                                         |
-| ---------------- | ---------- | ---------------------------------------------- |
-| System.Text.Json | MIT        | Copyright (c) .NET Foundation and Contributors |
+| ライブラリ      | ライセンス | 著作権                               |
+| --------------- | ---------- | ------------------------------------ |
+| Newtonsoft.Json | MIT        | Copyright (c) 2007 James Newton-King |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。

@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
@@ -32,7 +33,7 @@ public partial class PleasanterClient
     {
         var requestId = Guid.NewGuid().ToString();
         var url = _baseUrl + endpoint;
-        var jsonContent = JsonSerializer.Serialize(request, JsonOptions);
+        var jsonContent = JsonConvert.SerializeObject(request, JsonSettings);
 
         // デバッグログ（リクエスト）
         LogRequest(requestId, url, jsonContent);
@@ -60,21 +61,21 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    using var doc = JsonDocument.Parse(responseContent);
-                    var root = doc.RootElement;
+                    var jObject = JObject.Parse(responseContent);
 
-                    if (root.TryGetProperty("Message", out var messageElement))
-                        apiResponse.Message = messageElement.GetString();
-
-                    if (root.TryGetProperty("Response", out var responseElement))
+                    if (jObject.TryGetValue("Message", out var messageToken))
                     {
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(
-                            responseElement.GetRawText(), JsonOptions);
+                        apiResponse.Message = messageToken.Value<string>();
+                    }
+
+                    if (jObject.TryGetValue("Response", out var responseToken))
+                    {
+                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
                     }
                     else
                     {
                         // Responseプロパティがない場合、ルート全体をレスポンスとして扱う
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
+                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
                     }
                 }
                 catch (JsonException)
@@ -103,7 +104,7 @@ public partial class PleasanterClient
         var url = _baseUrl + endpoint;
 
         // デバッグログ（リクエスト）
-        LogRequest(requestId, url, JsonSerializer.Serialize(parameters, JsonOptions));
+        LogRequest(requestId, url, JsonConvert.SerializeObject(parameters, JsonSettings));
 
         try
         {
@@ -112,7 +113,7 @@ public partial class PleasanterClient
                 : new CancellationTokenSource();
 
             using var content = new MultipartFormDataContent();
-            content.Add(new StringContent(JsonSerializer.Serialize(parameters, JsonOptions)), "parameters");
+            content.Add(new StringContent(JsonConvert.SerializeObject(parameters, JsonSettings)), "parameters");
 
             var streamContent = new StreamContent(fileStream);
             streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/csv");
@@ -133,20 +134,20 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    using var doc = JsonDocument.Parse(responseContent);
-                    var root = doc.RootElement;
+                    var jObject = JObject.Parse(responseContent);
 
-                    if (root.TryGetProperty("Message", out var messageElement))
-                        apiResponse.Message = messageElement.GetString();
-
-                    if (root.TryGetProperty("Response", out var responseElement))
+                    if (jObject.TryGetValue("Message", out var messageToken))
                     {
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(
-                            responseElement.GetRawText(), JsonOptions);
+                        apiResponse.Message = messageToken.Value<string>();
+                    }
+
+                    if (jObject.TryGetValue("Response", out var responseToken))
+                    {
+                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
                     }
                     else
                     {
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
+                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
                     }
                 }
                 catch (JsonException)
@@ -235,20 +236,20 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    using var doc = JsonDocument.Parse(responseContent);
-                    var root = doc.RootElement;
+                    var jObject = JObject.Parse(responseContent);
 
-                    if (root.TryGetProperty("Message", out var messageElement))
-                        apiResponse.Message = messageElement.GetString();
-
-                    if (root.TryGetProperty("Response", out var responseElement))
+                    if (jObject.TryGetValue("Message", out var messageToken))
                     {
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(
-                            responseElement.GetRawText(), JsonOptions);
+                        apiResponse.Message = messageToken.Value<string>();
+                    }
+
+                    if (jObject.TryGetValue("Response", out var responseToken))
+                    {
+                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
                     }
                     else
                     {
-                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
+                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
                     }
                 }
                 catch (JsonException)

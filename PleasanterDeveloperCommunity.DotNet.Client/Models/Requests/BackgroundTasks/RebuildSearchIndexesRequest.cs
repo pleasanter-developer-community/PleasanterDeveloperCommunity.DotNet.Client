@@ -1,4 +1,4 @@
-﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.BackgroundTasks;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.BackgroundTasks;
 
 /// <summary>
 /// 検索インデックス再構築リクエスト

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.BackgroundTasks;
 
@@ -7,12 +7,12 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Background
 /// </summary>
 public class RebuildSearchIndexesResponse
 {
-    [JsonPropertyName("Id")]
+    [JsonProperty("Id")]
     public long Id { get; set; }
 
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 }

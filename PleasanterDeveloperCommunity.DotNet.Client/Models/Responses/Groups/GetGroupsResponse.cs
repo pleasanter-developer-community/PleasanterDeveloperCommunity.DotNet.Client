@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 
@@ -9,10 +9,10 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 /// </summary>
 public class GetGroupsResponse
 {
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<GroupData>? Data { get; set; }
 
-    [JsonPropertyName("TotalCount")]
+    [JsonProperty("TotalCount")]
     public int TotalCount { get; set; }
 }
 
@@ -21,40 +21,40 @@ public class GetGroupsResponse
 /// </summary>
 public class GroupData
 {
-    [JsonPropertyName("TenantId")]
+    [JsonProperty("TenantId")]
     public int TenantId { get; set; }
 
-    [JsonPropertyName("GroupId")]
+    [JsonProperty("GroupId")]
     public int GroupId { get; set; }
 
-    [JsonPropertyName("Ver")]
+    [JsonProperty("Ver")]
     public int Ver { get; set; }
 
-    [JsonPropertyName("GroupName")]
+    [JsonProperty("GroupName")]
     public string? GroupName { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool Disabled { get; set; }
 
-    [JsonPropertyName("Comments")]
+    [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public int Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonPropertyName("GroupMembers")]
+    [JsonProperty("GroupMembers")]
     public List<GroupMemberData>? GroupMembers { get; set; }
 }
 
@@ -63,15 +63,15 @@ public class GroupData
 /// </summary>
 public class GroupMemberData
 {
-    [JsonPropertyName("GroupId")]
+    [JsonProperty("GroupId")]
     public int GroupId { get; set; }
 
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int DeptId { get; set; }
 
-    [JsonPropertyName("UserId")]
+    [JsonProperty("UserId")]
     public int UserId { get; set; }
 
-    [JsonPropertyName("Admin")]
+    [JsonProperty("Admin")]
     public bool Admin { get; set; }
 }

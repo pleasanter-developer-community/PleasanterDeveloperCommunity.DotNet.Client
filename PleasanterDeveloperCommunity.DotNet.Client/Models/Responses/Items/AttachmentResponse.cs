@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.IO;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
@@ -10,40 +10,40 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class AttachmentResponse
 {
-    [JsonPropertyName("ReferenceId")]
+    [JsonProperty("ReferenceId")]
     public long ReferenceId { get; set; }
 
-    [JsonPropertyName("BinaryType")]
+    [JsonProperty("BinaryType")]
     public string? BinaryType { get; set; }
 
-    [JsonPropertyName("Base64")]
+    [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 
-    [JsonPropertyName("Guid")]
+    [JsonProperty("Guid")]
     public string? Guid { get; set; }
 
-    [JsonPropertyName("FileNameWithoutExtension")]
+    [JsonProperty("FileNameWithoutExtension")]
     public string? FileNameWithoutExtension { get; set; }
 
-    [JsonPropertyName("Extension")]
+    [JsonProperty("Extension")]
     public string? Extension { get; set; }
 
-    [JsonPropertyName("Size")]
+    [JsonProperty("Size")]
     public long Size { get; set; }
 
-    [JsonPropertyName("ContentType")]
+    [JsonProperty("ContentType")]
     public string? ContentType { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public long Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public long Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>

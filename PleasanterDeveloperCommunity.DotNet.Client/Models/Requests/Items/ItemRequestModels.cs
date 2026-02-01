@@ -1,8 +1,8 @@
-﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -11,7 +11,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 /// </summary>
 public class ExportColumn
 {
-    [JsonPropertyName("ColumnName")]
+    [JsonProperty("ColumnName")]
     public string? ColumnName { get; set; }
 }
 
@@ -20,16 +20,16 @@ public class ExportColumn
 /// </summary>
 public class ExportSetting
 {
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("Columns")]
+    [JsonProperty("Columns")]
     public List<ExportColumn>? Columns { get; set; }
 
-    [JsonPropertyName("Header")]
+    [JsonProperty("Header")]
     public bool? Header { get; set; }
 
-    [JsonPropertyName("Type")]
+    [JsonProperty("Type")]
     public ExportType? Type { get; set; }
 }
 
@@ -38,36 +38,36 @@ public class ExportSetting
 /// </summary>
 public class BulkUpsertRecordData
 {
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("Status")]
+    [JsonProperty("Status")]
     public int? Status { get; set; }
 
-    [JsonPropertyName("Manager")]
+    [JsonProperty("Manager")]
     public int? Manager { get; set; }
 
-    [JsonPropertyName("Owner")]
+    [JsonProperty("Owner")]
     public int? Owner { get; set; }
 
-    [JsonPropertyName("CompletionTime")]
+    [JsonProperty("CompletionTime")]
     public string? CompletionTime { get; set; }
 
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 }

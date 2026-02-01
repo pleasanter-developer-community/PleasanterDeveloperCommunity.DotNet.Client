@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -10,6 +10,6 @@ public class GetRecordRequest : ApiRequestBase
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonPropertyName("View")]
+    [JsonProperty("View")]
     public View? View { get; set; }
 }

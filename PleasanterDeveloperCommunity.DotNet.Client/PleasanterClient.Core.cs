@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,11 +26,11 @@ public partial class PleasanterClient : IDisposable
     private readonly CancellationTokenSource? _logCancellation;
     private bool _disposed;
 
-    private static readonly JsonSerializerOptions JsonOptions = new()
+    private static readonly JsonSerializerSettings JsonSettings = new()
     {
-        PropertyNamingPolicy = null,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        WriteIndented = false
+        ContractResolver = new DefaultContractResolver(),
+        NullValueHandling = NullValueHandling.Ignore,
+        Formatting = Formatting.None
     };
 
     /// <summary>

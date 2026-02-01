@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
@@ -11,6 +11,6 @@ public class UpdateSiteSettingsRequest : ApiRequestBase
     /// <summary>
     /// サイト設定
     /// </summary>
-    [JsonPropertyName("SiteSettings")]
+    [JsonProperty("SiteSettings")]
     public SiteSettings? SiteSettings { get; set; }
 }

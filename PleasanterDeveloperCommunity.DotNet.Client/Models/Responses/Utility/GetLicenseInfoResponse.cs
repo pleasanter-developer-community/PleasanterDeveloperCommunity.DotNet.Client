@@ -1,5 +1,5 @@
-﻿using System;
-using System.Text.Json.Serialization;
+using System;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Utility;
 
@@ -11,19 +11,19 @@ public class GetLicenseInfoResponse
     /// <summary>
     /// ステータスコード
     /// </summary>
-    [JsonPropertyName("StatusCode")]
+    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string? Message { get; set; }
 
     /// <summary>
     /// レスポンスデータ
     /// </summary>
-    [JsonPropertyName("Response")]
+    [JsonProperty("Response")]
     public LicenseInfoResponseData? Response { get; set; }
 }
 
@@ -35,7 +35,7 @@ public class LicenseInfoResponseData
     /// <summary>
     /// データ
     /// </summary>
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public LicenseInfoData? Data { get; set; }
 }
 
@@ -47,30 +47,30 @@ public class LicenseInfoData
     /// <summary>
     /// ライセンス名
     /// </summary>
-    [JsonPropertyName("LicenseName")]
+    [JsonProperty("LicenseName")]
     public string? LicenseName { get; set; }
 
     /// <summary>
     /// ライセンシー
     /// </summary>
-    [JsonPropertyName("Licensee")]
+    [JsonProperty("Licensee")]
     public string? Licensee { get; set; }
 
     /// <summary>
     /// 有効期限
     /// </summary>
-    [JsonPropertyName("Expiration")]
+    [JsonProperty("Expiration")]
     public DateTime? Expiration { get; set; }
 
     /// <summary>
     /// ユーザ数上限
     /// </summary>
-    [JsonPropertyName("UserLimit")]
+    [JsonProperty("UserLimit")]
     public int? UserLimit { get; set; }
 
     /// <summary>
     /// サイト数上限
     /// </summary>
-    [JsonPropertyName("SiteLimit")]
+    [JsonProperty("SiteLimit")]
     public int? SiteLimit { get; set; }
 }

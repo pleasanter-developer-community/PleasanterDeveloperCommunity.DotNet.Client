@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
@@ -7,9 +7,9 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 /// </summary>
 public class SelectedSite
 {
-    [JsonPropertyName("SiteId")]
+    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
-    [JsonPropertyName("IncludeData")]
+    [JsonProperty("IncludeData")]
     public bool? IncludeData { get; set; }
 }

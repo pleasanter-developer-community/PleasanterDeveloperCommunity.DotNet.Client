@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -10,18 +10,18 @@ public class ExportRequest : ApiRequestBase
     /// <summary>
     /// エクスポート設定ID
     /// </summary>
-    [JsonPropertyName("ExportId")]
+    [JsonProperty("ExportId")]
     public int? ExportId { get; set; }
 
     /// <summary>
     /// エクスポート設定
     /// </summary>
-    [JsonPropertyName("Export")]
+    [JsonProperty("Export")]
     public ExportSetting? Export { get; set; }
 
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonPropertyName("View")]
+    [JsonProperty("View")]
     public View? View { get; set; }
 }

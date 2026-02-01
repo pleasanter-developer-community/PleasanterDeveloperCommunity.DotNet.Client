@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
@@ -10,7 +10,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class GetSiteResponse
 {
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public GetSiteData? Data { get; set; }
 }
 
@@ -19,120 +19,120 @@ public class GetSiteResponse
 /// </summary>
 public class GetSiteData
 {
-    [JsonPropertyName("TenantId")]
+    [JsonProperty("TenantId")]
     public int TenantId { get; set; }
 
-    [JsonPropertyName("SiteId")]
+    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonPropertyName("Ver")]
+    [JsonProperty("Ver")]
     public int Ver { get; set; }
 
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("SiteName")]
+    [JsonProperty("SiteName")]
     public string? SiteName { get; set; }
 
-    [JsonPropertyName("SiteGroupName")]
+    [JsonProperty("SiteGroupName")]
     public string? SiteGroupName { get; set; }
 
-    [JsonPropertyName("GridGuide")]
+    [JsonProperty("GridGuide")]
     public string? GridGuide { get; set; }
 
-    [JsonPropertyName("EditorGuide")]
+    [JsonProperty("EditorGuide")]
     public string? EditorGuide { get; set; }
 
-    [JsonPropertyName("CalendarGuide")]
+    [JsonProperty("CalendarGuide")]
     public string? CalendarGuide { get; set; }
 
-    [JsonPropertyName("CrosstabGuide")]
+    [JsonProperty("CrosstabGuide")]
     public string? CrosstabGuide { get; set; }
 
-    [JsonPropertyName("GanttGuide")]
+    [JsonProperty("GanttGuide")]
     public string? GanttGuide { get; set; }
 
-    [JsonPropertyName("BurnDownGuide")]
+    [JsonProperty("BurnDownGuide")]
     public string? BurnDownGuide { get; set; }
 
-    [JsonPropertyName("TimeSeriesGuide")]
+    [JsonProperty("TimeSeriesGuide")]
     public string? TimeSeriesGuide { get; set; }
 
-    [JsonPropertyName("KambanGuide")]
+    [JsonProperty("KambanGuide")]
     public string? KambanGuide { get; set; }
 
-    [JsonPropertyName("ImageLibGuide")]
+    [JsonProperty("ImageLibGuide")]
     public string? ImageLibGuide { get; set; }
 
-    [JsonPropertyName("ReferenceType")]
+    [JsonProperty("ReferenceType")]
     public string? ReferenceType { get; set; }
 
-    [JsonPropertyName("ParentId")]
+    [JsonProperty("ParentId")]
     public long ParentId { get; set; }
 
-    [JsonPropertyName("InheritPermission")]
+    [JsonProperty("InheritPermission")]
     public long InheritPermission { get; set; }
 
-    [JsonPropertyName("Permissions")]
+    [JsonProperty("Permissions")]
     public List<object>? Permissions { get; set; }
 
-    [JsonPropertyName("SiteSettings")]
+    [JsonProperty("SiteSettings")]
     public SiteSettings? SiteSettings { get; set; }
 
-    [JsonPropertyName("Publish")]
+    [JsonProperty("Publish")]
     public bool Publish { get; set; }
 
-    [JsonPropertyName("DisableCrossSearch")]
+    [JsonProperty("DisableCrossSearch")]
     public bool DisableCrossSearch { get; set; }
 
-    [JsonPropertyName("LockedTime")]
+    [JsonProperty("LockedTime")]
     public DateTime? LockedTime { get; set; }
 
-    [JsonPropertyName("LockedUser")]
+    [JsonProperty("LockedUser")]
     public int LockedUser { get; set; }
 
-    [JsonPropertyName("ApiCountDate")]
+    [JsonProperty("ApiCountDate")]
     public DateTime? ApiCountDate { get; set; }
 
-    [JsonPropertyName("ApiCount")]
+    [JsonProperty("ApiCount")]
     public int ApiCount { get; set; }
 
-    [JsonPropertyName("Comments")]
+    [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public int Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("ApiVersion")]
+    [JsonProperty("ApiVersion")]
     public float ApiVersion { get; set; }
 
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 
-    [JsonPropertyName("AttachmentsHash")]
+    [JsonProperty("AttachmentsHash")]
     public Dictionary<string, object>? AttachmentsHash { get; set; }
 }

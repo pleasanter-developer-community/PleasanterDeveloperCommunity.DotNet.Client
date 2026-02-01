@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Users;
 
@@ -12,13 +12,13 @@ public class GetUsersRequest : ApiRequestBase
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonPropertyName("View")]
+    [JsonProperty("View")]
     public View? View { get; set; }
 
     /// <summary>
     /// 取得開始位置
     /// </summary>
-    [JsonPropertyName("Offset")]
+    [JsonProperty("Offset")]
     public int? Offset { get; set; }
 }
 
@@ -30,121 +30,121 @@ public class CreateUserRequest : ApiRequestBase
     /// <summary>
     /// ログインID
     /// </summary>
-    [JsonPropertyName("LoginId")]
+    [JsonProperty("LoginId")]
     public string? LoginId { get; set; }
 
     /// <summary>
     /// 名前
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// パスワード
     /// </summary>
-    [JsonPropertyName("Password")]
+    [JsonProperty("Password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// ユーザコード
     /// </summary>
-    [JsonPropertyName("UserCode")]
+    [JsonProperty("UserCode")]
     public string? UserCode { get; set; }
 
     /// <summary>
     /// 生年月日
     /// </summary>
-    [JsonPropertyName("Birthday")]
+    [JsonProperty("Birthday")]
     public DateTime? Birthday { get; set; }
 
     /// <summary>
     /// 性別
     /// </summary>
-    [JsonPropertyName("Gender")]
+    [JsonProperty("Gender")]
     public string? Gender { get; set; }
 
     /// <summary>
     /// 言語
     /// </summary>
-    [JsonPropertyName("Language")]
+    [JsonProperty("Language")]
     public string? Language { get; set; }
 
     /// <summary>
     /// タイムゾーン
     /// </summary>
-    [JsonPropertyName("TimeZone")]
+    [JsonProperty("TimeZone")]
     public string? TimeZone { get; set; }
 
     /// <summary>
     /// 組織ID
     /// </summary>
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int? DeptId { get; set; }
 
     /// <summary>
     /// 内容
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// テナント管理者
     /// </summary>
-    [JsonPropertyName("TenantManager")]
+    [JsonProperty("TenantManager")]
     public bool? TenantManager { get; set; }
 
     /// <summary>
     /// サービス管理者
     /// </summary>
-    [JsonPropertyName("ServiceManager")]
+    [JsonProperty("ServiceManager")]
     public bool? ServiceManager { get; set; }
 
     /// <summary>
     /// APIを許可
     /// </summary>
-    [JsonPropertyName("AllowApi")]
+    [JsonProperty("AllowApi")]
     public bool? AllowApi { get; set; }
 
     /// <summary>
     /// 無効
     /// </summary>
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool? Disabled { get; set; }
 
     /// <summary>
     /// メールアドレス
     /// </summary>
-    [JsonPropertyName("MailAddresses")]
+    [JsonProperty("MailAddresses")]
     public List<string>? MailAddresses { get; set; }
 
     /// <summary>
     /// 分類項目
     /// </summary>
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目
     /// </summary>
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目
     /// </summary>
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目
     /// </summary>
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目
     /// </summary>
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 }
 
@@ -156,127 +156,127 @@ public class UpdateUserRequest : ApiRequestBase
     /// <summary>
     /// ログインID
     /// </summary>
-    [JsonPropertyName("LoginId")]
+    [JsonProperty("LoginId")]
     public string? LoginId { get; set; }
 
     /// <summary>
     /// 名前
     /// </summary>
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// パスワード
     /// </summary>
-    [JsonPropertyName("Password")]
+    [JsonProperty("Password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// ユーザコード
     /// </summary>
-    [JsonPropertyName("UserCode")]
+    [JsonProperty("UserCode")]
     public string? UserCode { get; set; }
 
     /// <summary>
     /// 生年月日
     /// </summary>
-    [JsonPropertyName("Birthday")]
+    [JsonProperty("Birthday")]
     public DateTime? Birthday { get; set; }
 
     /// <summary>
     /// 性別
     /// </summary>
-    [JsonPropertyName("Gender")]
+    [JsonProperty("Gender")]
     public string? Gender { get; set; }
 
     /// <summary>
     /// 言語
     /// </summary>
-    [JsonPropertyName("Language")]
+    [JsonProperty("Language")]
     public string? Language { get; set; }
 
     /// <summary>
     /// タイムゾーン
     /// </summary>
-    [JsonPropertyName("TimeZone")]
+    [JsonProperty("TimeZone")]
     public string? TimeZone { get; set; }
 
     /// <summary>
     /// 組織ID
     /// </summary>
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int? DeptId { get; set; }
 
     /// <summary>
     /// 内容
     /// </summary>
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
     /// <summary>
     /// テナント管理者
     /// </summary>
-    [JsonPropertyName("TenantManager")]
+    [JsonProperty("TenantManager")]
     public bool? TenantManager { get; set; }
 
     /// <summary>
     /// サービス管理者
     /// </summary>
-    [JsonPropertyName("ServiceManager")]
+    [JsonProperty("ServiceManager")]
     public bool? ServiceManager { get; set; }
 
     /// <summary>
     /// APIを許可
     /// </summary>
-    [JsonPropertyName("AllowApi")]
+    [JsonProperty("AllowApi")]
     public bool? AllowApi { get; set; }
 
     /// <summary>
     /// 無効
     /// </summary>
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool? Disabled { get; set; }
 
     /// <summary>
     /// ロックアウト
     /// </summary>
-    [JsonPropertyName("Lockout")]
+    [JsonProperty("Lockout")]
     public bool? Lockout { get; set; }
 
     /// <summary>
     /// メールアドレス
     /// </summary>
-    [JsonPropertyName("MailAddresses")]
+    [JsonProperty("MailAddresses")]
     public List<string>? MailAddresses { get; set; }
 
     /// <summary>
     /// 分類項目
     /// </summary>
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
     /// <summary>
     /// 数値項目
     /// </summary>
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
     /// <summary>
     /// 日付項目
     /// </summary>
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
     /// <summary>
     /// 説明項目
     /// </summary>
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
     /// <summary>
     /// チェック項目
     /// </summary>
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 }
 

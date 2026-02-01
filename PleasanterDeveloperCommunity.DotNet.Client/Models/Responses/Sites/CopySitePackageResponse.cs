@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
@@ -8,7 +8,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class CopySitePackageResponse
 {
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public string? Data { get; set; }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class CopySitePackageResponse
             return null;
         try
         {
-            return System.Text.Json.JsonSerializer.Deserialize<List<CopiedSiteInfo>>(Data);
+            return JsonConvert.DeserializeObject<List<CopiedSiteInfo>>(Data);
         }
         catch
         {
@@ -34,15 +34,15 @@ public class CopySitePackageResponse
 /// </summary>
 public class CopiedSiteInfo
 {
-    [JsonPropertyName("OldSiteId")]
+    [JsonProperty("OldSiteId")]
     public long OldSiteId { get; set; }
 
-    [JsonPropertyName("NewSiteId")]
+    [JsonProperty("NewSiteId")]
     public long NewSiteId { get; set; }
 
-    [JsonPropertyName("ReferenceType")]
+    [JsonProperty("ReferenceType")]
     public string? ReferenceType { get; set; }
 
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title")]
     public string? Title { get; set; }
 }

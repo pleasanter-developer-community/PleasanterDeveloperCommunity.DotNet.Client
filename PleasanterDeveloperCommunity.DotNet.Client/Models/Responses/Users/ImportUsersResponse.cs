@@ -1,4 +1,4 @@
-﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
+namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 
 public class ImportUsersResponse : ApiResponse<ImportUsersData>;
 

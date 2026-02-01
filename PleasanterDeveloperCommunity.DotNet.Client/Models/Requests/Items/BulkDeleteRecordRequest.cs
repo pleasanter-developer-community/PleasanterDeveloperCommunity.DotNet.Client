@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -11,24 +11,24 @@ public class BulkDeleteRecordRequest : ApiRequestBase
     /// <summary>
     /// 削除対象レコードID一覧
     /// </summary>
-    [JsonPropertyName("Selected")]
+    [JsonProperty("Selected")]
     public List<long>? Selected { get; set; }
 
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonPropertyName("View")]
+    [JsonProperty("View")]
     public View? View { get; set; }
 
     /// <summary>
     /// 全削除フラグ
     /// </summary>
-    [JsonPropertyName("All")]
+    [JsonProperty("All")]
     public bool? All { get; set; }
 
     /// <summary>
     /// 物理削除フラグ
     /// </summary>
-    [JsonPropertyName("PhysicalDelete")]
+    [JsonProperty("PhysicalDelete")]
     public bool? PhysicalDelete { get; set; }
 }

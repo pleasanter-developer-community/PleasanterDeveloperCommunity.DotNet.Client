@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 
@@ -9,10 +9,10 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 /// </summary>
 public class GetDeptsResponse
 {
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<DeptData>? Data { get; set; }
 
-    [JsonPropertyName("TotalCount")]
+    [JsonProperty("TotalCount")]
     public int TotalCount { get; set; }
 }
 
@@ -21,39 +21,39 @@ public class GetDeptsResponse
 /// </summary>
 public class DeptData
 {
-    [JsonPropertyName("TenantId")]
+    [JsonProperty("TenantId")]
     public int TenantId { get; set; }
 
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int DeptId { get; set; }
 
-    [JsonPropertyName("Ver")]
+    [JsonProperty("Ver")]
     public int Ver { get; set; }
 
-    [JsonPropertyName("DeptCode")]
+    [JsonProperty("DeptCode")]
     public string? DeptCode { get; set; }
 
-    [JsonPropertyName("DeptName")]
+    [JsonProperty("DeptName")]
     public string? DeptName { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool Disabled { get; set; }
 
-    [JsonPropertyName("Comments")]
+    [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public int Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 }

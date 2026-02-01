@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 
@@ -9,10 +9,10 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 /// </summary>
 public class GetUsersResponse
 {
-    [JsonPropertyName("Data")]
+    [JsonProperty("Data")]
     public List<UserData>? Data { get; set; }
 
-    [JsonPropertyName("TotalCount")]
+    [JsonProperty("TotalCount")]
     public int TotalCount { get; set; }
 }
 
@@ -21,129 +21,129 @@ public class GetUsersResponse
 /// </summary>
 public class UserData
 {
-    [JsonPropertyName("TenantId")]
+    [JsonProperty("TenantId")]
     public int TenantId { get; set; }
 
-    [JsonPropertyName("UserId")]
+    [JsonProperty("UserId")]
     public int UserId { get; set; }
 
-    [JsonPropertyName("Ver")]
+    [JsonProperty("Ver")]
     public int Ver { get; set; }
 
-    [JsonPropertyName("LoginId")]
+    [JsonProperty("LoginId")]
     public string? LoginId { get; set; }
 
-    [JsonPropertyName("GlobalId")]
+    [JsonProperty("GlobalId")]
     public string? GlobalId { get; set; }
 
-    [JsonPropertyName("Name")]
+    [JsonProperty("Name")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("UserCode")]
+    [JsonProperty("UserCode")]
     public string? UserCode { get; set; }
 
-    [JsonPropertyName("Birthday")]
+    [JsonProperty("Birthday")]
     public DateTime? Birthday { get; set; }
 
-    [JsonPropertyName("Gender")]
+    [JsonProperty("Gender")]
     public string? Gender { get; set; }
 
-    [JsonPropertyName("Language")]
+    [JsonProperty("Language")]
     public string? Language { get; set; }
 
-    [JsonPropertyName("TimeZone")]
+    [JsonProperty("TimeZone")]
     public string? TimeZone { get; set; }
 
-    [JsonPropertyName("DeptId")]
+    [JsonProperty("DeptId")]
     public int DeptId { get; set; }
 
-    [JsonPropertyName("Dept")]
+    [JsonProperty("Dept")]
     public string? Dept { get; set; }
 
-    [JsonPropertyName("FirstAndLastNameOrder")]
+    [JsonProperty("FirstAndLastNameOrder")]
     public int FirstAndLastNameOrder { get; set; }
 
-    [JsonPropertyName("Body")]
+    [JsonProperty("Body")]
     public string? Body { get; set; }
 
-    [JsonPropertyName("LastLoginTime")]
+    [JsonProperty("LastLoginTime")]
     public DateTime? LastLoginTime { get; set; }
 
-    [JsonPropertyName("PasswordExpirationTime")]
+    [JsonProperty("PasswordExpirationTime")]
     public DateTime? PasswordExpirationTime { get; set; }
 
-    [JsonPropertyName("PasswordChangeTime")]
+    [JsonProperty("PasswordChangeTime")]
     public DateTime? PasswordChangeTime { get; set; }
 
-    [JsonPropertyName("NumberOfLogins")]
+    [JsonProperty("NumberOfLogins")]
     public int NumberOfLogins { get; set; }
 
-    [JsonPropertyName("NumberOfDenial")]
+    [JsonProperty("NumberOfDenial")]
     public int NumberOfDenial { get; set; }
 
-    [JsonPropertyName("TenantManager")]
+    [JsonProperty("TenantManager")]
     public bool TenantManager { get; set; }
 
-    [JsonPropertyName("ServiceManager")]
+    [JsonProperty("ServiceManager")]
     public bool ServiceManager { get; set; }
 
-    [JsonPropertyName("AllowCreationAtTopSite")]
+    [JsonProperty("AllowCreationAtTopSite")]
     public bool AllowCreationAtTopSite { get; set; }
 
-    [JsonPropertyName("AllowGroupAdministration")]
+    [JsonProperty("AllowGroupAdministration")]
     public bool AllowGroupAdministration { get; set; }
 
-    [JsonPropertyName("AllowGroupCreation")]
+    [JsonProperty("AllowGroupCreation")]
     public bool AllowGroupCreation { get; set; }
 
-    [JsonPropertyName("AllowApi")]
+    [JsonProperty("AllowApi")]
     public bool AllowApi { get; set; }
 
-    [JsonPropertyName("EnableSecondaryAuthentication")]
+    [JsonProperty("EnableSecondaryAuthentication")]
     public bool EnableSecondaryAuthentication { get; set; }
 
-    [JsonPropertyName("Disabled")]
+    [JsonProperty("Disabled")]
     public bool Disabled { get; set; }
 
-    [JsonPropertyName("Lockout")]
+    [JsonProperty("Lockout")]
     public bool Lockout { get; set; }
 
-    [JsonPropertyName("LockoutCounter")]
+    [JsonProperty("LockoutCounter")]
     public int LockoutCounter { get; set; }
 
-    [JsonPropertyName("Developer")]
+    [JsonProperty("Developer")]
     public bool Developer { get; set; }
 
-    [JsonPropertyName("Comments")]
+    [JsonProperty("Comments")]
     public string? Comments { get; set; }
 
-    [JsonPropertyName("Creator")]
+    [JsonProperty("Creator")]
     public int Creator { get; set; }
 
-    [JsonPropertyName("Updator")]
+    [JsonProperty("Updator")]
     public int Updator { get; set; }
 
-    [JsonPropertyName("CreatedTime")]
+    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonPropertyName("UpdatedTime")]
+    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonPropertyName("MailAddresses")]
+    [JsonProperty("MailAddresses")]
     public List<string>? MailAddresses { get; set; }
 
-    [JsonPropertyName("ClassHash")]
+    [JsonProperty("ClassHash")]
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonPropertyName("NumHash")]
+    [JsonProperty("NumHash")]
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonPropertyName("DateHash")]
+    [JsonProperty("DateHash")]
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonPropertyName("DescriptionHash")]
+    [JsonProperty("DescriptionHash")]
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonPropertyName("CheckHash")]
+    [JsonProperty("CheckHash")]
     public Dictionary<string, bool>? CheckHash { get; set; }
 }

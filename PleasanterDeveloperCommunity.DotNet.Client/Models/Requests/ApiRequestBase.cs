@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
@@ -10,12 +10,12 @@ public abstract class ApiRequestBase
     /// <summary>
     /// APIバージョン
     /// </summary>
-    [JsonPropertyName("ApiVersion")]
+    [JsonProperty("ApiVersion")]
     public string? ApiVersion { get; set; }
 
     /// <summary>
     /// APIキー
     /// </summary>
-    [JsonPropertyName("ApiKey")]
+    [JsonProperty("ApiKey")]
     public string? ApiKey { get; set; }
 }

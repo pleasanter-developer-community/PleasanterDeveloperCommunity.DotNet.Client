@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 
@@ -17,18 +17,18 @@ public class UploadBinaryRequest : ApiRequestBase
     /// <summary>
     /// ファイル名
     /// </summary>
-    [JsonPropertyName("FileName")]
+    [JsonProperty("FileName")]
     public string? FileName { get; set; }
 
     /// <summary>
     /// Base64エンコードされたファイルデータ
     /// </summary>
-    [JsonPropertyName("Base64")]
+    [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 
     /// <summary>
     /// コンテンツタイプ
     /// </summary>
-    [JsonPropertyName("ContentType")]
+    [JsonProperty("ContentType")]
     public string? ContentType { get; set; }
 }
