@@ -9,7 +9,7 @@
     <Description>Pleasanter API Client Library for .NET</Description>
     <PackageProjectUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
     <PackageTags>Pleasanter;API;Client</PackageTags>
   </PropertyGroup>
 

@@ -108,12 +108,7 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 以下のコマンドで必要な依存パッケージをインストールします：
 
 ```bash
-dotnet add package CsvHelper
-dotnet add package Microsoft.AspNet.WebApi.Client
-dotnet add package Newtonsoft.Json
-dotnet add package System.ComponentModel.Annotations
-dotnet add package System.Threading.Channels
-dotnet add package UUIDNext
+dotnet add package System.Text.Json
 ```
 
 ## 使用方法
@@ -124,4 +119,8 @@ dotnet add package UUIDNext
 
 このプロジェクトは以下のサードパーティライブラリを使用しています：
 
-[![CsvHelper](https://img.shields.io/badge/CsvHelper-MS--PL%20%2F%20Apache--2.0-green)](https://www.nuget.org/packages/CsvHelper) [![System.ComponentModel.Annotations](https://img.shields.io/badge/System.ComponentModel.Annotations-MIT-green)](https://www.nuget.org/packages/System.ComponentModel.Annotations) [![System.Text.Json](https://img.shields.io/badge/System.Text.Json-MIT-green)](https://www.nuget.org/packages/System.Text.Json) [![System.Threading.Channels](https://img.shields.io/badge/System.Threading.Channels-MIT-green)](https://www.nuget.org/packages/System.Threading.Channels)
+| ライブラリ       | ライセンス | 著作権                                         |
+| ---------------- | ---------- | ---------------------------------------------- |
+| System.Text.Json | MIT        | Copyright (c) .NET Foundation and Contributors |
+
+ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。

@@ -226,6 +226,8 @@ PleasanterDeveloperCommunity.DotNet.Client_vX.X.X.zip
 │   └── ...
 ├── wiki/                    # ドキュメント
 │   └── *.md
+├── LICENSES/                # サードパーティライセンス
+│   └── *.txt
 ├── README.md
 ├── AUTHORS
 └── LICENSE
