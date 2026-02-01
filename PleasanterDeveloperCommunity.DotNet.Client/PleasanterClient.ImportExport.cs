@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -135,7 +135,7 @@ public partial class PleasanterClient
     #region Export
 
     /// <summary>
-    /// テーブルをエクスポートします（リクエストモデル版）
+    /// テーブルをエクスポートします
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-06-テーブル-エクスポート.md">Wiki: 01-テーブル操作-06-テーブル-エクスポート</seealso>
     /// <param name="siteId">サイトID</param>

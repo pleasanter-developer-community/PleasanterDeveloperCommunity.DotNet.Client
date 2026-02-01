@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.BackgroundTasks;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region RebuildSearchIndexes (検索インデックス再構築)
 
     /// <summary>
-    /// 全サイトの検索インデックスを再構築します（リクエストモデル版）
+    /// 全サイトの検索インデックスを再構築します
     /// </summary>
     /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -39,7 +39,7 @@ public partial class PleasanterClient
     }
 
     /// <summary>
-    /// 特定サイトの検索インデックスを再構築します（リクエストモデル版）
+    /// 特定サイトの検索インデックスを再構築します
     /// </summary>
     /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
     /// <param name="siteId">サイトID</param>

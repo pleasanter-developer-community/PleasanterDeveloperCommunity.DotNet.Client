@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sessions;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region GetSession (セッション取得)
 
     /// <summary>
-    /// セッションを取得します（リクエストモデル版）
+    /// セッションを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/06-セッション操作-01-セッション-取得.md">Wiki: 06-セッション操作-01-セッション-取得</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -40,7 +40,7 @@ public partial class PleasanterClient
     #region SetSession (セッション設定)
 
     /// <summary>
-    /// セッションを設定します（リクエストモデル版）
+    /// セッションを設定します
     /// </summary>
     /// <seealso href="../docs/wiki/06-セッション操作-02-セッション-設定.md">Wiki: 06-セッション操作-02-セッション-設定</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -66,7 +66,7 @@ public partial class PleasanterClient
     #region DeleteSession (セッション削除)
 
     /// <summary>
-    /// セッションを削除します（リクエストモデル版）
+    /// セッションを削除します
     /// </summary>
     /// <seealso href="../docs/wiki/06-セッション操作-03-セッション-削除.md">Wiki: 06-セッション操作-03-セッション-削除</seealso>
     /// <param name="request">リクエストモデル</param>

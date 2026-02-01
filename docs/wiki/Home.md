@@ -11,8 +11,6 @@
             - [使用シチュエーション](#使用シチュエーション)
     - [APIバージョン](#apiバージョン)
     - [リクエストモデルの使用](#リクエストモデルの使用)
-        - [パラメータ指定版](#パラメータ指定版)
-        - [リクエストモデル版](#リクエストモデル版)
     - [タイムアウト設定](#タイムアウト設定)
     - [プロキシ設定](#プロキシ設定)
     - [SSL証明書検証の無効化](#ssl証明書検証の無効化)
@@ -118,21 +116,7 @@ using var client = new PleasanterClient(
 
 ### リクエストモデルの使用
 
-各APIメソッドには、パラメータを個別に指定するオーバーロードと、リクエストモデルを使用するオーバーロードの2種類があります。
-
-#### パラメータ指定版
-
-```csharp
-// パラメータを個別に指定
-var result = await client.CreateRecordAsync(
-    siteId: 456,
-    title: "タイトル",
-    body: "内容",
-    status: 100
-);
-```
-
-#### リクエストモデル版
+各APIメソッドはリクエストモデルを使用してパラメータを指定します。
 
 ```csharp
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;

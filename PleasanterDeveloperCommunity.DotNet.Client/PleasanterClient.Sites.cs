@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ public partial class PleasanterClient
     #region Create Site
 
     /// <summary>
-    /// サイトを作成します（リクエストモデル版）
+    /// サイトを作成します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-01-サイト-作成.md">Wiki: 02-サイト操作-01-サイト-作成</seealso>
     /// <param name="parentSiteId">親サイトID</param>
@@ -53,7 +53,7 @@ public partial class PleasanterClient
     #region Get Site
 
     /// <summary>
-    /// サイトを取得します（リクエストモデル版）
+    /// サイトを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-03-サイト-取得.md">Wiki: 02-サイト操作-03-サイト-取得</seealso>
     /// <param name="siteId">サイトID</param>
@@ -81,7 +81,7 @@ public partial class PleasanterClient
     #region Get Closest Site Id
 
     /// <summary>
-    /// サイト名検索で最も近いサイトIDを取得します（リクエストモデル版）
+    /// サイト名検索で最も近いサイトIDを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-04-サイト-サイトID取得.md">Wiki: 02-サイト操作-04-サイト-サイトID取得</seealso>
     /// <param name="siteId">サイトID</param>
@@ -113,7 +113,7 @@ public partial class PleasanterClient
     #region Update Site
 
     /// <summary>
-    /// サイトを更新します（リクエストモデル版）
+    /// サイトを更新します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-05-サイト-更新.md">Wiki: 02-サイト操作-05-サイト-更新</seealso>
     /// <param name="siteId">サイトID</param>
@@ -141,7 +141,7 @@ public partial class PleasanterClient
     #region Copy Site Package
 
     /// <summary>
-    /// サイトパッケージをコピーします（リクエストモデル版）
+    /// サイトパッケージをコピーします
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-02-サイト-コピー.md">Wiki: 02-サイト操作-02-サイト-コピー</seealso>
     /// <param name="siteId">サイトID</param>
@@ -173,7 +173,7 @@ public partial class PleasanterClient
     #region Delete Site
 
     /// <summary>
-    /// サイトを削除します（リクエストモデル版）
+    /// サイトを削除します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-06-サイト-削除.md">Wiki: 02-サイト操作-06-サイト-削除</seealso>
     /// <param name="siteId">サイトID</param>
@@ -201,7 +201,7 @@ public partial class PleasanterClient
     #region Synchronize Summaries
 
     /// <summary>
-    /// サマリを同期します（リクエストモデル版）
+    /// サマリを同期します
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-07-集計-同期.md">Wiki: 02-サイト操作-07-集計-同期</seealso>
     /// <param name="siteId">サイトID</param>
@@ -229,7 +229,7 @@ public partial class PleasanterClient
     #region Update Site Settings
 
     /// <summary>
-    /// サイト設定を更新します（部分追加/更新/削除）（リクエストモデル版）
+    /// サイト設定を更新します（部分追加/更新/削除）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-08-サイト設定-更新.md">Wiki: 02-サイト操作-08-サイト設定-更新</seealso>
     /// <param name="siteId">サイトID</param>

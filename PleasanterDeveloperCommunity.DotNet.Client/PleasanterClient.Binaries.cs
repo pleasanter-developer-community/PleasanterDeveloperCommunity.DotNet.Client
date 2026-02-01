@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ public partial class PleasanterClient
     #region GetAttachment (添付ファイル取得)
 
     /// <summary>
-    /// 添付ファイルを取得します（リクエストモデル版）
+    /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
     /// <param name="guid">GUID</param>
@@ -61,7 +61,7 @@ public partial class PleasanterClient
     #region GetBinaryStream (バイナリストリーム取得)
 
     /// <summary>
-    /// バイナリストリームを取得します（リクエストモデル版）
+    /// バイナリストリームを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
     /// <param name="guid">GUID</param>
@@ -106,7 +106,7 @@ public partial class PleasanterClient
     #region UploadBinary (バイナリアップロード)
 
     /// <summary>
-    /// バイナリをアップロードします（リクエストモデル版）
+    /// バイナリをアップロードします
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-03-バイナリ-アップロード.md">Wiki: 08-バイナリ操作-03-バイナリ-アップロード</seealso>
     /// <param name="siteId">サイトID</param>

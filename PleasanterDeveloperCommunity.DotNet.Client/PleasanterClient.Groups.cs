@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -18,7 +18,7 @@ public partial class PleasanterClient
     #region GetGroups (グループ取得)
 
     /// <summary>
-    /// グループ一覧を取得します（リクエストモデル版）
+    /// グループ一覧を取得します
     /// </summary>
     /// <seealso href="../docs/wiki/04-グループ操作-01-グループ-取得.md">Wiki: 04-グループ操作-01-グループ-取得</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -44,7 +44,7 @@ public partial class PleasanterClient
     #region CreateGroup (グループ作成)
 
     /// <summary>
-    /// グループを作成します（リクエストモデル版）
+    /// グループを作成します
     /// </summary>
     /// <seealso href="../docs/wiki/04-グループ操作-02-グループ-作成.md">Wiki: 04-グループ操作-02-グループ-作成</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -70,7 +70,7 @@ public partial class PleasanterClient
     #region UpdateGroup (グループ更新)
 
     /// <summary>
-    /// グループを更新します（リクエストモデル版）
+    /// グループを更新します
     /// </summary>
     /// <seealso href="../docs/wiki/04-グループ操作-03-グループ-更新.md">Wiki: 04-グループ操作-03-グループ-更新</seealso>
     /// <param name="groupId">グループID</param>
@@ -98,7 +98,7 @@ public partial class PleasanterClient
     #region DeleteGroup (グループ削除)
 
     /// <summary>
-    /// グループを削除します（リクエストモデル版）
+    /// グループを削除します
     /// </summary>
     /// <seealso href="../docs/wiki/04-グループ操作-04-グループ-削除.md">Wiki: 04-グループ操作-04-グループ-削除</seealso>
     /// <param name="groupId">グループID</param>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extensions;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region GetExtensions (拡張機能取得)
 
     /// <summary>
-    /// 拡張機能一覧を取得します（リクエストモデル版）
+    /// 拡張機能一覧を取得します
     /// </summary>
     /// <seealso href="../docs/wiki/10-拡張機能操作-01-拡張機能-取得.md">Wiki: 10-拡張機能操作-01-拡張機能-取得</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -40,7 +40,7 @@ public partial class PleasanterClient
     #region CreateExtension (拡張機能作成)
 
     /// <summary>
-    /// 拡張機能を作成します（リクエストモデル版）
+    /// 拡張機能を作成します
     /// </summary>
     /// <seealso href="../docs/wiki/10-拡張機能操作-02-拡張機能-作成.md">Wiki: 10-拡張機能操作-02-拡張機能-作成</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -66,7 +66,7 @@ public partial class PleasanterClient
     #region UpdateExtension (拡張機能更新)
 
     /// <summary>
-    /// 拡張機能を更新します（リクエストモデル版）
+    /// 拡張機能を更新します
     /// </summary>
     /// <seealso href="../docs/wiki/10-拡張機能操作-03-拡張機能-更新.md">Wiki: 10-拡張機能操作-03-拡張機能-更新</seealso>
     /// <param name="extensionId">拡張機能ID</param>
@@ -94,7 +94,7 @@ public partial class PleasanterClient
     #region DeleteExtension (拡張機能削除)
 
     /// <summary>
-    /// 拡張機能を削除します（リクエストモデル版）
+    /// 拡張機能を削除します
     /// </summary>
     /// <seealso href="../docs/wiki/10-拡張機能操作-04-拡張機能-削除.md">Wiki: 10-拡張機能操作-04-拡張機能-削除</seealso>
     /// <param name="extensionId">拡張機能ID</param>

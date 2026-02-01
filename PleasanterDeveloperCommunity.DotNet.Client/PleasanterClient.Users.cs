@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -18,7 +18,7 @@ public partial class PleasanterClient
     #region GetUsers (ユーザ取得)
 
     /// <summary>
-    /// ユーザ一覧を取得します（リクエストモデル版）
+    /// ユーザ一覧を取得します
     /// </summary>
     /// <seealso href="../docs/wiki/03-ユーザ操作-01-ユーザ-取得.md">Wiki: 03-ユーザ操作-01-ユーザ-取得</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -44,7 +44,7 @@ public partial class PleasanterClient
     #region CreateUser (ユーザ作成)
 
     /// <summary>
-    /// ユーザを作成します（リクエストモデル版）
+    /// ユーザを作成します
     /// </summary>
     /// <seealso href="../docs/wiki/03-ユーザ操作-02-ユーザ-作成.md">Wiki: 03-ユーザ操作-02-ユーザ-作成</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -70,7 +70,7 @@ public partial class PleasanterClient
     #region UpdateUser (ユーザ更新)
 
     /// <summary>
-    /// ユーザを更新します（リクエストモデル版）
+    /// ユーザを更新します
     /// </summary>
     /// <seealso href="../docs/wiki/03-ユーザ操作-03-ユーザ-更新.md">Wiki: 03-ユーザ操作-03-ユーザ-更新</seealso>
     /// <param name="userId">ユーザID</param>
@@ -98,7 +98,7 @@ public partial class PleasanterClient
     #region DeleteUser (ユーザ削除)
 
     /// <summary>
-    /// ユーザを削除します（リクエストモデル版）
+    /// ユーザを削除します
     /// </summary>
     /// <seealso href="../docs/wiki/03-ユーザ操作-04-ユーザ-削除.md">Wiki: 03-ユーザ操作-04-ユーザ-削除</seealso>
     /// <param name="userId">ユーザID</param>

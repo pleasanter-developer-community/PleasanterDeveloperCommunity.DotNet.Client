@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Mails;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region SendMail (メール送信)
 
     /// <summary>
-    /// メールを送信します（リクエストモデル版）
+    /// メールを送信します
     /// </summary>
     /// <seealso href="../docs/wiki/07-メール操作-01-メール-送信.md">Wiki: 07-メール操作-01-メール-送信</seealso>
     /// <param name="itemId">アイテムID</param>

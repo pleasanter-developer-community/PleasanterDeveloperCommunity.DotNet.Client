@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Utility;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region GetLicenseInfo (ライセンス情報取得)
 
     /// <summary>
-    /// ライセンス情報を取得します（リクエストモデル版）
+    /// ライセンス情報を取得します
     /// </summary>
     /// <seealso href="../docs/wiki/11-ユーティリティ-01-ライセンス情報取得.md">Wiki: 11-ユーティリティ-01-ライセンス情報取得</seealso>
     /// <param name="request">リクエストモデル</param>

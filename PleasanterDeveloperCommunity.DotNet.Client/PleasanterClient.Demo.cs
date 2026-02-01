@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Demo;
@@ -14,7 +14,7 @@ public partial class PleasanterClient
     #region RegisterDemo (デモ登録)
 
     /// <summary>
-    /// デモ環境を登録します（リクエストモデル版）
+    /// デモ環境を登録します
     /// </summary>
     /// <seealso href="../docs/wiki/13-デモ-01-デモ環境-登録.md">Wiki: 13-デモ-01-デモ環境-登録</seealso>
     /// <param name="request">リクエストモデル</param>

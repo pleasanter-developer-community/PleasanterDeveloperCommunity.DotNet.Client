@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
@@ -18,7 +18,7 @@ public partial class PleasanterClient
     #region Create Record
 
     /// <summary>
-    /// レコードを作成します（リクエストモデル版）
+    /// レコードを作成します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-01-レコード-作成.md">Wiki: 01-テーブル操作-01-レコード-作成</seealso>
     /// <param name="siteId">サイトID</param>
@@ -46,7 +46,7 @@ public partial class PleasanterClient
     #region Get Record
 
     /// <summary>
-    /// 単一レコードを取得します（リクエストモデル版）
+    /// 単一レコードを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-03-レコード-取得(単一).md">Wiki: 01-テーブル操作-03-レコード-取得(単一)</seealso>
     /// <param name="recordId">レコードID</param>
@@ -74,7 +74,7 @@ public partial class PleasanterClient
     #region Get Records
 
     /// <summary>
-    /// 複数レコードを取得します（リクエストモデル版）
+    /// 複数レコードを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-04-テーブル-取得(複数).md">Wiki: 01-テーブル操作-04-テーブル-取得(複数)</seealso>
     /// <param name="siteId">サイトID</param>
@@ -152,7 +152,7 @@ public partial class PleasanterClient
     #region Update Record
 
     /// <summary>
-    /// レコードを更新します（リクエストモデル版）
+    /// レコードを更新します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-07-レコード-更新.md">Wiki: 01-テーブル操作-07-レコード-更新</seealso>
     /// <param name="recordId">レコードID</param>
@@ -180,7 +180,7 @@ public partial class PleasanterClient
     #region Upsert Record
 
     /// <summary>
-    /// レコードを作成または更新します（リクエストモデル版）
+    /// レコードを作成または更新します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-08-テーブル-作成・更新.md">Wiki: 01-テーブル操作-08-テーブル-作成・更新</seealso>
     /// <param name="siteId">サイトID</param>
@@ -212,7 +212,7 @@ public partial class PleasanterClient
     #region Bulk Upsert Record
 
     /// <summary>
-    /// 複数レコードを一括で作成または更新します（リクエストモデル版）
+    /// 複数レコードを一括で作成または更新します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-09-テーブル-一括作成・更新.md">Wiki: 01-テーブル操作-09-テーブル-一括作成・更新</seealso>
     /// <param name="siteId">サイトID</param>
@@ -244,7 +244,7 @@ public partial class PleasanterClient
     #region Delete Record
 
     /// <summary>
-    /// レコードを削除します（リクエストモデル版）
+    /// レコードを削除します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-10-レコード-削除.md">Wiki: 01-テーブル操作-10-レコード-削除</seealso>
     /// <param name="recordId">レコードID</param>
@@ -272,7 +272,7 @@ public partial class PleasanterClient
     #region Bulk Delete Record
 
     /// <summary>
-    /// レコードを一括削除します（リクエストモデル版）
+    /// レコードを一括削除します
     /// </summary>
     /// <seealso href="../docs/wiki/01-テーブル操作-11-テーブル-一括削除.md">Wiki: 01-テーブル操作-11-テーブル-一括削除</seealso>
     /// <param name="siteId">サイトID</param>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace PleasanterDeveloperCommunity.DotNet.Client;
 public partial class PleasanterClient
 {
     /// <summary>
-    /// 拡張SQLを実行します（リクエストモデル版）
+    /// 拡張SQLを実行します
     /// </summary>
     /// <seealso href="../docs/wiki/09-拡張SQL-01-拡張SQL-取得(実行).md">Wiki: 09-拡張SQL-01-拡張SQL-取得(実行)</seealso>
     /// <param name="request">リクエストモデル</param>

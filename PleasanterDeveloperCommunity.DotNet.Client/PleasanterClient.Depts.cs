@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -18,7 +18,7 @@ public partial class PleasanterClient
     #region GetDepts (組織取得)
 
     /// <summary>
-    /// 組織一覧を取得します（リクエストモデル版）
+    /// 組織一覧を取得します
     /// </summary>
     /// <seealso href="../docs/wiki/05-組織操作-01-組織-取得.md">Wiki: 05-組織操作-01-組織-取得</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -44,7 +44,7 @@ public partial class PleasanterClient
     #region CreateDept (組織作成)
 
     /// <summary>
-    /// 組織を作成します（リクエストモデル版）
+    /// 組織を作成します
     /// </summary>
     /// <seealso href="../docs/wiki/05-組織操作-02-組織-作成.md">Wiki: 05-組織操作-02-組織-作成</seealso>
     /// <param name="request">リクエストモデル</param>
@@ -70,7 +70,7 @@ public partial class PleasanterClient
     #region UpdateDept (組織更新)
 
     /// <summary>
-    /// 組織を更新します（リクエストモデル版）
+    /// 組織を更新します
     /// </summary>
     /// <seealso href="../docs/wiki/05-組織操作-03-組織-更新.md">Wiki: 05-組織操作-03-組織-更新</seealso>
     /// <param name="deptId">組織ID</param>
@@ -98,7 +98,7 @@ public partial class PleasanterClient
     #region DeleteDept (組織削除)
 
     /// <summary>
-    /// 組織を削除します（リクエストモデル版）
+    /// 組織を削除します
     /// </summary>
     /// <seealso href="../docs/wiki/05-組織操作-04-組織-削除.md">Wiki: 05-組織操作-04-組織-削除</seealso>
     /// <param name="deptId">組織ID</param>
