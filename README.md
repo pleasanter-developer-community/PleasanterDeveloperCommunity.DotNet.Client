@@ -124,3 +124,13 @@ dotnet add package Newtonsoft.Json
 | Newtonsoft.Json | MIT        | Copyright (c) 2007 James Newton-King |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。
+
+## セキュリティ
+
+セキュリティ上の脆弱性を発見された場合は、[セキュリティポリシー](.github/SECURITY.md)をご確認の上、ご報告ください。
+
+## 謝辞
+
+セキュリティ脆弱性の報告やプロジェクトへの貢献をしてくださった方々に感謝いたします。
+
+<!-- 貢献者・報告者はこちらに追記 -->

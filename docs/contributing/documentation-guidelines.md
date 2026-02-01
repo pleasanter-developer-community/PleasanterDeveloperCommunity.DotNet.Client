@@ -242,6 +242,7 @@ var response = await client.MethodNameAsync(123, "value");
 | CI/CDワークフローの変更             | `docs/contributing/ci-workflow.md`                   |
 | インストール方法の変更              | `README.md` のインストールセクション                 |
 | プロジェクト設定の変更              | `README.md` および `.github/copilot-instructions.md` |
+| セキュリティ脆弱性の報告対応        | `README.md` の謝辞セクション（報告者名を追記）       |
 
 ### GitHub Wiki同期
 
