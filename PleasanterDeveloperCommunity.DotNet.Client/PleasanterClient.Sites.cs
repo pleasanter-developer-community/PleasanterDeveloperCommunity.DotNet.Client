@@ -25,9 +25,18 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
-        if (string.IsNullOrEmpty(request.Title)) throw new ArgumentException("Title is required", nameof(request));
-        if (string.IsNullOrEmpty(request.ReferenceType)) throw new ArgumentException("ReferenceType is required", nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        if (string.IsNullOrEmpty(request.Title))
+        {
+            throw new ArgumentException("Title is required", nameof(request));
+        }
+        if (string.IsNullOrEmpty(request.ReferenceType))
+        {
+            throw new ArgumentException("ReferenceType is required", nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<CreateSiteResponse>(
             $"/api/items/{parentSiteId}/createsite", request, timeout, cancellationToken);
@@ -70,7 +79,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<GetSiteResponse>(
             $"/api/items/{siteId}/getsite", request, timeout, cancellationToken);
@@ -101,8 +113,14 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
-        if (request.FindSiteNames == null) throw new ArgumentException("FindSiteNames is required", nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        if (request.FindSiteNames == null)
+        {
+            throw new ArgumentException("FindSiteNames is required", nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<GetClosestSiteIdResponse>(
             $"/api/items/{siteId}/getclosestsiteid", request, timeout, cancellationToken);
@@ -137,7 +155,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateSiteResponse>(
             $"/api/items/{siteId}/updatesite", request, timeout, cancellationToken);
@@ -182,8 +203,14 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
-        if (request.SelectedSites == null) throw new ArgumentException("SelectedSites is required", nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        if (request.SelectedSites == null)
+        {
+            throw new ArgumentException("SelectedSites is required", nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<CopySitePackageResponse>(
             $"/api/items/{siteId}/copysitepackage", request, timeout, cancellationToken);
@@ -232,7 +259,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteSiteResponse>(
             $"/api/items/{siteId}/deletesite", request, timeout, cancellationToken);
@@ -263,7 +293,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<SynchronizeSummariesResponse>(
             $"/api/items/{siteId}/synchronizesummaries", request, timeout, cancellationToken);
@@ -294,7 +327,10 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateSiteSettingsResponse>(
             $"/api/items/{siteId}/updatesitesettings", request, timeout, cancellationToken);
