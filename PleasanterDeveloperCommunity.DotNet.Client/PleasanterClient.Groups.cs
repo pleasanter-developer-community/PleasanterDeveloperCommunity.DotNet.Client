@@ -39,26 +39,6 @@ public partial class PleasanterClient
             "/api/groups/get", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// グループ一覧を取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/04-グループ操作-01-グループ-取得.md">Wiki: 04-グループ操作-01-グループ-取得</seealso>
-    /// <param name="offset">取得開始位置</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>グループ取得レスポンス</returns>
-    public async Task<ApiResponse<GetGroupsResponse>> GetGroupsAsync(
-        int? offset = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetGroupsRequest
-        {
-            Offset = offset
-        };
-        return await GetGroupsAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region CreateGroup (グループ作成)
@@ -83,29 +63,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<CreateGroupResponse>(
             "/api/groups/create", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// グループを作成します
-    /// </summary>
-    /// <seealso href="../docs/wiki/04-グループ操作-02-グループ-作成.md">Wiki: 04-グループ操作-02-グループ-作成</seealso>
-    /// <param name="groupName">グループ名</param>
-    /// <param name="body">内容</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>グループ作成レスポンス</returns>
-    public async Task<ApiResponse<CreateGroupResponse>> CreateGroupAsync(
-        string groupName,
-        string? body = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CreateGroupRequest
-        {
-            GroupName = groupName ?? throw new ArgumentNullException(nameof(groupName)),
-            Body = body
-        };
-        return await CreateGroupAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -136,31 +93,6 @@ public partial class PleasanterClient
             $"/api/groups/{groupId}/update", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// グループを更新します
-    /// </summary>
-    /// <seealso href="../docs/wiki/04-グループ操作-03-グループ-更新.md">Wiki: 04-グループ操作-03-グループ-更新</seealso>
-    /// <param name="groupId">グループID</param>
-    /// <param name="groupName">グループ名</param>
-    /// <param name="body">内容</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>グループ更新レスポンス</returns>
-    public async Task<ApiResponse<UpdateGroupResponse>> UpdateGroupAsync(
-        long groupId,
-        string? groupName = null,
-        string? body = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateGroupRequest
-        {
-            GroupName = groupName,
-            Body = body
-        };
-        return await UpdateGroupAsync(groupId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region DeleteGroup (グループ削除)
@@ -187,23 +119,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteGroupResponse>(
             $"/api/groups/{groupId}/delete", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// グループを削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/04-グループ操作-04-グループ-削除.md">Wiki: 04-グループ操作-04-グループ-削除</seealso>
-    /// <param name="groupId">グループID</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>グループ削除レスポンス</returns>
-    public async Task<ApiResponse<DeleteGroupResponse>> DeleteGroupAsync(
-        long groupId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteGroupRequest();
-        return await DeleteGroupAsync(groupId, request, timeout, cancellationToken);
     }
 
     #endregion

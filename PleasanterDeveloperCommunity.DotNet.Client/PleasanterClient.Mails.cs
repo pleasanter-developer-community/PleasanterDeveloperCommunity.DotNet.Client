@@ -37,39 +37,5 @@ public partial class PleasanterClient
             $"/api/items/{itemId}/mails/send", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// メールを送信します
-    /// </summary>
-    /// <seealso href="../docs/wiki/07-メール操作-01-メール-送信.md">Wiki: 07-メール操作-01-メール-送信</seealso>
-    /// <param name="itemId">アイテムID</param>
-    /// <param name="to">宛先</param>
-    /// <param name="title">件名</param>
-    /// <param name="body">本文</param>
-    /// <param name="cc">CC</param>
-    /// <param name="bcc">BCC</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>メール送信レスポンス</returns>
-    public async Task<ApiResponse<SendMailResponse>> SendMailAsync(
-        long itemId,
-        string to,
-        string title,
-        string body,
-        string? cc = null,
-        string? bcc = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new SendMailRequest
-        {
-            To = to ?? throw new ArgumentNullException(nameof(to)),
-            Title = title ?? throw new ArgumentNullException(nameof(title)),
-            Body = body ?? throw new ArgumentNullException(nameof(body)),
-            Cc = cc,
-            Bcc = bcc
-        };
-        return await SendMailAsync(itemId, request, timeout, cancellationToken);
-    }
-
     #endregion
 }

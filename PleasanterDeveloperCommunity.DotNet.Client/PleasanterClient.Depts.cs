@@ -39,26 +39,6 @@ public partial class PleasanterClient
             "/api/depts/get", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// 組織一覧を取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/05-組織操作-01-組織-取得.md">Wiki: 05-組織操作-01-組織-取得</seealso>
-    /// <param name="offset">取得開始位置</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>組織取得レスポンス</returns>
-    public async Task<ApiResponse<GetDeptsResponse>> GetDeptsAsync(
-        int? offset = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetDeptsRequest
-        {
-            Offset = offset
-        };
-        return await GetDeptsAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region CreateDept (組織作成)
@@ -83,32 +63,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<CreateDeptResponse>(
             "/api/depts/create", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 組織を作成します
-    /// </summary>
-    /// <seealso href="../docs/wiki/05-組織操作-02-組織-作成.md">Wiki: 05-組織操作-02-組織-作成</seealso>
-    /// <param name="deptCode">組織コード</param>
-    /// <param name="deptName">組織名</param>
-    /// <param name="body">内容</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>組織作成レスポンス</returns>
-    public async Task<ApiResponse<CreateDeptResponse>> CreateDeptAsync(
-        string deptCode,
-        string deptName,
-        string? body = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CreateDeptRequest
-        {
-            DeptCode = deptCode ?? throw new ArgumentNullException(nameof(deptCode)),
-            DeptName = deptName ?? throw new ArgumentNullException(nameof(deptName)),
-            Body = body
-        };
-        return await CreateDeptAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -139,31 +93,6 @@ public partial class PleasanterClient
             $"/api/depts/{deptId}/update", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// 組織を更新します
-    /// </summary>
-    /// <seealso href="../docs/wiki/05-組織操作-03-組織-更新.md">Wiki: 05-組織操作-03-組織-更新</seealso>
-    /// <param name="deptId">組織ID</param>
-    /// <param name="deptName">組織名</param>
-    /// <param name="body">内容</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>組織更新レスポンス</returns>
-    public async Task<ApiResponse<UpdateDeptResponse>> UpdateDeptAsync(
-        long deptId,
-        string? deptName = null,
-        string? body = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateDeptRequest
-        {
-            DeptName = deptName,
-            Body = body
-        };
-        return await UpdateDeptAsync(deptId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region DeleteDept (組織削除)
@@ -190,23 +119,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteDeptResponse>(
             $"/api/depts/{deptId}/delete", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 組織を削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/05-組織操作-04-組織-削除.md">Wiki: 05-組織操作-04-組織-削除</seealso>
-    /// <param name="deptId">組織ID</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>組織削除レスポンス</returns>
-    public async Task<ApiResponse<DeleteDeptResponse>> DeleteDeptAsync(
-        long deptId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteDeptRequest();
-        return await DeleteDeptAsync(deptId, request, timeout, cancellationToken);
     }
 
     #endregion

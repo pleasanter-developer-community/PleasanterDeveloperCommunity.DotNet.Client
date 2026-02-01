@@ -35,21 +35,6 @@ public partial class PleasanterClient
             "/api/extensions/get", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// 拡張機能一覧を取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/10-拡張機能操作-01-拡張機能-取得.md">Wiki: 10-拡張機能操作-01-拡張機能-取得</seealso>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>拡張機能取得レスポンス</returns>
-    public async Task<ApiResponse<GetExtensionsResponse>> GetExtensionsAsync(
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetExtensionsRequest();
-        return await GetExtensionsAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region CreateExtension (拡張機能作成)
@@ -74,35 +59,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<CreateExtensionResponse>(
             "/api/extensions/create", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 拡張機能を作成します
-    /// </summary>
-    /// <seealso href="../docs/wiki/10-拡張機能操作-02-拡張機能-作成.md">Wiki: 10-拡張機能操作-02-拡張機能-作成</seealso>
-    /// <param name="extensionType">種類</param>
-    /// <param name="extensionName">拡張機能名</param>
-    /// <param name="extensionSettings">設定</param>
-    /// <param name="extensionDescription">説明</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>拡張機能作成レスポンス</returns>
-    public async Task<ApiResponse<CreateExtensionResponse>> CreateExtensionAsync(
-        string extensionType,
-        string extensionName,
-        string extensionSettings,
-        string? extensionDescription = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CreateExtensionRequest
-        {
-            ExtensionType = extensionType ?? throw new ArgumentNullException(nameof(extensionType)),
-            ExtensionName = extensionName ?? throw new ArgumentNullException(nameof(extensionName)),
-            ExtensionSettings = extensionSettings ?? throw new ArgumentNullException(nameof(extensionSettings)),
-            ExtensionDescription = extensionDescription
-        };
-        return await CreateExtensionAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -133,34 +89,6 @@ public partial class PleasanterClient
             $"/api/extensions/{extensionId}/update", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// 拡張機能を更新します
-    /// </summary>
-    /// <seealso href="../docs/wiki/10-拡張機能操作-03-拡張機能-更新.md">Wiki: 10-拡張機能操作-03-拡張機能-更新</seealso>
-    /// <param name="extensionId">拡張機能ID</param>
-    /// <param name="extensionName">拡張機能名</param>
-    /// <param name="extensionSettings">設定</param>
-    /// <param name="extensionDescription">説明</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>拡張機能更新レスポンス</returns>
-    public async Task<ApiResponse<UpdateExtensionResponse>> UpdateExtensionAsync(
-        long extensionId,
-        string? extensionName = null,
-        string? extensionSettings = null,
-        string? extensionDescription = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateExtensionRequest
-        {
-            ExtensionName = extensionName,
-            ExtensionSettings = extensionSettings,
-            ExtensionDescription = extensionDescription
-        };
-        return await UpdateExtensionAsync(extensionId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region DeleteExtension (拡張機能削除)
@@ -187,23 +115,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteExtensionResponse>(
             $"/api/extensions/{extensionId}/delete", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 拡張機能を削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/10-拡張機能操作-04-拡張機能-削除.md">Wiki: 10-拡張機能操作-04-拡張機能-削除</seealso>
-    /// <param name="extensionId">拡張機能ID</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>拡張機能削除レスポンス</returns>
-    public async Task<ApiResponse<DeleteExtensionResponse>> DeleteExtensionAsync(
-        long extensionId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteExtensionRequest();
-        return await DeleteExtensionAsync(extensionId, request, timeout, cancellationToken);
     }
 
     #endregion

@@ -39,26 +39,6 @@ public partial class PleasanterClient
             "/api/users/get", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// ユーザ一覧を取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/03-ユーザ操作-01-ユーザ-取得.md">Wiki: 03-ユーザ操作-01-ユーザ-取得</seealso>
-    /// <param name="offset">取得開始位置</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>ユーザ取得レスポンス</returns>
-    public async Task<ApiResponse<GetUsersResponse>> GetUsersAsync(
-        int? offset = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetUsersRequest
-        {
-            Offset = offset
-        };
-        return await GetUsersAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region CreateUser (ユーザ作成)
@@ -83,32 +63,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<CreateUserResponse>(
             "/api/users/create", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// ユーザを作成します
-    /// </summary>
-    /// <seealso href="../docs/wiki/03-ユーザ操作-02-ユーザ-作成.md">Wiki: 03-ユーザ操作-02-ユーザ-作成</seealso>
-    /// <param name="loginId">ログインID</param>
-    /// <param name="name">名前</param>
-    /// <param name="password">パスワード</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>ユーザ作成レスポンス</returns>
-    public async Task<ApiResponse<CreateUserResponse>> CreateUserAsync(
-        string loginId,
-        string name,
-        string password,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CreateUserRequest
-        {
-            LoginId = loginId ?? throw new ArgumentNullException(nameof(loginId)),
-            Name = name ?? throw new ArgumentNullException(nameof(name)),
-            Password = password ?? throw new ArgumentNullException(nameof(password))
-        };
-        return await CreateUserAsync(request, timeout, cancellationToken);
     }
 
     #endregion
@@ -139,28 +93,6 @@ public partial class PleasanterClient
             $"/api/users/{userId}/update", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// ユーザを更新します
-    /// </summary>
-    /// <seealso href="../docs/wiki/03-ユーザ操作-03-ユーザ-更新.md">Wiki: 03-ユーザ操作-03-ユーザ-更新</seealso>
-    /// <param name="userId">ユーザID</param>
-    /// <param name="name">名前</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>ユーザ更新レスポンス</returns>
-    public async Task<ApiResponse<UpdateUserResponse>> UpdateUserAsync(
-        long userId,
-        string? name = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateUserRequest
-        {
-            Name = name
-        };
-        return await UpdateUserAsync(userId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region DeleteUser (ユーザ削除)
@@ -187,23 +119,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteUserResponse>(
             $"/api/users/{userId}/delete", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// ユーザを削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/03-ユーザ操作-04-ユーザ-削除.md">Wiki: 03-ユーザ操作-04-ユーザ-削除</seealso>
-    /// <param name="userId">ユーザID</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>ユーザ削除レスポンス</returns>
-    public async Task<ApiResponse<DeleteUserResponse>> DeleteUserAsync(
-        long userId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteUserRequest();
-        return await DeleteUserAsync(userId, request, timeout, cancellationToken);
     }
 
     #endregion

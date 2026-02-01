@@ -35,26 +35,6 @@ public partial class PleasanterClient
             "/api/sessions/get", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// セッションを取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/06-セッション操作-01-セッション-取得.md">Wiki: 06-セッション操作-01-セッション-取得</seealso>
-    /// <param name="name">セッション名</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>セッション取得レスポンス</returns>
-    public async Task<ApiResponse<GetSessionResponse>> GetSessionAsync(
-        string? name = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetSessionRequest
-        {
-            Name = name
-        };
-        return await GetSessionAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region SetSession (セッション設定)
@@ -81,29 +61,6 @@ public partial class PleasanterClient
             "/api/sessions/set", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// セッションを設定します
-    /// </summary>
-    /// <seealso href="../docs/wiki/06-セッション操作-02-セッション-設定.md">Wiki: 06-セッション操作-02-セッション-設定</seealso>
-    /// <param name="name">セッション名</param>
-    /// <param name="value">値</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>セッション設定レスポンス</returns>
-    public async Task<ApiResponse<SetSessionResponse>> SetSessionAsync(
-        string name,
-        string value,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new SetSessionRequest
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name)),
-            Value = value ?? throw new ArgumentNullException(nameof(value))
-        };
-        return await SetSessionAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region DeleteSession (セッション削除)
@@ -128,26 +85,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteSessionResponse>(
             "/api/sessions/delete", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// セッションを削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/06-セッション操作-03-セッション-削除.md">Wiki: 06-セッション操作-03-セッション-削除</seealso>
-    /// <param name="name">セッション名</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>セッション削除レスポンス</returns>
-    public async Task<ApiResponse<DeleteSessionResponse>> DeleteSessionAsync(
-        string name,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteSessionRequest
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name))
-        };
-        return await DeleteSessionAsync(request, timeout, cancellationToken);
     }
 
     #endregion

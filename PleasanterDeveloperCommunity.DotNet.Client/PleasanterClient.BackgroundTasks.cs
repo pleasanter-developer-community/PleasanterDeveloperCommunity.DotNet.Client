@@ -39,24 +39,6 @@ public partial class PleasanterClient
     }
 
     /// <summary>
-    /// 全サイトの検索インデックスを再構築します
-    /// </summary>
-    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>検索インデックス再構築レスポンス</returns>
-    /// <remarks>
-    /// この機能には BackgroundTask.Enabled パラメータの有効化が必要です。
-    /// </remarks>
-    public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildAllSearchIndexesAsync(
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new RebuildSearchIndexesRequest();
-        return await RebuildAllSearchIndexesAsync(request, timeout, cancellationToken);
-    }
-
-    /// <summary>
     /// 特定サイトの検索インデックスを再構築します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
@@ -81,26 +63,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<RebuildSearchIndexesResponse>(
             $"/api/backgroundtasks/{siteId}/rebuildsearchindexes", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// 特定サイトの検索インデックスを再構築します
-    /// </summary>
-    /// <seealso href="../docs/wiki/12-バックグラウンドタスク-01-検索インデックス-再構築.md">Wiki: 12-バックグラウンドタスク-01-検索インデックス-再構築</seealso>
-    /// <param name="siteId">サイトID</param>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>検索インデックス再構築レスポンス</returns>
-    /// <remarks>
-    /// この機能には BackgroundTask.Enabled パラメータの有効化が必要です。
-    /// </remarks>
-    public async Task<ApiResponse<RebuildSearchIndexesResponse>> RebuildSearchIndexesAsync(
-        long siteId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new RebuildSearchIndexesRequest();
-        return await RebuildSearchIndexesAsync(siteId, request, timeout, cancellationToken);
     }
 
     #endregion

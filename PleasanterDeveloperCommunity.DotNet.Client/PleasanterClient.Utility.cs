@@ -35,20 +35,5 @@ public partial class PleasanterClient
             "/api/utility/getlicenseinfo", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// ライセンス情報を取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/11-ユーティリティ-01-ライセンス情報取得.md">Wiki: 11-ユーティリティ-01-ライセンス情報取得</seealso>
-    /// <param name="timeout">タイムアウト</param>
-    /// <param name="cancellationToken">キャンセルトークン</param>
-    /// <returns>ライセンス情報取得レスポンス</returns>
-    public async Task<ApiResponse<GetLicenseInfoResponse>> GetLicenseInfoAsync(
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetLicenseInfoRequest();
-        return await GetLicenseInfoAsync(request, timeout, cancellationToken);
-    }
-
     #endregion
 }

@@ -19,6 +19,11 @@ public partial class PleasanterClient
     /// 添付ファイルを取得します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
+    /// <param name="guid">GUID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         GetAttachmentRequest request,
@@ -38,6 +43,10 @@ public partial class PleasanterClient
     /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
+    /// <param name="guid">GUID</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
         string guid,
         TimeSpan? timeout = null,
@@ -327,7 +336,7 @@ public partial class PleasanterClient
         var endpoint = $"/api/binaries/{guid}/upload";
         if (overwrite)
         {
-            endpoint += "?overwrite=true";
+            endpoint = $"{endpoint}?overwrite=true";
         }
 
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(

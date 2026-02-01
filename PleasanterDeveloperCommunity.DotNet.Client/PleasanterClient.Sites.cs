@@ -20,6 +20,11 @@ public partial class PleasanterClient
     /// サイトを作成します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-01-サイト-作成.md">Wiki: 02-サイト操作-01-サイト-作成</seealso>
+    /// <param name="parentSiteId">親サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイト作成レスポンス</returns>
     public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
         long parentSiteId,
         CreateSiteRequest request,
@@ -43,31 +48,6 @@ public partial class PleasanterClient
             $"/api/items/{parentSiteId}/createsite", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイトを作成します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-01-サイト-作成.md">Wiki: 02-サイト操作-01-サイト-作成</seealso>
-    public async Task<ApiResponse<CreateSiteResponse>> CreateSiteAsync(
-        long parentSiteId,
-        string title,
-        SiteReferenceType referenceType,
-        int? tenantId = null,
-        long? inheritPermission = null,
-        SiteSettings? siteSettings = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CreateSiteRequest
-        {
-            Title = title ?? throw new ArgumentNullException(nameof(title)),
-            ReferenceType = referenceType.ToString(),
-            TenantId = tenantId,
-            InheritPermission = inheritPermission,
-            SiteSettings = siteSettings
-        };
-        return await CreateSiteAsync(parentSiteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Get Site
@@ -76,6 +56,11 @@ public partial class PleasanterClient
     /// サイトを取得します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-03-サイト-取得.md">Wiki: 02-サイト操作-03-サイト-取得</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイト取得レスポンス</returns>
     public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(
         long siteId,
         GetSiteRequest request,
@@ -91,19 +76,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/getsite", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイトを取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-03-サイト-取得.md">Wiki: 02-サイト操作-03-サイト-取得</seealso>
-    public async Task<ApiResponse<GetSiteResponse>> GetSiteAsync(
-        long siteId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetSiteRequest();
-        return await GetSiteAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Get Closest Site Id
@@ -112,6 +84,11 @@ public partial class PleasanterClient
     /// サイト名検索で最も近いサイトIDを取得します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-04-サイト-サイトID取得.md">Wiki: 02-サイト操作-04-サイト-サイトID取得</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイトID取得レスポンス</returns>
     public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
         long siteId,
         GetClosestSiteIdRequest request,
@@ -131,23 +108,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/getclosestsiteid", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイト名検索で最も近いサイトIDを取得します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-04-サイト-サイトID取得.md">Wiki: 02-サイト操作-04-サイト-サイトID取得</seealso>
-    public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
-        long siteId,
-        List<string> findSiteNames,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetClosestSiteIdRequest
-        {
-            FindSiteNames = findSiteNames ?? throw new ArgumentNullException(nameof(findSiteNames))
-        };
-        return await GetClosestSiteIdAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Update Site
@@ -156,6 +116,11 @@ public partial class PleasanterClient
     /// サイトを更新します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-05-サイト-更新.md">Wiki: 02-サイト操作-05-サイト-更新</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイト更新レスポンス</returns>
     public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
         long siteId,
         UpdateSiteRequest request,
@@ -171,33 +136,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/updatesite", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイトを更新します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-05-サイト-更新.md">Wiki: 02-サイト操作-05-サイト-更新</seealso>
-    public async Task<ApiResponse<UpdateSiteResponse>> UpdateSiteAsync(
-        long siteId,
-        string? title = null,
-        SiteReferenceType? referenceType = null,
-        int? tenantId = null,
-        long? parentId = null,
-        long? inheritPermission = null,
-        SiteSettings? siteSettings = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateSiteRequest
-        {
-            Title = title,
-            ReferenceType = referenceType?.ToString(),
-            TenantId = tenantId,
-            ParentId = parentId,
-            InheritPermission = inheritPermission,
-            SiteSettings = siteSettings
-        };
-        return await UpdateSiteAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Copy Site Package
@@ -206,6 +144,11 @@ public partial class PleasanterClient
     /// サイトパッケージをコピーします（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-02-サイト-コピー.md">Wiki: 02-サイト操作-02-サイト-コピー</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイトパッケージコピーレスポンス</returns>
     public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
         long siteId,
         CopySitePackageRequest request,
@@ -225,37 +168,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/copysitepackage", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイトパッケージをコピーします
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-02-サイト-コピー.md">Wiki: 02-サイト操作-02-サイト-コピー</seealso>
-    public async Task<ApiResponse<CopySitePackageResponse>> CopySitePackageAsync(
-        long siteId,
-        List<SelectedSite> selectedSites,
-        long? targetSiteId = null,
-        string? siteTitle = null,
-        bool? includeSitePermission = null,
-        bool? includeRecordPermission = null,
-        bool? includeColumnPermission = null,
-        bool? includeNotifications = null,
-        bool? includeReminders = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CopySitePackageRequest
-        {
-            SelectedSites = selectedSites ?? throw new ArgumentNullException(nameof(selectedSites)),
-            TargetSiteId = targetSiteId,
-            SiteTitle = siteTitle,
-            IncludeSitePermission = includeSitePermission,
-            IncludeRecordPermission = includeRecordPermission,
-            IncludeColumnPermission = includeColumnPermission,
-            IncludeNotifications = includeNotifications,
-            IncludeReminders = includeReminders
-        };
-        return await CopySitePackageAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Delete Site
@@ -264,6 +176,11 @@ public partial class PleasanterClient
     /// サイトを削除します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-06-サイト-削除.md">Wiki: 02-サイト操作-06-サイト-削除</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイト削除レスポンス</returns>
     public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
         long siteId,
         DeleteSiteRequest request,
@@ -279,19 +196,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/deletesite", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サイトを削除します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-06-サイト-削除.md">Wiki: 02-サイト操作-06-サイト-削除</seealso>
-    public async Task<ApiResponse<DeleteSiteResponse>> DeleteSiteAsync(
-        long siteId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new DeleteSiteRequest();
-        return await DeleteSiteAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Synchronize Summaries
@@ -300,6 +204,11 @@ public partial class PleasanterClient
     /// サマリを同期します（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-07-集計-同期.md">Wiki: 02-サイト操作-07-集計-同期</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サマリ同期レスポンス</returns>
     public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
         long siteId,
         SynchronizeSummariesRequest request,
@@ -315,19 +224,6 @@ public partial class PleasanterClient
             $"/api/items/{siteId}/synchronizesummaries", request, timeout, cancellationToken);
     }
 
-    /// <summary>
-    /// サマリを同期します
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-07-集計-同期.md">Wiki: 02-サイト操作-07-集計-同期</seealso>
-    public async Task<ApiResponse<SynchronizeSummariesResponse>> SynchronizeSummariesAsync(
-        long siteId,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new SynchronizeSummariesRequest();
-        return await SynchronizeSummariesAsync(siteId, request, timeout, cancellationToken);
-    }
-
     #endregion
 
     #region Update Site Settings
@@ -336,6 +232,11 @@ public partial class PleasanterClient
     /// サイト設定を更新します（部分追加/更新/削除）（リクエストモデル版）
     /// </summary>
     /// <seealso href="../docs/wiki/02-サイト操作-08-サイト設定-更新.md">Wiki: 02-サイト操作-08-サイト設定-更新</seealso>
+    /// <param name="siteId">サイトID</param>
+    /// <param name="request">リクエストモデル</param>
+    /// <param name="timeout">タイムアウト</param>
+    /// <param name="cancellationToken">キャンセルトークン</param>
+    /// <returns>サイト設定更新レスポンス</returns>
     public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
         long siteId,
         UpdateSiteSettingsRequest request,
@@ -349,23 +250,6 @@ public partial class PleasanterClient
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateSiteSettingsResponse>(
             $"/api/items/{siteId}/updatesitesettings", request, timeout, cancellationToken);
-    }
-
-    /// <summary>
-    /// サイト設定を更新します（部分追加/更新/削除）
-    /// </summary>
-    /// <seealso href="../docs/wiki/02-サイト操作-08-サイト設定-更新.md">Wiki: 02-サイト操作-08-サイト設定-更新</seealso>
-    public async Task<ApiResponse<UpdateSiteSettingsResponse>> UpdateSiteSettingsAsync(
-        long siteId,
-        SiteSettings? siteSettings = null,
-        TimeSpan? timeout = null,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new UpdateSiteSettingsRequest
-        {
-            SiteSettings = siteSettings
-        };
-        return await UpdateSiteSettingsAsync(siteId, request, timeout, cancellationToken);
     }
 
     #endregion
