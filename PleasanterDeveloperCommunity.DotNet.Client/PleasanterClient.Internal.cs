@@ -340,7 +340,10 @@ public partial class PleasanterClient
 
     private void LogRequest(string requestId, string url, string content)
     {
-        if (_debugSettings == null) return;
+        if (_debugSettings == null)
+        {
+            return;
+        }
 
         var maskedContent = _debugSettings.MaskApiKey
             ? MaskApiKey(content)
@@ -360,7 +363,10 @@ public partial class PleasanterClient
 
     private void LogResponse(string requestId, string url, int statusCode, string content)
     {
-        if (_debugSettings == null) return;
+        if (_debugSettings == null)
+        {
+            return;
+        }
 
         var isJson = content.TrimStart().StartsWith("{") || content.TrimStart().StartsWith("[");
 
@@ -378,7 +384,10 @@ public partial class PleasanterClient
 
     private void LogException(string requestId, string url, Exception ex)
     {
-        if (_debugSettings == null) return;
+        if (_debugSettings == null)
+        {
+            return;
+        }
 
         var content = FormatException(ex);
 
@@ -443,7 +452,10 @@ public partial class PleasanterClient
 
     private async Task StartLogWriterAsync(CancellationToken cancellationToken)
     {
-        if (_debugSettings == null) return;
+        if (_debugSettings == null)
+        {
+            return;
+        }
 
         var logFilePath = Path.Combine(_debugSettings.LogDirectory,
             $"pleasanter-api-{DateTime.Now:yyyyMMdd}.csv");

@@ -24,8 +24,14 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null) throw new ArgumentNullException(nameof(request));
-        if (string.IsNullOrEmpty(request.Name)) throw new ArgumentException("Name is required", nameof(request));
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        if (string.IsNullOrEmpty(request.Name))
+        {
+            throw new ArgumentException("Name is required", nameof(request));
+        }
         SetApiCredentials(request);
         return await SendRequestAsync<ExtendedSqlResponse>(
             "/api/extended/sql", request, timeout, cancellationToken);
