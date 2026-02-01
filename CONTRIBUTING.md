@@ -24,12 +24,13 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 
 ## ガイドライン一覧
 
-| ガイドライン                                                              | 内容                                   |
-| ------------------------------------------------------------------------- | -------------------------------------- |
-| [コーディングガイドライン](docs/contributing/coding-guidelines.md)        | 命名規則、フォーマット、コードスタイル |
-| [ドキュメントガイドライン](docs/contributing/documentation-guidelines.md) | Markdown記法、ファイル構成、同期ルール |
-| [ブランチ戦略](docs/contributing/branch-strategy.md)                      | ブランチ命名、マージ方針               |
-| [CI/CDワークフロー](docs/contributing/ci-workflow.md)                     | 自動テスト、リリースプロセス           |
+| ガイドライン                                                              | 内容                                     |
+| ------------------------------------------------------------------------- | ---------------------------------------- |
+| [開発環境構築](docs/contributing/development-environment.md)              | Node.js、VS Code、.NET SDKのセットアップ |
+| [コーディングガイドライン](docs/contributing/coding-guidelines.md)        | 命名規則、フォーマット、コードスタイル   |
+| [ドキュメントガイドライン](docs/contributing/documentation-guidelines.md) | Markdown記法、ファイル構成、同期ルール   |
+| [ブランチ戦略](docs/contributing/branch-strategy.md)                      | ブランチ命名、マージ方針                 |
+| [CI/CDワークフロー](docs/contributing/ci-workflow.md)                     | 自動テスト、リリースプロセス             |
 
 ## クイックスタート
 
