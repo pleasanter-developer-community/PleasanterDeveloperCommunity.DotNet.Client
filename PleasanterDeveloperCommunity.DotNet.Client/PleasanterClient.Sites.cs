@@ -107,7 +107,7 @@ public partial class PleasanterClient
     /// <summary>
     /// サイト名検索で最も近いサイトIDを取得します（リクエストモデル版）
     /// </summary>
-    public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(
+    public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
         long siteId,
         GetClosestSiteIdRequest request,
         TimeSpan? timeout = null,
@@ -122,14 +122,14 @@ public partial class PleasanterClient
             throw new ArgumentException("FindSiteNames is required", nameof(request));
         }
         SetApiCredentials(request);
-        return await SendRequestAsync<GetClosestSiteIdResponse>(
+        return await SendRequestAsync<GetClosestSiteIdResponseData>(
             $"/api/items/{siteId}/getclosestsiteid", request, timeout, cancellationToken);
     }
 
     /// <summary>
     /// サイト名検索で最も近いサイトIDを取得します
     /// </summary>
-    public async Task<ApiResponse<GetClosestSiteIdResponse>> GetClosestSiteIdAsync(
+    public async Task<ApiResponse<GetClosestSiteIdResponseData>> GetClosestSiteIdAsync(
         long siteId,
         List<string> findSiteNames,
         TimeSpan? timeout = null,

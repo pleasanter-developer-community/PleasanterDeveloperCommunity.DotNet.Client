@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
@@ -57,16 +58,23 @@ public partial class PleasanterClient
             // デバッグログ（レスポンス）
             LogResponse(requestId, url, (int)response.StatusCode, responseContent);
 
-            var apiResponse = new ApiResponse<T>
-            {
-                StatusCode = response.StatusCode
-            };
+            var apiResponse = new ApiResponse<T>();
 
             if (!string.IsNullOrEmpty(responseContent))
             {
                 try
                 {
                     var jObject = JObject.Parse(responseContent);
+
+                    // JSON内のStatusCodeを使用
+                    if (jObject.TryGetValue("StatusCode", out var statusCodeToken))
+                    {
+                        apiResponse.StatusCode = (HttpStatusCode)statusCodeToken.Value<int>();
+                    }
+                    else
+                    {
+                        apiResponse.StatusCode = response.StatusCode;
+                    }
 
                     if (jObject.TryGetValue("Message", out var messageToken))
                     {
@@ -85,8 +93,13 @@ public partial class PleasanterClient
                 }
                 catch (JsonException)
                 {
+                    apiResponse.StatusCode = response.StatusCode;
                     apiResponse.Message = responseContent;
                 }
+            }
+            else
+            {
+                apiResponse.StatusCode = response.StatusCode;
             }
 
             return apiResponse;
