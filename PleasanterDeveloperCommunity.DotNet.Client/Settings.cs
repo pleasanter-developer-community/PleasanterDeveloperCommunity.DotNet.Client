@@ -74,7 +74,7 @@ public class ProxySettings
         _ => null
     };
 
-    private IWebProxy? CreateCustomProxy()
+    private WebProxy? CreateCustomProxy()
     {
         if (string.IsNullOrEmpty(Address))
             return null;

@@ -381,15 +381,15 @@ public partial class PleasanterClient
             return;
         }
 
-        var isJson = content.TrimStart().StartsWith("{") || content.TrimStart().StartsWith("[");
+        var isJson = content.TrimStart().StartsWith('{') || content.TrimStart().StartsWith('[');
 
         var logEntry = FormatLogEntry(
-            DateTime.UtcNow.ToString("o"),
+            DateTime.UtcNow.ToString("o", System.Globalization.CultureInfo.InvariantCulture),
             requestId,
             "Response",
             url,
-            statusCode.ToString(),
-            isJson.ToString(),
+            statusCode.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            isJson.ToString(System.Globalization.CultureInfo.InvariantCulture),
             content);
 
         _logQueue.Enqueue(logEntry);
@@ -446,7 +446,7 @@ public partial class PleasanterClient
         return sb.ToString();
     }
 
-    private string MaskApiKey(string content)
+    private static string MaskApiKey(string content)
     {
         // JSON形式のApiKeyをマスク
         return System.Text.RegularExpressions.Regex.Replace(
@@ -477,7 +477,7 @@ public partial class PleasanterClient
         if (!File.Exists(logFilePath))
         {
             var header = "Timestamp,RequestId,Type,Url,StatusCode,IsJson,Content";
-            await File.WriteAllTextAsync(logFilePath, header + Environment.NewLine, _debugSettings.Encoding);
+            await File.WriteAllTextAsync(logFilePath, header + Environment.NewLine, _debugSettings.Encoding, cancellationToken).ConfigureAwait(false);
         }
 
         while (!cancellationToken.IsCancellationRequested)
@@ -486,7 +486,7 @@ public partial class PleasanterClient
             {
                 if (_logQueue.TryDequeue(out var entry))
                 {
-                    await File.AppendAllTextAsync(logFilePath, entry + Environment.NewLine, _debugSettings.Encoding);
+                    await File.AppendAllTextAsync(logFilePath, entry + Environment.NewLine, _debugSettings.Encoding, cancellationToken).ConfigureAwait(false);
                 }
                 else
                 {
@@ -508,7 +508,7 @@ public partial class PleasanterClient
         {
             try
             {
-                await File.AppendAllTextAsync(logFilePath, entry + Environment.NewLine, _debugSettings.Encoding);
+                await File.AppendAllTextAsync(logFilePath, entry + Environment.NewLine, _debugSettings.Encoding, CancellationToken.None).ConfigureAwait(false);
             }
             catch
             {

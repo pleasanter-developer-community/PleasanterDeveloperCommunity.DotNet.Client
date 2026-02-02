@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -77,7 +77,7 @@ public class AttachmentResponse
     {
         var bytes = GetBytes();
         using var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true);
-        await stream.WriteAsync(bytes, 0, bytes.Length);
+        await stream.WriteAsync(bytes.AsMemory()).ConfigureAwait(false);
     }
 
     /// <summary>
