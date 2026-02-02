@@ -29,6 +29,9 @@
     - [パターンマッチング](#パターンマッチング)
     - [ターゲット型new式](#ターゲット型new式)
     - [using宣言](#using宣言)
+    - [Index/Range演算子](#indexrange演算子)
+    - [静的ローカル関数](#静的ローカル関数)
+    - [非同期ストリーム](#非同期ストリーム)
     - [文字列補間（埋め込みリテラル）](#文字列補間埋め込みリテラル)
 - [コメントとドキュメント](#コメントとドキュメント)
     - [XMLドキュメントコメント](#xmlドキュメントコメント)
@@ -48,6 +51,14 @@
 - [LINQ](#linq)
     - [積極的に活用](#積極的に活用)
     - [クエリ構文 vs メソッド構文](#クエリ構文-vs-メソッド構文)
+- [正規表現](#正規表現)
+    - [基本ルール](#基本ルール-1)
+    - [コンパイル済み正規表現の再利用](#コンパイル済み正規表現の再利用)
+    - [タイムアウトの設定（ReDoS対策）](#タイムアウトの設定redos対策)
+    - [単純な文字列操作での代替](#単純な文字列操作での代替)
+    - [非キャプチャグループの使用](#非キャプチャグループの使用)
+    - [バックトラッキングの回避](#バックトラッキングの回避)
+    - [パフォーマンス比較](#パフォーマンス比較)
 - [ファイル構成](#ファイル構成)
     - [ディレクトリ構造](#ディレクトリ構造)
     - [usingディレクティブ](#usingディレクティブ)
@@ -439,6 +450,100 @@ var content = await ReadAllTextAsync(stream);
 // 複数のusingが必要な場合も有効
 using var reader = new StreamReader(path);
 using var writer = new StreamWriter(outputPath);
+```
+
+### Index/Range演算子
+
+配列やコレクションへのアクセスに `^`（末尾から）と `..`（範囲）演算子を活用：
+
+```csharp
+var items = new[] { "a", "b", "c", "d", "e" };
+
+// Good - Index演算子（末尾からのアクセス）
+var last = items[^1];           // "e"（最後の要素）
+var secondLast = items[^2];     // "d"（最後から2番目）
+
+// Good - Range演算子（スライス）
+var firstTwo = items[..2];      // ["a", "b"]
+var lastTwo = items[^2..];      // ["d", "e"]
+var middle = items[1..^1];      // ["b", "c", "d"]
+var copy = items[..];           // 全体のコピー
+
+// Bad - 従来の方式
+var last = items[items.Length - 1];
+var slice = items.Skip(1).Take(3).ToArray();
+```
+
+### 静的ローカル関数
+
+キャプチャが不要な場合は `static` を付けてパフォーマンスを向上：
+
+```csharp
+// Good - staticローカル関数（変数をキャプチャしない）
+public int Calculate(int[] values)
+{
+    return values.Sum(static x => x * 2);
+}
+
+public void Process(IEnumerable<string> items)
+{
+    var results = items.Where(static s => !string.IsNullOrEmpty(s));
+    // ...
+}
+
+// Good - ヘルパー関数として
+public async Task<T> ExecuteWithRetryAsync<T>(Func<Task<T>> action)
+{
+    static bool IsTransient(Exception ex) =>
+        ex is HttpRequestException or TimeoutException;
+
+    // ...
+}
+
+// Bad - 不要なキャプチャが発生
+public int Calculate(int[] values)
+{
+    int multiplier = 2;  // キャプチャされる
+    return values.Sum(x => x * multiplier);
+}
+```
+
+### 非同期ストリーム
+
+大量データの逐次処理には `IAsyncEnumerable<T>` を活用：
+
+```csharp
+// Good - 非同期ストリームで逐次処理
+public async IAsyncEnumerable<Record> GetRecordsAsync(
+    [EnumeratorCancellation] CancellationToken cancellationToken = default)
+{
+    var offset = 0;
+    while (true)
+    {
+        var batch = await FetchBatchAsync(offset, cancellationToken);
+        if (batch.Count == 0)
+            yield break;
+
+        foreach (var record in batch)
+        {
+            yield return record;
+        }
+        offset += batch.Count;
+    }
+}
+
+// 呼び出し側
+await foreach (var record in client.GetRecordsAsync(cancellationToken))
+{
+    Process(record);
+}
+
+// Bad - 全件をメモリに読み込む
+public async Task<List<Record>> GetAllRecordsAsync()
+{
+    var allRecords = new List<Record>();
+    // 大量データをすべてメモリに保持...
+}
 ```
 
 ### 文字列補間（埋め込みリテラル）
@@ -867,6 +972,110 @@ var result = from order in orders
              where order.Total > 1000
              select new { customer.Name, order.Total };
 ```
+
+---
+
+## 正規表現
+
+### 基本ルール
+
+正規表現を使用する際は、パフォーマンスとセキュリティを考慮すること。
+
+| ルール                     | 説明                                           |
+| -------------------------- | ---------------------------------------------- |
+| コンパイル済みを再利用     | `static readonly` フィールドで定義し再利用する |
+| `RegexOptions.Compiled`    | 多数回使用する場合は指定する                   |
+| タイムアウトを設定         | ReDoS対策として必ずタイムアウトを指定する      |
+| 単純な操作は文字列メソッド | `StartsWith`、`Contains` 等で代替可能なら使う  |
+| 非キャプチャグループ       | キャプチャ不要な場合は `(?:...)` を使用する    |
+
+### コンパイル済み正規表現の再利用
+
+```csharp
+// Good - 静的フィールドで一度だけコンパイル、再利用
+public class Validator
+{
+    private static readonly Regex EmailPattern = new Regex(
+        @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+        RegexOptions.Compiled,
+        TimeSpan.FromSeconds(1));
+
+    public bool IsValidEmail(string email)
+    {
+        return EmailPattern.IsMatch(email);
+    }
+}
+
+// Bad - 毎回コンパイルされる
+public bool IsValidEmail(string email)
+{
+    return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+}
+```
+
+### タイムアウトの設定（ReDoS対策）
+
+悪意のある入力による正規表現サービス拒否攻撃（ReDoS）を防ぐため、タイムアウトを必ず設定する：
+
+```csharp
+// Good - タイムアウト指定あり
+private static readonly Regex Pattern = new Regex(
+    @"pattern",
+    RegexOptions.Compiled,
+    TimeSpan.FromSeconds(1));
+
+// Bad - タイムアウトなし（DoS攻撃に脆弱）
+private static readonly Regex Pattern = new Regex(@"pattern", RegexOptions.Compiled);
+```
+
+### 単純な文字列操作での代替
+
+正規表現が不要な場合は、より高速な文字列メソッドを使用する：
+
+```csharp
+// Good - 単純なメソッドを使用
+if (text.StartsWith("prefix"))
+if (text.Contains("substring"))
+if (text.EndsWith("suffix"))
+
+// Bad - 正規表現が不要な場合に使用
+if (Regex.IsMatch(text, @"^prefix"))
+if (Regex.IsMatch(text, @"substring"))
+if (Regex.IsMatch(text, @"suffix$"))
+```
+
+### 非キャプチャグループの使用
+
+キャプチャが不要な場合は非キャプチャグループを使用してパフォーマンスを向上：
+
+```csharp
+// Good - 非キャプチャグループ
+var regex = new Regex(@"(?:abc|def)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+
+// Bad - 不要なキャプチャ
+var regex = new Regex(@"(abc|def)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+```
+
+### バックトラッキングの回避
+
+カタストロフィックバックトラッキングを引き起こすパターンを避ける：
+
+```csharp
+// Good - 原子グループを使用
+var regex = new Regex(@"(?>a+)b", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+
+// Bad - カタストロフィックバックトラッキングの可能性
+var regex = new Regex(@"(a+)+b", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+```
+
+### パフォーマンス比較
+
+| 手法                               | 相対速度 | 用途                   |
+| ---------------------------------- | -------- | ---------------------- |
+| `string.Contains` 等               | 最速     | 単純なパターン         |
+| `Regex` (Compiled + 再利用)        | 速い     | 複雑なパターン、多数回 |
+| `Regex` (インスタンス再利用)       | 中程度   | 複雑なパターン、少数回 |
+| `Regex.IsMatch` (静的メソッド毎回) | 遅い     | 避けるべき             |
 
 ---
 
