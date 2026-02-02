@@ -347,7 +347,7 @@ public partial class PleasanterClient
 
     private void LogRequest(string requestId, string url, string content)
     {
-        if (_debugSettings == null)
+        if (_debugSettings is null)
         {
             return;
         }
@@ -370,7 +370,7 @@ public partial class PleasanterClient
 
     private void LogResponse(string requestId, string url, int statusCode, string content)
     {
-        if (_debugSettings == null)
+        if (_debugSettings is null)
         {
             return;
         }
@@ -391,7 +391,7 @@ public partial class PleasanterClient
 
     private void LogException(string requestId, string url, Exception ex)
     {
-        if (_debugSettings == null)
+        if (_debugSettings is null)
         {
             return;
         }
@@ -431,7 +431,7 @@ public partial class PleasanterClient
                 sb.Append(FormatException(inner, depth + 1));
             }
         }
-        else if (ex.InnerException != null)
+        else if (ex.InnerException is not null)
         {
             sb.AppendLine();
             sb.Append(FormatException(ex.InnerException, depth + 1));
@@ -459,7 +459,7 @@ public partial class PleasanterClient
 
     private async Task StartLogWriterAsync(CancellationToken cancellationToken)
     {
-        if (_debugSettings == null)
+        if (_debugSettings is null)
         {
             return;
         }

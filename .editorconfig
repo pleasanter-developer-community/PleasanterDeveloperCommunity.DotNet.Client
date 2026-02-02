@@ -57,7 +57,7 @@ dotnet_style_coalesce_expression = true:suggestion
 
 # String preferences
 dotnet_style_prefer_string_interpolation = true:warning
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_auto_properties = true:suggestion
@@ -87,16 +87,17 @@ csharp_style_expression_bodied_lambdas = true:suggestion
 csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
 
 # Pattern matching preferences
-csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
-csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:warning
+csharp_style_pattern_matching_over_as_with_null_check = true:warning
 csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:suggestion
-csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_not_pattern = true:warning
 csharp_style_prefer_extended_property_pattern = true:suggestion
 
 # Null-checking preferences
 csharp_style_throw_expression = true:suggestion
 csharp_style_conditional_delegate_call = true:suggestion
+csharp_style_prefer_null_check_over_type_check = true:warning
 
 # Code block preferences
 csharp_prefer_braces = true:warning
@@ -267,11 +268,26 @@ dotnet_naming_rule.local_should_be_camel_case.severity = suggestion
 # Analyzer Severity
 # ============================================================
 
+# IDE0011: Add braces (if, for, foreach, while, etc.)
+dotnet_diagnostic.IDE0011.severity = warning
+
 # IDE0055: Fix formatting
 dotnet_diagnostic.IDE0055.severity = warning
 
 # IDE0005: Using directive is unnecessary
 dotnet_diagnostic.IDE0005.severity = warning
+
+# IDE0041: Use 'is null' check
+dotnet_diagnostic.IDE0041.severity = warning
+
+# IDE0150: Prefer 'null' check over type check
+dotnet_diagnostic.IDE0150.severity = warning
+
+# IDE0078: Use pattern matching
+dotnet_diagnostic.IDE0078.severity = suggestion
+
+# IDE0083: Use pattern matching (not operator)
+dotnet_diagnostic.IDE0083.severity = warning
 
 # CS8600-CS8605: Nullable reference types
 dotnet_diagnostic.CS8600.severity = warning

@@ -139,10 +139,12 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
+        ArgumentException.ThrowIfNullOrEmpty(base64Data);
         var request = new UploadBinaryRequest
         {
-            FileName = fileName ?? throw new ArgumentNullException(nameof(fileName)),
-            Base64 = base64Data ?? throw new ArgumentNullException(nameof(base64Data)),
+            FileName = fileName,
+            Base64 = base64Data,
             ContentType = contentType
         };
         return await UploadBinaryAsync(siteId, request, timeout, cancellationToken);
@@ -200,7 +202,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(fileStream);
-        ArgumentNullException.ThrowIfNullOrEmpty(fileName);
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
 
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(
             $"/api/binaries/upload?id={siteId}",
@@ -264,7 +266,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(filePath);
+        ArgumentException.ThrowIfNullOrEmpty(filePath);
 
         var fileName = Path.GetFileName(filePath);
         using var fileStream = File.OpenRead(filePath);
@@ -296,9 +298,9 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(attachmentGuid);
+        ArgumentException.ThrowIfNullOrEmpty(attachmentGuid);
         ArgumentNullException.ThrowIfNull(fileStream);
-        ArgumentNullException.ThrowIfNullOrEmpty(fileName);
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
 
         var endpoint = $"/api/binaries/{attachmentGuid}/upload";
         if (overwrite)
@@ -381,7 +383,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(chunkData);
-        ArgumentNullException.ThrowIfNullOrEmpty(fileName);
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
 
         using var stream = new MemoryStream(chunkData);
         return await SendMultipartWithBearerAsync<UploadBinaryResponse>(
@@ -429,9 +431,9 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(attachmentGuid);
+        ArgumentException.ThrowIfNullOrEmpty(attachmentGuid);
         ArgumentNullException.ThrowIfNull(chunkData);
-        ArgumentNullException.ThrowIfNullOrEmpty(fileName);
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
 
         var endpoint = $"/api/binaries/{attachmentGuid}/upload";
         if (overwrite)

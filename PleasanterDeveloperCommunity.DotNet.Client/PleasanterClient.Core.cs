@@ -47,14 +47,8 @@ public partial class PleasanterClient : IDisposable
         bool ignoreSslCertificateValidation = false,
         DebugSettings? debugSettings = null)
     {
-        if (string.IsNullOrEmpty(baseUrl))
-        {
-            throw new ArgumentNullException(nameof(baseUrl));
-        }
-        if (string.IsNullOrEmpty(apiKey))
-        {
-            throw new ArgumentNullException(nameof(apiKey));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(baseUrl);
+        ArgumentException.ThrowIfNullOrEmpty(apiKey);
         _baseUrl = baseUrl.TrimEnd('/');
         _apiKey = apiKey;
         _apiVersion = Math.Max(apiVersion, 1.1f);
@@ -65,14 +59,14 @@ public partial class PleasanterClient : IDisposable
         var handler = new HttpClientHandler();
 
         // プロキシ設定
-        if (proxySettings != null)
+        if (proxySettings is not null)
         {
             var proxy = proxySettings.CreateWebProxy();
             if (proxySettings.Type == ProxySettings.ProxyType.NoProxy)
             {
                 handler.UseProxy = false;
             }
-            else if (proxy != null)
+            else if (proxy is not null)
             {
                 handler.UseProxy = true;
                 handler.Proxy = proxy;
@@ -92,7 +86,7 @@ public partial class PleasanterClient : IDisposable
         }
 
         // デバッグモードの初期化
-        if (_debugSettings != null)
+        if (_debugSettings is not null)
         {
             Directory.CreateDirectory(_debugSettings.LogDirectory);
             _logCancellation = new();
@@ -115,8 +109,8 @@ public partial class PleasanterClient : IDisposable
         float apiVersion = 1.1f,
         DebugSettings? debugSettings = null)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(baseUrl);
-        ArgumentNullException.ThrowIfNullOrEmpty(apiKey);
+        ArgumentException.ThrowIfNullOrEmpty(baseUrl);
+        ArgumentException.ThrowIfNullOrEmpty(apiKey);
         _baseUrl = baseUrl.TrimEnd('/');
         _apiKey = apiKey;
         _apiVersion = Math.Max(apiVersion, 1.1f);
@@ -127,7 +121,7 @@ public partial class PleasanterClient : IDisposable
         _logQueue = new();
 
         // デバッグモードの初期化
-        if (_debugSettings != null)
+        if (_debugSettings is not null)
         {
             Directory.CreateDirectory(_debugSettings.LogDirectory);
             _logCancellation = new();
@@ -153,7 +147,7 @@ public partial class PleasanterClient : IDisposable
         if (disposing)
         {
             // ログ書き込みタスクの終了を待つ
-            if (_logCancellation != null)
+            if (_logCancellation is not null)
             {
                 _logCancellation.Cancel();
                 _logWriterTask?.Wait(TimeSpan.FromSeconds(5));

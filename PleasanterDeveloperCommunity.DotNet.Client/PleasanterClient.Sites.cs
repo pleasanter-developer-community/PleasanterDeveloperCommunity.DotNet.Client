@@ -90,7 +90,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        if (request.FindSiteNames == null)
+        if (request.FindSiteNames is null)
         {
             throw new ArgumentException("FindSiteNames is required", nameof(request));
         }
@@ -144,7 +144,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        if (request.SelectedSites == null)
+        if (request.SelectedSites is null)
         {
             throw new ArgumentException("SelectedSites is required", nameof(request));
         }

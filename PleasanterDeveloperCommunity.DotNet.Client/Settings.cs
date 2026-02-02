@@ -100,7 +100,8 @@ public class DebugSettings
     /// <param name="maskApiKey">APIキーをマスクして出力するかどうか（デフォルト: true）</param>
     public DebugSettings(string logDirectory, bool maskApiKey = true)
     {
-        LogDirectory = logDirectory ?? throw new ArgumentNullException(nameof(logDirectory));
+        ArgumentException.ThrowIfNullOrEmpty(logDirectory);
+        LogDirectory = logDirectory;
         Encoding = Encoding.Default;
         MaskApiKey = maskApiKey;
     }
@@ -113,7 +114,8 @@ public class DebugSettings
     /// <param name="maskApiKey">APIキーをマスクして出力するかどうか（デフォルト: true）</param>
     public DebugSettings(string logDirectory, Encoding encoding, bool maskApiKey = true)
     {
-        LogDirectory = logDirectory ?? throw new ArgumentNullException(nameof(logDirectory));
+        ArgumentException.ThrowIfNullOrEmpty(logDirectory);
+        LogDirectory = logDirectory;
         Encoding = encoding ?? Encoding.Default;
         MaskApiKey = maskApiKey;
     }

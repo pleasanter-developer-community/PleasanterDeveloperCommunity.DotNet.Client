@@ -482,13 +482,43 @@ var message = status switch
     500 => "サーバーエラー",
     _ => "不明なステータス"
 };
+```
 
-// nullチェック
+#### nullチェックの書き方
+
+**`is null` / `is not null` を使用する**（`== null` / `!= null` は使用しない）：
+
+```csharp
+// Good - パターンマッチングを使用
 if (value is not null)
 {
     Process(value);
 }
+
+if (request is null)
+{
+    throw new ArgumentNullException(nameof(request));
+}
+
+// Bad - 従来の等値演算子（使用しない）
+if (value != null)  // 避ける
+{
+    Process(value);
+}
+
+if (request == null)  // 避ける
+{
+    throw new ArgumentNullException(nameof(request));
+}
 ```
+
+**理由**:
+
+- `is null` は `object.Equals` のオーバーロードに影響されない
+- 一貫性があり、パターンマッチングと統一された記法になる
+- コンパイラの最適化を受けやすい
+
+````
 
 ### ターゲット型new式
 
@@ -502,7 +532,7 @@ PleasanterClient client = new(settings);
 
 // 型が不明確な場合は従来の形式
 var items = new List<string>();
-```
+````
 
 ### using宣言
 
@@ -907,9 +937,34 @@ public Record GetRecord(long id)
 
 ### 例外の使用
 
-#### nullチェック
+#### 引数検証メソッド一覧
 
-.NET 10では `ArgumentNullException.ThrowIfNull` を使用する：
+.NET 7以降で追加された静的メソッドを使用する。従来の `if` + `throw` パターンは使用しない。
+
+| 検証内容            | 使用するメソッド                          | 所属クラス                    |
+| ------------------- | ----------------------------------------- | ----------------------------- |
+| nullチェック        | `ThrowIfNull(value)`                      | `ArgumentNullException`       |
+| null/空文字チェック | `ThrowIfNullOrEmpty(value)`               | `ArgumentException`           |
+| null/空白チェック   | `ThrowIfNullOrWhiteSpace(value)`          | `ArgumentException`           |
+| 負数チェック        | `ThrowIfNegative(value)`                  | `ArgumentOutOfRangeException` |
+| 負数/ゼロチェック   | `ThrowIfNegativeOrZero(value)`            | `ArgumentOutOfRangeException` |
+| ゼロチェック        | `ThrowIfZero(value)`                      | `ArgumentOutOfRangeException` |
+| 範囲（より大きい）  | `ThrowIfGreaterThan(value, other)`        | `ArgumentOutOfRangeException` |
+| 範囲（以上）        | `ThrowIfGreaterThanOrEqual(value, other)` | `ArgumentOutOfRangeException` |
+| 範囲（より小さい）  | `ThrowIfLessThan(value, other)`           | `ArgumentOutOfRangeException` |
+| 範囲（以下）        | `ThrowIfLessThanOrEqual(value, other)`    | `ArgumentOutOfRangeException` |
+| 等値チェック        | `ThrowIfEqual(value, other)`              | `ArgumentOutOfRangeException` |
+| 非等値チェック      | `ThrowIfNotEqual(value, other)`           | `ArgumentOutOfRangeException` |
+
+> **重要**: 文字列の検証には `ArgumentException.ThrowIfNullOrEmpty` を使用する。
+> `ArgumentNullException.ThrowIfNullOrEmpty` は存在しない。
+>
+> **動作**: `ArgumentException.ThrowIfNullOrEmpty` は値に応じて適切な例外をスローする：
+>
+> - `null` の場合 → `ArgumentNullException`
+> - 空文字 (`""`) の場合 → `ArgumentException`
+
+#### nullチェック
 
 ```csharp
 // Good - ThrowIfNullを使用
@@ -919,7 +974,14 @@ public void Process(RecordRequest request)
     // 処理
 }
 
-// Good - 文字列の場合はThrowIfNullOrEmpty/ThrowIfNullOrWhiteSpace
+// Good - 文字列の場合はArgumentException.ThrowIfNullOrEmpty
+public void SetBaseUrl(string baseUrl)
+{
+    ArgumentException.ThrowIfNullOrEmpty(baseUrl);
+    _baseUrl = baseUrl;
+}
+
+// Good - 空白も許容しない場合はThrowIfNullOrWhiteSpace
 public void SetName(string name)
 {
     ArgumentException.ThrowIfNullOrWhiteSpace(name);
@@ -934,6 +996,15 @@ public void Process(RecordRequest request)
         throw new ArgumentNullException(nameof(request));
     }
 }
+
+// Bad - string.IsNullOrEmptyとthrowの組み合わせ（使用しない）
+public void SetBaseUrl(string baseUrl)
+{
+    if (string.IsNullOrEmpty(baseUrl))
+    {
+        throw new ArgumentNullException(nameof(baseUrl));
+    }
+}
 ```
 
 #### 範囲チェック
@@ -944,6 +1015,13 @@ public void SetTimeout(int seconds)
 {
     ArgumentOutOfRangeException.ThrowIfNegativeOrZero(seconds);
     _timeout = TimeSpan.FromSeconds(seconds);
+}
+
+public void SetPageSize(int pageSize)
+{
+    ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
+    ArgumentOutOfRangeException.ThrowIfGreaterThan(pageSize, 1000);
+    _pageSize = pageSize;
 }
 ```
 
@@ -1290,14 +1368,22 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
 
 以下のルールは `warning` レベルで設定されており、違反すると警告が表示される：
 
-| ルール                                     | 設定値    | 説明                   |
-| ------------------------------------------ | --------- | ---------------------- |
-| `csharp_prefer_braces`                     | `true`    | 制御文の中括弧を必須   |
-| `dotnet_style_prefer_string_interpolation` | `true`    | 文字列補間を優先       |
-| `dotnet_sort_system_directives_first`      | `true`    | System系を先頭にソート |
-| `IDE0055`                                  | `warning` | フォーマット違反       |
-| `IDE0005`                                  | `warning` | 不要なusing            |
-| `CS8600-CS8605`                            | `warning` | Nullable参照型関連     |
+| ルール                                                             | 設定値    | 説明                     |
+| ------------------------------------------------------------------ | --------- | ------------------------ |
+| `csharp_prefer_braces`                                             | `true`    | 制御文の中括弧を必須     |
+| `dotnet_style_prefer_string_interpolation`                         | `true`    | 文字列補間を優先         |
+| `dotnet_style_prefer_is_null_check_over_reference_equality_method` | `true`    | `is null` チェックを優先 |
+| `csharp_style_pattern_matching_over_is_with_cast_check`            | `true`    | パターンマッチングを優先 |
+| `csharp_style_pattern_matching_over_as_with_null_check`            | `true`    | パターンマッチングを優先 |
+| `csharp_style_prefer_not_pattern`                                  | `true`    | `is not` パターンを優先  |
+| `dotnet_sort_system_directives_first`                              | `true`    | System系を先頭にソート   |
+| `IDE0005`                                                          | `warning` | 不要なusing              |
+| `IDE0011`                                                          | `warning` | 中括弧の追加を強制       |
+| `IDE0041`                                                          | `warning` | `is null` チェックを使用 |
+| `IDE0055`                                                          | `warning` | フォーマット違反         |
+| `IDE0083`                                                          | `warning` | `is not` パターンを使用  |
+| `IDE0150`                                                          | `warning` | 型チェックよりnullチェック |
+| `CS8600-CS8605`                                                    | `warning` | Nullable参照型関連       |
 
 #### 命名規則（EditorConfigで強制）
 

@@ -112,7 +112,7 @@ public partial class PleasanterClient
             var request = new GetRecordsRequest { Offset = offset, View = view };
             var response = await GetRecordsAsync(siteId, request, timeout, cancellationToken);
 
-            if (!response.IsSuccess || response.Response?.Data == null)
+            if (!response.IsSuccess || response.Response?.Data is null)
                 return response;
 
             allData.AddRange(response.Response.Data);
@@ -183,7 +183,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        if (request.Keys == null)
+        if (request.Keys is null)
         {
             throw new ArgumentException("Keys is required", nameof(request));
         }
@@ -212,7 +212,7 @@ public partial class PleasanterClient
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        if (request.Data == null)
+        if (request.Data is null)
         {
             throw new ArgumentException("Data is required", nameof(request));
         }

@@ -31,10 +31,7 @@ public static class FileHelper
     /// <exception cref="FileNotFoundException">ファイルが存在しない場合</exception>
     public static string ToBase64(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new ArgumentNullException(nameof(filePath));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(filePath);
         if (!File.Exists(filePath))
         {
             throw new FileNotFoundException("指定されたファイルが見つかりません。", filePath);
@@ -102,10 +99,7 @@ public static class FileHelper
     /// <exception cref="FileNotFoundException">ファイルが存在しない場合</exception>
     public static (string FileName, long Size, string Base64, string ContentType) GetFullFileData(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new ArgumentNullException(nameof(filePath));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(filePath);
         if (!File.Exists(filePath))
         {
             throw new FileNotFoundException("指定されたファイルが見つかりません。", filePath);
@@ -125,15 +119,8 @@ public static class FileHelper
     /// <param name="contentType">コンテンツタイプ</param>
     public static void AddMapping(string extension, string contentType)
     {
-        if (string.IsNullOrEmpty(extension))
-        {
-            throw new ArgumentNullException(nameof(extension));
-        }
-        if (string.IsNullOrEmpty(contentType))
-        {
-            throw new ArgumentNullException(nameof(contentType));
-        }
-
+        ArgumentException.ThrowIfNullOrEmpty(extension);
+        ArgumentException.ThrowIfNullOrEmpty(contentType);
         ContentTypeProvider.Mappings[extension] = contentType;
     }
 
@@ -145,15 +132,8 @@ public static class FileHelper
     /// <exception cref="ArgumentNullException"><paramref name="base64"/>または<paramref name="filePath"/>がnullまたは空の場合</exception>
     public static void SaveFromBase64(string base64, string filePath)
     {
-        if (string.IsNullOrEmpty(base64))
-        {
-            throw new ArgumentNullException(nameof(base64));
-        }
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new ArgumentNullException(nameof(filePath));
-        }
-
+        ArgumentException.ThrowIfNullOrEmpty(base64);
+        ArgumentException.ThrowIfNullOrEmpty(filePath);
         var directory = Path.GetDirectoryName(filePath);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
@@ -172,15 +152,8 @@ public static class FileHelper
     /// <exception cref="ArgumentNullException"><paramref name="base64"/>または<paramref name="filePath"/>がnullまたは空の場合</exception>
     public static async Task SaveFromBase64Async(string base64, string filePath)
     {
-        if (string.IsNullOrEmpty(base64))
-        {
-            throw new ArgumentNullException(nameof(base64));
-        }
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new ArgumentNullException(nameof(filePath));
-        }
-
+        ArgumentException.ThrowIfNullOrEmpty(base64);
+        ArgumentException.ThrowIfNullOrEmpty(filePath);
         var directory = Path.GetDirectoryName(filePath);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
@@ -200,10 +173,7 @@ public static class FileHelper
     /// <exception cref="ArgumentNullException"><paramref name="base64"/>がnullまたは空の場合</exception>
     public static byte[] ToBytes(string base64)
     {
-        if (string.IsNullOrEmpty(base64))
-        {
-            throw new ArgumentNullException(nameof(base64));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(base64);
         return Convert.FromBase64String(base64);
     }
 
@@ -217,10 +187,7 @@ public static class FileHelper
     /// <exception cref="ArgumentNullException">引数がnullまたは空の場合</exception>
     public static string SaveFromBase64ToDirectory(string base64, string directoryPath, string fileName)
     {
-        if (string.IsNullOrEmpty(fileName))
-        {
-            throw new ArgumentNullException(nameof(fileName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
         var filePath = Path.Combine(directoryPath, fileName);
         SaveFromBase64(base64, filePath);
         return filePath;
@@ -236,10 +203,7 @@ public static class FileHelper
     /// <exception cref="ArgumentNullException">引数がnullまたは空の場合</exception>
     public static async Task<string> SaveFromBase64ToDirectoryAsync(string base64, string directoryPath, string fileName)
     {
-        if (string.IsNullOrEmpty(fileName))
-        {
-            throw new ArgumentNullException(nameof(fileName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(fileName);
         var filePath = Path.Combine(directoryPath, fileName);
         await SaveFromBase64Async(base64, filePath).ConfigureAwait(false);
         return filePath;
