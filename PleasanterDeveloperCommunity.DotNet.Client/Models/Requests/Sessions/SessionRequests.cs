@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sessions;
 
@@ -9,9 +8,19 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sessions;
 public class GetSessionRequest : ApiRequestBase
 {
     /// <summary>
-    /// セッション名
+    /// セッションキー
     /// </summary>
-    public string? Name { get; set; }
+    [JsonPropertyName("SessionKey")]
+    public string? SessionKey { get; set; }
+
+    /// <summary>
+    /// ユーザー単位で保存するかどうか
+    /// </summary>
+    /// <remarks>
+    /// <c>true</c>の場合、セッションはユーザー単位で保存され、有効期限切れによる自動削除の対象外となります。
+    /// <c>false</c>（デフォルト）の場合、セッションはセッションGUID単位で保存され、RetentionPeriod（デフォルト24時間）経過後に削除されます。
+    /// </remarks>
+    public bool SavePerUser { get; set; }
 }
 
 /// <summary>
@@ -20,14 +29,25 @@ public class GetSessionRequest : ApiRequestBase
 public class SetSessionRequest : ApiRequestBase
 {
     /// <summary>
-    /// セッション名
+    /// セッションキー
     /// </summary>
-    public string? Name { get; set; }
+    [JsonPropertyName("SessionKey")]
+    public string? SessionKey { get; set; }
 
     /// <summary>
-    /// 値
+    /// セッション値
     /// </summary>
-    public string? Value { get; set; }
+    [JsonPropertyName("SessionValue")]
+    public string? SessionValue { get; set; }
+
+    /// <summary>
+    /// ユーザー単位で保存するかどうか
+    /// </summary>
+    /// <remarks>
+    /// <c>true</c>の場合、セッションはユーザー単位で保存され、有効期限切れによる自動削除の対象外となります。
+    /// <c>false</c>（デフォルト）の場合、セッションはセッションGUID単位で保存され、RetentionPeriod（デフォルト24時間）経過後に削除されます。
+    /// </remarks>
+    public bool SavePerUser { get; set; }
 }
 
 /// <summary>
@@ -36,7 +56,17 @@ public class SetSessionRequest : ApiRequestBase
 public class DeleteSessionRequest : ApiRequestBase
 {
     /// <summary>
-    /// セッション名
+    /// セッションキー
     /// </summary>
-    public string? Name { get; set; }
+    [JsonPropertyName("SessionKey")]
+    public string? SessionKey { get; set; }
+
+    /// <summary>
+    /// ユーザー単位で保存するかどうか
+    /// </summary>
+    /// <remarks>
+    /// <c>true</c>の場合、ユーザー単位で保存されたセッションを対象とします。
+    /// <c>false</c>（デフォルト）の場合、セッションGUID単位で保存されたセッションを対象とします。
+    /// </remarks>
+    public bool SavePerUser { get; set; }
 }

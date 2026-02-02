@@ -14,4 +14,25 @@ public class SetSessionResponse
     /// メッセージ
     /// </summary>
     public string? Message { get; set; }
+
+    /// <summary>
+    /// レスポンスデータ
+    /// </summary>
+    public SetSessionResponseData? Response { get; set; }
+}
+
+/// <summary>
+/// セッション設定レスポンスデータ
+/// </summary>
+public class SetSessionResponseData
+{
+    /// <summary>
+    /// ユーザーID
+    /// </summary>
+    public int UserId { get; set; }
+
+    /// <summary>
+    /// セッションキー
+    /// </summary>
+    public string? Key { get; set; }
 }

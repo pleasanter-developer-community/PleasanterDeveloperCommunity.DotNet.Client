@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sessions;
 
 /// <summary>
@@ -20,32 +18,26 @@ public class GetSessionResponse
     /// <summary>
     /// セッションデータ
     /// </summary>
-    public SessionResponseData? Response { get; set; }
+    public GetSessionResponseData? Response { get; set; }
 }
 
 /// <summary>
-/// セッションレスポンスデータ
+/// セッション取得レスポンスデータ
 /// </summary>
-public class SessionResponseData
+public class GetSessionResponseData
 {
     /// <summary>
-    /// データ
+    /// ユーザーID
     /// </summary>
-    public List<SessionData>? Data { get; set; }
-}
-
-/// <summary>
-/// セッションデータ
-/// </summary>
-public class SessionData
-{
-    /// <summary>
-    /// 名前
-    /// </summary>
-    public string? Name { get; set; }
+    public int UserId { get; set; }
 
     /// <summary>
-    /// 値
+    /// セッションキー
+    /// </summary>
+    public string? Key { get; set; }
+
+    /// <summary>
+    /// セッション値
     /// </summary>
     public string? Value { get; set; }
 }
