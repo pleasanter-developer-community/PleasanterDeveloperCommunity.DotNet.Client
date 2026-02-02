@@ -1,4 +1,4 @@
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sessions;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sessions;
 
 /// <summary>
 /// セッション取得レスポンス
