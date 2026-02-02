@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Mails;
@@ -34,7 +34,7 @@ public partial class PleasanterClient
         }
         SetApiCredentials(request);
         return await SendRequestAsync<SendMailResponse>(
-            $"/api/items/{itemId}/mails/send", request, timeout, cancellationToken);
+            $"/api/items/{itemId}/OutgoingMails/Send", request, timeout, cancellationToken);
     }
 
     #endregion
