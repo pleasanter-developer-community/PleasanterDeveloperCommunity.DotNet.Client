@@ -50,6 +50,7 @@
     - [クエリ構文 vs メソッド構文](#クエリ構文-vs-メソッド構文)
 - [ファイル構成](#ファイル構成)
     - [ディレクトリ構造](#ディレクトリ構造)
+    - [usingディレクティブ](#usingディレクティブ)
     - [ファイル内の順序](#ファイル内の順序)
 - [ツール設定](#ツール設定)
     - [EditorConfig](#editorconfig)
@@ -891,6 +892,43 @@ PleasanterDeveloperCommunity.DotNet.Client/
         └── RecordField.cs
 ```
 
+### usingディレクティブ
+
+#### 配置と並び順
+
+| ルール            | 説明                                        |
+| ----------------- | ------------------------------------------- |
+| 配置位置          | 名前空間の外側（ファイル先頭）              |
+| System系を先頭    | `System.*` 名前空間を最初にグループ化       |
+| アルファベット順  | 各グループ内でアルファベット順にソート      |
+| 不要なusingは削除 | 使用していないusingディレクティブは削除する |
+
+#### 記述例
+
+```csharp
+// Good - System系が先頭、アルファベット順
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Models;
+
+// Bad - 順序が不適切
+using PleasanterDeveloperCommunity.DotNet.Client.Models;
+using System;  // System系は先頭に
+using Newtonsoft.Json;
+```
+
+#### 自動整理
+
+VS Codeでは保存時に自動整理される（`.vscode/settings.json` で設定済み）。
+
+手動で実行する場合は `dotnet format` コマンドを使用：
+
+```bash
+dotnet format --include-generated
+```
+
 ### ファイル内の順序
 
 ```csharp
@@ -948,13 +986,14 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
 
 以下のルールは `warning` レベルで設定されており、違反すると警告が表示される：
 
-| ルール                                     | 設定値    | 説明                 |
-| ------------------------------------------ | --------- | -------------------- |
-| `csharp_prefer_braces`                     | `true`    | 制御文の中括弧を必須 |
-| `dotnet_style_prefer_string_interpolation` | `true`    | 文字列補間を優先     |
-| `IDE0055`                                  | `warning` | フォーマット違反     |
-| `IDE0005`                                  | `warning` | 不要なusing          |
-| `CS8600-CS8605`                            | `warning` | Nullable参照型関連   |
+| ルール                                     | 設定値    | 説明                   |
+| ------------------------------------------ | --------- | ---------------------- |
+| `csharp_prefer_braces`                     | `true`    | 制御文の中括弧を必須   |
+| `dotnet_style_prefer_string_interpolation` | `true`    | 文字列補間を優先       |
+| `dotnet_sort_system_directives_first`      | `true`    | System系を先頭にソート |
+| `IDE0055`                                  | `warning` | フォーマット違反       |
+| `IDE0005`                                  | `warning` | 不要なusing            |
+| `CS8600-CS8605`                            | `warning` | Nullable参照型関連     |
 
 #### 命名規則（EditorConfigで強制）
 

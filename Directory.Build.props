@@ -1,5 +1,9 @@
 <Project>
   <PropertyGroup>
+    <!-- NuGetパッケージの自動復元 -->
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <RestoreLockFileForceRestore>false</RestoreLockFileForceRestore>
+
     <!-- コード分析の有効化 -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest-recommended</AnalysisLevel>

@@ -238,6 +238,17 @@ npm run toc:all
 3. `npm run toc:all` でTOC更新とフォーマットを一括適用
 4. コミット前に `npm run format:check` で最終確認
 
+#### VS Codeタスクとの連携
+
+npmスクリプトはVS Codeのタスクとしても登録されている。`Ctrl+Shift+P` → `Tasks: Run Task` から `npm:` で始まるタスクを選択して実行できる。
+
+新しいnpmスクリプトを追加した場合は、以下も更新すること：
+
+| 更新対象                                       | 内容                         |
+| ---------------------------------------------- | ---------------------------- |
+| `.vscode/tasks.json`                           | 対応するタスクを追加         |
+| `docs/contributing/development-environment.md` | ドキュメントタスク一覧に追記 |
+
 ### 目次の自動生成（doctoc）
 
 目次の生成・更新は doctoc で自動化されている。

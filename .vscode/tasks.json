@@ -1,0 +1,108 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["restore"],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "--no-restore"],
+      "dependsOn": ["restore"],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build (Release)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "--configuration", "Release", "--no-restore"],
+      "dependsOn": ["restore"],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["clean"],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "rebuild",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "--no-restore"],
+      "dependsOn": ["clean", "restore"],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "format",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["format", "--include-generated"],
+      "problemMatcher": "$msCompile",
+      "group": "build",
+      "detail": "C#コードのフォーマット（using整理含む）"
+    },
+    {
+      "label": "npm: lint:md",
+      "type": "npm",
+      "script": "lint:md",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "Markdownファイルの構文チェック"
+    },
+    {
+      "label": "npm: lint:md:fix",
+      "type": "npm",
+      "script": "lint:md:fix",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "Markdownのlintエラーを自動修正"
+    },
+    {
+      "label": "npm: format",
+      "type": "npm",
+      "script": "format",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "Prettierでファイルをフォーマット"
+    },
+    {
+      "label": "npm: format:check",
+      "type": "npm",
+      "script": "format:check",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "フォーマットのチェック（変更なし）"
+    },
+    {
+      "label": "npm: toc",
+      "type": "npm",
+      "script": "toc",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "doctocでTOCを一括更新"
+    },
+    {
+      "label": "npm: toc:all",
+      "type": "npm",
+      "script": "toc:all",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "TOC更新 + フォーマットを一括実行"
+    }
+  ]
+}

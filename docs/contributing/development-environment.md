@@ -18,6 +18,7 @@
     - [推奨拡張機能](#推奨拡張機能)
     - [拡張機能の一括インストール](#拡張機能の一括インストール)
     - [ワークスペース設定](#ワークスペース設定)
+    - [ビルドタスク](#ビルドタスク)
 - [その他のIDE](#その他のide)
     - [Visual Studio](#visual-studio)
     - [JetBrains Rider](#jetbrains-rider)
@@ -179,6 +180,53 @@ code --install-extension yzhang.markdown-all-in-one
 | `[markdown].editor.codeActionsOnSave` | markdownlint fixAll      | 保存時にlintエラーを自動修正       |
 | `markdown.extension.toc.updateOnSave` | `true`                   | 保存時に目次を自動更新             |
 | `files.eol`                           | `\n`                     | 改行コードをLFに統一               |
+
+### ビルドタスク
+
+プロジェクトには `.vscode/tasks.json` が含まれており、VS Code のタスク機能でビルドやドキュメント操作を実行できる。
+
+#### ビルドタスク
+
+| タスク            | 説明                      | 備考                          |
+| ----------------- | ------------------------- | ----------------------------- |
+| `build`           | NuGet復元→ビルド          | デフォルトビルドタスク        |
+| `build (Release)` | リリース構成でビルド      | 最適化有効、警告をエラー扱い  |
+| `restore`         | NuGetパッケージの復元のみ | 依存パッケージのダウンロード  |
+| `clean`           | ビルド成果物のクリーン    | bin/obj フォルダを削除        |
+| `rebuild`         | クリーン→復元→ビルド      | フルリビルド                  |
+| `format`          | C#コードのフォーマット    | using整理・コードスタイル適用 |
+
+#### ドキュメントタスク（npm）
+
+| タスク              | 説明                           | 対応するnpmスクリプト  |
+| ------------------- | ------------------------------ | ---------------------- |
+| `npm: lint:md`      | Markdownファイルの構文チェック | `npm run lint:md`      |
+| `npm: lint:md:fix`  | lintエラーを自動修正           | `npm run lint:md:fix`  |
+| `npm: format`       | Prettierでフォーマット         | `npm run format`       |
+| `npm: format:check` | フォーマットのチェック         | `npm run format:check` |
+| `npm: toc`          | doctocでTOCを更新              | `npm run toc`          |
+| `npm: toc:all`      | TOC更新 + フォーマットを一括   | `npm run toc:all`      |
+
+#### タスクの実行方法
+
+**キーボードショートカット（推奨）**
+
+- `Ctrl+Shift+B`（Windows/Linux）または `Cmd+Shift+B`（macOS）でデフォルトのビルドタスクを実行
+
+**コマンドパレットから実行**
+
+1. `Ctrl+Shift+P`（Windows/Linux）または `Cmd+Shift+P`（macOS）でコマンドパレットを開く
+2. `Tasks: Run Task` と入力
+3. 実行したいタスクを選択
+
+**ターミナルメニューから実行**
+
+1. メニューバーから「ターミナル」→「タスクの実行」を選択
+2. 実行したいタスクを選択
+
+#### 自動NuGet復元
+
+`build` タスクは `restore` タスクに依存しているため、ビルド実行時に自動的にNuGetパッケージが復元される。手動で `dotnet restore` を実行する必要はない。
 
 ---
 
