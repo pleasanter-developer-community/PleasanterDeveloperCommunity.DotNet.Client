@@ -251,6 +251,22 @@ public RecordResponse getRecord(long id) { }      // 小文字始まり
 public async Task<RecordResponse> GetRecord(long id) { } // Asyncサフィックスなし
 ```
 
+#### ヘルパーメソッド（変換系）
+
+入力を別の形式に変換するヘルパーメソッドは `To{Output}` パターンを使用する：
+
+```csharp
+// Good - To{Output} パターン
+public static string ToBase64(string filePath) { }           // File → Base64
+public static byte[] ToBytes(string base64) { }              // Base64 → Bytes
+public static MailAttachment ToMailAttachment(string filePath) { }  // File → MailAttachment
+public static AttachmentData ToAttachmentData(string filePath) { }  // File → AttachmentData
+
+// Bad - 命名規則の揺れ
+public static byte[] FromBase64ToBytes(string base64) { }    // From...To... は使わない
+public static MailAttachment CreateMailAttachment(string filePath) { }  // Create... は使わない
+```
+
 #### フィールド
 
 ```csharp

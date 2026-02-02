@@ -178,9 +178,10 @@ dotnet add package Newtonsoft.Json
 
 このプロジェクトは以下のサードパーティライブラリを使用しています：
 
-| ライブラリ      | ライセンス | 著作権                               |
-| --------------- | ---------- | ------------------------------------ |
-| Newtonsoft.Json | MIT        | Copyright (c) 2007 James Newton-King |
+| ライブラリ                       | ライセンス | 著作権                                         |
+| -------------------------------- | ---------- | ---------------------------------------------- |
+| Newtonsoft.Json                  | MIT        | Copyright (c) 2007 James Newton-King           |
+| Microsoft.AspNetCore.StaticFiles | MIT        | Copyright (c) .NET Foundation and Contributors |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。
 

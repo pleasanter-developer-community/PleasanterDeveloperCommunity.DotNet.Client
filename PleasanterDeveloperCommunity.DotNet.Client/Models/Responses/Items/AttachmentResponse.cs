@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using PleasanterDeveloperCommunity.DotNet.Client.Helpers;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -82,8 +83,10 @@ public class AttachmentResponse
     public byte[] GetBytes()
     {
         if (string.IsNullOrEmpty(Base64))
+        {
             return Array.Empty<byte>();
-        return Convert.FromBase64String(Base64);
+        }
+        return FileHelper.ToBytes(Base64);
     }
 
     /// <summary>
@@ -91,8 +94,11 @@ public class AttachmentResponse
     /// </summary>
     public void SaveToFile(string filePath)
     {
-        var bytes = GetBytes();
-        File.WriteAllBytes(filePath, bytes);
+        if (string.IsNullOrEmpty(Base64))
+        {
+            throw new InvalidOperationException("Base64データが存在しません。");
+        }
+        FileHelper.SaveFromBase64(Base64, filePath);
     }
 
     /// <summary>
@@ -100,9 +106,11 @@ public class AttachmentResponse
     /// </summary>
     public async Task SaveToFileAsync(string filePath)
     {
-        var bytes = GetBytes();
-        using var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true);
-        await stream.WriteAsync(bytes.AsMemory()).ConfigureAwait(false);
+        if (string.IsNullOrEmpty(Base64))
+        {
+            throw new InvalidOperationException("Base64データが存在しません。");
+        }
+        await FileHelper.SaveFromBase64Async(Base64, filePath).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -110,9 +118,11 @@ public class AttachmentResponse
     /// </summary>
     public string SaveToDirectory(string directoryPath)
     {
-        var filePath = Path.Combine(directoryPath, FileName);
-        SaveToFile(filePath);
-        return filePath;
+        if (string.IsNullOrEmpty(Base64))
+        {
+            throw new InvalidOperationException("Base64データが存在しません。");
+        }
+        return FileHelper.SaveFromBase64ToDirectory(Base64, directoryPath, FileName);
     }
 
     /// <summary>
@@ -120,8 +130,10 @@ public class AttachmentResponse
     /// </summary>
     public async Task<string> SaveToDirectoryAsync(string directoryPath)
     {
-        var filePath = Path.Combine(directoryPath, FileName);
-        await SaveToFileAsync(filePath);
-        return filePath;
+        if (string.IsNullOrEmpty(Base64))
+        {
+            throw new InvalidOperationException("Base64データが存在しません。");
+        }
+        return await FileHelper.SaveFromBase64ToDirectoryAsync(Base64, directoryPath, FileName).ConfigureAwait(false);
     }
 }
