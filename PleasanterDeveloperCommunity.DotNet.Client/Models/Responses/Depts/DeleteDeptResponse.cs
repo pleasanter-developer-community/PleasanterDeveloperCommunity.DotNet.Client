@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 
 /// <summary>
 /// 組織削除レスポンス

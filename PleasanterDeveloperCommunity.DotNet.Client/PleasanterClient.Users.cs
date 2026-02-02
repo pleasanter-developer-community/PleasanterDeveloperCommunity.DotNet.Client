@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -30,10 +30,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<GetUsersResponse>(
             "/api/users/get", request, timeout, cancellationToken);
@@ -56,10 +53,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<CreateUserResponse>(
             "/api/users/create", request, timeout, cancellationToken);
@@ -84,10 +78,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateUserResponse>(
             $"/api/users/{userId}/update", request, timeout, cancellationToken);
@@ -112,10 +103,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteUserResponse>(
             $"/api/users/{userId}/delete", request, timeout, cancellationToken);

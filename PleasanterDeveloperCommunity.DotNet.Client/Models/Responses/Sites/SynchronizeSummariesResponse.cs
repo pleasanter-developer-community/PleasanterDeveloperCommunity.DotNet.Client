@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
 /// <summary>
 /// サマリ同期レスポンス

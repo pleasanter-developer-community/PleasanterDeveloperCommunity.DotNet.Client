@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
@@ -32,10 +32,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<CreateRecordResponse>(
             $"/api/items/{siteId}/create", request, timeout, cancellationToken);
@@ -60,10 +57,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<RecordResponse>(
             $"/api/items/{recordId}/get", request, timeout, cancellationToken);
@@ -88,10 +82,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<RecordsResponse>(
             $"/api/items/{siteId}/get", request, timeout, cancellationToken);
@@ -166,10 +157,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateRecordResponse>(
             $"/api/items/{recordId}/update", request, timeout, cancellationToken);
@@ -194,10 +182,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         if (request.Keys == null)
         {
             throw new ArgumentException("Keys is required", nameof(request));
@@ -226,10 +211,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         if (request.Data == null)
         {
             throw new ArgumentException("Data is required", nameof(request));
@@ -258,10 +240,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteRecordResponse>(
             $"/api/items/{recordId}/delete", request, timeout, cancellationToken);
@@ -286,10 +265,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<BulkDeleteRecordResponse>(
             $"/api/items/{siteId}/bulkdelete", request, timeout, cancellationToken);

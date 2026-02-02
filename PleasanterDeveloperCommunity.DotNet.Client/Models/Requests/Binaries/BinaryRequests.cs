@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Binaries;
 
 /// <summary>
 /// バイナリストリーム取得リクエスト

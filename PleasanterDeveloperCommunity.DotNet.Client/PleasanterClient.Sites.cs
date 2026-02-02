@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,10 +31,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         if (string.IsNullOrEmpty(request.Title))
         {
             throw new ArgumentException("Title is required", nameof(request));
@@ -67,10 +64,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<GetSiteResponse>(
             $"/api/items/{siteId}/getsite", request, timeout, cancellationToken);
@@ -95,10 +89,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         if (request.FindSiteNames == null)
         {
             throw new ArgumentException("FindSiteNames is required", nameof(request));
@@ -127,10 +118,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateSiteResponse>(
             $"/api/items/{siteId}/updatesite", request, timeout, cancellationToken);
@@ -155,10 +143,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         if (request.SelectedSites == null)
         {
             throw new ArgumentException("SelectedSites is required", nameof(request));
@@ -187,10 +172,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<DeleteSiteResponse>(
             $"/api/items/{siteId}/deletesite", request, timeout, cancellationToken);
@@ -215,10 +197,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<SynchronizeSummariesResponse>(
             $"/api/items/{siteId}/synchronizesummaries", request, timeout, cancellationToken);
@@ -243,10 +222,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<UpdateSiteSettingsResponse>(
             $"/api/items/{siteId}/updatesitesettings", request, timeout, cancellationToken);

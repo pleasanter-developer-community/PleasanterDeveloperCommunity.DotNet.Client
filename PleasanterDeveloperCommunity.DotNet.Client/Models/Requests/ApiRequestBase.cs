@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 
 /// <summary>
 /// APIリクエストの基底クラス

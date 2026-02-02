@@ -4,9 +4,10 @@
 
 ## プロジェクト情報
 
-- **ターゲット**: .NET Standard 2.1
+- **ターゲット**: .NET 10
 - **言語バージョン**: C# latest
 - **Nullable**: 有効
+- **JSONライブラリ**: System.Text.Json
 
 ## コーディング規約
 

@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Extensions;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Extensions;
 
 /// <summary>
 /// 拡張機能作成レスポンス

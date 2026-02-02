@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Helpers;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
@@ -29,7 +29,7 @@ public class AttachmentResponse
     /// <summary>
     /// 添付ファイルのGUID
     /// </summary>
-    [JsonProperty("Guid")]
+    [JsonPropertyName("Guid")]
     public string? AttachmentGuid { get; set; }
 
     /// <summary>

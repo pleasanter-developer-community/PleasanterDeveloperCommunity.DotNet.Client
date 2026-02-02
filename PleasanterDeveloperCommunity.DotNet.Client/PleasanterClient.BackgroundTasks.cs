@@ -31,10 +31,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         var endpoint = siteId.HasValue
             ? $"/api/backgroundtasks/{siteId.Value}/rebuildsearchindexes"

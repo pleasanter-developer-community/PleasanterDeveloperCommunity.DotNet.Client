@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.BackgroundTasks;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.BackgroundTasks;
 
 /// <summary>
 /// 検索インデックス再構築レスポンス

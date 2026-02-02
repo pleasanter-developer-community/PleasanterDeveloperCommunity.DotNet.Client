@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 
 /// <summary>
 /// グループインポートレスポンス

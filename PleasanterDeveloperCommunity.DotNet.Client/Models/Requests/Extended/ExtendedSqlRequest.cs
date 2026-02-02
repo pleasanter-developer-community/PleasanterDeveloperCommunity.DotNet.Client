@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extended;
 

@@ -248,7 +248,7 @@ flowchart LR
 
 ```text
 PleasanterDeveloperCommunity.DotNet.Client_vX.X.X.zip
-├── netstandard2.1/          # ビルド成果物
+├── net10.0/                 # ビルド成果物
 │   ├── PleasanterDeveloperCommunity.DotNet.Client.dll
 │   └── ...
 ├── wiki/                    # ドキュメント

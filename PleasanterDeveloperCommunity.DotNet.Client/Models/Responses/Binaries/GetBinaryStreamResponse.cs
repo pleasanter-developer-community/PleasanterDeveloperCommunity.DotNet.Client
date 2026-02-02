@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 
 /// <summary>
 /// バイナリストリーム取得レスポンス

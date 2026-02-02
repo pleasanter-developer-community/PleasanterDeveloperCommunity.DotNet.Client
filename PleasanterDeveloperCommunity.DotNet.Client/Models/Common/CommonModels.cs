@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
@@ -43,7 +44,7 @@ public class AttachmentData
     /// <summary>
     /// 添付ファイルのGUID
     /// </summary>
-    [JsonProperty("Guid")]
+    [JsonPropertyName("Guid")]
     public string? AttachmentGuid { get; set; }
 
     /// <summary>
@@ -361,7 +362,7 @@ public class RecordData
                 return null;
             try
             {
-                return JsonConvert.DeserializeObject<List<Comment>>(Comments);
+                return JsonSerializer.Deserialize<List<Comment>>(Comments);
             }
             catch
             {

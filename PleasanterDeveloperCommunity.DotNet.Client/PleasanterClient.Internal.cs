@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.Globalization;
 using System.Net;
-using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 
@@ -35,7 +30,7 @@ public partial class PleasanterClient
     {
         var requestId = Guid.NewGuid().ToString();
         var url = _baseUrl + endpoint;
-        var jsonContent = JsonConvert.SerializeObject(request, JsonSettings);
+        var jsonContent = JsonSerializer.Serialize(request, JsonOptions);
 
         // デバッグログ（リクエスト）
         LogRequest(requestId, url, jsonContent);
@@ -50,10 +45,9 @@ public partial class PleasanterClient
                 cts.CancelAfter(timeout.Value);
             }
 
-            using var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            using var response = await _httpClient.PostAsync(url, content, cts.Token);
+            using var response = await _httpClient.PostAsJsonAsync(url, request, JsonOptions, cts.Token);
 
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
 
             // デバッグログ（レスポンス）
             LogResponse(requestId, url, (int)response.StatusCode, responseContent);
@@ -64,31 +58,31 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    var jObject = JObject.Parse(responseContent);
+                    var jsonNode = JsonNode.Parse(responseContent);
 
                     // JSON内のStatusCodeを使用
-                    if (jObject.TryGetValue("StatusCode", out var statusCodeToken))
+                    if (jsonNode?["StatusCode"] is JsonNode statusCodeNode)
                     {
-                        apiResponse.StatusCode = (HttpStatusCode)statusCodeToken.Value<int>();
+                        apiResponse.StatusCode = (HttpStatusCode)statusCodeNode.GetValue<int>();
                     }
                     else
                     {
                         apiResponse.StatusCode = response.StatusCode;
                     }
 
-                    if (jObject.TryGetValue("Message", out var messageToken))
+                    if (jsonNode?["Message"] is JsonNode messageNode)
                     {
-                        apiResponse.Message = messageToken.Value<string>();
+                        apiResponse.Message = messageNode.GetValue<string>();
                     }
 
-                    if (jObject.TryGetValue("Response", out var responseToken))
+                    if (jsonNode?["Response"] is JsonNode responseNode)
                     {
-                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
+                        apiResponse.Response = responseNode.Deserialize<T>(JsonOptions);
                     }
                     else
                     {
                         // Responseプロパティがない場合、ルート全体をレスポンスとして扱う
-                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
+                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
                     }
                 }
                 catch (JsonException)
@@ -123,7 +117,7 @@ public partial class PleasanterClient
         var url = _baseUrl + endpoint;
 
         // デバッグログ（リクエスト）
-        LogRequest(requestId, url, JsonConvert.SerializeObject(parameters, JsonSettings));
+        LogRequest(requestId, url, JsonSerializer.Serialize(parameters, JsonOptions));
 
         try
         {
@@ -134,14 +128,14 @@ public partial class PleasanterClient
             }
 
             using var content = new MultipartFormDataContent();
-            content.Add(new StringContent(JsonConvert.SerializeObject(parameters, JsonSettings)), "parameters");
+            content.Add(new StringContent(JsonSerializer.Serialize(parameters, JsonOptions)), "parameters");
 
             var streamContent = new StreamContent(fileStream);
             streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/csv");
             content.Add(streamContent, "file", fileName);
 
             using var response = await _httpClient.PostAsync(url, content, cts.Token);
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
 
             // デバッグログ（レスポンス）
             LogResponse(requestId, url, (int)response.StatusCode, responseContent);
@@ -155,20 +149,20 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    var jObject = JObject.Parse(responseContent);
+                    var jsonNode = JsonNode.Parse(responseContent);
 
-                    if (jObject.TryGetValue("Message", out var messageToken))
+                    if (jsonNode?["Message"] is JsonNode messageNode)
                     {
-                        apiResponse.Message = messageToken.Value<string>();
+                        apiResponse.Message = messageNode.GetValue<string>();
                     }
 
-                    if (jObject.TryGetValue("Response", out var responseToken))
+                    if (jsonNode?["Response"] is JsonNode responseNode)
                     {
-                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
+                        apiResponse.Response = responseNode.Deserialize<T>(JsonOptions);
                     }
                     else
                     {
-                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
+                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
                     }
                 }
                 catch (JsonException)
@@ -246,7 +240,7 @@ public partial class PleasanterClient
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
 
             using var response = await _httpClient.SendAsync(request, cts.Token);
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
 
             // デバッグログ（レスポンス）
             LogResponse(requestId, url, (int)response.StatusCode, responseContent);
@@ -260,20 +254,20 @@ public partial class PleasanterClient
             {
                 try
                 {
-                    var jObject = JObject.Parse(responseContent);
+                    var jsonNode = JsonNode.Parse(responseContent);
 
-                    if (jObject.TryGetValue("Message", out var messageToken))
+                    if (jsonNode?["Message"] is JsonNode messageNode)
                     {
-                        apiResponse.Message = messageToken.Value<string>();
+                        apiResponse.Message = messageNode.GetValue<string>();
                     }
 
-                    if (jObject.TryGetValue("Response", out var responseToken))
+                    if (jsonNode?["Response"] is JsonNode responseNode)
                     {
-                        apiResponse.Response = responseToken.ToObject<T>(JsonSerializer.Create(JsonSettings));
+                        apiResponse.Response = responseNode.Deserialize<T>(JsonOptions);
                     }
                     else
                     {
-                        apiResponse.Response = JsonConvert.DeserializeObject<T>(responseContent, JsonSettings);
+                        apiResponse.Response = JsonSerializer.Deserialize<T>(responseContent, JsonOptions);
                     }
                 }
                 catch (JsonException)
@@ -422,12 +416,12 @@ public partial class PleasanterClient
         var indent = new string(' ', depth * 2);
 
         if (depth > 0)
-            sb.AppendLine($"{indent}[InnerException] {ex.GetType().FullName}: {ex.Message}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}[InnerException] {ex.GetType().FullName}: {ex.Message}");
         else
-            sb.AppendLine($"{ex.GetType().FullName}: {ex.Message}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{ex.GetType().FullName}: {ex.Message}");
 
-        sb.AppendLine($"{indent}StackTrace:");
-        sb.AppendLine($"{indent}{ex.StackTrace}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}StackTrace:");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}{ex.StackTrace}");
 
         if (ex is AggregateException aggEx)
         {

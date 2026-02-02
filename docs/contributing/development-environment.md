@@ -44,11 +44,40 @@
 
 ### .NET SDKのインストール
 
-本プロジェクトは .NET Standard 2.1 をターゲットとしているため、.NET 6.0 SDK 以上が必要。
+本プロジェクトは .NET 10 をターゲットとしているため、.NET 10 SDK が必要。
 
-1. [.NET ダウンロードページ](https://dotnet.microsoft.com/download) にアクセス
-2. 最新の .NET SDK（LTS推奨）をダウンロード
+> **Note**: ターゲットフレームワークはPleasanter本体に合わせて変更される。Pleasanterは.NET LTS版のリリースタイミングでターゲットフレームワークを変更するため、本プロジェクトもそれに追従する。詳細は[コーディングガイドライン](coding-guidelines.md#ターゲットフレームワーク変更ポリシー)を参照。
+
+#### Windows（winget）
+
+```powershell
+winget install Microsoft.DotNet.SDK.10
+```
+
+#### Windows / macOS / Linux（インストーラー）
+
+1. [.NET ダウンロードページ](https://dotnet.microsoft.com/download/dotnet/10.0) にアクセス
+2. .NET 10 SDK をダウンロード
 3. インストーラーを実行
+
+#### macOS（Homebrew）
+
+```bash
+brew install dotnet@10
+```
+
+#### Linux（apt）
+
+```bash
+# Microsoft パッケージリポジトリの追加
+wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+# .NET 10 SDK のインストール
+sudo apt-get update
+sudo apt-get install -y dotnet-sdk-10.0
+```
 
 ### インストール確認
 
@@ -56,7 +85,7 @@
 dotnet --version
 ```
 
-バージョン番号が表示されればインストール完了。
+`10.x.xxx` 形式のバージョン番号が表示されればインストール完了。
 
 ---
 

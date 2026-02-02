@@ -1,5 +1,5 @@
-using System.Net;
-using Newtonsoft.Json;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses;
 

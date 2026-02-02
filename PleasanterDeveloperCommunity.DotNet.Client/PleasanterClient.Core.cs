@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
+﻿using System.Collections.Concurrent;
 using System.Net;
-using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client;
 
@@ -26,11 +21,11 @@ public partial class PleasanterClient : IDisposable
     private readonly CancellationTokenSource? _logCancellation;
     private bool _disposed;
 
-    private static readonly JsonSerializerSettings JsonSettings = new()
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        ContractResolver = new DefaultContractResolver(),
-        NullValueHandling = NullValueHandling.Ignore,
-        Formatting = Formatting.None
+        PropertyNamingPolicy = null,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        WriteIndented = false
     };
 
     /// <summary>
@@ -120,18 +115,13 @@ public partial class PleasanterClient : IDisposable
         float apiVersion = 1.1f,
         DebugSettings? debugSettings = null)
     {
-        if (string.IsNullOrEmpty(baseUrl))
-        {
-            throw new ArgumentNullException(nameof(baseUrl));
-        }
-        if (string.IsNullOrEmpty(apiKey))
-        {
-            throw new ArgumentNullException(nameof(apiKey));
-        }
+        ArgumentNullException.ThrowIfNullOrEmpty(baseUrl);
+        ArgumentNullException.ThrowIfNullOrEmpty(apiKey);
         _baseUrl = baseUrl.TrimEnd('/');
         _apiKey = apiKey;
         _apiVersion = Math.Max(apiVersion, 1.1f);
-        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
+        _httpClient = httpClient;
         _debugSettings = debugSettings;
         _disposeHttpClient = false;
         _logQueue = new();

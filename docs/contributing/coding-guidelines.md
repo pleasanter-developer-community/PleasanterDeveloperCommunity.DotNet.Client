@@ -44,7 +44,6 @@
     - [同期メソッドの提供](#同期メソッドの提供)
 - [エラーハンドリング](#エラーハンドリング)
     - [例外の使用](#例外の使用)
-    - [例外のキャッチ](#例外のキャッチ)
 - [Null安全](#null安全)
     - [Nullable参照型の活用](#nullable参照型の活用)
     - [Null結合演算子](#null結合演算子)
@@ -77,12 +76,23 @@
 
 ### プロジェクト設定
 
-| 項目           | 値                |
-| -------------- | ----------------- |
-| ターゲット     | .NET Standard 2.1 |
-| 言語バージョン | C# latest         |
-| Nullable参照型 | 有効              |
-| コメント言語   | 日本語            |
+| 項目           | 値               |
+| -------------- | ---------------- |
+| ターゲット     | .NET 10          |
+| 言語バージョン | C# latest        |
+| Nullable参照型 | 有効             |
+| JSONライブラリ | System.Text.Json |
+| コメント言語   | 日本語           |
+
+#### ターゲットフレームワーク変更ポリシー
+
+ターゲットフレームワークは **Pleasanter本体のターゲットフレームワーク変更に合わせて変更** する。
+
+| ポリシー         | 説明                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| 変更タイミング   | Pleasanter本体のターゲットフレームワーク変更時               |
+| Pleasanterの方針 | .NET LTS版のリリースタイミングでターゲットフレームワーク変更 |
+| 対応期限         | Pleasanter本体の変更後、次回メジャーリリースまでに対応       |
 
 ### 重要な方針
 
@@ -129,17 +139,17 @@ public class ApiResponse<T>
 
 ### 依存関係
 
-- JSONに関する操作はNewtonsoft.Json（JSON.NET）を使用すること
+- JSONに関する操作はSystem.Text.Jsonを使用すること
 
 ### JSONシリアライゼーション
 
-#### JsonProperty属性のルール
+#### JsonPropertyName属性のルール
 
-| ルール                                 | 説明                                                            |
-| -------------------------------------- | --------------------------------------------------------------- |
-| プロパティ名がJSON名と一致する場合     | `[JsonProperty]` は省略する                                     |
-| プロパティ名がJSON名と異なる場合       | `[JsonProperty("JsonName")]` を明示する                         |
-| CA1720（識別子に型名を含む）への対応時 | プロパティ名を変更し、`[JsonProperty("元のJSON名")]` を付与する |
+| ルール                                 | 説明                                                                |
+| -------------------------------------- | ------------------------------------------------------------------- |
+| プロパティ名がJSON名と一致する場合     | `[JsonPropertyName]` は省略する                                     |
+| プロパティ名がJSON名と異なる場合       | `[JsonPropertyName("JsonName")]` を明示する                         |
+| CA1720（識別子に型名を含む）への対応時 | プロパティ名を変更し、`[JsonPropertyName("元のJSON名")]` を付与する |
 
 #### 記述例
 
@@ -158,14 +168,14 @@ public class AttachmentBase
 public class AttachmentBase
 {
     /// <summary>添付ファイルのGUID</summary>
-    [JsonProperty("Guid")]
+    [JsonPropertyName("Guid")]
     public string? AttachmentGuid { get; set; }  // "Guid" → "AttachmentGuid" に変更
 }
 
-// Bad - 名前が一致するのにJsonPropertyを付けている
+// Bad - 名前が一致するのにJsonPropertyNameを付けている
 public class AttachmentBase
 {
-    [JsonProperty("Name")]  // 不要
+    [JsonPropertyName("Name")]  // 不要
     public string? Name { get; set; }
 }
 ```
@@ -174,11 +184,52 @@ public class AttachmentBase
 
 `Guid` など型名と同じプロパティ名はCA1720警告の対象となる。以下の方針で対応する：
 
-| 対応方法         | 説明                                                  |
-| ---------------- | ----------------------------------------------------- |
-| プロパティ名変更 | 文脈を含む名前に変更（例: `Guid` → `AttachmentGuid`） |
-| JsonProperty追加 | 元のJSON名を `[JsonProperty("Guid")]` で指定          |
-| 抑制は使用しない | `#pragma warning disable` や `NoWarn` での抑制は禁止  |
+| 対応方法             | 説明                                                  |
+| -------------------- | ----------------------------------------------------- |
+| プロパティ名変更     | 文脈を含む名前に変更（例: `Guid` → `AttachmentGuid`） |
+| JsonPropertyName追加 | 元のJSON名を `[JsonPropertyName("Guid")]` で指定      |
+| 抑制は使用しない     | `#pragma warning disable` や `NoWarn` での抑制は禁止  |
+
+#### Enum型のシリアライゼーション
+
+Enum型を文字列としてシリアライズする場合は `JsonStringEnumConverter` を使用する：
+
+```csharp
+// Good - JsonStringEnumConverterを使用
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum RecordStatus
+{
+    Active,
+    Inactive,
+    Deleted
+}
+
+// プロパティに適用する場合
+public class Record
+{
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public RecordStatus Status { get; set; }
+}
+```
+
+#### JsonSerializerOptionsの設定
+
+クライアント全体で使用する `JsonSerializerOptions` は以下の設定を使用：
+
+```csharp
+public JsonSerializerOptions JsonOptions { get; } = new()
+{
+    PropertyNamingPolicy = null,  // PascalCase維持（Pleasanter APIに合わせる）
+    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    WriteIndented = false
+};
+```
+
+| 設定                     | 値                | 説明                                      |
+| ------------------------ | ----------------- | ----------------------------------------- |
+| `PropertyNamingPolicy`   | `null`            | PascalCaseを維持（camelCaseに変換しない） |
+| `DefaultIgnoreCondition` | `WhenWritingNull` | null値のプロパティを出力しない            |
+| `WriteIndented`          | `false`           | 圧縮形式で出力（改行・インデントなし）    |
 
 ### サードパーティライセンス管理
 
@@ -828,7 +879,7 @@ public async Task<T> GetAsync<T>(string endpoint, CancellationToken cancellation
     var content = await response.Content.ReadAsStringAsync()
         .ConfigureAwait(false);
 
-    return JsonConvert.DeserializeObject<T>(content);
+    return JsonSerializer.Deserialize<T>(content)!;
 }
 ```
 
@@ -856,33 +907,61 @@ public Record GetRecord(long id)
 
 ### 例外の使用
 
+#### nullチェック
+
+.NET 10では `ArgumentNullException.ThrowIfNull` を使用する：
+
+```csharp
+// Good - ThrowIfNullを使用
+public void Process(RecordRequest request)
+{
+    ArgumentNullException.ThrowIfNull(request);
+    // 処理
+}
+
+// Good - 文字列の場合はThrowIfNullOrEmpty/ThrowIfNullOrWhiteSpace
+public void SetName(string name)
+{
+    ArgumentException.ThrowIfNullOrWhiteSpace(name);
+    _name = name;
+}
+
+// Bad - 従来の書き方（使用しない）
+public void Process(RecordRequest request)
+{
+    if (request is null)
+    {
+        throw new ArgumentNullException(nameof(request));
+    }
+}
+```
+
+#### 範囲チェック
+
 ```csharp
 // 引数検証
 public void SetTimeout(int seconds)
 {
-    if (seconds <= 0)
-    {
-        throw new ArgumentOutOfRangeException(
-            nameof(seconds),
-            seconds,
-            "タイムアウトは正の値である必要があります");
-    }
-
+    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(seconds);
     _timeout = TimeSpan.FromSeconds(seconds);
 }
+```
 
-// カスタム例外
+#### カスタム例外
+
 public class PleasanterApiException : Exception
 {
-    public int StatusCode { get; }
+public int StatusCode { get; }
 
     public PleasanterApiException(string message, int statusCode)
         : base(message)
     {
         StatusCode = statusCode;
     }
+
 }
-```
+
+````
 
 ### 例外のキャッチ
 
@@ -902,7 +981,7 @@ catch (HttpRequestException ex)
     _logger.LogError(ex, "APIリクエストに失敗しました");
     throw;
 }
-```
+````
 
 ---
 
@@ -1134,14 +1213,14 @@ PleasanterDeveloperCommunity.DotNet.Client/
 // Good - System系が先頭、アルファベット順
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models;
 
 // Bad - 順序が不適切
 using PleasanterDeveloperCommunity.DotNet.Client.Models;
 using System;  // System系は先頭に
-using Newtonsoft.Json;
+using System.Text.Json;
 ```
 
 #### 自動整理
@@ -1160,8 +1239,8 @@ dotnet format --include-generated
 // 1. usingディレクティブ（System系を先頭に）
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models;
 
 // 2. 名前空間

@@ -28,10 +28,7 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
+        ArgumentNullException.ThrowIfNull(request);
         SetApiCredentials(request);
         return await SendRequestAsync<SendMailResponse>(
             $"/api/items/{itemId}/OutgoingMails/Send", request, timeout, cancellationToken);

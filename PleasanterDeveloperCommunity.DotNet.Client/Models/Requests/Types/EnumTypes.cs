@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 
 /// <summary>
 /// ソート順タイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SortOrderType
 {
     Asc,
@@ -17,7 +16,7 @@ public enum SortOrderType
 /// <summary>
 /// 列フィルタ検索タイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ColumnFilterSearchType
 {
     PartialMatch,
@@ -31,7 +30,7 @@ public enum ColumnFilterSearchType
 /// <summary>
 /// APIデータタイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ApiDataType
 {
     Default,
@@ -41,7 +40,7 @@ public enum ApiDataType
 /// <summary>
 /// APIカラムキー表示タイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ApiColumnKeyDisplayType
 {
     LabelText,
@@ -51,7 +50,7 @@ public enum ApiColumnKeyDisplayType
 /// <summary>
 /// APIカラム値表示タイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ApiColumnValueDisplayType
 {
     DisplayValue,
@@ -62,7 +61,7 @@ public enum ApiColumnValueDisplayType
 /// <summary>
 /// サイト参照タイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SiteReferenceType
 {
     Sites,
@@ -74,7 +73,7 @@ public enum SiteReferenceType
 /// <summary>
 /// エクスポートタイプ
 /// </summary>
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ExportType
 {
     Csv,

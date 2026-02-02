@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Mails;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Mails;
 
 /// <summary>
 /// メール送信レスポンス

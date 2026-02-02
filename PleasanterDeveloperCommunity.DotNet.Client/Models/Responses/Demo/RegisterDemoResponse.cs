@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Demo;
+﻿namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Demo;
 
 /// <summary>
 /// デモ登録レスポンス

@@ -79,7 +79,7 @@ jobs:
         run: |
           mkdir -p release-temp/wiki
           mkdir -p release-temp/LICENSES
-          cp -r PleasanterDeveloperCommunity.DotNet.Client/bin/Release/netstandard2.1/* release-temp/
+          cp -r PleasanterDeveloperCommunity.DotNet.Client/bin/Release/net10.0/* release-temp/
           cp README.md release-temp/
           cp AUTHORS release-temp/
           cp LICENSE release-temp/

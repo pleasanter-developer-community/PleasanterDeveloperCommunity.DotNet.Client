@@ -2,7 +2,7 @@
 
 <!-- markdownlint-disable MD013 -->
 
-[![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.1-512BD4?logo=dotnet)](https://docs.microsoft.com/ja-jp/dotnet/standard/net-standard) [![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/) [![Pleasanter ApiVersion](https://img.shields.io/badge/Pleasanter%20ApiVersion-1.1%2B-00A0E9)](https://pleasanter.org/ja/manual/api) [![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/) [![Pleasanter](https://img.shields.io/badge/Pleasanter-1.3.13.0%2B-00A0E9)](https://pleasanter.org/) [![Pleasanter ApiVersion](https://img.shields.io/badge/Pleasanter%20ApiVersion-1.1%2B-00A0E9)](https://pleasanter.org/ja/manual/api) [![License](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
 
 <!-- markdownlint-enable MD013 -->
 
@@ -167,7 +167,7 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 以下のコマンドで必要な依存パッケージをインストールします：
 
 ```bash
-dotnet add package Newtonsoft.Json
+dotnet add package Microsoft.AspNetCore.StaticFiles
 ```
 
 ## 使用方法
@@ -180,7 +180,6 @@ dotnet add package Newtonsoft.Json
 
 | ライブラリ                       | ライセンス | 著作権                                         |
 | -------------------------------- | ---------- | ---------------------------------------------- |
-| Newtonsoft.Json                  | MIT        | Copyright (c) 2007 James Newton-King           |
 | Microsoft.AspNetCore.StaticFiles | MIT        | Copyright (c) .NET Foundation and Contributors |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。

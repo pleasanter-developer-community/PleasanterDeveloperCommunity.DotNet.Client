@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 
@@ -31,6 +31,6 @@ public class UploadBinaryResponseData
     /// <summary>
     /// アップロードされたファイルのGUID
     /// </summary>
-    [JsonProperty("Guid")]
+    [JsonPropertyName("Guid")]
     public string? FileGuid { get; set; }
 }

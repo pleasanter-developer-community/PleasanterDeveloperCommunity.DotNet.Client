@@ -26,12 +26,12 @@
     <!-- コンパイラ警告レベル -->
     <WarningLevel>5</WarningLevel>
 
-    <!-- 暗黙的なusingディレクティブ（.NET 6以上の場合） -->
-    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- 暗黙的なusingディレクティブ（.NET 10） -->
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- コード分析パッケージ -->
-    <!-- .NET Standard 2.1では組み込みアナライザーを使用 -->
+    <!-- .NET 10では組み込みアナライザーを使用 -->
   </ItemGroup>
 </Project>
