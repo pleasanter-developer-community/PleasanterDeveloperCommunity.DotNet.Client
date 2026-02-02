@@ -11,7 +11,6 @@ public class ExtendedSqlRequest : ApiRequestBase
     /// <summary>
     /// 拡張SQL名
     /// </summary>
-    [JsonProperty("Name")]
     public string? Name { get; set; }
 
     /// <summary>

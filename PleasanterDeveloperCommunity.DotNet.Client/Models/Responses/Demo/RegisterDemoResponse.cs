@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Demo;
 
@@ -7,12 +7,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Demo;
 /// </summary>
 public class RegisterDemoResponse
 {
-    [JsonProperty("Id")]
+    /// <summary>
+    /// デモID
+    /// </summary>
     public long Id { get; set; }
 
-    [JsonProperty("StatusCode")]
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
-    [JsonProperty("Message")]
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 }

@@ -13,6 +13,7 @@
     - [メソッド設計](#メソッド設計)
     - [レスポンス設計](#レスポンス設計)
     - [依存関係](#依存関係)
+    - [JSONシリアライゼーション](#jsonシリアライゼーション)
     - [サードパーティライセンス管理](#サードパーティライセンス管理)
 - [命名規則](#命名規則)
     - [一覧表](#一覧表)
@@ -117,6 +118,55 @@ public class ApiResponse<T>
 ### 依存関係
 
 - JSONに関する操作はNewtonsoft.Json（JSON.NET）を使用すること
+
+### JSONシリアライゼーション
+
+#### JsonProperty属性のルール
+
+| ルール                                 | 説明                                                            |
+| -------------------------------------- | --------------------------------------------------------------- |
+| プロパティ名がJSON名と一致する場合     | `[JsonProperty]` は省略する                                     |
+| プロパティ名がJSON名と異なる場合       | `[JsonProperty("JsonName")]` を明示する                         |
+| CA1720（識別子に型名を含む）への対応時 | プロパティ名を変更し、`[JsonProperty("元のJSON名")]` を付与する |
+
+#### 記述例
+
+```csharp
+// Good - プロパティ名がJSON名と一致する場合は省略
+public class AttachmentBase
+{
+    /// <summary>ファイル名</summary>
+    public string? Name { get; set; }
+
+    /// <summary>サイズ（バイト）</summary>
+    public long? Size { get; set; }
+}
+
+// Good - CA1720対応でプロパティ名を変更した場合
+public class AttachmentBase
+{
+    /// <summary>添付ファイルのGUID</summary>
+    [JsonProperty("Guid")]
+    public string? AttachmentGuid { get; set; }  // "Guid" → "AttachmentGuid" に変更
+}
+
+// Bad - 名前が一致するのにJsonPropertyを付けている
+public class AttachmentBase
+{
+    [JsonProperty("Name")]  // 不要
+    public string? Name { get; set; }
+}
+```
+
+#### CA1720への対応方針
+
+`Guid` など型名と同じプロパティ名はCA1720警告の対象となる。以下の方針で対応する：
+
+| 対応方法         | 説明                                                  |
+| ---------------- | ----------------------------------------------------- |
+| プロパティ名変更 | 文脈を含む名前に変更（例: `Guid` → `AttachmentGuid`） |
+| JsonProperty追加 | 元のJSON名を `[JsonProperty("Guid")]` で指定          |
+| 抑制は使用しない | `#pragma warning disable` や `NoWarn` での抑制は禁止  |
 
 ### サードパーティライセンス管理
 
@@ -447,7 +497,53 @@ var padded = $"|{name,10}|{value,-10}|";      // 右寄せ・左寄せ
 
 ### XMLドキュメントコメント
 
-**すべての公開APIに必須**。
+**すべての公開APIに必須**。CS1591警告を抑制せず、XMLドキュメントコメントを記述すること。
+
+#### 対象範囲
+
+| 対象                       | 必須/任意 | 説明                                      |
+| -------------------------- | --------- | ----------------------------------------- |
+| 公開クラス・構造体         | 必須      | すべての `public class` / `public struct` |
+| 公開メソッド               | 必須      | すべての `public` メソッド                |
+| 公開プロパティ             | 必須      | すべての `public` プロパティ              |
+| 公開フィールド             | 必須      | すべての `public` フィールド              |
+| 公開イベント               | 必須      | すべての `public` イベント                |
+| 内部・プライベートメンバー | 任意      | 複雑な場合は推奨                          |
+
+#### プロパティのXMLコメント
+
+シンプルなプロパティでも必ず `<summary>` を記述する。
+
+```csharp
+// Good - すべてのプロパティにXMLコメントあり
+public class CreateRecordResponse
+{
+    /// <summary>作成されたレコードのID</summary>
+    public long Id { get; set; }
+
+    /// <summary>ステータスコード</summary>
+    public int StatusCode { get; set; }
+
+    /// <summary>メッセージ</summary>
+    public string? Message { get; set; }
+}
+
+// Bad - XMLコメントなし（CS1591警告）
+public class CreateRecordResponse
+{
+    public long Id { get; set; }
+    public int StatusCode { get; set; }
+    public string? Message { get; set; }
+}
+```
+
+#### CS1591への対応方針
+
+| 対応方法         | 説明                                                  |
+| ---------------- | ----------------------------------------------------- |
+| XMLコメント追加  | すべての公開メンバーに `/// <summary>` を追加         |
+| 抑制は使用しない | `#pragma warning disable` や `NoWarn` での抑制は禁止  |
+| 継承時も必須     | 継承したプロパティにもXMLコメントを記述（または継承） |
 
 #### 必須/任意ルール
 

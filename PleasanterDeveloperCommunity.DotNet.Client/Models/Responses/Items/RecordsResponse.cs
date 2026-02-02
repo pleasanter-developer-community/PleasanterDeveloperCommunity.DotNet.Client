@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
@@ -9,15 +8,23 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class RecordsResponse
 {
-    [JsonProperty("Offset")]
+    /// <summary>
+    /// オフセット
+    /// </summary>
     public int? Offset { get; set; }
 
-    [JsonProperty("PageSize")]
+    /// <summary>
+    /// ページサイズ
+    /// </summary>
     public int? PageSize { get; set; }
 
-    [JsonProperty("TotalCount")]
+    /// <summary>
+    /// 総件数
+    /// </summary>
     public int? TotalCount { get; set; }
 
-    [JsonProperty("Data")]
+    /// <summary>
+    /// レコードデータリスト
+    /// </summary>
     public List<RecordData>? Data { get; set; }
 }

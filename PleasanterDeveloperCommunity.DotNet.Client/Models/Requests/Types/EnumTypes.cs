@@ -86,9 +86,13 @@ public enum ExportType
 /// </summary>
 public class ApiColumnSetting
 {
-    [JsonProperty("KeyDisplayType")]
+    /// <summary>
+    /// キー表示タイプ
+    /// </summary>
     public ApiColumnKeyDisplayType? KeyDisplayType { get; set; }
 
-    [JsonProperty("ValueDisplayType")]
+    /// <summary>
+    /// 値表示タイプ
+    /// </summary>
     public ApiColumnValueDisplayType? ValueDisplayType { get; set; }
 }

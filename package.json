@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "lint:md": "markdownlint-cli2 \"docs/**/*.md\" \"*.md\"",
-    "lint:md:fix": "markdownlint-cli2 --fix \"docs/**/*.md\" \"*.md\"",
-    "format": "prettier --write \"docs/**/*.md\" \"*.md\"",
-    "format:check": "prettier --check \"docs/**/*.md\" \"*.md\"",
-    "toc": "doctoc docs README.md CONTRIBUTING.md --github --maxlevel 3 --notitle && node docs/script/decode-toc.js",
+    "preinstall:check": "node -e \"const fs=require('fs');if(!fs.existsSync('node_modules')){process.exit(1)}\" || npm install",
+    "lint:md": "npm run preinstall:check && markdownlint-cli2 \"docs/**/*.md\" \"*.md\"",
+    "lint:md:fix": "npm run preinstall:check && markdownlint-cli2 --fix \"docs/**/*.md\" \"*.md\"",
+    "format": "npm run preinstall:check && prettier --write \"docs/**/*.md\" \"*.md\"",
+    "format:check": "npm run preinstall:check && prettier --check \"docs/**/*.md\" \"*.md\"",
+    "toc": "npm run preinstall:check && doctoc docs README.md CONTRIBUTING.md --github --maxlevel 3 --notitle && node docs/script/decode-toc.js",
     "toc:all": "npm run toc && npm run format"
   },
   "devDependencies": {

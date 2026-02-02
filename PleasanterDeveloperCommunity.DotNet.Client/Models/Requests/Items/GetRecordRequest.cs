@@ -10,6 +10,5 @@ public class GetRecordRequest : ApiRequestBase
     /// <summary>
     /// ビュー設定
     /// </summary>
-    [JsonProperty("View")]
     public View? View { get; set; }
 }

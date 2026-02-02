@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
@@ -7,12 +7,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class UpdateSiteSettingsResponse
 {
-    [JsonProperty("Id")]
+    /// <summary>
+    /// 更新されたサイトID
+    /// </summary>
     public long Id { get; set; }
 
-    [JsonProperty("StatusCode")]
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
-    [JsonProperty("Message")]
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 }

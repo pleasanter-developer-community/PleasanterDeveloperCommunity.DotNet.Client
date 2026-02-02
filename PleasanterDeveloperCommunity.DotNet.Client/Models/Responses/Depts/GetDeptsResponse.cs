@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 
@@ -9,10 +8,14 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Depts;
 /// </summary>
 public class GetDeptsResponse
 {
-    [JsonProperty("Data")]
+    /// <summary>
+    /// 組織データリスト
+    /// </summary>
     public List<DeptData>? Data { get; set; }
 
-    [JsonProperty("TotalCount")]
+    /// <summary>
+    /// 総件数
+    /// </summary>
     public int TotalCount { get; set; }
 }
 
@@ -21,39 +24,63 @@ public class GetDeptsResponse
 /// </summary>
 public class DeptData
 {
-    [JsonProperty("TenantId")]
+    /// <summary>
+    /// テナントID
+    /// </summary>
     public int TenantId { get; set; }
 
-    [JsonProperty("DeptId")]
+    /// <summary>
+    /// 組織ID
+    /// </summary>
     public int DeptId { get; set; }
 
-    [JsonProperty("Ver")]
+    /// <summary>
+    /// バージョン
+    /// </summary>
     public int Ver { get; set; }
 
-    [JsonProperty("DeptCode")]
+    /// <summary>
+    /// 組織コード
+    /// </summary>
     public string? DeptCode { get; set; }
 
-    [JsonProperty("DeptName")]
+    /// <summary>
+    /// 組織名
+    /// </summary>
     public string? DeptName { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// 内容
+    /// </summary>
     public string? Body { get; set; }
 
-    [JsonProperty("Disabled")]
+    /// <summary>
+    /// 無効フラグ
+    /// </summary>
     public bool Disabled { get; set; }
 
-    [JsonProperty("Comments")]
+    /// <summary>
+    /// コメント
+    /// </summary>
     public string? Comments { get; set; }
 
-    [JsonProperty("Creator")]
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public int Creator { get; set; }
 
-    [JsonProperty("Updator")]
+    /// <summary>
+    /// 更新者ID
+    /// </summary>
     public int Updator { get; set; }
 
-    [JsonProperty("CreatedTime")]
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public DateTime? CreatedTime { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 }

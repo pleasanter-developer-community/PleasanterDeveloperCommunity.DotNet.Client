@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
@@ -10,7 +9,9 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class GetSiteResponse
 {
-    [JsonProperty("Data")]
+    /// <summary>
+    /// サイトデータ
+    /// </summary>
     public GetSiteData? Data { get; set; }
 }
 
@@ -19,120 +20,198 @@ public class GetSiteResponse
 /// </summary>
 public class GetSiteData
 {
-    [JsonProperty("TenantId")]
+    /// <summary>
+    /// テナントID
+    /// </summary>
     public int TenantId { get; set; }
 
-    [JsonProperty("SiteId")]
+    /// <summary>
+    /// サイトID
+    /// </summary>
     public long SiteId { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonProperty("Ver")]
+    /// <summary>
+    /// バージョン
+    /// </summary>
     public int Ver { get; set; }
 
-    [JsonProperty("Title")]
+    /// <summary>
+    /// タイトル
+    /// </summary>
     public string? Title { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// 本文
+    /// </summary>
     public string? Body { get; set; }
 
-    [JsonProperty("SiteName")]
+    /// <summary>
+    /// サイト名
+    /// </summary>
     public string? SiteName { get; set; }
 
-    [JsonProperty("SiteGroupName")]
+    /// <summary>
+    /// サイトグループ名
+    /// </summary>
     public string? SiteGroupName { get; set; }
 
-    [JsonProperty("GridGuide")]
+    /// <summary>
+    /// グリッドガイド
+    /// </summary>
     public string? GridGuide { get; set; }
 
-    [JsonProperty("EditorGuide")]
+    /// <summary>
+    /// エディタガイド
+    /// </summary>
     public string? EditorGuide { get; set; }
 
-    [JsonProperty("CalendarGuide")]
+    /// <summary>
+    /// カレンダーガイド
+    /// </summary>
     public string? CalendarGuide { get; set; }
 
-    [JsonProperty("CrosstabGuide")]
+    /// <summary>
+    /// クロス集計ガイド
+    /// </summary>
     public string? CrosstabGuide { get; set; }
 
-    [JsonProperty("GanttGuide")]
+    /// <summary>
+    /// ガントガイド
+    /// </summary>
     public string? GanttGuide { get; set; }
 
-    [JsonProperty("BurnDownGuide")]
+    /// <summary>
+    /// バーンダウンガイド
+    /// </summary>
     public string? BurnDownGuide { get; set; }
 
-    [JsonProperty("TimeSeriesGuide")]
+    /// <summary>
+    /// 時系列ガイド
+    /// </summary>
     public string? TimeSeriesGuide { get; set; }
 
-    [JsonProperty("KambanGuide")]
+    /// <summary>
+    /// カンバンガイド
+    /// </summary>
     public string? KambanGuide { get; set; }
 
-    [JsonProperty("ImageLibGuide")]
+    /// <summary>
+    /// 画像ライブラリガイド
+    /// </summary>
     public string? ImageLibGuide { get; set; }
 
-    [JsonProperty("ReferenceType")]
+    /// <summary>
+    /// 参照タイプ
+    /// </summary>
     public string? ReferenceType { get; set; }
 
-    [JsonProperty("ParentId")]
+    /// <summary>
+    /// 親サイトID
+    /// </summary>
     public long ParentId { get; set; }
 
-    [JsonProperty("InheritPermission")]
+    /// <summary>
+    /// 権限継承元サイトID
+    /// </summary>
     public long InheritPermission { get; set; }
 
-    [JsonProperty("Permissions")]
+    /// <summary>
+    /// 権限リスト
+    /// </summary>
     public List<object>? Permissions { get; set; }
 
-    [JsonProperty("SiteSettings")]
+    /// <summary>
+    /// サイト設定
+    /// </summary>
     public SiteSettings? SiteSettings { get; set; }
 
-    [JsonProperty("Publish")]
+    /// <summary>
+    /// 公開フラグ
+    /// </summary>
     public bool Publish { get; set; }
 
-    [JsonProperty("DisableCrossSearch")]
+    /// <summary>
+    /// 横断検索無効フラグ
+    /// </summary>
     public bool DisableCrossSearch { get; set; }
 
-    [JsonProperty("LockedTime")]
+    /// <summary>
+    /// ロック日時
+    /// </summary>
     public DateTime? LockedTime { get; set; }
 
-    [JsonProperty("LockedUser")]
+    /// <summary>
+    /// ロックユーザID
+    /// </summary>
     public int LockedUser { get; set; }
 
-    [JsonProperty("ApiCountDate")]
+    /// <summary>
+    /// APIカウント日
+    /// </summary>
     public DateTime? ApiCountDate { get; set; }
 
-    [JsonProperty("ApiCount")]
+    /// <summary>
+    /// APIカウント
+    /// </summary>
     public int ApiCount { get; set; }
 
-    [JsonProperty("Comments")]
+    /// <summary>
+    /// コメント
+    /// </summary>
     public string? Comments { get; set; }
 
-    [JsonProperty("Creator")]
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public int Creator { get; set; }
 
-    [JsonProperty("Updator")]
+    /// <summary>
+    /// 更新者ID
+    /// </summary>
     public int Updator { get; set; }
 
-    [JsonProperty("CreatedTime")]
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public DateTime? CreatedTime { get; set; }
 
-    [JsonProperty("ApiVersion")]
+    /// <summary>
+    /// APIバージョン
+    /// </summary>
     public float ApiVersion { get; set; }
 
-    [JsonProperty("ClassHash")]
+    /// <summary>
+    /// 分類項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonProperty("NumHash")]
+    /// <summary>
+    /// 数値項目ハッシュ
+    /// </summary>
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonProperty("DateHash")]
+    /// <summary>
+    /// 日付項目ハッシュ
+    /// </summary>
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonProperty("DescriptionHash")]
+    /// <summary>
+    /// 説明項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonProperty("CheckHash")]
+    /// <summary>
+    /// チェック項目ハッシュ
+    /// </summary>
     public Dictionary<string, bool>? CheckHash { get; set; }
 
-    [JsonProperty("AttachmentsHash")]
+    /// <summary>
+    /// 添付ファイルハッシュ
+    /// </summary>
     public Dictionary<string, object>? AttachmentsHash { get; set; }
 }

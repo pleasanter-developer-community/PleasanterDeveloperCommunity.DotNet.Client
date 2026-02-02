@@ -196,6 +196,8 @@ Markdownの構文チェックにはmarkdownlintを使用している。
 
 Node.js環境が必要。セットアップ方法は[開発環境構築ガイド](development-environment.md)を参照。
 
+> **Note**: 各スクリプトは実行前に `node_modules` の存在をチェックし、存在しない場合は自動的に `npm install` を実行する。そのため、初回実行時に手動で `npm install` を実行する必要はない。
+
 #### 利用可能なスクリプト
 
 | スクリプト     | コマンド               | 説明                                           |

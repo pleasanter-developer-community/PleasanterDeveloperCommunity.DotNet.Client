@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 
@@ -9,10 +8,14 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Users;
 /// </summary>
 public class GetUsersResponse
 {
-    [JsonProperty("Data")]
+    /// <summary>
+    /// ユーザデータリスト
+    /// </summary>
     public List<UserData>? Data { get; set; }
 
-    [JsonProperty("TotalCount")]
+    /// <summary>
+    /// 総件数
+    /// </summary>
     public int TotalCount { get; set; }
 }
 
@@ -21,129 +24,213 @@ public class GetUsersResponse
 /// </summary>
 public class UserData
 {
-    [JsonProperty("TenantId")]
+    /// <summary>
+    /// テナントID
+    /// </summary>
     public int TenantId { get; set; }
 
-    [JsonProperty("UserId")]
+    /// <summary>
+    /// ユーザID
+    /// </summary>
     public int UserId { get; set; }
 
-    [JsonProperty("Ver")]
+    /// <summary>
+    /// バージョン
+    /// </summary>
     public int Ver { get; set; }
 
-    [JsonProperty("LoginId")]
+    /// <summary>
+    /// ログインID
+    /// </summary>
     public string? LoginId { get; set; }
 
-    [JsonProperty("GlobalId")]
+    /// <summary>
+    /// グローバルID
+    /// </summary>
     public string? GlobalId { get; set; }
 
-    [JsonProperty("Name")]
+    /// <summary>
+    /// 名前
+    /// </summary>
     public string? Name { get; set; }
 
-    [JsonProperty("UserCode")]
+    /// <summary>
+    /// ユーザコード
+    /// </summary>
     public string? UserCode { get; set; }
 
-    [JsonProperty("Birthday")]
+    /// <summary>
+    /// 生年月日
+    /// </summary>
     public DateTime? Birthday { get; set; }
 
-    [JsonProperty("Gender")]
+    /// <summary>
+    /// 性別
+    /// </summary>
     public string? Gender { get; set; }
 
-    [JsonProperty("Language")]
+    /// <summary>
+    /// 言語
+    /// </summary>
     public string? Language { get; set; }
 
-    [JsonProperty("TimeZone")]
+    /// <summary>
+    /// タイムゾーン
+    /// </summary>
     public string? TimeZone { get; set; }
 
-    [JsonProperty("DeptId")]
+    /// <summary>
+    /// 組織ID
+    /// </summary>
     public int DeptId { get; set; }
 
-    [JsonProperty("Dept")]
+    /// <summary>
+    /// 組織名
+    /// </summary>
     public string? Dept { get; set; }
 
-    [JsonProperty("FirstAndLastNameOrder")]
+    /// <summary>
+    /// 氏名の表示順序
+    /// </summary>
     public int FirstAndLastNameOrder { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// 内容
+    /// </summary>
     public string? Body { get; set; }
 
-    [JsonProperty("LastLoginTime")]
+    /// <summary>
+    /// 最終ログイン日時
+    /// </summary>
     public DateTime? LastLoginTime { get; set; }
 
-    [JsonProperty("PasswordExpirationTime")]
+    /// <summary>
+    /// パスワード有効期限
+    /// </summary>
     public DateTime? PasswordExpirationTime { get; set; }
 
-    [JsonProperty("PasswordChangeTime")]
+    /// <summary>
+    /// パスワード変更日時
+    /// </summary>
     public DateTime? PasswordChangeTime { get; set; }
 
-    [JsonProperty("NumberOfLogins")]
+    /// <summary>
+    /// ログイン回数
+    /// </summary>
     public int NumberOfLogins { get; set; }
 
-    [JsonProperty("NumberOfDenial")]
+    /// <summary>
+    /// 認証失敗回数
+    /// </summary>
     public int NumberOfDenial { get; set; }
 
-    [JsonProperty("TenantManager")]
+    /// <summary>
+    /// テナント管理者フラグ
+    /// </summary>
     public bool TenantManager { get; set; }
 
-    [JsonProperty("ServiceManager")]
+    /// <summary>
+    /// サービス管理者フラグ
+    /// </summary>
     public bool ServiceManager { get; set; }
 
-    [JsonProperty("AllowCreationAtTopSite")]
+    /// <summary>
+    /// トップレベルサイト作成許可フラグ
+    /// </summary>
     public bool AllowCreationAtTopSite { get; set; }
 
-    [JsonProperty("AllowGroupAdministration")]
+    /// <summary>
+    /// グループ管理許可フラグ
+    /// </summary>
     public bool AllowGroupAdministration { get; set; }
 
-    [JsonProperty("AllowGroupCreation")]
+    /// <summary>
+    /// グループ作成許可フラグ
+    /// </summary>
     public bool AllowGroupCreation { get; set; }
 
-    [JsonProperty("AllowApi")]
+    /// <summary>
+    /// API許可フラグ
+    /// </summary>
     public bool AllowApi { get; set; }
 
-    [JsonProperty("EnableSecondaryAuthentication")]
+    /// <summary>
+    /// 二要素認証有効フラグ
+    /// </summary>
     public bool EnableSecondaryAuthentication { get; set; }
 
-    [JsonProperty("Disabled")]
+    /// <summary>
+    /// 無効フラグ
+    /// </summary>
     public bool Disabled { get; set; }
 
-    [JsonProperty("Lockout")]
+    /// <summary>
+    /// ロックアウトフラグ
+    /// </summary>
     public bool Lockout { get; set; }
 
-    [JsonProperty("LockoutCounter")]
+    /// <summary>
+    /// ロックアウトカウンタ
+    /// </summary>
     public int LockoutCounter { get; set; }
 
-    [JsonProperty("Developer")]
+    /// <summary>
+    /// 開発者フラグ
+    /// </summary>
     public bool Developer { get; set; }
 
-    [JsonProperty("Comments")]
+    /// <summary>
+    /// コメント
+    /// </summary>
     public string? Comments { get; set; }
 
-    [JsonProperty("Creator")]
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public int Creator { get; set; }
 
-    [JsonProperty("Updator")]
+    /// <summary>
+    /// 更新者ID
+    /// </summary>
     public int Updator { get; set; }
 
-    [JsonProperty("CreatedTime")]
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public DateTime? CreatedTime { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonProperty("MailAddresses")]
+    /// <summary>
+    /// メールアドレスリスト
+    /// </summary>
     public List<string>? MailAddresses { get; set; }
 
-    [JsonProperty("ClassHash")]
+    /// <summary>
+    /// 分類項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonProperty("NumHash")]
+    /// <summary>
+    /// 数値項目ハッシュ
+    /// </summary>
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonProperty("DateHash")]
+    /// <summary>
+    /// 日付項目ハッシュ
+    /// </summary>
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonProperty("DescriptionHash")]
+    /// <summary>
+    /// 説明項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonProperty("CheckHash")]
+    /// <summary>
+    /// チェック項目ハッシュ
+    /// </summary>
     public Dictionary<string, bool>? CheckHash { get; set; }
 }

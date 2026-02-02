@@ -9,19 +9,29 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 /// </summary>
 public class Comment
 {
-    [JsonProperty("CommentId")]
+    /// <summary>
+    /// コメントID
+    /// </summary>
     public long CommentId { get; set; }
 
-    [JsonProperty("CreatedTime")]
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public string? CreatedTime { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public string? UpdatedTime { get; set; }
 
-    [JsonProperty("Creator")]
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public int Creator { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// コメント本文
+    /// </summary>
     public string? Body { get; set; }
 }
 
@@ -30,25 +40,40 @@ public class Comment
 /// </summary>
 public class AttachmentData
 {
+    /// <summary>
+    /// 添付ファイルのGUID
+    /// </summary>
     [JsonProperty("Guid")]
-    public string? Guid { get; set; }
+    public string? AttachmentGuid { get; set; }
 
-    [JsonProperty("Name")]
+    /// <summary>
+    /// ファイル名
+    /// </summary>
     public string? Name { get; set; }
 
-    [JsonProperty("Size")]
+    /// <summary>
+    /// ファイルサイズ（バイト）
+    /// </summary>
     public long Size { get; set; }
 
-    [JsonProperty("HashCode")]
+    /// <summary>
+    /// ハッシュコード
+    /// </summary>
     public string? HashCode { get; set; }
 
-    [JsonProperty("Deleted")]
+    /// <summary>
+    /// 削除済みフラグ
+    /// </summary>
     public bool? Deleted { get; set; }
 
-    [JsonProperty("ContentType")]
+    /// <summary>
+    /// コンテンツタイプ
+    /// </summary>
     public string? ContentType { get; set; }
 
-    [JsonProperty("Base64")]
+    /// <summary>
+    /// Base64エンコードされたファイルデータ
+    /// </summary>
     public string? Base64 { get; set; }
 }
 
@@ -57,46 +82,74 @@ public class AttachmentData
 /// </summary>
 public class SiteSettings
 {
-    [JsonProperty("Version")]
+    /// <summary>
+    /// バージョン
+    /// </summary>
     public decimal? Version { get; set; }
 
-    [JsonProperty("GridColumns")]
+    /// <summary>
+    /// グリッド表示列
+    /// </summary>
     public List<string>? GridColumns { get; set; }
 
-    [JsonProperty("EditorColumnHash")]
+    /// <summary>
+    /// エディタ列ハッシュ
+    /// </summary>
     public Dictionary<string, List<string>>? EditorColumnHash { get; set; }
 
-    [JsonProperty("Columns")]
+    /// <summary>
+    /// 列定義リスト
+    /// </summary>
     public List<ColumnDefinition>? Columns { get; set; }
 
-    [JsonProperty("Links")]
+    /// <summary>
+    /// リンク設定
+    /// </summary>
     public List<object>? Links { get; set; }
 
-    [JsonProperty("Summaries")]
+    /// <summary>
+    /// 集計設定
+    /// </summary>
     public List<object>? Summaries { get; set; }
 
-    [JsonProperty("Formulas")]
+    /// <summary>
+    /// 計算式設定
+    /// </summary>
     public List<object>? Formulas { get; set; }
 
-    [JsonProperty("Processes")]
+    /// <summary>
+    /// プロセス設定
+    /// </summary>
     public List<object>? Processes { get; set; }
 
-    [JsonProperty("Views")]
+    /// <summary>
+    /// ビュー設定
+    /// </summary>
     public List<object>? Views { get; set; }
 
-    [JsonProperty("Notifications")]
+    /// <summary>
+    /// 通知設定
+    /// </summary>
     public List<object>? Notifications { get; set; }
 
-    [JsonProperty("Reminders")]
+    /// <summary>
+    /// リマインダー設定
+    /// </summary>
     public List<object>? Reminders { get; set; }
 
-    [JsonProperty("Scripts")]
+    /// <summary>
+    /// スクリプト設定
+    /// </summary>
     public List<object>? Scripts { get; set; }
 
-    [JsonProperty("Styles")]
+    /// <summary>
+    /// スタイル設定
+    /// </summary>
     public List<object>? Styles { get; set; }
 
-    [JsonProperty("ServerScripts")]
+    /// <summary>
+    /// サーバースクリプト設定
+    /// </summary>
     public List<object>? ServerScripts { get; set; }
 }
 
@@ -105,22 +158,34 @@ public class SiteSettings
 /// </summary>
 public class ColumnDefinition
 {
-    [JsonProperty("ColumnName")]
+    /// <summary>
+    /// 列名
+    /// </summary>
     public string? ColumnName { get; set; }
 
-    [JsonProperty("LabelText")]
+    /// <summary>
+    /// ラベルテキスト
+    /// </summary>
     public string? LabelText { get; set; }
 
-    [JsonProperty("EditorFormat")]
+    /// <summary>
+    /// エディタ形式
+    /// </summary>
     public string? EditorFormat { get; set; }
 
-    [JsonProperty("ChoicesText")]
+    /// <summary>
+    /// 選択肢テキスト
+    /// </summary>
     public string? ChoicesText { get; set; }
 
-    [JsonProperty("DefaultInput")]
+    /// <summary>
+    /// 既定値
+    /// </summary>
     public string? DefaultInput { get; set; }
 
-    [JsonProperty("ValidateRequired")]
+    /// <summary>
+    /// 必須入力フラグ
+    /// </summary>
     public bool? ValidateRequired { get; set; }
 }
 
@@ -129,10 +194,14 @@ public class ColumnDefinition
 /// </summary>
 public class ImageSettings
 {
-    [JsonProperty("Base64")]
+    /// <summary>
+    /// Base64エンコードされた画像データ
+    /// </summary>
     public string? Base64 { get; set; }
 
-    [JsonProperty("Name")]
+    /// <summary>
+    /// 画像ファイル名
+    /// </summary>
     public string? Name { get; set; }
 }
 
@@ -141,88 +210,144 @@ public class ImageSettings
 /// </summary>
 public class RecordData
 {
-    [JsonProperty("SiteId")]
+    /// <summary>
+    /// サイトID
+    /// </summary>
     public long SiteId { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonProperty("IssueId")]
+    /// <summary>
+    /// 課題ID
+    /// </summary>
     public long? IssueId { get; set; }
 
-    [JsonProperty("ResultId")]
+    /// <summary>
+    /// 結果ID
+    /// </summary>
     public long? ResultId { get; set; }
 
-    [JsonProperty("WikiId")]
+    /// <summary>
+    /// WikiID
+    /// </summary>
     public long? WikiId { get; set; }
 
-    [JsonProperty("Ver")]
+    /// <summary>
+    /// バージョン
+    /// </summary>
     public int? Ver { get; set; }
 
-    [JsonProperty("Title")]
+    /// <summary>
+    /// タイトル
+    /// </summary>
     public string? Title { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// 本文
+    /// </summary>
     public string? Body { get; set; }
 
-    [JsonProperty("StartTime")]
+    /// <summary>
+    /// 開始日時
+    /// </summary>
     public DateTime? StartTime { get; set; }
 
-    [JsonProperty("CompletionTime")]
+    /// <summary>
+    /// 完了日時
+    /// </summary>
     public DateTime? CompletionTime { get; set; }
 
-    [JsonProperty("WorkValue")]
+    /// <summary>
+    /// 作業量
+    /// </summary>
     public decimal? WorkValue { get; set; }
 
-    [JsonProperty("ProgressRate")]
+    /// <summary>
+    /// 進捗率
+    /// </summary>
     public decimal? ProgressRate { get; set; }
 
-    [JsonProperty("RemainingWorkValue")]
+    /// <summary>
+    /// 残作業量
+    /// </summary>
     public decimal? RemainingWorkValue { get; set; }
 
-    [JsonProperty("Status")]
+    /// <summary>
+    /// 状況
+    /// </summary>
     public int? Status { get; set; }
 
-    [JsonProperty("Manager")]
+    /// <summary>
+    /// 管理者ID
+    /// </summary>
     public int? Manager { get; set; }
 
-    [JsonProperty("Owner")]
+    /// <summary>
+    /// 担当者ID
+    /// </summary>
     public int? Owner { get; set; }
 
-    [JsonProperty("Locked")]
+    /// <summary>
+    /// ロック状態
+    /// </summary>
     public bool? Locked { get; set; }
 
-    [JsonProperty("Comments")]
+    /// <summary>
+    /// コメント（JSON文字列）
+    /// </summary>
     public string? Comments { get; set; }
 
-    [JsonProperty("Creator")]
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public int? Creator { get; set; }
 
-    [JsonProperty("Updator")]
+    /// <summary>
+    /// 更新者ID
+    /// </summary>
     public int? Updator { get; set; }
 
-    [JsonProperty("CreatedTime")]
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public DateTime? CreatedTime { get; set; }
 
-    [JsonProperty("ItemTitle")]
+    /// <summary>
+    /// アイテムタイトル
+    /// </summary>
     public string? ItemTitle { get; set; }
 
-    [JsonProperty("ClassHash")]
+    /// <summary>
+    /// 分類項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonProperty("NumHash")]
+    /// <summary>
+    /// 数値項目ハッシュ
+    /// </summary>
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonProperty("DateHash")]
+    /// <summary>
+    /// 日付項目ハッシュ
+    /// </summary>
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonProperty("DescriptionHash")]
+    /// <summary>
+    /// 説明項目ハッシュ
+    /// </summary>
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonProperty("CheckHash")]
+    /// <summary>
+    /// チェック項目ハッシュ
+    /// </summary>
     public Dictionary<string, bool>? CheckHash { get; set; }
 
-    [JsonProperty("AttachmentsHash")]
+    /// <summary>
+    /// 添付ファイルハッシュ
+    /// </summary>
     public Dictionary<string, List<AttachmentData>>? AttachmentsHash { get; set; }
 
     /// <summary>

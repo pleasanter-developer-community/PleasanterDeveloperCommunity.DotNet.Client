@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -8,6 +7,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class ExtendedSqlResponse
 {
-    [JsonProperty("Data")]
+    /// <summary>
+    /// 実行結果データ
+    /// </summary>
     public List<Dictionary<string, object>>? Data { get; set; }
 }

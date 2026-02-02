@@ -1,5 +1,4 @@
-using System;
-using Newtonsoft.Json;
+﻿using System;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -8,21 +7,33 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class UpdateRecordResponse
 {
-    [JsonProperty("Id")]
+    /// <summary>
+    /// 更新されたレコードID
+    /// </summary>
     public long Id { get; set; }
 
-    [JsonProperty("StatusCode")]
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
-    [JsonProperty("Message")]
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 
-    [JsonProperty("UpdatedTime")]
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 
-    [JsonProperty("LimitPerDate")]
+    /// <summary>
+    /// 1日あたりのAPI制限数
+    /// </summary>
     public int? LimitPerDate { get; set; }
 
-    [JsonProperty("LimitRemaining")]
+    /// <summary>
+    /// API残数
+    /// </summary>
     public int? LimitRemaining { get; set; }
 }

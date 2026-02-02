@@ -24,6 +24,15 @@ indent_size = 4
 # C# Formatting Rules
 # ============================================================
 
+# CA1507: Use nameof to express symbol names
+# JSON.NETの[JsonProperty]属性でプロパティ名を文字列で指定しているため抑制
+# nameofを使用するとC#プロパティ名がJSONキー名になるが、APIの互換性のため文字列を維持
+dotnet_diagnostic.CA1507.severity = none
+
+# CA1720: Identifier contains type name
+# プリザンターAPIのレスポンスで「Guid」がフィールド名として使用されているため抑制
+dotnet_diagnostic.CA1720.severity = none
+
 # Organize usings
 dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false

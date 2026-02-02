@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -7,15 +7,23 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class UpsertRecordResponse
 {
-    [JsonProperty("Id")]
+    /// <summary>
+    /// レコードID
+    /// </summary>
     public long Id { get; set; }
 
-    [JsonProperty("StatusCode")]
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
-    [JsonProperty("Message")]
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 
-    [JsonProperty("Created")]
+    /// <summary>
+    /// 新規作成されたかどうか
+    /// </summary>
     public bool Created { get; set; }
 }

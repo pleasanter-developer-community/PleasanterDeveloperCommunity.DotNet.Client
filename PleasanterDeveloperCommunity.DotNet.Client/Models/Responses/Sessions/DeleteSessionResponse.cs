@@ -10,12 +10,10 @@ public class DeleteSessionResponse
     /// <summary>
     /// ステータスコード
     /// </summary>
-    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonProperty("Message")]
     public string? Message { get; set; }
 }

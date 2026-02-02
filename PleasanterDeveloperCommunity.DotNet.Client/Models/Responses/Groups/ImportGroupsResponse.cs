@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 
@@ -7,12 +7,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Groups;
 /// </summary>
 public class ImportGroupsResponse
 {
-    [JsonProperty("Id")]
+    /// <summary>
+    /// ID
+    /// </summary>
     public int Id { get; set; }
 
-    [JsonProperty("StatusCode")]
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
-    [JsonProperty("Message")]
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 }

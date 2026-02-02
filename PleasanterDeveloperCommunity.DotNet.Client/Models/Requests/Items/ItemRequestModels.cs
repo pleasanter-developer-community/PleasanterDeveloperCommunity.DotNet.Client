@@ -1,8 +1,7 @@
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
+﻿using PleasanterDeveloperCommunity.DotNet.Client.Models.Common;
 using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Types;
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 
@@ -11,7 +10,9 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
 /// </summary>
 public class ExportColumn
 {
-    [JsonProperty("ColumnName")]
+    /// <summary>
+    /// 列名
+    /// </summary>
     public string? ColumnName { get; set; }
 }
 
@@ -20,16 +21,24 @@ public class ExportColumn
 /// </summary>
 public class ExportSetting
 {
-    [JsonProperty("Name")]
+    /// <summary>
+    /// エクスポート名
+    /// </summary>
     public string? Name { get; set; }
 
-    [JsonProperty("Columns")]
+    /// <summary>
+    /// エクスポート対象列
+    /// </summary>
     public List<ExportColumn>? Columns { get; set; }
 
-    [JsonProperty("Header")]
+    /// <summary>
+    /// ヘッダーを含めるか
+    /// </summary>
     public bool? Header { get; set; }
 
-    [JsonProperty("Type")]
+    /// <summary>
+    /// エクスポートタイプ
+    /// </summary>
     public ExportType? Type { get; set; }
 }
 
@@ -38,36 +47,58 @@ public class ExportSetting
 /// </summary>
 public class BulkUpsertRecordData
 {
-    [JsonProperty("Title")]
+    /// <summary>
+    /// タイトル
+    /// </summary>
     public string? Title { get; set; }
 
-    [JsonProperty("Body")]
+    /// <summary>
+    /// 本文
+    /// </summary>
     public string? Body { get; set; }
 
-    [JsonProperty("Status")]
+    /// <summary>
+    /// 状態
+    /// </summary>
     public int? Status { get; set; }
 
-    [JsonProperty("Manager")]
+    /// <summary>
+    /// 管理者
+    /// </summary>
     public int? Manager { get; set; }
 
-    [JsonProperty("Owner")]
+    /// <summary>
+    /// 担当者
+    /// </summary>
     public int? Owner { get; set; }
 
-    [JsonProperty("CompletionTime")]
+    /// <summary>
+    /// 完了日時
+    /// </summary>
     public string? CompletionTime { get; set; }
 
-    [JsonProperty("ClassHash")]
+    /// <summary>
+    /// 分類項目
+    /// </summary>
     public Dictionary<string, string>? ClassHash { get; set; }
 
-    [JsonProperty("NumHash")]
+    /// <summary>
+    /// 数値項目
+    /// </summary>
     public Dictionary<string, decimal>? NumHash { get; set; }
 
-    [JsonProperty("DateHash")]
+    /// <summary>
+    /// 日付項目
+    /// </summary>
     public Dictionary<string, DateTime>? DateHash { get; set; }
 
-    [JsonProperty("DescriptionHash")]
+    /// <summary>
+    /// 説明項目
+    /// </summary>
     public Dictionary<string, string>? DescriptionHash { get; set; }
 
-    [JsonProperty("CheckHash")]
+    /// <summary>
+    /// チェック項目
+    /// </summary>
     public Dictionary<string, bool>? CheckHash { get; set; }
 }

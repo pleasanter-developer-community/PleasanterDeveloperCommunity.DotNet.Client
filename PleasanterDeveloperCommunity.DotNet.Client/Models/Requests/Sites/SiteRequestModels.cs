@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 
@@ -7,9 +7,13 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Sites;
 /// </summary>
 public class SelectedSite
 {
-    [JsonProperty("SiteId")]
+    /// <summary>
+    /// サイトID
+    /// </summary>
     public long SiteId { get; set; }
 
-    [JsonProperty("IncludeData")]
+    /// <summary>
+    /// データを含めるか
+    /// </summary>
     public bool? IncludeData { get; set; }
 }
