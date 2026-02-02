@@ -428,6 +428,72 @@ var isValid = x > 0 && y < 100;
 Method(arg1, arg2, arg3);
 ```
 
+### 三項演算子
+
+> **Note**: このルールはLintで自動強制できないため、PRレビューで確認する。
+
+短い場合は1行で記述し、長い場合は改行する。
+
+```csharp
+// Good - 短い場合は1行
+var status = isActive ? "有効" : "無効";
+
+// Good - 長い場合は改行（? と : の前で改行、判定に対して1段インデント）
+var message = condition
+    ? "条件が真の場合の長い文字列"
+    : "条件が偽の場合の長い文字列";
+
+// Good - 複雑な条件の場合
+var result = user.IsActive && user.HasPermission
+    ? ProcessActiveUser(user)
+    : HandleInactiveUser(user);
+
+// Good - ネストする場合（2段程度まで）
+var category = score >= 90
+    ? "A"
+    : score >= 70
+        ? "B"
+        : "C";
+
+// Good - ネストが深くなる場合はswitch式を使用
+var category = score switch
+{
+    >= 90 => "A",
+    >= 70 => "B",
+    >= 50 => "C",
+    _ => "D"
+};
+
+// Bad - ネストが深すぎる（3段以上は避ける）
+var category = score >= 90
+    ? "A"
+    : score >= 70
+        ? "B"
+        : score >= 50
+            ? "C"
+            : "D";  // switch式やif文を検討
+
+// Bad - 長いのに1行
+var message = someLongCondition ? "条件が真の場合の長い文字列" : "条件が偽の場合の長い文字列";
+
+// Bad - 改行位置が不適切
+var message = condition ?
+    "条件が真の場合" :
+    "条件が偽の場合";
+```
+
+#### 三項演算子の改行ルール
+
+| ルール       | 説明                                               |
+| ------------ | -------------------------------------------------- |
+| 改行の目安   | 1行が長くなる場合（目安：80〜100文字超）は改行     |
+| 改行位置     | `?` と `:` の**前**で改行する                      |
+| インデント   | 判定部分に対して1段（4スペース）インデントを下げる |
+| ネストの上限 | **2段まで**。3段以上は `switch` 式や `if` 文を使用 |
+| ネスト時     | 各レベルでさらに1段インデントを下げる              |
+
+> **Lint対応状況**: 三項演算子の改行位置・ネスト制限は標準のEditorConfig/Roslynでは強制できない。
+
 ---
 
 ## コードスタイル
@@ -1150,6 +1216,8 @@ var result = from order in orders
 
 ## 正規表現
 
+> **Note**: 正規表現に関するルールはLintで自動強制できないため、PRレビューで確認する。
+
 ### 基本ルール
 
 正規表現を使用する際は、パフォーマンスとセキュリティを考慮すること。
@@ -1313,6 +1381,8 @@ dotnet format --include-generated
 
 ### ファイル内の順序
 
+> **Note**: メンバーの順序はLintで自動強制できないため、PRレビューで確認する。
+
 ```csharp
 // 1. usingディレクティブ（System系を先頭に）
 using System;
@@ -1368,22 +1438,22 @@ namespace PleasanterDeveloperCommunity.DotNet.Client
 
 以下のルールは `warning` レベルで設定されており、違反すると警告が表示される：
 
-| ルール                                                             | 設定値    | 説明                     |
-| ------------------------------------------------------------------ | --------- | ------------------------ |
-| `csharp_prefer_braces`                                             | `true`    | 制御文の中括弧を必須     |
-| `dotnet_style_prefer_string_interpolation`                         | `true`    | 文字列補間を優先         |
-| `dotnet_style_prefer_is_null_check_over_reference_equality_method` | `true`    | `is null` チェックを優先 |
-| `csharp_style_pattern_matching_over_is_with_cast_check`            | `true`    | パターンマッチングを優先 |
-| `csharp_style_pattern_matching_over_as_with_null_check`            | `true`    | パターンマッチングを優先 |
-| `csharp_style_prefer_not_pattern`                                  | `true`    | `is not` パターンを優先  |
-| `dotnet_sort_system_directives_first`                              | `true`    | System系を先頭にソート   |
-| `IDE0005`                                                          | `warning` | 不要なusing              |
-| `IDE0011`                                                          | `warning` | 中括弧の追加を強制       |
-| `IDE0041`                                                          | `warning` | `is null` チェックを使用 |
-| `IDE0055`                                                          | `warning` | フォーマット違反         |
-| `IDE0083`                                                          | `warning` | `is not` パターンを使用  |
+| ルール                                                             | 設定値    | 説明                       |
+| ------------------------------------------------------------------ | --------- | -------------------------- |
+| `csharp_prefer_braces`                                             | `true`    | 制御文の中括弧を必須       |
+| `dotnet_style_prefer_string_interpolation`                         | `true`    | 文字列補間を優先           |
+| `dotnet_style_prefer_is_null_check_over_reference_equality_method` | `true`    | `is null` チェックを優先   |
+| `csharp_style_pattern_matching_over_is_with_cast_check`            | `true`    | パターンマッチングを優先   |
+| `csharp_style_pattern_matching_over_as_with_null_check`            | `true`    | パターンマッチングを優先   |
+| `csharp_style_prefer_not_pattern`                                  | `true`    | `is not` パターンを優先    |
+| `dotnet_sort_system_directives_first`                              | `true`    | System系を先頭にソート     |
+| `IDE0005`                                                          | `warning` | 不要なusing                |
+| `IDE0011`                                                          | `warning` | 中括弧の追加を強制         |
+| `IDE0041`                                                          | `warning` | `is null` チェックを使用   |
+| `IDE0055`                                                          | `warning` | フォーマット違反           |
+| `IDE0083`                                                          | `warning` | `is not` パターンを使用    |
 | `IDE0150`                                                          | `warning` | 型チェックよりnullチェック |
-| `CS8600-CS8605`                                                    | `warning` | Nullable参照型関連       |
+| `CS8600-CS8605`                                                    | `warning` | Nullable参照型関連         |
 
 #### 命名規則（EditorConfigで強制）
 
