@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -86,9 +86,7 @@ public enum ExportType
 /// </summary>
 public class ApiColumnSetting
 {
-    [JsonProperty("KeyDisplayType")]
     public ApiColumnKeyDisplayType? KeyDisplayType { get; set; }
 
-    [JsonProperty("ValueDisplayType")]
     public ApiColumnValueDisplayType? ValueDisplayType { get; set; }
 }

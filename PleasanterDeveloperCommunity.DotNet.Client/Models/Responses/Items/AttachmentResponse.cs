@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -10,40 +10,29 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class AttachmentResponse
 {
-    [JsonProperty("ReferenceId")]
     public long ReferenceId { get; set; }
 
-    [JsonProperty("BinaryType")]
     public string? BinaryType { get; set; }
 
-    [JsonProperty("Base64")]
     public string? Base64 { get; set; }
 
     [JsonProperty("Guid")]
-    public string? Guid { get; set; }
+    public string? AttachmentGuid { get; set; }
 
-    [JsonProperty("FileNameWithoutExtension")]
     public string? FileNameWithoutExtension { get; set; }
 
-    [JsonProperty("Extension")]
     public string? Extension { get; set; }
 
-    [JsonProperty("Size")]
     public long Size { get; set; }
 
-    [JsonProperty("ContentType")]
     public string? ContentType { get; set; }
 
-    [JsonProperty("Creator")]
     public long Creator { get; set; }
 
-    [JsonProperty("Updator")]
     public long Updator { get; set; }
 
-    [JsonProperty("CreatedTime")]
     public DateTime? CreatedTime { get; set; }
 
-    [JsonProperty("UpdatedTime")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>

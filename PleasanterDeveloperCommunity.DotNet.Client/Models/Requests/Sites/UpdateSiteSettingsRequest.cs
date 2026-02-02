@@ -11,6 +11,5 @@ public class UpdateSiteSettingsRequest : ApiRequestBase
     /// <summary>
     /// サイト設定
     /// </summary>
-    [JsonProperty("SiteSettings")]
     public SiteSettings? SiteSettings { get; set; }
 }

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Binaries;
 
@@ -10,19 +10,16 @@ public class UploadBinaryResponse
     /// <summary>
     /// ステータスコード
     /// </summary>
-    [JsonProperty("StatusCode")]
     public int StatusCode { get; set; }
 
     /// <summary>
     /// メッセージ
     /// </summary>
-    [JsonProperty("Message")]
     public string? Message { get; set; }
 
     /// <summary>
     /// レスポンスデータ
     /// </summary>
-    [JsonProperty("Response")]
     public UploadBinaryResponseData? Response { get; set; }
 }
 
@@ -35,5 +32,5 @@ public class UploadBinaryResponseData
     /// アップロードされたファイルのGUID
     /// </summary>
     [JsonProperty("Guid")]
-    public string? Guid { get; set; }
+    public string? FileGuid { get; set; }
 }

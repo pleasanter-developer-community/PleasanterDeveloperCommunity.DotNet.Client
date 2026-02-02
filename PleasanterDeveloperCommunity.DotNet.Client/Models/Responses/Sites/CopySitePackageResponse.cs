@@ -8,7 +8,6 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 /// </summary>
 public class CopySitePackageResponse
 {
-    [JsonProperty("Data")]
     public string? Data { get; set; }
 
     /// <summary>
@@ -34,15 +33,11 @@ public class CopySitePackageResponse
 /// </summary>
 public class CopiedSiteInfo
 {
-    [JsonProperty("OldSiteId")]
     public long OldSiteId { get; set; }
 
-    [JsonProperty("NewSiteId")]
     public long NewSiteId { get; set; }
 
-    [JsonProperty("ReferenceType")]
     public string? ReferenceType { get; set; }
 
-    [JsonProperty("Title")]
     public string? Title { get; set; }
 }

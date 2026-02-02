@@ -4,10 +4,6 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <!-- CA1507: JsonProperty属性の文字列リテラルはnameofに変換不可のため抑制 -->
-    <!-- CA1720: PleasanterのAPIパラメータ名に合わせているため抑制 -->
-    <!-- CS1591: XMLドキュメントコメント未記載（DTOクラス等に大量にあるため一時的に抑制） -->
-    <NoWarn>CA1507;CA1720;CS1591</NoWarn>
     <Version>1.2.0</Version>
     <Authors>Pleasanter Developer Community</Authors>
     <Description>Pleasanter API Client Library for .NET</Description>

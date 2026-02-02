@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Sites;
 
@@ -14,13 +13,11 @@ public class GetClosestSiteIdResponseData
     /// <summary>
     /// 検索起点のサイトID
     /// </summary>
-    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 
     /// <summary>
     /// 最近接サイトIDデータのリスト
     /// </summary>
-    [JsonProperty("Data")]
     public List<ClosestSiteIdData>? Data { get; set; }
 }
 
@@ -32,7 +29,6 @@ public class ClosestSiteIdData
     /// <summary>
     /// 検索対象のサイト名
     /// </summary>
-    [JsonProperty("SiteName")]
     public string? SiteName { get; set; }
 
     /// <summary>
@@ -41,6 +37,5 @@ public class ClosestSiteIdData
     /// <remarks>
     /// サイトが見つからなかった場合は <c>-1</c> が返却されます。
     /// </remarks>
-    [JsonProperty("SiteId")]
     public long SiteId { get; set; }
 }

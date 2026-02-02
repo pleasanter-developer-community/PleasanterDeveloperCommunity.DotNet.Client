@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,13 +19,13 @@ public partial class PleasanterClient
     /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
-    /// <param name="guid">GUID</param>
+    /// <param name="attachmentGuid">GUID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
-        string guid,
+        string attachmentGuid,
         GetAttachmentRequest request,
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
@@ -36,24 +36,24 @@ public partial class PleasanterClient
         }
         SetApiCredentials(request);
         return await SendRequestAsync<AttachmentResponse>(
-            $"/api/binaries/{guid}/get", request, timeout, cancellationToken);
+            $"/api/binaries/{attachmentGuid}/get", request, timeout, cancellationToken);
     }
 
     /// <summary>
     /// 添付ファイルを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-01-バイナリ-取得(Base64).md">Wiki: 08-バイナリ操作-01-バイナリ-取得(Base64)</seealso>
-    /// <param name="guid">GUID</param>
+    /// <param name="attachmentGuid">GUID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>添付ファイル取得レスポンス</returns>
     public async Task<ApiResponse<AttachmentResponse>> GetAttachmentAsync(
-        string guid,
+        string attachmentGuid,
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
         var request = new GetAttachmentRequest();
-        return await GetAttachmentAsync(guid, request, timeout, cancellationToken);
+        return await GetAttachmentAsync(attachmentGuid, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -64,13 +64,13 @@ public partial class PleasanterClient
     /// バイナリストリームを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
-    /// <param name="guid">GUID</param>
+    /// <param name="attachmentGuid">GUID</param>
     /// <param name="request">リクエストモデル</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリストリーム取得レスポンス</returns>
     public async Task<ApiResponse<GetBinaryStreamResponse>> GetBinaryStreamAsync(
-        string guid,
+        string attachmentGuid,
         GetBinaryStreamRequest request,
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
@@ -81,24 +81,24 @@ public partial class PleasanterClient
         }
         SetApiCredentials(request);
         return await SendRequestAsync<GetBinaryStreamResponse>(
-            $"/api/binaries/{guid}/getstream", request, timeout, cancellationToken);
+            $"/api/binaries/{attachmentGuid}/getstream", request, timeout, cancellationToken);
     }
 
     /// <summary>
     /// バイナリストリームを取得します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-02-バイナリ-ストリーム取得.md">Wiki: 08-バイナリ操作-02-バイナリ-ストリーム取得</seealso>
-    /// <param name="guid">GUID</param>
+    /// <param name="attachmentGuid">GUID</param>
     /// <param name="timeout">タイムアウト</param>
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>バイナリストリーム取得レスポンス</returns>
     public async Task<ApiResponse<GetBinaryStreamResponse>> GetBinaryStreamAsync(
-        string guid,
+        string attachmentGuid,
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
         var request = new GetBinaryStreamRequest();
-        return await GetBinaryStreamAsync(guid, request, timeout, cancellationToken);
+        return await GetBinaryStreamAsync(attachmentGuid, request, timeout, cancellationToken);
     }
 
     #endregion
@@ -299,7 +299,7 @@ public partial class PleasanterClient
     /// 既存の添付ファイルを更新します（GUID指定）
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
-    /// <param name="guid">更新対象のファイルGUID</param>
+    /// <param name="attachmentGuid">更新対象のファイルGUID</param>
     /// <param name="fileStream">ファイルストリーム</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="contentType">コンテンツタイプ</param>
@@ -312,7 +312,7 @@ public partial class PleasanterClient
     /// 既存の添付ファイルを更新する場合に使用します。
     /// </remarks>
     public async Task<ApiResponse<UploadBinaryResponse>> UpdateBinaryStreamAsync(
-        string guid,
+        string attachmentGuid,
         Stream fileStream,
         string fileName,
         string? contentType = null,
@@ -320,9 +320,9 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(guid))
+        if (string.IsNullOrEmpty(attachmentGuid))
         {
-            throw new ArgumentNullException(nameof(guid));
+            throw new ArgumentNullException(nameof(attachmentGuid));
         }
         if (fileStream == null)
         {
@@ -333,7 +333,7 @@ public partial class PleasanterClient
             throw new ArgumentNullException(nameof(fileName));
         }
 
-        var endpoint = $"/api/binaries/{guid}/upload";
+        var endpoint = $"/api/binaries/{attachmentGuid}/upload";
         if (overwrite)
         {
             endpoint = $"{endpoint}?overwrite=true";
@@ -356,7 +356,7 @@ public partial class PleasanterClient
     /// 既存の添付ファイルを更新します（GUID指定、byte[]版）
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
-    /// <param name="guid">更新対象のファイルGUID</param>
+    /// <param name="attachmentGuid">更新対象のファイルGUID</param>
     /// <param name="fileData">ファイルデータ</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="contentType">コンテンツタイプ</param>
@@ -365,7 +365,7 @@ public partial class PleasanterClient
     /// <param name="cancellationToken">キャンセルトークン</param>
     /// <returns>アップロードレスポンス</returns>
     public async Task<ApiResponse<UploadBinaryResponse>> UpdateBinaryStreamAsync(
-        string guid,
+        string attachmentGuid,
         byte[] fileData,
         string fileName,
         string? contentType = null,
@@ -378,7 +378,7 @@ public partial class PleasanterClient
             throw new ArgumentNullException(nameof(fileData));
         }
         using var stream = new MemoryStream(fileData);
-        return await UpdateBinaryStreamAsync(guid, stream, fileName, contentType, overwrite, timeout, cancellationToken);
+        return await UpdateBinaryStreamAsync(attachmentGuid, stream, fileName, contentType, overwrite, timeout, cancellationToken);
     }
 
     #endregion
@@ -443,7 +443,7 @@ public partial class PleasanterClient
     /// 既存ファイルを分割（チャンク）で更新します
     /// </summary>
     /// <seealso href="../docs/wiki/08-バイナリ操作-04-バイナリ-ストリームアップロード.md">Wiki: 08-バイナリ操作-04-バイナリ-ストリームアップロード</seealso>
-    /// <param name="guid">更新対象のファイルGUID</param>
+    /// <param name="attachmentGuid">更新対象のファイルGUID</param>
     /// <param name="chunkData">チャンクデータ</param>
     /// <param name="fileName">ファイル名</param>
     /// <param name="rangeFrom">Content-Rangeの開始バイト位置</param>
@@ -459,7 +459,7 @@ public partial class PleasanterClient
     /// 既存の添付ファイルを分割アップロードで更新する場合に使用します。
     /// </remarks>
     public async Task<ApiResponse<UploadBinaryResponse>> UpdateBinaryChunkAsync(
-        string guid,
+        string attachmentGuid,
         byte[] chunkData,
         string fileName,
         long rangeFrom,
@@ -471,9 +471,9 @@ public partial class PleasanterClient
         TimeSpan? timeout = null,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(guid))
+        if (string.IsNullOrEmpty(attachmentGuid))
         {
-            throw new ArgumentNullException(nameof(guid));
+            throw new ArgumentNullException(nameof(attachmentGuid));
         }
         if (chunkData == null)
         {
@@ -484,7 +484,7 @@ public partial class PleasanterClient
             throw new ArgumentNullException(nameof(fileName));
         }
 
-        var endpoint = $"/api/binaries/{guid}/upload";
+        var endpoint = $"/api/binaries/{attachmentGuid}/upload";
         if (overwrite)
         {
             endpoint = $"{endpoint}?overwrite=true";
