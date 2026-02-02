@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 
@@ -7,5 +7,8 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class ExtendedSqlResponse
 {
+    /// <summary>
+    /// 実行結果データ
+    /// </summary>
     public List<Dictionary<string, object>>? Data { get; set; }
 }

@@ -10,29 +10,65 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Items;
 /// </summary>
 public class AttachmentResponse
 {
+    /// <summary>
+    /// 参照ID
+    /// </summary>
     public long ReferenceId { get; set; }
 
+    /// <summary>
+    /// バイナリタイプ
+    /// </summary>
     public string? BinaryType { get; set; }
 
+    /// <summary>
+    /// Base64エンコードされたファイルデータ
+    /// </summary>
     public string? Base64 { get; set; }
 
+    /// <summary>
+    /// 添付ファイルのGUID
+    /// </summary>
     [JsonProperty("Guid")]
     public string? AttachmentGuid { get; set; }
 
+    /// <summary>
+    /// 拡張子を除いたファイル名
+    /// </summary>
     public string? FileNameWithoutExtension { get; set; }
 
+    /// <summary>
+    /// 拡張子
+    /// </summary>
     public string? Extension { get; set; }
 
+    /// <summary>
+    /// ファイルサイズ（バイト）
+    /// </summary>
     public long Size { get; set; }
 
+    /// <summary>
+    /// コンテンツタイプ
+    /// </summary>
     public string? ContentType { get; set; }
 
+    /// <summary>
+    /// 作成者ID
+    /// </summary>
     public long Creator { get; set; }
 
+    /// <summary>
+    /// 更新者ID
+    /// </summary>
     public long Updator { get; set; }
 
+    /// <summary>
+    /// 作成日時
+    /// </summary>
     public DateTime? CreatedTime { get; set; }
 
+    /// <summary>
+    /// 更新日時
+    /// </summary>
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.BackgroundTasks;
 
@@ -7,9 +7,18 @@ namespace PleasanterDeveloperCommunity.DotNet.Client.Models.Responses.Background
 /// </summary>
 public class RebuildSearchIndexesResponse
 {
+    /// <summary>
+    /// タスクID
+    /// </summary>
     public long Id { get; set; }
 
+    /// <summary>
+    /// ステータスコード
+    /// </summary>
     public int StatusCode { get; set; }
 
+    /// <summary>
+    /// メッセージ
+    /// </summary>
     public string? Message { get; set; }
 }
