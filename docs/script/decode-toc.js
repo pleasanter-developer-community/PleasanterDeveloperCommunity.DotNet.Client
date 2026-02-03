@@ -32,6 +32,11 @@ targetDirs.forEach((dir) => {
     }
 });
 
+// docs直下のmdファイルも追加
+fs.readdirSync(docsDir)
+    .filter((f) => f.endsWith(".md"))
+    .forEach((f) => files.push(path.join(docsDir, f)));
+
 // ルートディレクトリのmdファイルも追加
 fs.readdirSync(rootDir)
     .filter((f) => f.endsWith(".md"))

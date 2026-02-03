@@ -1,15 +1,15 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-    - [目的](#目的)
-    - [ドキュメント一覧](#ドキュメント一覧)
-    - [注意事項](#注意事項)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # 実装調査ドキュメント
 
 このディレクトリには、プリザンター本体やその他の関連システムの実装調査に関するドキュメントを格納しています。
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [目的](#目的)
+- [ドキュメント一覧](#ドキュメント一覧)
+- [注意事項](#注意事項)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 目的
 
@@ -22,6 +22,8 @@
 | ドキュメント                                                               | 説明                                              | 調査日     |
 | -------------------------------------------------------------------------- | ------------------------------------------------- | ---------- |
 | [pleasanter-upsert-implementation.md](pleasanter-upsert-implementation.md) | Upsert API の実装調査（レースコンディション問題） | 2026-02-03 |
+| [pleasanter-session-api-retention.md](pleasanter-session-api-retention.md) | Sessions API のセッション有効期間調査             | 2026-02-03 |
+| [pleasanter-site-setting-history.md](pleasanter-site-setting-history.md)   | SiteSetting 更新時の変更履歴記録調査              | 2026-02-03 |
 
 ## 注意事項
 

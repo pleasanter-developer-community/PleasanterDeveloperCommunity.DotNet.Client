@@ -1,43 +1,39 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-    - [調査日](#調査日)
-    - [調査対象バージョン](#調査対象バージョン)
-    - [調査目的](#調査目的)
-    - [エンドポイント](#エンドポイント)
-    - [結論](#結論)
-
-- [セッション有効期間](#セッション有効期間)
-- [有効期間の挙動](#有効期間の挙動)
-    - [実装の詳細](#実装の詳細)
-- [Session.json パラメータ](#sessionjson-パラメータ)
-- [パラメータクラス](#パラメータクラス)
-- [セッション期限の適用箇所](#セッション期限の適用箇所)
-    - [SavePerUser オプションの影響](#saveperuser-オプションの影響)
-- [リクエスト例](#リクエスト例)
-- [sessionGuid の決定ロジック](#sessionguid-の決定ロジック)
-- [重要な違い](#重要な違い)
-    - [削除タイミング](#削除タイミング)
-- [削除条件](#削除条件)
-    - [保存先](#保存先)
-- [RDB保存時（デフォルト）](#rdb保存時デフォルト)
-- [Redis使用時](#redis使用時)
-    - [まとめ](#まとめ)
-- [注意事項](#注意事項)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # プリザンター Sessions API セッション有効期間調査
 
 このドキュメントでは、プリザンター本体の Sessions API におけるセッション有効期間について調査した内容をまとめます。
 
-## 調査日
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- 2026年2月3日
+- [調査情報](#調査情報)
+- [調査目的](#調査目的)
+- [エンドポイント](#エンドポイント)
+- [結論](#結論)
+    - [セッション有効期間](#セッション有効期間)
+    - [有効期間の挙動](#有効期間の挙動)
+- [実装の詳細](#実装の詳細)
+    - [Session.json パラメータ](#sessionjson-パラメータ)
+    - [パラメータクラス](#パラメータクラス)
+    - [セッション期限の適用箇所](#セッション期限の適用箇所)
+- [SavePerUser オプションの影響](#saveperuser-オプションの影響)
+    - [リクエスト例](#リクエスト例)
+    - [sessionGuid の決定ロジック](#sessionguid-の決定ロジック)
+    - [重要な違い](#重要な違い)
+- [削除タイミング](#削除タイミング)
+    - [削除条件](#削除条件)
+- [保存先](#保存先)
+    - [RDB保存時（デフォルト）](#rdb保存時デフォルト)
+    - [Redis使用時](#redis使用時)
+- [まとめ](#まとめ)
+    - [注意事項](#注意事項)
 
-## 調査対象バージョン
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- プリザンター main ブランチ（調査時点）
+## 調査情報
+
+| 調査日       | リポジトリ | ブランチ | タグ/バージョン | コミット                                 | 備考     |
+| ------------ | ---------- | -------- | --------------- | ---------------------------------------- | -------- |
+| 2026年2月3日 | Pleasanter | main     |                 | 調査時点の最新（コミットハッシュ未取得） | 初回調査 |
 
 ## 調査目的
 
