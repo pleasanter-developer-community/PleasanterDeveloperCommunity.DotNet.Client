@@ -1,10 +1,9 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [実装調査ドキュメント](#%E5%AE%9F%E8%A3%85%E8%AA%BF%E6%9F%BB%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88)
-    - [目的](#%E7%9B%AE%E7%9A%84)
-    - [ドキュメント一覧](#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E4%B8%80%E8%A6%A7)
-    - [注意事項](#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85)
+    - [目的](#目的)
+    - [ドキュメント一覧](#ドキュメント一覧)
+    - [注意事項](#注意事項)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

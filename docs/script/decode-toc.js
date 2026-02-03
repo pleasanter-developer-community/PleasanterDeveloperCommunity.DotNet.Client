@@ -15,8 +15,11 @@ const path = require("path");
 const docsDir = path.join(__dirname, "..");
 const rootDir = path.join(__dirname, "..", "..");
 
-// 処理対象のディレクトリ
-const targetDirs = ["wiki", "contributing"];
+// docs配下の全ディレクトリを処理対象にする
+const targetDirs = fs
+    .readdirSync(docsDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory() && dirent.name !== "script")
+    .map((dirent) => dirent.name);
 
 // 各ディレクトリ内のmdファイルを収集
 const files = [];
