@@ -225,6 +225,16 @@ code --install-extension yzhang.markdown-all-in-one
 | `rebuild`         | クリーン→復元→ビルド      | フルリビルド                  |
 | `format`          | C#コードのフォーマット    | using整理・コードスタイル適用 |
 
+#### テストタスク
+
+テストの実行方法については[テストガイドライン](testing-guidelines.md)を参照。
+
+| コマンド                                      | 説明                   | 備考                   |
+| --------------------------------------------- | ---------------------- | ---------------------- |
+| `dotnet test`                                 | 全テストを実行         | ソリューション全体     |
+| `dotnet test --filter "ClassName"`            | 特定のテストクラス実行 | フィルタで絞り込み     |
+| `dotnet test --collect:"XPlat Code Coverage"` | カバレッジ収集付き実行 | coverlet.collector使用 |
+
 #### ドキュメントタスク（npm）
 
 | タスク              | 説明                           | 対応するnpmスクリプト  |

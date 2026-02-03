@@ -6,18 +6,19 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [はじめに](#はじめに)
-- [ガイドライン一覧](#ガイドライン一覧)
-- [クイックスタート](#クイックスタート)
-    - [1. リポジトリをフォーク・クローン](#1-リポジトリをフォーククローン)
-    - [2. ブランチを作成](#2-ブランチを作成)
-    - [3. 変更を実装](#3-変更を実装)
-    - [4. コミット・プッシュ](#4-コミットプッシュ)
-    - [5. プルリクエストを作成](#5-プルリクエストを作成)
-- [コミットメッセージ](#コミットメッセージ)
-- [Issue報告](#issue報告)
-- [ライセンス](#ライセンス)
-- [質問・サポート](#質問サポート)
+- [コントリビューションガイド](#コントリビューションガイド)
+    - [はじめに](#はじめに)
+    - [ガイドライン一覧](#ガイドライン一覧)
+    - [クイックスタート](#クイックスタート)
+        - [1. リポジトリをフォーク・クローン](#1-リポジトリをフォーククローン)
+        - [2. ブランチを作成](#2-ブランチを作成)
+        - [3. 変更を実装](#3-変更を実装)
+        - [4. コミット・プッシュ](#4-コミットプッシュ)
+        - [5. プルリクエストを作成](#5-プルリクエストを作成)
+    - [コミットメッセージ](#コミットメッセージ)
+    - [Issue報告](#issue報告)
+    - [ライセンス](#ライセンス)
+    - [質問・サポート](#質問サポート)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -31,6 +32,7 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 | ------------------------------------------------------------------------- | ---------------------------------------- |
 | [開発環境構築](docs/contributing/development-environment.md)              | Node.js、VS Code、.NET SDKのセットアップ |
 | [コーディングガイドライン](docs/contributing/coding-guidelines.md)        | 命名規則、フォーマット、コードスタイル   |
+| [テストガイドライン](docs/contributing/testing-guidelines.md)             | テストの書き方、実行方法、カバレッジ     |
 | [ドキュメントガイドライン](docs/contributing/documentation-guidelines.md) | Markdown記法、ファイル構成、同期ルール   |
 | [ブランチ戦略](docs/contributing/branch-strategy.md)                      | ブランチ命名、マージ方針                 |
 | [CI/CDワークフロー](docs/contributing/ci-workflow.md)                     | 自動テスト、リリースプロセス             |
@@ -55,7 +57,7 @@ git checkout -b feature/your-feature-name
 ### 3. 変更を実装
 
 - [コーディングガイドライン](docs/contributing/coding-guidelines.md)に従ってコードを記述
-- 必要に応じてテストを追加
+- テストを追加（[テストガイドライン](docs/contributing/testing-guidelines.md)参照）
 - ドキュメントを更新（[ドキュメントガイドライン](docs/contributing/documentation-guidelines.md)参照）
 
 ### 4. コミット・プッシュ

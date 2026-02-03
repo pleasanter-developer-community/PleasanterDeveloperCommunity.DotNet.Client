@@ -6,6 +6,8 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [ワークフロー一覧](#ワークフロー一覧)
+- [ローカルでのテスト実行](#ローカルでのテスト実行)
+    - [コマンド](#コマンド)
 - [全体フロー図](#全体フロー図)
 - [1. Create Release ワークフロー](#1-create-release-ワークフロー)
     - [概要](#概要)
@@ -35,6 +37,27 @@
 | ----------------- | --------------- | -------------------------------------------------- | ----------------------------------------------------------- |
 | Create Release    | `release.yml`   | 手動実行（main ブランチのみ）                      | バージョンアップ、NuGet パッケージ公開、GitHub Release 作成 |
 | Sync Docs to Wiki | `sync-wiki.yml` | main への push（docs/wiki 配下の変更時）/ 手動実行 | Wiki ページの自動同期                                       |
+
+---
+
+## ローカルでのテスト実行
+
+CI/CD でテストを自動実行する前に、ローカルでテストを実行することを推奨します。
+
+### コマンド
+
+```bash
+# 全テストを実行
+dotnet test
+
+# 詳細なログを出力
+dotnet test --logger "console;verbosity=detailed"
+
+# カバレッジを収集
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+詳細は[テストガイドライン](testing-guidelines.md)を参照してください。
 
 ---
 
