@@ -5,4 +5,5 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj" />
+  <Project Path="PleasanterDeveloperCommunity.DotNet.Client.Tests/PleasanterDeveloperCommunity.DotNet.Client.Tests.csproj" />
 </Solution>
