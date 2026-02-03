@@ -59,6 +59,9 @@ nunit-*.xml
 !.github/copilot-instructions.md
 .copilotignore
 
+# ローカル設定
+local.config.json
+
 # Visual Studio
 .vs/
 *.suo
