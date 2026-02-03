@@ -62,6 +62,12 @@ nunit-*.xml
 # ローカル設定
 local.config.json
 
+# Sandboxプロジェクト（デバッグ用、機密情報を含む可能性あり）
+# csprojは追跡するが、実行コードと設定ファイルは除外
+PleasanterDeveloperCommunity.DotNet.Client.Sandbox/*.cs
+PleasanterDeveloperCommunity.DotNet.Client.Sandbox/sandbox.settings.json
+!PleasanterDeveloperCommunity.DotNet.Client.Sandbox/*.example
+
 # Visual Studio
 .vs/
 *.suo

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Sandboxプロジェクトはリリースに含めないため、警告を緩和 -->
+    <!-- CS1591: XMLドキュメントコメント不足 -->
+    <!-- CS8602: null参照の可能性（デバッグコードのため許容） -->
+    <!-- CS0162: 到達できないコード（USE_MENUフラグによる分岐） -->
+    <NoWarn>$(NoWarn);CS1591;CS8602;CS0162</NoWarn>
+    <!-- ドキュメントファイルを生成しない -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PleasanterDeveloperCommunity.DotNet.Client\PleasanterDeveloperCommunity.DotNet.Client.csproj" />
+  </ItemGroup>
+
+</Project>

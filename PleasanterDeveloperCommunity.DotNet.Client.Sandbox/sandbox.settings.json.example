@@ -1,0 +1,11 @@
+{
+  "pleasanter": {
+    "baseUrl": "https://your-pleasanter-server.example.com",
+    "apiKey": "your-api-key-here",
+    "apiVersion": 1.1
+  },
+  "testData": {
+    "siteId": 0,
+    "recordId": 0
+  }
+}

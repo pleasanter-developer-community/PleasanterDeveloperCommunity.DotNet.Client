@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Sandbox: デバッグ実行",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/PleasanterDeveloperCommunity.DotNet.Client.Sandbox/bin/Debug/net10.0/PleasanterDeveloperCommunity.DotNet.Client.Sandbox.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/PleasanterDeveloperCommunity.DotNet.Client.Sandbox",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Sandbox: アタッチ",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

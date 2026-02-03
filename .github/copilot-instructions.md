@@ -21,6 +21,7 @@
 | ブランチ戦略 | [branch-strategy.md](../docs/contributing/branch-strategy.md)                   | ブランチ命名、マージ方針                 |
 | CI/CD        | [ci-workflow.md](../docs/contributing/ci-workflow.md)                           | 自動テスト、リリースプロセス             |
 | 開発環境     | [development-environment.md](../docs/contributing/development-environment.md)   | Node.js、VS Code、.NET SDKのセットアップ |
+| Sandbox      | [sandbox-guide.md](../docs/contributing/sandbox-guide.md)                       | デバッグ・動作確認用プロジェクトの使い方 |
 
 > **重要**: `docs/contributing/` に新しいガイドラインを追加した場合は、上記テーブルにも追記すること。
 
