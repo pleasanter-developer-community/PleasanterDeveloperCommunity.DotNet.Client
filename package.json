@@ -6,12 +6,17 @@
     "format": "npm run preinstall:check && prettier --write \"docs/**/*.md\" \"*.md\"",
     "format:check": "npm run preinstall:check && prettier --check \"docs/**/*.md\" \"*.md\"",
     "toc": "npm run preinstall:check && doctoc docs README.md CONTRIBUTING.md --github --maxlevel 3 --notitle && node docs/script/decode-toc.js",
-    "toc:all": "npm run toc && npm run format"
+    "toc:all": "npm run toc && npm run format",
+    "pdf": "npm run preinstall:check && node docs/script/generate-pdf.js",
+    "pdf:wiki": "npm run preinstall:check && node docs/script/generate-pdf.js docs/wiki/**/*.md",
+    "pdf:research": "npm run preinstall:check && node docs/script/generate-pdf.js docs/research/**/*.md"
   },
   "devDependencies": {
     "doctoc": "^2.2.1",
+    "glob": "^11.0.0",
     "markdownlint": "^0.40.0",
     "markdownlint-cli2": "^0.20.0",
+    "md-to-pdf": "^5.2.4",
     "prettier": "^3.5.0"
   }
 }

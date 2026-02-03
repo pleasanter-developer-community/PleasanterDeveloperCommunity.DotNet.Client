@@ -103,6 +103,30 @@
       "problemMatcher": [],
       "group": "test",
       "detail": "TOC更新 + フォーマットを一括実行"
+    },
+    {
+      "label": "npm: pdf",
+      "type": "npm",
+      "script": "pdf",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "全MarkdownファイルをPDFに変換"
+    },
+    {
+      "label": "npm: pdf:wiki",
+      "type": "npm",
+      "script": "pdf:wiki",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "WikiドキュメントのみをPDFに変換"
+    },
+    {
+      "label": "npm: pdf:research",
+      "type": "npm",
+      "script": "pdf:research",
+      "problemMatcher": [],
+      "group": "test",
+      "detail": "リサーチドキュメントのみをPDFに変換"
     }
   ]
 }

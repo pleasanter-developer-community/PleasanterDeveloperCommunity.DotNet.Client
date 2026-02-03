@@ -186,3 +186,6 @@ yarn-debug.log*
 yarn-error.log*
 .npm
 .yarn-integrity
+
+# PDF出力
+pdf-output/

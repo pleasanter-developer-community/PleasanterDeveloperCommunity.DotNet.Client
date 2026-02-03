@@ -5,25 +5,41 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [必要なツール](#必要なツール)
-- [.NET環境](#net環境)
-    - [.NET SDKのインストール](#net-sdkのインストール)
-    - [インストール確認](#インストール確認)
-- [Node.js環境](#nodejs環境)
-    - [Node.jsのインストール](#nodejsのインストール)
-    - [インストール確認](#インストール確認-1)
-    - [パッケージのインストール](#パッケージのインストール)
-- [IDE（Visual Studio Code）](#idevisual-studio-code)
-    - [VS Codeのインストール](#vs-codeのインストール)
-    - [推奨拡張機能](#推奨拡張機能)
-    - [拡張機能の一括インストール](#拡張機能の一括インストール)
-    - [ワークスペース設定](#ワークスペース設定)
-    - [ビルドタスク](#ビルドタスク)
-- [その他のIDE](#その他のide)
-    - [Visual Studio](#visual-studio)
-    - [JetBrains Rider](#jetbrains-rider)
-- [セットアップ確認](#セットアップ確認)
-- [参考リンク](#参考リンク)
+- [開発環境構築ガイド](#開発環境構築ガイド)
+    - [必要なツール](#必要なツール)
+    - [.NET環境](#net環境)
+        - [.NET SDKのインストール](#net-sdkのインストール)
+            - [Windows（winget）](#windowswinget)
+            - [Windows / macOS / Linux（インストーラー）](#windows--macos--linuxインストーラー)
+            - [macOS（Homebrew）](#macoshomebrew)
+            - [Linux（apt）](#linuxapt)
+        - [インストール確認](#インストール確認)
+    - [Node.js環境](#nodejs環境)
+        - [Node.jsのインストール](#nodejsのインストール)
+            - [Windows（winget）](#windowswinget-1)
+            - [Windows（インストーラー）](#windowsインストーラー)
+            - [macOS（Homebrew）](#macoshomebrew-1)
+            - [Linux（apt）](#linuxapt-1)
+        - [インストール確認](#インストール確認-1)
+        - [パッケージのインストール](#パッケージのインストール)
+    - [IDE（Visual Studio Code）](#idevisual-studio-code)
+        - [VS Codeのインストール](#vs-codeのインストール)
+            - [Windows（winget）](#windowswinget-2)
+            - [macOS（Homebrew）](#macoshomebrew-2)
+        - [推奨拡張機能](#推奨拡張機能)
+        - [拡張機能の一括インストール](#拡張機能の一括インストール)
+        - [ワークスペース設定](#ワークスペース設定)
+        - [ビルドタスク](#ビルドタスク)
+            - [ビルドタスク](#ビルドタスク-1)
+            - [テストタスク](#テストタスク)
+            - [ドキュメントタスク（npm）](#ドキュメントタスクnpm)
+            - [タスクの実行方法](#タスクの実行方法)
+            - [自動NuGet復元](#自動nuget復元)
+    - [その他のIDE](#その他のide)
+        - [Visual Studio](#visual-studio)
+        - [JetBrains Rider](#jetbrains-rider)
+    - [セットアップ確認](#セットアップ確認)
+    - [参考リンク](#参考リンク)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -139,11 +155,14 @@ npm install
 
 これにより、以下のツールがインストールされる：
 
-| パッケージ        | 用途                    |
-| ----------------- | ----------------------- |
-| markdownlint      | Markdown構文チェック    |
-| markdownlint-cli2 | markdownlintのCLIツール |
-| prettier          | コードフォーマッター    |
+| パッケージ        | 用途                                |
+| ----------------- | ----------------------------------- |
+| markdownlint      | Markdown構文チェック                |
+| markdownlint-cli2 | markdownlintのCLIツール             |
+| prettier          | コードフォーマッター                |
+| doctoc            | 目次（TOC）の自動生成               |
+| glob              | ファイルパターンマッチ（PDF生成用） |
+| md-to-pdf         | Markdown→PDF変換エンジン            |
 
 ---
 
@@ -171,16 +190,15 @@ brew install --cask visual-studio-code
 
 ### 推奨拡張機能
 
-本プロジェクトでは以下の拡張機能を推奨している。
+本プロジェクトでは以下の拡張機能を推奨している（`.vscode/extensions.json` に定義済み）。
 
-| 拡張機能ID                       | 名称                | 用途                         |
-| -------------------------------- | ------------------- | ---------------------------- |
-| `ms-dotnettools.csharp`          | C#                  | C#言語サポート               |
-| `ms-dotnettools.csdevkit`        | C# Dev Kit          | .NET開発の統合支援           |
-| `esbenp.prettier-vscode`         | Prettier            | コードフォーマッター         |
-| `editorconfig.editorconfig`      | EditorConfig        | エディタ設定の統一           |
-| `davidanson.vscode-markdownlint` | markdownlint        | Markdownのリアルタイムlint   |
-| `yzhang.markdown-all-in-one`     | Markdown All in One | 目次自動生成、プレビュー強化 |
+| 拡張機能ID                       | 名称         | 用途                       |
+| -------------------------------- | ------------ | -------------------------- |
+| `ms-dotnettools.csharp`          | C#           | C#言語サポート             |
+| `ms-dotnettools.csdevkit`        | C# Dev Kit   | .NET開発の統合支援         |
+| `esbenp.prettier-vscode`         | Prettier     | コードフォーマッター       |
+| `editorconfig.editorconfig`      | EditorConfig | エディタ設定の統一         |
+| `davidanson.vscode-markdownlint` | markdownlint | Markdownのリアルタイムlint |
 
 ### 拡張機能の一括インストール
 
@@ -195,7 +213,6 @@ code --install-extension ms-dotnettools.csdevkit
 code --install-extension esbenp.prettier-vscode
 code --install-extension editorconfig.editorconfig
 code --install-extension davidanson.vscode-markdownlint
-code --install-extension yzhang.markdown-all-in-one
 ```
 
 ### ワークスペース設定
@@ -207,7 +224,9 @@ code --install-extension yzhang.markdown-all-in-one
 | `[markdown].editor.defaultFormatter`  | `esbenp.prettier-vscode` | MarkdownのフォーマッターにPrettier |
 | `[markdown].editor.formatOnSave`      | `true`                   | 保存時に自動フォーマット           |
 | `[markdown].editor.codeActionsOnSave` | markdownlint fixAll      | 保存時にlintエラーを自動修正       |
-| `markdown.extension.toc.updateOnSave` | `true`                   | 保存時に目次を自動更新             |
+| `[json].editor.defaultFormatter`      | `esbenp.prettier-vscode` | JSONのフォーマッターにPrettier     |
+| `[csharp].editor.formatOnSave`        | `true`                   | C#保存時に自動フォーマット         |
+| `editor.formatOnSave`                 | `true`                   | 全体で保存時フォーマット有効       |
 | `files.eol`                           | `\n`                     | 改行コードをLFに統一               |
 
 ### ビルドタスク
@@ -215,6 +234,8 @@ code --install-extension yzhang.markdown-all-in-one
 プロジェクトには `.vscode/tasks.json` が含まれており、VS Code のタスク機能でビルドやドキュメント操作を実行できる。
 
 #### ビルドタスク
+
+以下のタスクが `.vscode/tasks.json` に定義されています。
 
 | タスク            | 説明                      | 備考                          |
 | ----------------- | ------------------------- | ----------------------------- |
@@ -237,14 +258,19 @@ code --install-extension yzhang.markdown-all-in-one
 
 #### ドキュメントタスク（npm）
 
-| タスク              | 説明                           | 対応するnpmスクリプト  |
-| ------------------- | ------------------------------ | ---------------------- |
-| `npm: lint:md`      | Markdownファイルの構文チェック | `npm run lint:md`      |
-| `npm: lint:md:fix`  | lintエラーを自動修正           | `npm run lint:md:fix`  |
-| `npm: format`       | Prettierでフォーマット         | `npm run format`       |
-| `npm: format:check` | フォーマットのチェック         | `npm run format:check` |
-| `npm: toc`          | doctocでTOCを更新              | `npm run toc`          |
-| `npm: toc:all`      | TOC更新 + フォーマットを一括   | `npm run toc:all`      |
+以下のnpmスクリプトが VS Code タスクとして利用可能です（`package.json` に定義）。
+
+| タスク              | 説明                            | 対応するnpmスクリプト  |
+| ------------------- | ------------------------------- | ---------------------- |
+| `npm: lint:md`      | Markdownファイルの構文チェック  | `npm run lint:md`      |
+| `npm: lint:md:fix`  | lintエラーを自動修正            | `npm run lint:md:fix`  |
+| `npm: format`       | Prettierでフォーマット          | `npm run format`       |
+| `npm: format:check` | フォーマットのチェック          | `npm run format:check` |
+| `npm: toc`          | doctocでTOCを更新               | `npm run toc`          |
+| `npm: toc:all`      | TOC更新 + フォーマットを一括    | `npm run toc:all`      |
+| `npm: pdf`          | 全MarkdownをPDFに変換           | `npm run pdf`          |
+| `npm: pdf:wiki`     | WikiドキュメントをPDFに変換     | `npm run pdf:wiki`     |
+| `npm: pdf:research` | リサーチドキュメントをPDFに変換 | `npm run pdf:research` |
 
 #### タスクの実行方法
 

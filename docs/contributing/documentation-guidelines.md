@@ -5,39 +5,72 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [基本原則](#基本原則)
-    - [言語](#言語)
-    - [製品名の表記](#製品名の表記)
-    - [対象読者](#対象読者)
-- [ファイル構成](#ファイル構成)
-    - [ディレクトリ構造](#ディレクトリ構造)
-    - [ファイル命名規則](#ファイル命名規則)
-- [Markdownスタイル](#markdownスタイル)
-    - [基本ルール](#基本ルール)
-    - [型名の表記](#型名の表記)
-    - [HTMLタグの使用](#htmlタグの使用)
-    - [フォーマッター（Prettier）](#フォーマッターprettier)
-    - [Markdownlint](#markdownlint)
-    - [npmスクリプト](#npmスクリプト)
-    - [目次の自動生成（doctoc）](#目次の自動生成doctoc)
-    - [見出し](#見出し)
-    - [コードブロック](#コードブロック)
-    - [テーブル](#テーブル)
-    - [Mermaid図](#mermaid図)
-    - [リンク](#リンク)
-- [APIドキュメント](#apiドキュメント)
-    - [構成テンプレート](#構成テンプレート)
-    - [セクション詳細](#セクション詳細)
-    - [複数メソッドがある場合](#複数メソッドがある場合)
-    - [パラメータテーブル形式](#パラメータテーブル形式)
-    - [レスポンステーブル形式](#レスポンステーブル形式)
-    - [関連ドキュメントセクションのルール](#関連ドキュメントセクションのルール)
-    - [公式マニュアル未記載APIのNote](#公式マニュアル未記載apiのnote)
-    - [XMLドキュメントとの整合性](#xmlドキュメントとの整合性)
-- [ドキュメント同期](#ドキュメント同期)
-    - [更新ルール](#更新ルール)
-    - [GitHub Wiki同期](#github-wiki同期)
-- [参考リンク](#参考リンク)
+- [ドキュメントガイドライン](#ドキュメントガイドライン)
+    - [基本原則](#基本原則)
+        - [言語](#言語)
+        - [製品名の表記](#製品名の表記)
+        - [対象読者](#対象読者)
+    - [ファイル構成](#ファイル構成)
+        - [ディレクトリ構造](#ディレクトリ構造)
+        - [ファイル命名規則](#ファイル命名規則)
+            - [`docs/wiki/` 配下](#docswiki-配下)
+            - [`docs/contributing/` 配下](#docscontributing-配下)
+    - [Markdownスタイル](#markdownスタイル)
+        - [基本ルール](#基本ルール)
+        - [型名の表記](#型名の表記)
+        - [HTMLタグの使用](#htmlタグの使用)
+        - [フォーマッター（Prettier）](#フォーマッターprettier)
+            - [セットアップ](#セットアップ)
+            - [設定ファイル](#設定ファイル)
+            - [Prettier設定の詳細](#prettier設定の詳細)
+            - [手動実行](#手動実行)
+        - [Markdownlint](#markdownlint)
+            - [設定ファイル](#設定ファイル-1)
+            - [Markdownlint設定の詳細](#markdownlint設定の詳細)
+        - [npmスクリプト](#npmスクリプト)
+            - [前提条件](#前提条件)
+            - [利用可能なスクリプト](#利用可能なスクリプト)
+            - [スクリプトの対象ファイル](#スクリプトの対象ファイル)
+            - [使用例](#使用例)
+            - [推奨ワークフロー](#推奨ワークフロー)
+            - [VS Codeタスクとの連携](#vs-codeタスクとの連携)
+        - [目次の自動生成（doctoc）](#目次の自動生成doctoc)
+            - [セットアップ](#セットアップ-1)
+            - [TOCの生成・更新](#tocの生成更新)
+            - [doctocの動作](#doctocの動作)
+            - [生成されるTOC形式](#生成されるtoc形式)
+            - [注意事項](#注意事項)
+        - [見出し](#見出し)
+        - [コードブロック](#コードブロック)
+        - [テーブル](#テーブル)
+        - [Mermaid図](#mermaid図)
+        - [リンク](#リンク)
+    - [APIドキュメント](#apiドキュメント)
+        - [構成テンプレート](#構成テンプレート)
+        - [セクション詳細](#セクション詳細)
+        - [複数メソッドがある場合](#複数メソッドがある場合)
+        - [パラメータテーブル形式](#パラメータテーブル形式)
+            - [基本ルール](#基本ルール-1)
+            - [記述例](#記述例)
+            - [階層の表現](#階層の表現)
+        - [レスポンステーブル形式](#レスポンステーブル形式)
+        - [関連ドキュメントセクションのルール](#関連ドキュメントセクションのルール)
+        - [公式マニュアル未記載APIのNote](#公式マニュアル未記載apiのnote)
+            - [記載ルール](#記載ルール)
+            - [記述例](#記述例-1)
+        - [XMLドキュメントとの整合性](#xmlドキュメントとの整合性)
+    - [PDF変換](#pdf変換)
+        - [利用可能なコマンド](#利用可能なコマンド)
+        - [実行例](#実行例)
+        - [出力先](#出力先)
+        - [PDF設定](#pdf設定)
+        - [スタイルのカスタマイズ](#スタイルのカスタマイズ)
+        - [VS Codeタスク](#vs-codeタスク)
+        - [必要なパッケージ](#必要なパッケージ)
+    - [ドキュメント同期](#ドキュメント同期)
+        - [更新ルール](#更新ルール)
+        - [GitHub Wiki同期](#github-wiki同期)
+    - [参考リンク](#参考リンク)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -79,16 +112,28 @@
 ```text
 docs/
 ├── contributing/
-│   ├── coding-guidelines.md
-│   ├── documentation-guidelines.md
 │   ├── branch-strategy.md
-│   └── ci-workflow.md
-├── wiki/
-│   ├── 00-*.md
-│   ├── 01-テーブル操作-*.md
-│   └── 02-サイト操作-*.md
-└── script/
-    └── sync-docs-to-wiki.js
+│   ├── ci-workflow.md
+│   ├── coding-guidelines.md
+│   ├── development-environment.md
+│   ├── documentation-guidelines.md
+│   ├── Home.md
+│   ├── research-guidelines.md
+│   ├── sandbox-guide.md
+│   └── testing-guidelines.md
+├── research/
+│   ├── Home.md
+│   └── (その他の調査ドキュメント)
+├── script/
+│   ├── decode-toc.js
+│   ├── generate-pdf.js
+│   ├── github-markdown.css
+│   └── sync-docs-to-wiki.js
+└── wiki/
+    ├── Home.md
+    ├── （カテゴリ番号-カテゴリ名）
+    │   └── （連番-機能名）
+    └── (その他のWikiドキュメント)
 ```
 
 ### ファイル命名規則
@@ -188,6 +233,20 @@ docs/
 | `.prettierignore`       | フォーマット対象外のファイル |
 | `.vscode/settings.json` | VS Code用の設定              |
 
+#### Prettier設定の詳細
+
+`.prettierrc`での主要な設定：
+
+| 設定項目        | 値（Markdown） | 説明                             |
+| --------------- | -------------- | -------------------------------- |
+| `tabWidth`      | `4`            | Markdownでは4スペースインデント  |
+| `printWidth`    | `120`          | 1行の最大文字数                  |
+| `proseWrap`     | `preserve`     | 文章の折り返しを保持             |
+| `endOfLine`     | `lf`           | 改行コードをLFに統一             |
+| `useTabs`       | `false`        | タブではなくスペースを使用       |
+| `singleQuote`   | `true`         | シングルクォートを優先（JSON等） |
+| `trailingComma` | `es5`          | ES5互換の末尾カンマ              |
+
 #### 手動実行
 
 VS Codeで `Shift + Alt + F`（Windows）または `Shift + Option + F`（Mac）でフォーマットを実行。
@@ -201,7 +260,17 @@ Markdownの構文チェックにはmarkdownlintを使用している。
 | ファイル                   | 説明                    |
 | -------------------------- | ----------------------- |
 | `.markdownlint-cli2.jsonc` | markdownlint-cli2の設定 |
-| `.markdownlint-rules.cjs`  | カスタムルール定義      |
+
+#### Markdownlint設定の詳細
+
+`.markdownlint-cli2.jsonc`での主要なルール設定：
+
+| ルールID | ルール名           | 設定内容                                 | 説明                                   |
+| -------- | ------------------ | ---------------------------------------- | -------------------------------------- |
+| `MD007`  | リストのインデント | `indent: 4`                              | 4スペースでインデント                  |
+| `MD013`  | 行の長さ           | `line_length: 120`, テーブル・コード除外 | 1行120文字まで、テーブル等は除外       |
+| `MD024`  | 重複する見出し     | `siblings_only: true`                    | 同じ階層のみ重複チェック               |
+| `MD033`  | HTMLタグ使用禁止   | `allowed_elements: ["br"]`               | `<br>`タグのみ許可（テーブル内改行用） |
 
 ### npmスクリプト
 
@@ -223,6 +292,9 @@ Node.js環境が必要。セットアップ方法は[開発環境構築ガイド
 | `format:check` | `npm run format:check` | フォーマットのチェック（ファイルは変更しない） |
 | `toc`          | `npm run toc`          | doctocでTOCを一括更新                          |
 | `toc:all`      | `npm run toc:all`      | TOC更新 + Prettierフォーマットを一括実行       |
+| `pdf`          | `npm run pdf`          | 全MarkdownファイルをPDFに変換                  |
+| `pdf:wiki`     | `npm run pdf:wiki`     | WikiドキュメントのみをPDFに変換                |
+| `pdf:research` | `npm run pdf:research` | リサーチドキュメントのみをPDFに変換            |
 
 #### スクリプトの対象ファイル
 
@@ -236,6 +308,9 @@ Node.js環境が必要。セットアップ方法は[開発環境構築ガイド
 | `format:check`    |      Yes       |     Yes      | 全mdファイル対象                           |
 | `toc`（doctoc）   |      Yes       |     一部     | ルートは`README.md`と`CONTRIBUTING.md`のみ |
 | `toc`（デコード） |      Yes       |     Yes      | 全mdファイル対象                           |
+| `pdf`             |      Yes       |     Yes      | 全mdファイルをPDF化                        |
+| `pdf:wiki`        |      Yes       |      No      | `docs/wiki/**/*.md`のみ                    |
+| `pdf:research`    |      Yes       |      No      | `docs/research/**/*.md`のみ                |
 
 > **Note**: ルートに新しいmdファイルを追加してTOC生成対象にする場合は、`package.json` の `toc` スクリプトにファイル名を追加すること。
 
@@ -616,6 +691,77 @@ Task<ApiResponse<ImportResponse>> ImportFromFileAsync(...)
 
 - コード内のXMLドキュメントコメントとWikiドキュメントの内容を一致させる
 - パラメータ名、戻り値の型、例外の説明を同期する
+
+---
+
+## PDF変換
+
+MarkdownファイルをPDFに変換する機能を提供している。GitHubスタイルのCSSを適用し、見やすいPDFを生成できる。
+
+### 利用可能なコマンド
+
+| スクリプト     | 対象                    | 説明                           |
+| -------------- | ----------------------- | ------------------------------ |
+| `pdf`          | `docs/**/*.md`          | 全MarkdownファイルをPDFに変換  |
+| `pdf:wiki`     | `docs/wiki/**/*.md`     | Wikiドキュメントのみを変換     |
+| `pdf:research` | `docs/research/**/*.md` | リサーチドキュメントのみを変換 |
+
+### 実行例
+
+```bash
+# 全ドキュメントをPDF化
+npm run pdf
+
+# Wikiドキュメントのみ
+npm run pdf:wiki
+
+# リサーチドキュメントのみ
+npm run pdf:research
+
+# 特定のファイルのみPDF化
+npm run pdf -- docs/wiki/Home.md
+```
+
+### 出力先
+
+PDFは `pdf-output/` ディレクトリに生成される（`.gitignore`で除外済み）。
+
+### PDF設定
+
+| 項目         | 値                                | 説明                              |
+| ------------ | --------------------------------- | --------------------------------- |
+| スタイル     | GitHubスタイル                    | 公式の`github-markdown-css`ベース |
+| CSSファイル  | `docs/script/github-markdown.css` | ローカルに保存                    |
+| フォーマット | A4                                | 用紙サイズ                        |
+| マージン     | 20mm（上下左右）                  | 余白                              |
+| フォント     | システムフォント（日本語対応）    | Meiryo、Yu Gothic等               |
+| 幅制限       | なし                              | A4用紙全体を活用                  |
+
+### スタイルのカスタマイズ
+
+PDFのスタイルを変更したい場合は、以下のファイルを編集する：
+
+| ファイル                          | 説明                                        |
+| --------------------------------- | ------------------------------------------- |
+| `docs/script/github-markdown.css` | GitHubスタイルのCSS（幅指定なし）           |
+| `docs/script/generate-pdf.js`     | PDF生成スクリプト（マージン、用紙サイズ等） |
+
+### VS Codeタスク
+
+タスクパレット（`Ctrl+Shift+P` → `Tasks: Run Task`）から以下を実行可能：
+
+- `npm: pdf` - 全MarkdownファイルをPDF化
+- `npm: pdf:wiki` - WikiドキュメントをPDF化
+- `npm: pdf:research` - リサーチドキュメントをPDF化
+
+### 必要なパッケージ
+
+| パッケージ  | 用途                     |
+| ----------- | ------------------------ |
+| `md-to-pdf` | Markdown→PDF変換エンジン |
+| `glob`      | ファイルパターンマッチ   |
+
+初回実行時は自動的に `npm install` が実行される。
 
 ---
 
