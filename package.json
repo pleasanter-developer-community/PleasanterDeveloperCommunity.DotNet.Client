@@ -9,7 +9,9 @@
     "toc:all": "npm run toc && npm run format",
     "pdf": "npm run preinstall:check && node docs/script/generate-pdf.js",
     "pdf:wiki": "npm run preinstall:check && node docs/script/generate-pdf.js docs/wiki/**/*.md",
-    "pdf:research": "npm run preinstall:check && node docs/script/generate-pdf.js docs/research/**/*.md"
+    "submodule:init": "git submodule update --init --recursive",
+    "submodule:update": "git submodule update --remote --merge",
+    "submodule:status": "git submodule status"
   },
   "devDependencies": {
     "doctoc": "^2.2.1",

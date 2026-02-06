@@ -5,41 +5,31 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [開発環境構築ガイド](#開発環境構築ガイド)
-    - [必要なツール](#必要なツール)
-    - [.NET環境](#net環境)
-        - [.NET SDKのインストール](#net-sdkのインストール)
-            - [Windows（winget）](#windowswinget)
-            - [Windows / macOS / Linux（インストーラー）](#windows--macos--linuxインストーラー)
-            - [macOS（Homebrew）](#macoshomebrew)
-            - [Linux（apt）](#linuxapt)
-        - [インストール確認](#インストール確認)
-    - [Node.js環境](#nodejs環境)
-        - [Node.jsのインストール](#nodejsのインストール)
-            - [Windows（winget）](#windowswinget-1)
-            - [Windows（インストーラー）](#windowsインストーラー)
-            - [macOS（Homebrew）](#macoshomebrew-1)
-            - [Linux（apt）](#linuxapt-1)
-        - [インストール確認](#インストール確認-1)
-        - [パッケージのインストール](#パッケージのインストール)
-    - [IDE（Visual Studio Code）](#idevisual-studio-code)
-        - [VS Codeのインストール](#vs-codeのインストール)
-            - [Windows（winget）](#windowswinget-2)
-            - [macOS（Homebrew）](#macoshomebrew-2)
-        - [推奨拡張機能](#推奨拡張機能)
-        - [拡張機能の一括インストール](#拡張機能の一括インストール)
-        - [ワークスペース設定](#ワークスペース設定)
-        - [ビルドタスク](#ビルドタスク)
-            - [ビルドタスク](#ビルドタスク-1)
-            - [テストタスク](#テストタスク)
-            - [ドキュメントタスク（npm）](#ドキュメントタスクnpm)
-            - [タスクの実行方法](#タスクの実行方法)
-            - [自動NuGet復元](#自動nuget復元)
-    - [その他のIDE](#その他のide)
-        - [Visual Studio](#visual-studio)
-        - [JetBrains Rider](#jetbrains-rider)
-    - [セットアップ確認](#セットアップ確認)
+- [必要なツール](#必要なツール)
+- [プリザンター本体リポジトリ（推奨）](#プリザンター本体リポジトリ推奨)
+    - [サブモジュールのクローン](#サブモジュールのクローン)
+    - [サブモジュールの更新](#サブモジュールの更新)
+    - [サブモジュール管理コマンド](#サブモジュール管理コマンド)
+    - [ディレクトリ構成](#ディレクトリ構成)
     - [参考リンク](#参考リンク)
+- [.NET環境](#net環境)
+    - [.NET SDKのインストール](#net-sdkのインストール)
+    - [インストール確認](#インストール確認)
+- [Node.js環境](#nodejs環境)
+    - [Node.jsのインストール](#nodejsのインストール)
+    - [インストール確認](#インストール確認-1)
+    - [パッケージのインストール](#パッケージのインストール)
+- [IDE（Visual Studio Code）](#idevisual-studio-code)
+    - [VS Codeのインストール](#vs-codeのインストール)
+    - [推奨拡張機能](#推奨拡張機能)
+    - [拡張機能の一括インストール](#拡張機能の一括インストール)
+    - [ワークスペース設定](#ワークスペース設定)
+    - [ビルドタスク](#ビルドタスク)
+- [その他のIDE](#その他のide)
+    - [Visual Studio](#visual-studio)
+    - [JetBrains Rider](#jetbrains-rider)
+- [セットアップ確認](#セットアップ確認)
+- [参考リンク](#参考リンク-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -53,6 +43,67 @@
 | Node.js  | ドキュメントのlint・フォーマット | 推奨 |
 | VS Code  | 推奨エディタ                     | 推奨 |
 | Git      | バージョン管理                   | 必須 |
+
+---
+
+## プリザンター本体リポジトリ（推奨）
+
+プリザンター本体のソースコードを参照しながら開発することで、APIの動作やモデル構造をより深く理解できる。本リポジトリでは、プリザンター本体をGitサブモジュールとして登録しているため、以下のコマンドで取得できる。
+
+### サブモジュールのクローン
+
+リポジトリを初めてクローンする場合は、`--recurse-submodules` オプションを使用する：
+
+```bash
+git clone --recurse-submodules https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client.git
+```
+
+既にクローン済みの場合は、以下のコマンドでサブモジュールを初期化・取得する：
+
+```bash
+npm run submodule:init
+# または
+git submodule update --init --recursive
+```
+
+### サブモジュールの更新
+
+サブモジュールを最新のコミットに更新する場合：
+
+```bash
+npm run submodule:update
+# または
+git submodule update --remote --merge
+```
+
+### サブモジュール管理コマンド
+
+npmスクリプトとVS Codeタスクでサブモジュールを管理できる。
+
+| コマンド                   | VS Codeタスク       | 説明                         |
+| -------------------------- | ------------------- | ---------------------------- |
+| `npm run submodule:init`   | `submodule: init`   | サブモジュールを初期化・取得 |
+| `npm run submodule:update` | `submodule: update` | サブモジュールを最新に更新   |
+| `npm run submodule:status` | `submodule: status` | サブモジュールの状態を確認   |
+
+VS Codeでは、コマンドパレット（`Ctrl+Shift+P`）から「Tasks: Run Task」を選択し、上記タスクを実行できる。
+
+### ディレクトリ構成
+
+サブモジュールは `Implem.Pleasanter/` ディレクトリに配置される：
+
+```text
+PleasanterDeveloperCommunity.DotNet.Client/
+├── Implem.Pleasanter/        ← サブモジュール（プリザンター本体）
+├── PleasanterDeveloperCommunity.DotNet.Client/
+├── PleasanterDeveloperCommunity.DotNet.Client.Tests/
+└── ...
+```
+
+### 参考リンク
+
+- [Implem.Pleasanter（GitHub）](https://github.com/Implem/Implem.Pleasanter)
+- [プリザンター公式サイト](https://pleasanter.org/)
 
 ---
 

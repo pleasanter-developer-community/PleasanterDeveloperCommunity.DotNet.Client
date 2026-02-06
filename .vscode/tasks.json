@@ -121,12 +121,28 @@
       "detail": "WikiドキュメントのみをPDFに変換"
     },
     {
-      "label": "npm: pdf:research",
+      "label": "submodule: init",
       "type": "npm",
-      "script": "pdf:research",
+      "script": "submodule:init",
       "problemMatcher": [],
-      "group": "test",
-      "detail": "リサーチドキュメントのみをPDFに変換"
+      "group": "build",
+      "detail": "サブモジュールを初期化・取得"
+    },
+    {
+      "label": "submodule: update",
+      "type": "npm",
+      "script": "submodule:update",
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "サブモジュールを最新に更新"
+    },
+    {
+      "label": "submodule: status",
+      "type": "npm",
+      "script": "submodule:status",
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "サブモジュールの状態を確認"
     }
   ]
 }
