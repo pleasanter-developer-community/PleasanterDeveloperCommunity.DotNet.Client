@@ -1,6 +1,6 @@
 # コーディングガイドライン
 
-このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトのコーディング規約について詳細に説明します。
+このドキュメントでは、VehicleVision.Pleasanter.DotNet.Client プロジェクトのコーディング規約について詳細に説明します。
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -1325,7 +1325,7 @@ var regex = new Regex(@"(a+)+b", RegexOptions.Compiled, TimeSpan.FromSeconds(1))
 ### ディレクトリ構造
 
 ```text
-PleasanterDeveloperCommunity.DotNet.Client/
+VehicleVision.Pleasanter.DotNet.Client/
 ├── PleasanterClient.Core.cs
 ├── PleasanterClient.Items.cs
 ├── PleasanterClient.Sites.cs
@@ -1361,10 +1361,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using PleasanterDeveloperCommunity.DotNet.Client.Models;
+using VehicleVision.Pleasanter.DotNet.Client.Models;
 
 // Bad - 順序が不適切
-using PleasanterDeveloperCommunity.DotNet.Client.Models;
+using VehicleVision.Pleasanter.DotNet.Client.Models;
 using System;  // System系は先頭に
 using System.Text.Json;
 ```
@@ -1389,10 +1389,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using PleasanterDeveloperCommunity.DotNet.Client.Models;
+using VehicleVision.Pleasanter.DotNet.Client.Models;
 
 // 2. 名前空間
-namespace PleasanterDeveloperCommunity.DotNet.Client
+namespace VehicleVision.Pleasanter.DotNet.Client
 {
     // 3. クラス定義
     public partial class PleasanterClient

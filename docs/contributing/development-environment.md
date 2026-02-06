@@ -1,6 +1,6 @@
 # 開発環境構築ガイド
 
-このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトの開発環境セットアップについて説明します。
+このドキュメントでは、VehicleVision.Pleasanter.DotNet.Client プロジェクトの開発環境セットアップについて説明します。
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -55,7 +55,7 @@
 リポジトリを初めてクローンする場合は、`--recurse-submodules` オプションを使用する：
 
 ```bash
-git clone --recurse-submodules https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client.git
+git clone --recurse-submodules https://github.com/pleasanter-developer-community/VehicleVision.Pleasanter.DotNet.Client.git
 ```
 
 既にクローン済みの場合は、以下のコマンドでサブモジュールを初期化・取得する：
@@ -93,10 +93,10 @@ VS Codeでは、コマンドパレット（`Ctrl+Shift+P`）から「Tasks: Run 
 サブモジュールは `Implem.Pleasanter/` ディレクトリに配置される：
 
 ```text
-PleasanterDeveloperCommunity.DotNet.Client/
+VehicleVision.Pleasanter.DotNet.Client/
 ├── Implem.Pleasanter/        ← サブモジュール（プリザンター本体）
-├── PleasanterDeveloperCommunity.DotNet.Client/
-├── PleasanterDeveloperCommunity.DotNet.Client.Tests/
+├── VehicleVision.Pleasanter.DotNet.Client/
+├── VehicleVision.Pleasanter.DotNet.Client.Tests/
 └── ...
 ```
 

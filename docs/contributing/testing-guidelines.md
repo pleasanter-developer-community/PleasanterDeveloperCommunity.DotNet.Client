@@ -1,6 +1,6 @@
 # テストガイドライン
 
-このドキュメントでは、PleasanterDeveloperCommunity.DotNet.Client プロジェクトのテスト規約について説明します。
+このドキュメントでは、VehicleVision.Pleasanter.DotNet.Client プロジェクトのテスト規約について説明します。
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -42,7 +42,7 @@
 
 | 項目                     | 内容                                               |
 | ------------------------ | -------------------------------------------------- |
-| プロジェクト名           | `PleasanterDeveloperCommunity.DotNet.Client.Tests` |
+| プロジェクト名           | `VehicleVision.Pleasanter.DotNet.Client.Tests` |
 | テストフレームワーク     | xUnit                                              |
 | ターゲットフレームワーク | .NET 10                                            |
 | カバレッジツール         | coverlet.collector                                 |
@@ -50,8 +50,8 @@
 ### ディレクトリ構造
 
 ```text
-PleasanterDeveloperCommunity.DotNet.Client.Tests/
-├── PleasanterDeveloperCommunity.DotNet.Client.Tests.csproj
+VehicleVision.Pleasanter.DotNet.Client.Tests/
+├── VehicleVision.Pleasanter.DotNet.Client.Tests.csproj
 ├── PleasanterClientTests.cs          # PleasanterClientの単体テスト
 ├── Models/                           # モデルクラスのテスト
 │   └── (将来追加予定)
@@ -70,7 +70,7 @@ PleasanterDeveloperCommunity.DotNet.Client.Tests/
 dotnet test
 
 # 特定のプロジェクトのテストを実行
-dotnet test PleasanterDeveloperCommunity.DotNet.Client.Tests
+dotnet test VehicleVision.Pleasanter.DotNet.Client.Tests
 
 # 詳細なログを出力
 dotnet test --logger "console;verbosity=detailed"
@@ -79,7 +79,7 @@ dotnet test --logger "console;verbosity=detailed"
 dotnet test --filter "FullyQualifiedName~PleasanterClientTests"
 
 # 特定のテストメソッドのみ実行
-dotnet test --filter "FullyQualifiedName=PleasanterDeveloperCommunity.DotNet.Client.Tests.PleasanterClientTests.PleasanterClientConstructorShouldInitializeCorrectly"
+dotnet test --filter "FullyQualifiedName=VehicleVision.Pleasanter.DotNet.Client.Tests.PleasanterClientTests.PleasanterClientConstructorShouldInitializeCorrectly"
 ```
 
 ### Visual Studio / VS Code

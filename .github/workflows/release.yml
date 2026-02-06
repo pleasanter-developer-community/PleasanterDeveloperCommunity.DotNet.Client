@@ -36,7 +36,7 @@ jobs:
       - name: Get current version
         id: get_version
         run: |
-          CURRENT_VERSION=$(grep -oP '(?<=<Version>)[^<]+' PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj)
+          CURRENT_VERSION=$(grep -oP '(?<=<Version>)[^<]+' VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj)
           echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
           echo "Current version: $CURRENT_VERSION"
 
@@ -67,32 +67,32 @@ jobs:
 
       - name: Update version in csproj
         run: |
-          sed -i 's|<Version>${{ steps.get_version.outputs.current_version }}</Version>|<Version>${{ steps.new_version.outputs.new_version }}</Version>|' PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj
+          sed -i 's|<Version>${{ steps.get_version.outputs.current_version }}</Version>|<Version>${{ steps.new_version.outputs.new_version }}</Version>|' VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj
 
       - name: Build project
-        run: dotnet build PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj --configuration Release
+        run: dotnet build VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj --configuration Release
 
       - name: Create NuGet package
-        run: dotnet pack PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj --configuration Release --no-build --output ./nupkg
+        run: dotnet pack VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj --configuration Release --no-build --output ./nupkg
 
       - name: Create Release ZIP
         run: |
           mkdir -p release-temp/wiki
           mkdir -p release-temp/LICENSES
-          cp -r PleasanterDeveloperCommunity.DotNet.Client/bin/Release/net10.0/* release-temp/
+          cp -r VehicleVision.Pleasanter.DotNet.Client/bin/Release/net10.0/* release-temp/
           cp README.md release-temp/
           cp AUTHORS release-temp/
           cp LICENSE release-temp/
           cp LICENSES/* release-temp/LICENSES/
           cp docs/wiki/*.md release-temp/wiki/
           cd release-temp
-          zip -r ../PleasanterDeveloperCommunity.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip ./*
+          zip -r ../VehicleVision.Pleasanter.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip ./*
 
       - name: Commit version update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add PleasanterDeveloperCommunity.DotNet.Client/PleasanterDeveloperCommunity.DotNet.Client.csproj
+          git add VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj
           git commit -m "chore: bump version to v${{ steps.new_version.outputs.new_version }}"
           git push
 
@@ -115,7 +115,7 @@ jobs:
           generate_release_notes: true
           files: |
             ./nupkg/*.nupkg
-            ./PleasanterDeveloperCommunity.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip
+            ./VehicleVision.Pleasanter.DotNet.Client_v${{ steps.new_version.outputs.new_version }}.zip
           draft: false
           prerelease: false
         env:

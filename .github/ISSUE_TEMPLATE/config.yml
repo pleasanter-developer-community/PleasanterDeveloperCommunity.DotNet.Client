@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: ドキュメント
-    url: https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/wiki
+    url: https://github.com/vehiclevisionjp/VehicleVision.Pleasanter.DotNet.Client/wiki
     about: まずはWikiドキュメントを確認してください
   - name: Pleasanter公式ドキュメント
     url: https://pleasanter.org/manual

@@ -48,8 +48,8 @@ Sandboxプロジェクトは、PleasanterClientライブラリの動作確認・
 ## プロジェクト構成
 
 ```text
-PleasanterDeveloperCommunity.DotNet.Client.Sandbox/
-├── PleasanterDeveloperCommunity.DotNet.Client.Sandbox.csproj  # プロジェクトファイル
+VehicleVision.Pleasanter.DotNet.Client.Sandbox/
+├── VehicleVision.Pleasanter.DotNet.Client.Sandbox.csproj  # プロジェクトファイル
 ├── Program.cs                      # 実行コード（.gitignoreで除外）
 ├── Program.cs.example              # テンプレート（git追跡対象）
 ├── sandbox.settings.json           # 設定ファイル（.gitignoreで除外）
@@ -67,7 +67,7 @@ PleasanterDeveloperCommunity.DotNet.Client.Sandbox/
 Sandboxプロジェクトのディレクトリで、テンプレートファイルをコピーします。
 
 ```powershell
-cd PleasanterDeveloperCommunity.DotNet.Client.Sandbox
+cd VehicleVision.Pleasanter.DotNet.Client.Sandbox
 copy sandbox.settings.json.example sandbox.settings.json
 ```
 
@@ -130,10 +130,10 @@ const bool USE_MENU = true;
 
 ```powershell
 # ソリューションのルートディレクトリから
-dotnet run --project PleasanterDeveloperCommunity.DotNet.Client.Sandbox
+dotnet run --project VehicleVision.Pleasanter.DotNet.Client.Sandbox
 
 # または、Sandboxディレクトリで
-cd PleasanterDeveloperCommunity.DotNet.Client.Sandbox
+cd VehicleVision.Pleasanter.DotNet.Client.Sandbox
 dotnet run
 ```
 
@@ -224,7 +224,7 @@ async Task RunTestAsync()
 ### 例: レコード作成テスト
 
 ```csharp
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+using VehicleVision.Pleasanter.DotNet.Client.Models.Requests.Items;
 
 // レコード作成
 var createRequest = new CreateRecordRequest

@@ -1,6 +1,6 @@
 # Copilot Instructions
 
-このリポジトリは **PleasanterDeveloperCommunity.DotNet.Client** - プリザンターAPIの.NETクライアントライブラリです。
+このリポジトリは **VehicleVision.Pleasanter.DotNet.Client** - プリザンターAPIの.NETクライアントライブラリです。
 
 ## プロジェクト情報
 

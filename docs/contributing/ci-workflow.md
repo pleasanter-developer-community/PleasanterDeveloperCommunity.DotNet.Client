@@ -270,9 +270,9 @@ flowchart LR
 ### リリース ZIP の内容
 
 ```text
-PleasanterDeveloperCommunity.DotNet.Client_vX.X.X.zip
+VehicleVision.Pleasanter.DotNet.Client_vX.X.X.zip
 ├── net10.0/                 # ビルド成果物
-│   ├── PleasanterDeveloperCommunity.DotNet.Client.dll
+│   ├── VehicleVision.Pleasanter.DotNet.Client.dll
 │   └── ...
 ├── wiki/                    # ドキュメント
 │   └── *.md

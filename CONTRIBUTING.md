@@ -1,6 +1,6 @@
 # コントリビューションガイド
 
-PleasanterDeveloperCommunity.DotNet.Client へのコントリビューションに感謝します。
+VehicleVision.Pleasanter.DotNet.Client へのコントリビューションに感謝します。
 このドキュメントでは、プロジェクトへの貢献方法について説明します。
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,8 +41,8 @@ PleasanterDeveloperCommunity.DotNet.Client へのコントリビューション�
 ### 1. リポジトリをフォーク・クローン
 
 ```bash
-git clone https://github.com/your-username/PleasanterDeveloperCommunity.DotNet.Client.git
-cd PleasanterDeveloperCommunity.DotNet.Client
+git clone https://github.com/your-username/VehicleVision.Pleasanter.DotNet.Client.git
+cd VehicleVision.Pleasanter.DotNet.Client
 ```
 
 ### 2. ブランチを作成

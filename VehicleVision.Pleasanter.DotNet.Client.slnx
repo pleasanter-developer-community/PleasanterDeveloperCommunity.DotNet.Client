@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/ソリューション項目/">
+    <File Path=".gitignore" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="VehicleVision.Pleasanter.DotNet.Client/VehicleVision.Pleasanter.DotNet.Client.csproj" />
+  <Project Path="VehicleVision.Pleasanter.DotNet.Client.Tests/VehicleVision.Pleasanter.DotNet.Client.Tests.csproj" />
+  <Project Path="VehicleVision.Pleasanter.DotNet.Client.Sandbox/VehicleVision.Pleasanter.DotNet.Client.Sandbox.csproj" />
+</Solution>

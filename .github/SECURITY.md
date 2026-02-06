@@ -15,7 +15,7 @@
 ### 報告方法
 
 1. **GitHub Security Advisories（推奨）**
-   - [Security Advisoriesページ](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/security/advisories/new)から非公開で報告できます
+   - [Security Advisoriesページ](https://github.com/vehiclevisionjp/VehicleVision.Pleasanter.DotNet.Client/security/advisories/new)から非公開で報告できます
 
 2. **プライベートな連絡**
    - リポジトリのメンテナーに直接ご連絡ください

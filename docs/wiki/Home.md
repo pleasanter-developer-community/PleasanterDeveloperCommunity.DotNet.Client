@@ -1,4 +1,4 @@
-# PleasanterDeveloperCommunity.DotNet.Client
+# VehicleVision.Pleasanter.DotNet.Client
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -49,7 +49,7 @@
 ## 基本的な使い方
 
 ```csharp
-using PleasanterDeveloperCommunity.DotNet.Client;
+using VehicleVision.Pleasanter.DotNet.Client;
 
 // クライアントの初期化
 using var client = new PleasanterClient(
@@ -117,7 +117,7 @@ using var client = new PleasanterClient(
 各APIメソッドはリクエストモデルを使用してパラメータを指定します。
 
 ```csharp
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Items;
+using VehicleVision.Pleasanter.DotNet.Client.Models.Requests.Items;
 
 // リクエストモデルを使用
 var request = new CreateRecordRequest
@@ -276,7 +276,7 @@ API呼び出し中に例外が発生した場合、その詳細情報がログ�
 System.Net.Http.HttpRequestException: Connection refused
 StackTrace:
   at System.Net.Http.HttpClient.SendAsync(...)
-  at PleasanterDeveloperCommunity.DotNet.Client.PleasanterClient.SendRequestAsync(...)
+  at VehicleVision.Pleasanter.DotNet.Client.PleasanterClient.SendRequestAsync(...)
 
   [InnerException] System.Net.Sockets.SocketException: Connection refused
   StackTrace:

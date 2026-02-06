@@ -1,4 +1,4 @@
-# PleasanterDeveloperCommunity.DotNet.Client
+# VehicleVision.Pleasanter.DotNet.Client
 
 <!-- markdownlint-disable MD013 -->
 
@@ -27,37 +27,37 @@
 
 ### 方法1: NuGetパッケージ（推奨）
 
-[![NuGet](https://img.shields.io/nuget/v/PleasanterDeveloperCommunity.DotNet.Client)](https://www.nuget.org/packages/PleasanterDeveloperCommunity.DotNet.Client)
+[![NuGet](https://img.shields.io/nuget/v/VehicleVision.Pleasanter.DotNet.Client)](https://www.nuget.org/packages/VehicleVision.Pleasanter.DotNet.Client)
 
 #### .NET CLI
 
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+dotnet add package VehicleVision.Pleasanter.DotNet.Client
 ```
 
 #### Visual Studio
 
 1. **ソリューションエクスプローラー**でプロジェクトを右クリック
 2. **NuGet パッケージの管理**を選択
-3. **参照**タブで `PleasanterDeveloperCommunity.DotNet.Client` を検索
+3. **参照**タブで `VehicleVision.Pleasanter.DotNet.Client` を検索
 4. パッケージを選択して**インストール**をクリック
 
 または、**パッケージマネージャーコンソール**（ツール → NuGet パッケージ マネージャー → パッケージ マネージャー コンソール）から：
 
 ```powershell
-Install-Package PleasanterDeveloperCommunity.DotNet.Client
+Install-Package VehicleVision.Pleasanter.DotNet.Client
 ```
 
 #### Visual Studio Code
 
 1. **コマンドパレット**（`Ctrl+Shift+P`）を開く
 2. `NuGet: Add NuGet Package` を入力して実行
-3. `PleasanterDeveloperCommunity.DotNet.Client` を検索してインストール
+3. `VehicleVision.Pleasanter.DotNet.Client` を検索してインストール
 
 または、**ターミナル**から：
 
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+dotnet add package VehicleVision.Pleasanter.DotNet.Client
 ```
 
 <!-- markdownlint-disable MD013 -->
@@ -70,18 +70,18 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 
 1. **ソリューションエクスプローラー**でプロジェクトを右クリック
 2. **Manage NuGet Packages**を選択
-3. **Packages**タブで `PleasanterDeveloperCommunity.DotNet.Client` を検索
+3. **Packages**タブで `VehicleVision.Pleasanter.DotNet.Client` を検索
 4. パッケージを選択して**+**ボタン（Install）をクリック
 
 または、**ターミナル**から：
 
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+dotnet add package VehicleVision.Pleasanter.DotNet.Client
 ```
 
 ### 方法2: GitHub Packages
 
-[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-PleasanterDeveloperCommunity.DotNet.Client-blue?logo=github)](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/pkgs/nuget/PleasanterDeveloperCommunity.DotNet.Client)
+[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-VehicleVision.Pleasanter.DotNet.Client-blue?logo=github)](https://github.com/pleasanter-developer-community/VehicleVision.Pleasanter.DotNet.Client/pkgs/nuget/VehicleVision.Pleasanter.DotNet.Client)
 
 > **Note**: GitHub PackagesのNuGetレジストリはパブリックパッケージでも認証が必要です（GitHubの仕様）。認証不要でインストールしたい場合は[方法1: NuGetパッケージ](#方法1-nugetパッケージ推奨)をご利用ください。
 
@@ -114,14 +114,14 @@ GitHub Packagesを利用するには、GitHub Personal Access Token（PAT）が�
 #### 3. パッケージのインストール
 
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client --source github
+dotnet add package VehicleVision.Pleasanter.DotNet.Client --source github
 ```
 
 ### 方法3: オフライン環境でのNuGetパッケージ
 
 #### 1. パッケージのダウンロード
 
-[最新リリース](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードします。
+[最新リリース](https://github.com/pleasanter-developer-community/VehicleVision.Pleasanter.DotNet.Client/releases/latest)から`.nupkg`ファイルをダウンロードします。
 
 #### 2. ローカルフィードの追加
 
@@ -136,7 +136,7 @@ dotnet nuget add source /path/to/nupkg/folder --name LocalPackages
 #### 3. パッケージのインストール（オフライン）
 
 ```bash
-dotnet add package PleasanterDeveloperCommunity.DotNet.Client
+dotnet add package VehicleVision.Pleasanter.DotNet.Client
 ```
 
 ### 方法4: DLLを直接参照
@@ -145,7 +145,7 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 
 以下のいずれかの方法でDLLを取得します：
 
-- **リリースからダウンロード**: [最新リリース](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/releases/latest)から`.zip`ファイルをダウンロードして展開
+- **リリースからダウンロード**: [最新リリース](https://github.com/pleasanter-developer-community/VehicleVision.Pleasanter.DotNet.Client/releases/latest)から`.zip`ファイルをダウンロードして展開
 - **ソースからビルド**: リポジトリをクローンしてビルド
 
 #### 2. プロジェクトへの参照追加
@@ -154,8 +154,8 @@ dotnet add package PleasanterDeveloperCommunity.DotNet.Client
 
 ```xml
 <ItemGroup>
-  <Reference Include="PleasanterDeveloperCommunity.DotNet.Client">
-    <HintPath>path\to\PleasanterDeveloperCommunity.DotNet.Client.dll</HintPath>
+  <Reference Include="VehicleVision.Pleasanter.DotNet.Client">
+    <HintPath>path\to\VehicleVision.Pleasanter.DotNet.Client.dll</HintPath>
   </Reference>
 </ItemGroup>
 ```
@@ -172,7 +172,7 @@ dotnet add package Microsoft.AspNetCore.StaticFiles
 
 ## 使用方法
 
-[Wiki](https://github.com/pleasanter-developer-community/PleasanterDeveloperCommunity.DotNet.Client/wiki)を参照してください。
+[Wiki](https://github.com/pleasanter-developer-community/VehicleVision.Pleasanter.DotNet.Client/wiki)を参照してください。
 
 ## サードパーティライセンス
 

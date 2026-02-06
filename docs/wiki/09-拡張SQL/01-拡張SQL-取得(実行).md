@@ -52,7 +52,7 @@ Task<ApiResponse<ExtendedSqlResponse>> ExecuteExtendedSqlAsync(
 ### 拡張SQLを実行
 
 ```csharp
-using PleasanterDeveloperCommunity.DotNet.Client.Models.Requests.Extended;
+using VehicleVision.Pleasanter.DotNet.Client.Models.Requests.Extended;
 
 var request = new ExtendedSqlRequest
 {
