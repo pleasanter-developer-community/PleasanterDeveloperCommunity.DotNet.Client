@@ -34,18 +34,20 @@
 
 プリザンター本体のコードを参照する必要がある場合は、以下の順序で参照すること：
 
-1. **ローカルリポジトリ**: `local.config.json` で指定されたパス、またはワークスペースに `Implem.Pleasanter` フォルダが存在する場合はそちらを優先
+1. **サブモジュール**: ワークスペース内の `Implem.Pleasanter/` ディレクトリ（Gitサブモジュールとして登録済み）
 2. **公式GitHubリポジトリ**: [Implem/Implem.Pleasanter](https://github.com/Implem/Implem.Pleasanter)
 
-### ローカルリポジトリの設定
+### サブモジュールの取得
 
-リポジトリルートに `local.config.json` を作成し、以下の形式で指定する（`.gitignore` に追加済みのためコミットされない）：
+サブモジュールが未取得の場合は、以下のコマンドで初期化・取得する：
 
-```json
-{
-    "pleasanterRepoPath": "D:\\repos\\Implem.Pleasanter"
-}
+```bash
+npm run submodule:init
+# または
+git submodule update --init --recursive
 ```
+
+詳細は[開発環境構築ガイド](../docs/contributing/development-environment.md#プリザンター本体リポジトリ推奨)を参照。
 
 ## 出力ルール
 
