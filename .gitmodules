@@ -1,3 +1,4 @@
 [submodule "Implem.Pleasanter"]
 	path = Implem.Pleasanter
 	url = https://github.com/Implem/Implem.Pleasanter.git
+	branch = main

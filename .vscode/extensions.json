@@ -4,6 +4,7 @@
     "ms-dotnettools.csdevkit",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "davidanson.vscode-markdownlint"
+    "davidanson.vscode-markdownlint",
+    "emeraldwalk.runonsave"
   ]
 }

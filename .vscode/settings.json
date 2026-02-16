@@ -8,6 +8,7 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
     "editor.codeActionsOnSave": {
       "source.fixAll.markdownlint": "explicit"
     }
@@ -18,5 +19,16 @@
   },
   "editor.formatOnSave": true,
   "files.eol": "\n",
-  "markdownlint.customRules": [".markdownlint-rules.cjs"]
+  "markdownlint.customRules": [
+    ".markdownlint-rules.cjs"
+  ],
+  // ==================== RunOnSave（TOC自動更新） ====================
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "docs[/\\\\].*\\.md$",
+        "cmd": "node docs/script/toc-single.js \"${file}\""
+      }
+    ]
+  }
 }

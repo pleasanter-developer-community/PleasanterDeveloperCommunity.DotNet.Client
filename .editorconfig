@@ -315,7 +315,11 @@ indent_size = 2
 [*.json]
 indent_size = 2
 
-# Markdown files
+# JSONC (.markdownlint-cli2.jsonc 等)
+[*.jsonc]
+indent_size = 4
+
+# Markdown files (Prettier tabWidth: 4 / markdownlint MD007 indent: 4 に合わせる)
 [*.md]
 indent_size = 4
 trim_trailing_whitespace = false

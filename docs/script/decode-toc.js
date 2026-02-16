@@ -6,7 +6,8 @@
  * - インデントを2スペースから4スペースに変換（MD007対応）
  *
  * 使用方法:
- *   node docs/script/decode-toc.js
+ *   node docs/script/decode-toc.js              # 全ファイルを処理
+ *   node docs/script/decode-toc.js path/to.md   # 指定ファイルのみ処理
  */
 
 const fs = require("fs");
@@ -15,32 +16,48 @@ const path = require("path");
 const docsDir = path.join(__dirname, "..");
 const rootDir = path.join(__dirname, "..", "..");
 
-// docs配下の全ディレクトリを処理対象にする
-const targetDirs = fs
-    .readdirSync(docsDir, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory() && dirent.name !== "script")
-    .map((dirent) => dirent.name);
-
-// 各ディレクトリ内のmdファイルを収集
-const files = [];
-targetDirs.forEach((dir) => {
-    const dirPath = path.join(docsDir, dir);
-    if (fs.existsSync(dirPath)) {
-        fs.readdirSync(dirPath)
-            .filter((f) => f.endsWith(".md"))
-            .forEach((f) => files.push(path.join(dirPath, f)));
+/**
+ * 指定ディレクトリ内の.mdファイルを再帰的に収集する
+ * @param {string} dir - 探索するディレクトリパス
+ * @param {string[]} [excludeDirs=[]] - 除外するディレクトリ名
+ * @returns {string[]} .mdファイルの絶対パス一覧
+ */
+function collectMdFiles(dir, excludeDirs = []) {
+    const results = [];
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            if (!excludeDirs.includes(entry.name)) {
+                results.push(...collectMdFiles(fullPath));
+            }
+        } else if (entry.isFile() && entry.name.endsWith(".md")) {
+            results.push(fullPath);
+        }
     }
-});
+    return results;
+}
 
-// docs直下のmdファイルも追加
-fs.readdirSync(docsDir)
-    .filter((f) => f.endsWith(".md"))
-    .forEach((f) => files.push(path.join(docsDir, f)));
+// コマンドライン引数で単一ファイルが指定された場合はそのファイルのみ処理
+const targetFile = process.argv[2];
 
-// ルートディレクトリのmdファイルも追加
-fs.readdirSync(rootDir)
-    .filter((f) => f.endsWith(".md"))
-    .forEach((f) => files.push(path.join(rootDir, f)));
+let files;
+if (targetFile) {
+    const resolved = path.resolve(targetFile);
+    if (!fs.existsSync(resolved)) {
+        console.error(`File not found: ${resolved}`);
+        process.exit(1);
+    }
+    files = [resolved];
+} else {
+    // docs配下の全.mdファイルを再帰的に収集（scriptディレクトリは除外）
+    files = collectMdFiles(docsDir, ["script"]);
+
+    // ルートディレクトリのmdファイルも追加
+    fs.readdirSync(rootDir)
+        .filter((f) => f.endsWith(".md"))
+        .forEach((f) => files.push(path.join(rootDir, f)));
+}
 
 files.forEach((filePath) => {
     let content = fs.readFileSync(filePath, "utf8");

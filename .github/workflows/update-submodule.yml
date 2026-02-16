@@ -1,0 +1,127 @@
+name: Update Submodule
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # JST 8:00
+    - cron: '0 3 * * *' # JST 12:00
+  workflow_dispatch:
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.ref != 'refs/heads/main'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for submodule updates
+        id: check
+        run: |
+          cd Implem.Pleasanter
+          git fetch origin main
+          CURRENT=$(git rev-parse HEAD)
+          LATEST=$(git rev-parse origin/main)
+
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+
+          if [ "$CURRENT" = "$LATEST" ]; then
+            echo "updated=false" >> $GITHUB_OUTPUT
+            echo "::notice::Submodule is already up to date ($CURRENT)"
+          else
+            echo "updated=true" >> $GITHUB_OUTPUT
+            echo "::notice::Submodule update available: $(echo $CURRENT | cut -c1-7) → $(echo $LATEST | cut -c1-7)"
+          fi
+
+      - name: Update submodule on develop
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          cd Implem.Pleasanter
+          git checkout ${{ steps.check.outputs.latest }}
+          cd ..
+
+          git add Implem.Pleasanter
+          LATEST_SHORT=$(echo "${{ steps.check.outputs.latest }}" | cut -c1-7)
+          git commit -m "chore: update Implem.Pleasanter submodule to ${LATEST_SHORT}"
+          git push origin develop
+
+      - name: Merge develop into feature branches
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # develop の最新を取得
+          git fetch origin develop
+
+          # develop にマージされていないブランチを取得（feature/*, bug/*, docs/*, refactor/*）
+          BRANCHES=$(git branch -r --no-merged origin/develop \
+            | grep -E 'origin/(feature|bug|docs|refactor)/' \
+            | sed 's|^ *origin/||' \
+            | xargs)
+
+          if [ -z "$BRANCHES" ]; then
+            echo "::notice::No unmerged feature branches found"
+            exit 0
+          fi
+
+          UPDATED_BRANCHES=""
+          SKIPPED_BRANCHES=""
+          FAILED_BRANCHES=""
+
+          for BRANCH in $BRANCHES; do
+            echo "----------------------------------------"
+            echo "Processing branch: $BRANCH"
+
+            # ブランチをチェックアウト
+            if ! git checkout "origin/$BRANCH" -B "$BRANCH" 2>/dev/null; then
+              echo "::warning::Failed to checkout $BRANCH, skipping"
+              FAILED_BRANCHES="${FAILED_BRANCHES} ${BRANCH}"
+              continue
+            fi
+
+            # サブモジュールを初期化
+            git submodule update --init
+
+            # develop をマージ（サブモジュル更新を含む）
+            # --no-ff で常にマージコミットを作成（ブランチ戦略に準拠）
+            if ! git merge origin/develop --no-ff -m "chore: merge develop (submodule update)"; then
+              echo "::warning::Merge conflict on $BRANCH, aborting"
+              git merge --abort
+              FAILED_BRANCHES="${FAILED_BRANCHES} ${BRANCH}"
+              continue
+            fi
+
+            # マージで変更があるか確認（既にdevelopの変更を含んでいる場合はスキップ）
+            if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/$BRANCH)" ]; then
+              echo "::notice::Branch $BRANCH is already up to date with develop"
+              SKIPPED_BRANCHES="${SKIPPED_BRANCHES} ${BRANCH}"
+              continue
+            fi
+
+            if ! git push origin "$BRANCH"; then
+              echo "::warning::Failed to push $BRANCH"
+              FAILED_BRANCHES="${FAILED_BRANCHES} ${BRANCH}"
+              continue
+            fi
+
+            echo "::notice::Successfully merged develop into $BRANCH"
+            UPDATED_BRANCHES="${UPDATED_BRANCHES} ${BRANCH}"
+          done
+
+          echo "========================================"
+          echo "Summary:"
+          echo "  Updated: ${UPDATED_BRANCHES:-none}"
+          echo "  Skipped: ${SKIPPED_BRANCHES:-none}"
+          echo "  Failed:  ${FAILED_BRANCHES:-none}"

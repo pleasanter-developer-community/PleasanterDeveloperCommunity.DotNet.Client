@@ -1,11 +1,14 @@
 {
+  "private": true,
   "scripts": {
     "preinstall:check": "node -e \"const fs=require('fs');if(!fs.existsSync('node_modules')){process.exit(1)}\" || npm install",
+    "setup": "npm install",
     "lint:md": "npm run preinstall:check && markdownlint-cli2 \"docs/**/*.md\" \"*.md\"",
     "lint:md:fix": "npm run preinstall:check && markdownlint-cli2 --fix \"docs/**/*.md\" \"*.md\"",
     "format": "npm run preinstall:check && prettier --write \"docs/**/*.md\" \"*.md\"",
     "format:check": "npm run preinstall:check && prettier --check \"docs/**/*.md\" \"*.md\"",
     "toc": "npm run preinstall:check && doctoc docs README.md CONTRIBUTING.md --github --maxlevel 3 --notitle && node docs/script/decode-toc.js",
+    "toc:file": "doctoc --github --maxlevel 3 --notitle",
     "toc:all": "npm run toc && npm run format",
     "pdf": "npm run preinstall:check && node docs/script/generate-pdf.js",
     "pdf:wiki": "npm run preinstall:check && node docs/script/generate-pdf.js docs/wiki/**/*.md",
@@ -14,6 +17,7 @@
     "submodule:status": "git submodule status"
   },
   "devDependencies": {
+    "yaml": "^2.8.2",
     "doctoc": "^2.2.1",
     "glob": "^11.0.0",
     "markdownlint": "^0.40.0",
