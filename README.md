@@ -12,10 +12,10 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [インストール](#インストール)
-    - [方法1: NuGetパッケージ（推奨）](#方法1-nugetパッケージ推奨)
-    - [方法2: GitHub Packages](#方法2-github-packages)
-    - [方法3: オフライン環境でのNuGetパッケージ](#方法3-オフライン環境でのnugetパッケージ)
-    - [方法4: DLLを直接参照](#方法4-dllを直接参照)
+        - [方法1: NuGetパッケージ（推奨）](#方法1-nugetパッケージ推奨)
+        - [方法2: GitHub Packages](#方法2-github-packages)
+        - [方法3: オフライン環境でのNuGetパッケージ](#方法3-オフライン環境でのnugetパッケージ)
+        - [方法4: DLLを直接参照](#方法4-dllを直接参照)
 - [使用方法](#使用方法)
 - [サードパーティライセンス](#サードパーティライセンス)
 - [セキュリティ](#セキュリティ)
