@@ -89,6 +89,57 @@ function getWikiTitle(relativePath) {
 }
 
 /**
+ * Markdownコンテンツ内の相対リンクをWikiページタイトルに変換
+ *
+ * docs/wiki/ 内のファイルは相対パスでリンクしているが、
+ * GitHub Wikiではフラットなページ構造のためタイトルベースのリンクに変換する必要がある。
+ *
+ * @param {string} content - Markdownファイルの内容
+ * @param {string} fileRelativePath - docs/wiki/ からの相対パス（例: "01-テーブル操作/01-レコード-作成.md"）
+ * @returns {string} 変換後のMarkdownコンテンツ
+ */
+function transformLinksForWiki(content, fileRelativePath) {
+  const fileDir = path.dirname(fileRelativePath);
+
+  // Markdown リンクを検出: [text](target) および [text](<target>)
+  return content.replace(
+    /\[([^\]]*)\]\((<[^>]+>|[^)]+)\)/g,
+    (fullMatch, text, target) => {
+      // HTTP リンク、アンカーリンク、画像リンクはスキップ
+      if (target.startsWith('http') || target.startsWith('#') || /\.(png|jpg|jpeg|gif|svg)$/i.test(target)) {
+        return fullMatch;
+      }
+
+      // アングルブラケットの処理
+      let hasAngleBrackets = false;
+      let cleanTarget = target;
+      if (cleanTarget.startsWith('<') && cleanTarget.endsWith('>')) {
+        hasAngleBrackets = true;
+        cleanTarget = cleanTarget.slice(1, -1);
+      }
+
+      // 相対パス（./ または ../）でない場合はスキップ
+      if (!cleanTarget.startsWith('./') && !cleanTarget.startsWith('../')) {
+        return fullMatch;
+      }
+
+      // 相対パスを docs/wiki/ からのパスに解決
+      const resolvedPath = path.normalize(path.join(fileDir, cleanTarget));
+
+      // .md 拡張子を除去してWikiタイトルに変換
+      const wikiTitle = getWikiTitle(resolvedPath);
+
+      // Wikiタイトルに括弧が含まれる場合はアングルブラケットを使用
+      const needsAngleBrackets = wikiTitle.includes('(') || wikiTitle.includes(')');
+      if (needsAngleBrackets) {
+        return `[${text}](<${wikiTitle}>)`;
+      }
+      return `[${text}](${wikiTitle})`;
+    }
+  );
+}
+
+/**
  * Wiki ページを作成または更新（Gitリポジトリ経由）
  */
 function createOrUpdateWikiPage(title, content, wikiDir) {
@@ -257,9 +308,10 @@ function main() {
         fileName: page.fileName,
       }));
 
-    // すべてのファイルを追加
+    // すべてのファイルを追加（リンクをWikiタイトル形式に変換）
     for (const file of files) {
-      const content = fs.readFileSync(file.filePath, 'utf-8');
+      const rawContent = fs.readFileSync(file.filePath, 'utf-8');
+      const content = transformLinksForWiki(rawContent, file.relativePath);
       createOrUpdateWikiPage(file.wikiTitle, content, wikiDir);
     }
 
