@@ -35,6 +35,7 @@ VehicleVision.Pleasanter.DotNet.Client へのコントリビューションに�
 | [ドキュメントガイドライン](docs/contributing/documentation-guidelines.md) | Markdown記法、ファイル構成、同期ルール   |
 | [ブランチ戦略](docs/contributing/branch-strategy.md)                      | ブランチ命名、マージ方針                 |
 | [CI/CDワークフロー](docs/contributing/ci-workflow.md)                     | 自動テスト、リリースプロセス             |
+| [Sandbox](docs/contributing/sandbox-guide.md)                             | デバッグ・動作確認用プロジェクトの使い方 |
 
 ## クイックスタート
 
