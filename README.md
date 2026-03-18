@@ -18,6 +18,7 @@
     - [方法4: DLLを直接参照](#方法4-dllを直接参照)
 - [使用方法](#使用方法)
 - [サードパーティライセンス](#サードパーティライセンス)
+- [コントリビューション](#コントリビューション)
 - [セキュリティ](#セキュリティ)
 - [謝辞](#謝辞)
 
@@ -183,6 +184,10 @@ dotnet add package Microsoft.AspNetCore.StaticFiles
 | Microsoft.AspNetCore.StaticFiles | MIT        | Copyright (c) .NET Foundation and Contributors |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。
+
+## コントリビューション
+
+バグ報告、機能要望、プルリクエストを歓迎しています。詳細は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
 ## セキュリティ
 
