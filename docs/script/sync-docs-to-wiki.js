@@ -101,7 +101,9 @@ function getWikiTitle(relativePath) {
 function transformLinksForWiki(content, fileRelativePath) {
   const fileDir = path.dirname(fileRelativePath);
 
-  // Markdown リンクを検出: [text](target) および [text](<target>)
+  // Markdown リンクを検出:
+  //   - [text](<target>) : アングルブラケット付きリンク（パスに括弧を含む場合）
+  //   - [text](target)   : 通常のリンク
   return content.replace(
     /\[([^\]]*)\]\((<[^>]+>|[^)]+)\)/g,
     (fullMatch, text, target) => {
@@ -119,6 +121,7 @@ function transformLinksForWiki(content, fileRelativePath) {
       }
 
       // 相対パス（./ または ../）でない場合はスキップ
+      // ガイドラインにより docs/wiki/ 内のリンクは必ず ./ か ../ で始まる
       if (!cleanTarget.startsWith('./') && !cleanTarget.startsWith('../')) {
         return fullMatch;
       }
